@@ -10,6 +10,7 @@ import { DoOrderComponent } from './modules/orders/do-order/do-order.component';
 import { OrdersHistoryComponent } from './modules/orders/orders-history/orders-history.component';
 import { OrdersComponent } from './modules/orders/orders.component';
 import { PBRoutersModule } from './pb-router/PB-routers.module';
+import { MainButtonsComponent } from './modules/orders/main-buttons/main-buttons.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { PBRoutersModule } from './pb-router/PB-routers.module';
     ActiveOrdersComponent,
     ClientDataComponent,
     DoOrderComponent,
-    OrdersHistoryComponent
+    OrdersHistoryComponent,
+    MainButtonsComponent
 
 
   ],
