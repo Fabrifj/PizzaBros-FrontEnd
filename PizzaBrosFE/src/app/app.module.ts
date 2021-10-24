@@ -14,6 +14,10 @@ import { MainButtonsComponent } from './modules/orders/main-buttons/main-buttons
 
 import { ListObjectComponent } from './modules/orders/list-object/list-object.component';
 import { ModalModule } from './modules/orders/modal/modal.module';
+import { ReusableTableComponent } from './modules/orders/reusable-table/reusable-table.component';
+import { HttpClientModule } from '@angular/common/http';
+
+
 
 @NgModule({
   declarations: [
@@ -26,12 +30,14 @@ import { ModalModule } from './modules/orders/modal/modal.module';
     DoOrderComponent,
     OrdersHistoryComponent,
     MainButtonsComponent,
-    ListObjectComponent
+    ListObjectComponent,
+    ReusableTableComponent
 
 
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     PBRoutersModule,
     ModalModule
   ],
