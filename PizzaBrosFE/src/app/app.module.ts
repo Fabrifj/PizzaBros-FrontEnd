@@ -10,11 +10,12 @@ import { DoOrderComponent } from './modules/do-order/do-order.component';
 import { OrdersHistoryComponent } from './modules/orders/orders-history/orders-history.component';
 import { OrdersComponent } from './modules/orders/orders.component';
 import { PBRoutersModule } from './pb-router/PB-routers.module';
-
 import { MainButtonsComponent } from './modules/orders/main-buttons/main-buttons.component';
-
 import { ListObjectComponent } from './modules/orders/list-object/list-object.component';
 import { ModalModule } from './modules/orders/modal/modal.module';
+import { ProductsDisplayComponent } from './modules/do-order/products-display/products-display.component';
+import { ProducListComponent } from './modules/do-order/produc-list/produc-list.component';
+import { AppHttpComponent } from './services/app-http/app-http.component';
 
 
 @NgModule({
@@ -28,8 +29,11 @@ import { ModalModule } from './modules/orders/modal/modal.module';
     DoOrderComponent,
     OrdersHistoryComponent,
     MainButtonsComponent,
-    ListObjectComponent
-
+    ListObjectComponent,
+    ProductsDisplayComponent,
+    ProducListComponent,
+    AppHttpComponent,
+    
 
   ],
   imports: [
