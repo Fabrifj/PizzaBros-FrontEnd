@@ -14,6 +14,7 @@ export class ListObjectComponent implements OnInit {
 
   tableTitle1: string | undefined;
   tableTitle2: string | undefined;
+  
   pedidoData:any=[
     {num:"Pedido 1",descripcion:"Sarmiento",estado:"pendiente"},
     {num:"Pedido 2",descripcion:"Sanchez",estado:"pendiente"},
