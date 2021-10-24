@@ -1,0 +1,51 @@
+#lista {
+    width: 50%;
+    height:10px; 
+    border: 1px solid #999;
+    text-align: center;
+    border-collapse: collapse;
+    /*margin: 0 0 1em 0;*/
+    caption-side: top;
+
+        
+        
+    
+ }
+input{
+    width: 50px;
+    
+}
+ #total{
+    width: 50%;
+    height:10px; 
+    border: 1px solid #999;
+    text-align: center;
+    border-collapse: collapse;
+    margin: 0 0 1em 0;
+    caption-side: top;
+ }
+ caption, td, th {
+    padding: 0.3em;
+ }
+
+ th{
+    padding-left: 2px;
+ }
+ 
+caption { 
+    text-align: left; 
+    color: rgb(110, 110, 110);
+}
+
+button{
+    width: 60px;
+    height: 20px;
+    font-size:15px;
+    /*border: None;*/  
+    text-align: center;
+    font-weight: bold;
+    background: rgba(111, 83, 231, 0.945);
+    color: rgb(10, 10, 12);
+    border-radius: 10px;
+    border: 1px;
+}

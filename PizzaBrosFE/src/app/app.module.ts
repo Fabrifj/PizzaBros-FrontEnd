@@ -18,6 +18,7 @@ import { ReusableTableComponent } from './modules/orders/reusable-table/reusable
 import { HttpClientModule } from '@angular/common/http';
 
 
+import { ListaArmadoPedidosComponent } from './modules/orders/lista-armado-pedidos/lista-armado-pedidos.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { HttpClientModule } from '@angular/common/http';
     OrdersHistoryComponent,
     MainButtonsComponent,
     ListObjectComponent,
-    ReusableTableComponent
+    ReusableTableComponent,
+    ListaArmadoPedidosComponent
 
 
   ],
