@@ -14,6 +14,7 @@ import { MainButtonsComponent } from './modules/orders/main-buttons/main-buttons
 
 import { ListObjectComponent } from './modules/orders/list-object/list-object.component';
 import { ModalModule } from './modules/orders/modal/modal.module';
+import { ListaArmadoPedidosComponent } from './modules/orders/lista-armado-pedidos/lista-armado-pedidos.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { ModalModule } from './modules/orders/modal/modal.module';
     DoOrderComponent,
     OrdersHistoryComponent,
     MainButtonsComponent,
-    ListObjectComponent
+    ListObjectComponent,
+    ListaArmadoPedidosComponent
 
 
   ],
