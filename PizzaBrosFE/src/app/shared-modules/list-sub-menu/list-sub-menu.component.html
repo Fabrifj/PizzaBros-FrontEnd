@@ -1,0 +1,8 @@
+<div class="row">
+    <div class="col-xs-12">
+      <app-com-sub-menu *ngFor=" let productElem of listProducts; let i = index"
+                       [name]="productElem"
+                       [index]="i"></app-com-sub-menu>
+    </div>
+  </div>
+  
