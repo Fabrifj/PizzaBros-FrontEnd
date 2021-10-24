@@ -10,8 +10,12 @@ import { DoOrderComponent } from './modules/do-order/do-order.component';
 import { OrdersHistoryComponent } from './modules/orders/orders-history/orders-history.component';
 import { OrdersComponent } from './modules/orders/orders.component';
 import { PBRoutersModule } from './pb-router/PB-routers.module';
-import { ListSubMenuComponent } from './shared-modules/list-sub-menu/list-sub-menu.component';
-import { ComSubMenuComponent } from './shared-modules/list-sub-menu/com-sub-menu/com-sub-menu.component';
+
+import { MainButtonsComponent } from './modules/orders/main-buttons/main-buttons.component';
+
+import { ListObjectComponent } from './modules/orders/list-object/list-object.component';
+import { ModalModule } from './modules/orders/modal/modal.module';
+
 
 @NgModule({
   declarations: [
@@ -23,15 +27,15 @@ import { ComSubMenuComponent } from './shared-modules/list-sub-menu/com-sub-menu
     ClientDataComponent,
     DoOrderComponent,
     OrdersHistoryComponent,
-    ListSubMenuComponent,
-    ComSubMenuComponent,
-    
+    MainButtonsComponent,
+    ListObjectComponent
 
 
   ],
   imports: [
     BrowserModule,
-    PBRoutersModule
+    PBRoutersModule,
+    ModalModule
   ],
   providers: [],
   bootstrap: [AppComponent]

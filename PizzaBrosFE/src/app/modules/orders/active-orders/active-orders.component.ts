@@ -7,9 +7,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ActiveOrdersComponent implements OnInit {
 
+  public fecha : string = '';
+
+
   constructor() { }
 
-  ngOnInit(): void {
+  ngOnInit() {
+      this.fecha = "22 de octubre del 2021";
   }
 
 }

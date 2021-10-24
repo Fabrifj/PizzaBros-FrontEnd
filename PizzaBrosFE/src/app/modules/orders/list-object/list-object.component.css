@@ -1,0 +1,39 @@
+div{
+    
+    
+    font-family: sans-serif;
+    text-align: center;
+    color:black;
+    margin: 20px;
+    padding: 3px;
+}
+
+.containerTable{
+    border: 1px solid black;
+    border-radius: 4px;
+    width:65%;
+    height: 350px;
+    float: left;
+    overflow: scroll;
+
+}
+.containerITable{
+
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display:  flex;
+    
+}
+
+
+jw-modal btnCerrar{
+
+    position: absolute;
+    top: 10px;
+    right : 10px;
+    
+    
+    cursor: pointer;
+    border-radius: 20%;
+}

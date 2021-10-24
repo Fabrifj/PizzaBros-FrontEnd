@@ -7,6 +7,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OrdersComponent implements OnInit {
 
+  today= new Date(); ;
+  date = this.today.getFullYear()+'-'+(this.today.getMonth()+1)+'-'+this.today.getDate();
+  //var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+  
   constructor() { }
 
   ngOnInit(): void {
