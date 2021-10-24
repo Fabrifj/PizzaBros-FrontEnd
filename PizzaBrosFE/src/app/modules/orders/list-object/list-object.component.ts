@@ -18,7 +18,9 @@ export class ListObjectComponent implements OnInit {
     {num:"Pedido 1",descripcion:"Sarmiento",estado:"pendiente"},
     {num:"Pedido 2",descripcion:"Sanchez",estado:"pendiente"},
     {num:"Pedido 3",descripcion:"Perez",estado:"entregado"},
-  
+    {num:"Pedido 4",descripcion:"Nava",estado:"pendiente"},
+    {num:"Pedido 5",descripcion:"Duran",estado:"entregado"},
+    {num:"Pedido 6",descripcion:"Allende",estado:"pendiente"},
   
   ];
 
