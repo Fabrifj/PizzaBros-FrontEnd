@@ -1,6 +1,6 @@
 div{
     
-    border: 3px solid black;
+    
     font-family: sans-serif;
     text-align: center;
     color:black;
@@ -10,9 +10,11 @@ div{
 
 .containerTable{
     border: 1px solid black;
-    border-radius: 2px;
-    width:50%;
+    border-radius: 4px;
+    width:65%;
+    height: 350px;
     float: left;
+    overflow: scroll;
 
 }
 .containerITable{
@@ -21,5 +23,17 @@ div{
     display: -webkit-flex;
     display: -ms-flexbox;
     display:  flex;
+    
+}
 
+
+jw-modal btnCerrar{
+
+    position: absolute;
+    top: 10px;
+    right : 10px;
+    
+    
+    cursor: pointer;
+    border-radius: 20%;
 }
