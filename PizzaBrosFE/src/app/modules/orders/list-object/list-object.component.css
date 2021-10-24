@@ -1,0 +1,25 @@
+div{
+    
+    border: 3px solid black;
+    font-family: sans-serif;
+    text-align: center;
+    color:black;
+    margin: 20px;
+    padding: 3px;
+}
+
+.containerTable{
+    border: 1px solid black;
+    border-radius: 2px;
+    width:50%;
+    float: left;
+
+}
+.containerITable{
+
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display:  flex;
+
+}

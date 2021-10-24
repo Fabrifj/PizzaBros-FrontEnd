@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from '../modules/home/home.component';
 import { ActiveOrdersComponent } from '../modules/orders/active-orders/active-orders.component';
 import { DoOrderComponent } from '../modules/orders/do-order/do-order.component';
+import { ListObjectComponent } from '../modules/orders/list-object/list-object.component';
 import { OrdersHistoryComponent } from '../modules/orders/orders-history/orders-history.component';
 import { OrdersComponent } from '../modules/orders/orders.component';
 
@@ -19,7 +20,12 @@ const appRoutes: Routes = [
     component: OrdersComponent,
     children: [
       { path: 'orders-history', component: OrdersHistoryComponent },
-      { path: 'active-orders', component: ActiveOrdersComponent }  
+      { path: 'active-orders', component: ActiveOrdersComponent,
+          children:[
+            {path: 'list-object',component: ListObjectComponent}
+
+          ]  
+      }  
      ]
   },
   {
