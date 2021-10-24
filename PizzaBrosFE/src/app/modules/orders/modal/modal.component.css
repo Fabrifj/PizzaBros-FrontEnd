@@ -1,0 +1,47 @@
+jw-modal {
+    display: none;
+}
+jw-modal .jw-modal {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    overflow: auto;
+}
+jw-modal .jw-modal .jw-modal-body {
+    padding: 20px;
+    background: #fff;
+    margin: 40px;
+    width: 50%;
+    justify-content: center ;
+}
+jw-modal .jw-modal-background {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: #000;
+    opacity: 0.75;
+    z-index: 900;
+}
+body.jw-modal-open {
+    overflow: hidden;
+}
+
+
+jw-modal-body btnCerrar{
+
+    position: absolute;
+    top: 10px;
+    right : 10px;
+    
+    /*width: 30px;
+    height: 30px;
+    color: black;
+    line-height:25px ;*/
+    cursor: pointer;
+    border-radius: 20%;
+}
