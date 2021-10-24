@@ -18,9 +18,9 @@ form input{
     /*margin-top: 1%;*/
 }
 form button{
-    height:12%; 
+    height:10%; 
     width:10%;  
-    top:8%; 
+    top:15%; 
     left:38%;
     position: absolute;
     font-size: 97%;
@@ -30,5 +30,4 @@ form button{
     color: rgb(10, 10, 12);
     border-radius: 10px;
     border: 1px;
-    
 }

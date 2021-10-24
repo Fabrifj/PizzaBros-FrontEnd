@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ActiveOrdersComponent } from './active-orders.component';
+import { ListaArmadoPedidosComponent } from './lista-armado-pedidos.component';
 
-describe('ActiveOrdersComponent', () => {
-  let component: ActiveOrdersComponent;
-  let fixture: ComponentFixture<ActiveOrdersComponent>;
+describe('ListaArmadoPedidosComponent', () => {
+  let component: ListaArmadoPedidosComponent;
+  let fixture: ComponentFixture<ListaArmadoPedidosComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ActiveOrdersComponent ]
+      declarations: [ ListaArmadoPedidosComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ActiveOrdersComponent);
+    fixture = TestBed.createComponent(ListaArmadoPedidosComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

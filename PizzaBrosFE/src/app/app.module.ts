@@ -16,7 +16,9 @@ import { ModalModule } from './modules/orders/modal/modal.module';
 import { ProductsDisplayComponent } from './modules/do-order/products-display/products-display.component';
 import { ProducListComponent } from './modules/do-order/produc-list/produc-list.component';
 import { AppHttpComponent } from './services/app-http/app-http.component';
-
+import { ReusableTableComponent } from './modules/orders/reusable-table/reusable-table.component';
+import { HttpClientModule } from '@angular/common/http';
+import { ListaArmadoPedidosComponent } from './modules/orders/lista-armado-pedidos/lista-armado-pedidos.component';
 
 @NgModule({
   declarations: [
@@ -34,10 +36,14 @@ import { AppHttpComponent } from './services/app-http/app-http.component';
     ProducListComponent,
     AppHttpComponent,
     
+    ReusableTableComponent,
+    ListaArmadoPedidosComponent
+
 
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     PBRoutersModule,
     ModalModule
   ],
