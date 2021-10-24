@@ -20,12 +20,7 @@ const appRoutes: Routes = [
     component: OrdersComponent,
     children: [
       { path: 'orders-history', component: OrdersHistoryComponent },
-      { path: 'active-orders', component: ActiveOrdersComponent,
-          children:[
-            {path: 'list-object',component: ListObjectComponent}
-
-          ]  
-      }  
+      { path: 'active-orders', component: ActiveOrdersComponent}  
      ]
   },
   {

@@ -14,6 +14,10 @@ import { MainButtonsComponent } from './modules/orders/main-buttons/main-buttons
 
 import { ListObjectComponent } from './modules/orders/list-object/list-object.component';
 import { ModalModule } from './modules/orders/modal/modal.module';
+import { ReusableTableComponent } from './modules/orders/reusable-table/reusable-table.component';
+import { HttpClientModule } from '@angular/common/http';
+
+
 import { ListaArmadoPedidosComponent } from './modules/orders/lista-armado-pedidos/lista-armado-pedidos.component';
 
 @NgModule({
@@ -28,12 +32,14 @@ import { ListaArmadoPedidosComponent } from './modules/orders/lista-armado-pedid
     OrdersHistoryComponent,
     MainButtonsComponent,
     ListObjectComponent,
+    ReusableTableComponent,
     ListaArmadoPedidosComponent
 
 
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     PBRoutersModule,
     ModalModule
   ],

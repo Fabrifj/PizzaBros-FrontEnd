@@ -1,44 +1,17 @@
 
-<div class="containerITable">
-    <div class="containerTable">
-        <table class="table table-trapped">
-            <thead>
-                <tr>
+<div class="tablaUsuarios">
 
-                    <th>{{tableTitle1}}</th>
-                    <th>{{tableTitle2}}</th>
-                    
-                </tr>
 
-            </thead>
-            <tbody>
-                
-                <tr *ngFor="let pedido of pedidoData">
-                    <td>{{pedido.num}}</td>
-                    <td>{{pedido.descripcion}}</td>
-                    <td><button class="btn btn-primary" (click)="changeStateOrder(pedido)" >Cambiar estado</button> </td>
-                    <td><button class="btn btn-primary" (click)="modalService.open('modal-1');rellenarPedido(pedido);" >Ver pedido </button> </td>
-                    
-                </tr>
-    
-            </tbody>
-    
-        </table>
-    
-    </div>
-    
+    <app-reusable-table [datos]="datos" [columnas]="columnas" [buttonNames]="buttonsNames" (parentMethod)="funcionBoton($event)" >
+       
+    </app-reusable-table>
 
 </div>
 
 
-
-<!--<p><button (click)="modalService.open('modal-1');">Open modal</button></p>-->
-
-
-
 <jw-modal id="modal-1" >
     <h1>Informacion objeto</h1>
-    <p>{{pedidoNum}}</p>
+    <p>{{pedidoSeleccionado.name}}</p>
     <p><button class="btnCerrar" (click)="modalService.close('modal-1');">Cerrar</button></p>
 
 </jw-modal>

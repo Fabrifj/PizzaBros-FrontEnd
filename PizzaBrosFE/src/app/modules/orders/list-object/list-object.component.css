@@ -8,15 +8,7 @@ div{
     padding: 3px;
 }
 
-.containerTable{
-    border: 1px solid black;
-    border-radius: 4px;
-    width:65%;
-    height: 350px;
-    float: left;
-    overflow: scroll;
 
-}
 .containerITable{
 
     display: -webkit-box;
@@ -25,7 +17,6 @@ div{
     display:  flex;
     
 }
-
 
 jw-modal btnCerrar{
 
@@ -36,4 +27,12 @@ jw-modal btnCerrar{
     
     cursor: pointer;
     border-radius: 20%;
+}
+
+.tablaUsuarios{
+
+    
+    height: 400px;
+    width: 100%;
+
 }

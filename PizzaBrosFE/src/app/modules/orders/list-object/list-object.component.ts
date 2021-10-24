@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ModalService } from '../modal/modal.service';
 
 import { ModalModule } from '../modal/modal.module';
+import { UserService } from '../servicesPrueba/user.service';
 
 
 @Component({
@@ -31,12 +32,27 @@ export class ListObjectComponent implements OnInit {
   pedidoDescripcion:any;
   pedidoEstado: any;
 
+  pedidoSeleccionado:any = {name: "",descripcion:"",estado:""}
+    datos: any | undefined;
+
+    columnas = [
+      {field:'id',header:'NroId'},
+      {field:'name',header:'Nombre'},
+      {field:'username',header:'Usuario'},
+      {field:'email',header:'Correo'},
+
+    ];
+
   
-  constructor(public modalService:ModalService) { }
+    buttonsNames: string[] | undefined;
+  constructor(public modalService:ModalService, private userservice:UserService) { }
 
   ngOnInit(): void {
-    this.tableTitle1 = "Nro. Pedido";
-    this.tableTitle2 = "Cliente"
+    
+
+    this.cargarDatos();
+    this.buttonsNames = ['Ver Pedido','Cambiar Estado'];
+
   }
 
   changeStateOrder(pedido:any){
@@ -55,4 +71,33 @@ export class ListObjectComponent implements OnInit {
 
 
   }
+
+  cargarDatos(){
+
+    this.userservice.getUser().subscribe((data) =>  {
+      console.log("cargo datos")
+      this.datos = data
+    });
+
+  }
+
+
+  funcionBoton( names: any){
+    if(names[0] == "Ver Pedido")
+    {
+        console.log("papa: ver pedido");
+        this.pedidoSeleccionado = names[1];
+        console.log(names[1])
+        this.modalService.open('modal-1');
+    }
+    else{
+
+      console.log("papa: cambiar estado")
+
+
+    }
+
+
+  }
+
 }
