@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { productModel } from 'src/app/models/product';
 import { DoOrderService } from '../do-order.service';
 
 @Component({
@@ -11,8 +12,8 @@ export class ProductsDisplayComponent implements OnInit {
   constructor(private doOrderService :DoOrderService ) { }
 
 
-  products=  ["s"]; 
-  productsToShow = ["s"];
+  products: productModel[]=[]; 
+  productsToShow : productModel[]=[];
   categoria ="Pizzas";
   ngOnInit(): void {
     this.products = this.doOrderService.getProducts();

@@ -1,22 +1,30 @@
 import { Injectable } from '@angular/core';
 import { EventEmitter } from '@angular/core';
+import { productModel } from 'src/app/models/product';
+import { UnitOrderModel } from 'src/app/models/unitOrder.model';
 @Injectable({
   providedIn: 'root'
 })
 export class DoOrderService {
-  
-  ordersChanged = new EventEmitter<String[]>();
-  products= ["Pizza1","Pizza2","Pizza3","Pizza4"];
-  orders :string[] = [];
+
+  ordersChanged = new EventEmitter<UnitOrderModel[]>();
+  products:productModel[] = [
+    new productModel(100,"Pizza-Simple", "Pequena", 15,10, "ssssss"),
+    new productModel(101,"Pizza-Simple", "Mediana", 25,15,"ssssss"),
+    new productModel(102,"Pizza-Simple", "Grande", 35,20, "ssssss")
+  ];
+  orders :UnitOrderModel[] = [];
 
   getProducts(){
     return this.products.slice();
   }
-  getOrders(){
+  getOrders() 
+  { 
     return this.orders.slice();
   }
-  addOrder(newOrder:string){
-    this.orders.push(newOrder);
+  addOrder(newOrder:productModel,amount:number){
+
+    this.orders.push(new UnitOrderModel(newOrder.id,newOrder.Nombre,(newOrder.Precio * amount),amount));
     this.ordersChanged.emit(this.getOrders());
   }
 }
