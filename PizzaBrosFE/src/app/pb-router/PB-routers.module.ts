@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { DoOrderComponent } from '../modules/do-order/do-order.component';
 import { HomeComponent } from '../modules/home/home.component';
 import { ActiveOrdersComponent } from '../modules/orders/active-orders/active-orders.component';
-import { ListObjectComponent } from '../modules/orders/list-object/list-object.component';
 import { OrdersHistoryComponent } from '../modules/orders/orders-history/orders-history.component';
 import { OrdersComponent } from '../modules/orders/orders.component';
 
