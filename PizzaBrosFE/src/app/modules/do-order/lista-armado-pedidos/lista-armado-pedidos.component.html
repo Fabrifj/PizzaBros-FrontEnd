@@ -11,17 +11,14 @@
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <!--
-              <td><input class="quantity" id="id_cantidad" min="0" name="form-0-quantity" value="1" type="number"></td>
-      <td>{{product.amount}}</td>
-      <td>{{product.name}}</td>
-      <td>Mediana</td>
-      <td>{{product.amount}}</td>
-      <td>{{product.amount}}</td>
+    <tr 
+    *ngFor="let ordersEle of orders; let i = index">
+      <td><input class="quantity" id="id_cantidad" min="0" name="form-0-quantity" value="1" type="number"></td>
+      <td>{{ordersEle.id}}</td>
+      <td>{{ordersEle.Nombre}}</td>
+      <td>{{ordersEle.Precio}}</td>
+      <td>{{ordersEle.Cantidad}}</td>
       <button onclick="alert('Elimino un elemento');">-</button>
-      -->
-
   </tr>
   </tbody> 
 </table>

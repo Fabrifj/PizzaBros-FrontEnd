@@ -12,8 +12,15 @@ export class ListaArmadoPedidosComponent implements OnInit {
   constructor( private doOrderService:DoOrderService) { }
 
   orders: UnitOrderModel[]=[];
+
   ngOnInit(): void {
-    this.orders = this.doOrderService.getOrders();
+    this.orders= this.doOrderService.getOrders();
+    this.doOrderService.ordersChanged.subscribe(
+      (newOrders:  UnitOrderModel[])=>{
+        this.orders = newOrders;
+      }
+    )
+   
 
   }
 
