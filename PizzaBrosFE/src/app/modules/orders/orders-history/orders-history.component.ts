@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-
-
+import { Params } from '@angular/router';
+import { FinalOrderModel } from 'src/app/models/finalOrder';
+import { AppHttpService } from 'src/app/services/app-http.service';
 import { ModalService } from '../modal/modal.service';
 import { UserService } from '../servicesPrueba/user.service';
 
@@ -38,14 +39,25 @@ export class OrdersHistoryComponent implements OnInit {
 
 
 
-  constructor(public modalService:ModalService, private userservice:UserService) { }
+  constructor(public modalService:ModalService, private userservice:UserService, private httpService:AppHttpService) { }
+  //public static  JSON_MAPPER = new ObjectMapper();
 
+  Orders: FinalOrderModel[]=[];
   ngOnInit() {
     this.cargarDatos();
     this.buttonsNames = ['Ver Pedido'];
+    this.getOrders();
 
   }
-  
+  // Este es el metodo andy
+  getOrders(){
+    this.httpService.getOrders()
+    .subscribe((jsonFile)=>{
+      //this.Orders = this.JSON_MAPPER.readValue(jsonFile, FinalOrderModel[])
+    } )
+  }
+
+  //Terminar 
   cargarDatos(){
 
     this.userservice.getUser().subscribe((data) =>  {

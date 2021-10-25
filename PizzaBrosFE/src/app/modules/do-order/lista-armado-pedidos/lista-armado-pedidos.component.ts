@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { UnitOrderModel } from 'src/app/models/unitOrder.model';
+import { DoOrderService } from '../do-order.service';
 
 @Component({
   selector: 'app-lista-armado-pedidos',
@@ -9,9 +11,13 @@ export class ListaArmadoPedidosComponent implements OnInit {
 
 
   datos = ['hey','heo'];
-  constructor() { }
+  
+  constructor( private doOrderService:DoOrderService) { }
 
+  orders: UnitOrderModel[]=[];
   ngOnInit(): void {
+    this.orders = this.doOrderService.getOrders();
+
   }
 
 }

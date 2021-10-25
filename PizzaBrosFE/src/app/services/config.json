@@ -1,0 +1,22 @@
+{
+    "getProducts":{
+        "requesUrl": "api/heroes",
+        "textfile": "assets/textfile.txt",
+        "date": "2020-01-29"
+    },
+    "getOrders":{
+        "requesUrl": "api/heroes",
+        "textfile": "assets/textfile.txt",
+        "date": "2020-01-29"
+    },
+    "postOrder":{
+        "requesUrl": "api/heroes",
+        "textfile": "assets/textfile.txt",
+        "date": "2020-01-29"
+    },
+    "updateState":{
+        "requesUrl": "api/heroes",
+        "textfile": "assets/textfile.txt",
+        "date": "2020-01-29"
+    }
+}
