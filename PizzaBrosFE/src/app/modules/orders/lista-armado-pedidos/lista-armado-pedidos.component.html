@@ -11,21 +11,21 @@
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <td><input class="quantity" id="id_cantidad" min="0" name="form-0-quantity" value="1" type="number"></td>
-      <td>Napolitana</td>
-      <td>Mediana</td>
-      <td>25</td>
-      <td>25</td>
-      <button onclick="alert('Elimino un elemento');">-</button>
-    </tr>
-    <tr>
-      <td><input class="quantity" id="id_cantidad" min="0" name="form-0-quantity" value="1" type="number"></td>
-      <td>Napolitana</td>
-      <td>Mediana</td>
-       <td>25</td>
-      <td>25</td>
-      <button onclick="alert('Elimino un elemento');">-</button>
+    <tr *ngFor="let dato of datos">
+      <td >
+        <input class="quantity" id="id_cantidad" min="0" name="form-0-quantity" value="1" type="number">
+      </td>
+
+      <!--    lectura del datos de producto -->
+
+
+      <td >
+        <button onclick="alert('Elimino un elemento');">-</button>
+      </td>
+
+
+
+      
     </tr>
   </tbody> 
 </table>
