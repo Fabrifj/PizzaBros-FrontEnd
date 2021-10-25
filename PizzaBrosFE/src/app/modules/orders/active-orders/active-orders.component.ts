@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FinalOrderModel } from 'src/app/models/finalOrder';
+import { AppHttpService } from 'src/app/services/app-http.service';
 
 import { ModalService } from '../modal/modal.service';
 import { UserService } from '../servicesPrueba/user.service';
@@ -17,14 +19,25 @@ export class ActiveOrdersComponent implements OnInit {
   pedidoDescripcion:any;
   pedidoEstado: any;
 
-  pedidoSeleccionado:any = {name: "",descripcion:"",estado:""}
+  pedidoSeleccionado:any = {}
+  pedidoSeleccionadoDatos : any | undefined;
+  pedidoSeleccionadoColumnas = [
+    {field:'Cantidad',header:'Cantidad'},
+    {field:'Nombre',header:'Nombre'},
+    {field:'Precio',header:'Precio'}
+
+  ]; 
+
+
+
     datos: any | undefined;
 
     columnas = [
-      {field:'id',header:'NroId'},
-      {field:'name',header:'Nombre'},
-      {field:'username',header:'Usuario'},
-      {field:'email',header:'Correo'},
+      {field:'NITCliente',header:'NIT de Cliente'},
+      {field:'NombreCliente',header:'Nombre de Cliente'},
+      {field:'Precio',header:'Total'},
+      {field:'Fecha',header:'Fecha'},
+      {field:'Estado',header:'Estado'}
 
     ];
 
@@ -34,23 +47,48 @@ export class ActiveOrdersComponent implements OnInit {
 
     filtros : [string,string,boolean][] = [['username','Bret',true], ['username','Antonette',true]];
 
-
-  constructor(public modalService:ModalService, private userservice:UserService) { }
+    Orders: FinalOrderModel[]=[];
+  constructor(public modalService:ModalService, private httpService:AppHttpService) { }
 
   ngOnInit() {
       
-      this.cargarDatos();
+      
       this.buttonsNames = ['Ver Pedido','Cambiar Estado'];
+
+      this.getOrdersP();
+      
   }
 
-  cargarDatos(){
 
-    this.userservice.getUser().subscribe((data) =>  {
-      console.log("cargo datos")
-      this.datos = data
+  getOrdersP(){
+    this.httpService.getOrderStatePreparing()
+    .subscribe((jsonFile)=>{
+      //this.Orders = this.JSON_MAPPER.readValue(jsonFile, FinalOrderModel[])
+      console.log(jsonFile);
+      this.datos = jsonFile;
+
+      this.modificarFecha();
+    } )
+  }
+
+  
+  modificarFecha(){
+
+    
+    this.datos.forEach((element:any) => {
+     let fecha = element.Fecha.seconds;
+     let date ;
+     date = new Date(fecha * 1000);
+     
+     element.Fecha = date;
+      //element.Fecha = fecha.toDate().toDateString();
     });
 
+    
+
   }
+
+  
 
 
   funcionBoton( names: any){
@@ -60,6 +98,9 @@ export class ActiveOrdersComponent implements OnInit {
         this.pedidoSeleccionado = names[1];
         console.log(names[1])
         this.modalService.open('modal-1');
+
+        this.pedidoSeleccionadoDatos = this.pedidoSeleccionado.Detalle;
+
     }
     else{
 
@@ -72,9 +113,15 @@ export class ActiveOrdersComponent implements OnInit {
 
   }
 
-  cambiarEstado(obj : any){
+  cambiarEstado(pedido : any){
 
-    
+    //let stringBody = "'{\"IdPedido\":\"" +pedido.id + ",\"Estado\" : \"Entregado\"";  
+
+   
+
+    let body = JSON.stringify({ IdPedido: pedido.id , Estado: "Entregado"})
+    console.log(body);
+    this.httpService.updateOrderState(body);
     this.modalService.close('modal-2');
     
 

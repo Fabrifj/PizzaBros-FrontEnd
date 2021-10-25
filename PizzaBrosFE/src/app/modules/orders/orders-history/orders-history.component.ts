@@ -19,14 +19,23 @@ export class OrdersHistoryComponent implements OnInit {
   pedidoDescripcion:any;
   pedidoEstado: any;
 
-  pedidoSeleccionado:any = {name: "",descripcion:"",estado:""}
+  pedidoSeleccionado:any = {}
+  pedidoSeleccionadoDatos : any | undefined;
+  pedidoSeleccionadoColumnas = [
+    {field:'Cantidad',header:'Cantidad'},
+    {field:'Nombre',header:'Nombre'},
+    {field:'Precio',header:'Precio'}
+
+  ];
+
     datos: any | undefined;
 
     columnas = [
-      {field:'id',header:'NroId'},
-      {field:'name',header:'Nombre'},
-      {field:'username',header:'Usuario'},
-      {field:'email',header:'Correo'},
+      {field:'NITCliente',header:'NIT de Cliente'},
+      {field:'NombreCliente',header:'Nombre de Cliente'},
+      {field:'Precio',header:'Total'},
+      {field:'Fecha',header:'Fecha'},
+      {field:'Estado',header:'Estado'}
 
     ];
 
@@ -54,9 +63,30 @@ export class OrdersHistoryComponent implements OnInit {
     this.httpService.getOrders()
     .subscribe((jsonFile)=>{
       //this.Orders = this.JSON_MAPPER.readValue(jsonFile, FinalOrderModel[])
+      console.log(jsonFile);
+      this.datos = jsonFile;
+       
+      this.modificarFecha();
+
     } )
   }
 
+  modificarFecha(){
+
+    
+    this.datos.forEach((element:any) => {
+     let fecha = element.Fecha.seconds;
+     let date ;
+     date = new Date(fecha * 1000);
+     
+     element.Fecha = date;
+      //element.Fecha = fecha.toDate().toDateString();
+    });
+
+    
+
+  }
+  
   //Terminar 
   cargarDatos(){
 
@@ -72,14 +102,17 @@ export class OrdersHistoryComponent implements OnInit {
     {
         console.log("boton: ver pedido");
         this.pedidoSeleccionado = names[1];
+
+        //new
+        this.pedidoSeleccionadoDatos = this.pedidoSeleccionado.Detalle;
+
         console.log(names[1])
         this.modalService.open('modal-1');
     }
     else{
 
-      console.log("papa: cambiar estado");
-      this.pedidoSeleccionado = names[1];
-      this.modalService.open('modal-2');
+      console.log("no existe boton");
+      
       //this.cambiarEstado(names[1]);
 
     }

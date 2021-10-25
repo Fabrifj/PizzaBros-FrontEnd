@@ -19,5 +19,16 @@ export class AppHttpService {
     return this.http.get(this.defUrl+"getPedidos")
   }
   
+  getOrderStatePreparing(){
+    ///api/getPedidosEstado/:estado
+    return this.http.get(this.defUrl+"getPedidosEstado/Preparando")
+  }
+
+  // "updatePedidoEstado":"/api/updatePedidoEstado",
+  updateOrderState( body: any){
+    let path = this.defUrl+"updatePedidoEstado"
+    this.http.post(path,body)
+  }
+
 
 }
