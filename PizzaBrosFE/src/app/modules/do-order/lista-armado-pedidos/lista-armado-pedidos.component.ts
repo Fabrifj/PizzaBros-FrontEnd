@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit ,OnChanges } from '@angular/core';
 import { UnitOrderModel } from 'src/app/models/unitOrder.model';
 import { DoOrderService } from '../do-order.service';
 
@@ -7,17 +7,35 @@ import { DoOrderService } from '../do-order.service';
   templateUrl: './lista-armado-pedidos.component.html',
   styleUrls: ['./lista-armado-pedidos.component.css']
 })
-export class ListaArmadoPedidosComponent implements OnInit {
+export class ListaArmadoPedidosComponent implements OnInit,OnChanges {
 
 
   datos = ['hey','heo'];
   
-  constructor( private doOrderService:DoOrderService) { }
+  subscription :any;
+  constructor( private doOrderService:DoOrderService ) { }
 
   orders: UnitOrderModel[]=[];
   ngOnInit(): void {
     this.orders = this.doOrderService.getOrders();
+    
+    
 
   }
+  ngOnChanges(){
+    this.orders = this.doOrderService.getOrders();
+    console.log("on changes listado");
+    console.log(this.orders);
+
+
+
+  }
+  saveOrders(item:any){
+    this.orders = item;
+
+  }
+
+
+  
 
 }

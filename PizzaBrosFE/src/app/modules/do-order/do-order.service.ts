@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { EventEmitter } from '@angular/core';
 import { productModel } from 'src/app/models/product';
 import { UnitOrderModel } from 'src/app/models/unitOrder.model';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -20,11 +21,17 @@ export class DoOrderService {
   }
   getOrders() 
   { 
+    console.log("get orders en accions")
+    console.log(this.orders);
+
+   
     return this.orders.slice();
   }
   addOrder(newOrder:productModel,amount:number){
 
     this.orders.push(new UnitOrderModel(newOrder.id,newOrder.Nombre,(newOrder.Precio * amount),amount));
+    console.log("add order");
     this.ordersChanged.emit(this.getOrders());
+
   }
 }
