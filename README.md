@@ -15,7 +15,7 @@ $ nodemon index.js
 
 
 ## For the frontend
-Volver una carpeta dentro de Pizza-Bros-FrontEnd
+Volver una carpeta, un nivel dentro de Pizza-Bros-FrontEnd
 ```
 $ cd PizzaBrosFE
 $ npm update
