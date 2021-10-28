@@ -1,21 +1,34 @@
 import { Injectable } from '@angular/core';
 import { EventEmitter } from '@angular/core';
-import { productModel } from 'src/app/models/product';
+import { productModel } from 'src/app/models/product.model';
 import { UnitOrderModel } from 'src/app/models/unitOrder.model';
+import { AppHttpService } from 'src/app/services/app-http.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DoOrderService {
 
-  ordersChanged = new EventEmitter<UnitOrderModel[]>();
-  products:productModel[] = [
-    new productModel(100,"Pizza-Simple", "Pequena", 15,10, "ssssss"),
-    new productModel(101,"Pizza-Simple", "Mediana", 25,15,"ssssss"),
-    new productModel(102,"Pizza-Simple", "Grande", 35,20, "ssssss")
-  ];
-  orders :UnitOrderModel[] = [];
+  constructor(private httpService: AppHttpService){
+    this.getProductsHttp();
+  }
 
+  ordersChanged = new EventEmitter<UnitOrderModel[]>();
+  products:productModel[]=[];
+  orders :UnitOrderModel[] = [];
+  ngOnInit(): void {
+    this.getProductsHttp();
+    
+  }
+  getProductsHttp(){
+    this.httpService.getProducts()
+    .subscribe((jsonFile)=>{
+      console.log(jsonFile);
+      this.products = <productModel[]>jsonFile;
+      console.log(this.products[0]);
+
+    } )
+  }
   getProducts(){
     return this.products.slice();
   }
@@ -35,3 +48,5 @@ export class DoOrderService {
 
   }
 }
+
+

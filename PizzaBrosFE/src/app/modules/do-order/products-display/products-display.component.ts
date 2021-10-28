@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { productModel } from 'src/app/models/product';
-import { DoOrderService } from '../do-order.service';
+import { productModel } from 'src/app/models/product.model';
+import * as doOrderService from '../do-order.service';
 
 @Component({
   selector: 'app-products-display',
@@ -9,20 +9,18 @@ import { DoOrderService } from '../do-order.service';
 })
 export class ProductsDisplayComponent implements OnInit {
 
-  constructor(private doOrderService :DoOrderService ) { }
+  constructor(private doOrderService :doOrderService.DoOrderService ) { }
 
 
   products: productModel[]=[]; 
   productsToShow : productModel[]=[];
   categoria ="Pizzas";
   ngOnInit(): void {
+    console.log("Product Display inti");
     this.products = this.doOrderService.getProducts();
   }
   toCategory(newCategory:string){
     this.categoria= newCategory;
-    this.productsToShow = [];
-    this.products.forEach(element => {
-      this.productsToShow.push(element);
-    });
+    this.products = this.doOrderService.getProducts();
   }
 }
