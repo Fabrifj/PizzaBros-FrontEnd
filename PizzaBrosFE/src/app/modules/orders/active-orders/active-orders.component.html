@@ -1,5 +1,4 @@
 
-
 <div class="tablaUsuarios">
 
 
@@ -12,8 +11,10 @@
 
 
 <jw-modal id="modal-1" >
-   <h1>Informacion objeto</h1>
-   <p>{{pedidoSeleccionado.name}}</p>
+   <h1>Informacion Pedido</h1>
+   <app-reusable-table [datos]="pedidoSeleccionadoDatos" [columnas]="pedidoSeleccionadoColumnas"  >
+       
+   </app-reusable-table>
    <p><button class="btnCerrar" (click)="modalService.close('modal-1');">Cerrar</button></p>
 
 </jw-modal>
