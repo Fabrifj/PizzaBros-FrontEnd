@@ -24,7 +24,7 @@ export class ListaArmadoPedidosComponent implements OnInit,OnChanges {
         this.orders = newOrders;
       }
     )
-   
+    }
   ngOnChanges(){
     this.orders = this.doOrderService.getOrders();
     console.log("on changes listado");

@@ -3,7 +3,7 @@ import { FinalOrderModel } from 'src/app/models/finalOrder';
 import { AppHttpService } from 'src/app/services/app-http.service';
 
 import { ModalService } from '../modal/modal.service';
-import { UserService } from '../servicesPrueba/user.service';
+
 
 @Component({
   selector: 'app-active-orders',
@@ -120,15 +120,19 @@ export class ActiveOrdersComponent implements OnInit {
    
 
     let body = JSON.stringify({ IdPedido: pedido.id , Estado: "Entregado"})
-    console.log(body);
-    this.httpService.updateOrderState(body);
+    console.log(JSON.parse(body));
+    
+    this.httpService.updateOrderState(JSON.parse(body)).subscribe((response) => {
+      console.log('Response from API', response);
+      this.getOrdersP();
+    }, (error)=>{
+      console.log('Error',error);
+    })
+    
+    
+    
     this.modalService.close('modal-2');
     
-
-    //delete
-
-
-
 
   }
 

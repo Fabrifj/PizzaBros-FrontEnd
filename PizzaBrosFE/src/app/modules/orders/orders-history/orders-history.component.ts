@@ -3,7 +3,7 @@ import { Params } from '@angular/router';
 import { FinalOrderModel } from 'src/app/models/finalOrder';
 import { AppHttpService } from 'src/app/services/app-http.service';
 import { ModalService } from '../modal/modal.service';
-import { UserService } from '../servicesPrueba/user.service';
+
 
 
 
@@ -48,12 +48,12 @@ export class OrdersHistoryComponent implements OnInit {
 
 
 
-  constructor(public modalService:ModalService, private userservice:UserService, private httpService:AppHttpService) { }
+  constructor(public modalService:ModalService, private httpService:AppHttpService) { }
   //public static  JSON_MAPPER = new ObjectMapper();
 
   Orders: FinalOrderModel[]=[];
   ngOnInit() {
-    this.cargarDatos();
+   
     this.buttonsNames = ['Ver Pedido'];
     this.getOrders();
 
@@ -87,15 +87,7 @@ export class OrdersHistoryComponent implements OnInit {
 
   }
   
-  //Terminar 
-  cargarDatos(){
-
-    this.userservice.getUser().subscribe((data) =>  {
-      console.log("cargo datos")
-      this.datos = data
-    });
-
-  }
+  
   
   funcionBoton( names: any){
     if(names[0] == "Ver Pedido")
@@ -120,9 +112,13 @@ export class OrdersHistoryComponent implements OnInit {
   }
 
 
-  salta(Sel:any){
-    if (Sel.ad.selectedIndex != 0){
-    document.location=Sel.ad.options[Sel.ad.selectedIndex].value
-    }}
+ 
+
+  updateTable()
+  {
+
+    var NITCliente :any ; 
+
+  }
 
 }

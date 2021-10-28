@@ -32,7 +32,8 @@ export class AppHttpService {
   // "updatePedidoEstado":"/api/updatePedidoEstado",
   updateOrderState( body: any){
     let path = this.defUrl+"updatePedidoEstado"
-    this.http.post(path,body)
+    return this.http.post(path,body);
+
   }
 
 
