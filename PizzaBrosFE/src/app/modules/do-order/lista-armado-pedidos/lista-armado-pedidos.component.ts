@@ -38,7 +38,7 @@ export class ListaArmadoPedidosComponent implements OnInit,OnChanges {
 
   }
 
-
+  
   
 
 }

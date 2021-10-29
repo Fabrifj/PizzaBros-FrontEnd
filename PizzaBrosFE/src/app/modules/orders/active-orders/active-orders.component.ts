@@ -120,6 +120,7 @@ export class ActiveOrdersComponent implements OnInit {
    
 
     let body = JSON.stringify({ IdPedido: pedido.id , Estado: "Entregado"})
+    
     console.log(JSON.parse(body));
     
     this.httpService.updateOrderState(JSON.parse(body)).subscribe((response) => {

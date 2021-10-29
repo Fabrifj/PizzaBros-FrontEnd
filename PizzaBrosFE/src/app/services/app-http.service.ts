@@ -31,10 +31,27 @@ export class AppHttpService {
 
   // "updatePedidoEstado":"/api/updatePedidoEstado",
   updateOrderState( body: any){
-    let path = this.defUrl+"updatePedidoEstado"
-    return this.http.post(path,body);
+    
+    return this.http.post(paths.updatePedidoEstado,body);
 
   }
+  getOrderB2datesAll(body : any){
+    
+    return this.http.get(paths.getPedidosBetween2Dates,body)
+  }
+  getOrderB2datesCli(body : any){
+    
+    return this.http.get(paths.getPedidosBetween2DatesClientNIT,body)
+  }
+  getOrder1dayClient(body:any){
 
+    return this.http.get(paths.getPedidoFechaNIT,body)
+  }
+  getPedidosCliente(nitCliente:any){
+    let path = paths.getPedidosCliente + nitCliente;
+    console.log(path);
+    return this.http.get(path )
+  }
 
+  
 }

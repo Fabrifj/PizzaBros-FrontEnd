@@ -43,6 +43,7 @@ jw-modal btnCerrar{
 
 .containerFiltros {
     display: grid;
+    border: 1px solid black;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr;
     gap: 0px 0px;
@@ -51,7 +52,7 @@ jw-modal btnCerrar{
       "Filtro1 Filtro2"
       ;
 
-    height: 100px;
+    height: 300px;
 
   }
   
@@ -60,4 +61,18 @@ jw-modal btnCerrar{
  }
   
 .Filtro2 { grid-area: Filtro2; }
-  
+
+#fechaInicio{
+
+    display: none;
+
+}
+#fechaDestino{
+
+    display: none;
+   
+}
+#clientCampus{
+
+    display: none;
+}

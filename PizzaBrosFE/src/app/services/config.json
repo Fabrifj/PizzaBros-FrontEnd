@@ -15,6 +15,7 @@
     "getPedidos2DatesClientNIT":"/api/getPedidos2DatesClientNIT",
     "updatePedidoEstado":"/api/updatePedidoEstado",
     "getPedidosEstado":"/api/getPedidosEstado/:estado",
-    "getPedidoFechaNIT":"/api/getPedidoFechaNIT"
+    "getPedidoFechaNIT":"/api/getPedidoFechaNIT",
+    "getPedidosCliente":"/api/getPedidosCliente/nit/"
 
 }
