@@ -1,30 +1,33 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { DoOrderComponent } from '../modules/do-order/do-order.component';
-import { HomeComponent } from '../modules/home/home.component';
 import { ActiveOrdersComponent } from '../modules/orders/active-orders/active-orders.component';
 import { OrdersHistoryComponent } from '../modules/orders/orders-history/orders-history.component';
 import { OrdersComponent } from '../modules/orders/orders.component';
+import { HacerPedidoComponent } from '../modulos/hacer-pedido/hacer-pedido.component';
+import { InicioComponent } from '../modulos/inicio/inicio.component';
+import { PedidosActivosComponent } from '../modulos/pedidos/pedidos-activos/pedidos-activos.component';
+import { PedidosHistorialComponent } from '../modulos/pedidos/pedidos-historial/pedidos-historial.component';
+import { PedidosComponent } from '../modulos/pedidos/pedidos.component';
 
 
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   {
-    path: 'home',
-    component: HomeComponent,
+    path: 'inicio',
+    component: InicioComponent,
   },
   {
-    path: 'orders',
-    component: OrdersComponent,
+    path: 'pedidos',
+    component: PedidosComponent,
     children: [
-      { path: 'orders-history', component: OrdersHistoryComponent },
-      { path: 'active-orders', component: ActiveOrdersComponent}  
+      { path: 'pedidos-activos', component: PedidosActivosComponent },
+      { path: 'pedidos-historial', component: PedidosHistorialComponent}  
      ]
   },
   {
-    path: 'do-order',
-    component: DoOrderComponent,
+    path: 'hacer-pedidos',
+    component: HacerPedidoComponent,
     children: [
     ]
   },

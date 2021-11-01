@@ -1,0 +1,36 @@
+<table id="lista">
+  <caption>Lista Pedido</caption>
+  <thead>
+    <tr>
+      <th scope="col">Cantidad</th>
+      <th scope="col">Item</th>
+      <th scope="col">Tamaño</th>
+      <th scope="col">PrecioU</th>
+      <th scope="col">Total</th>
+      <th scope="col">Accion</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr 
+    *ngFor="let pedidosEle of pedidos; let i = index">
+      <td><input class="quantity" id="id_cantidad" min="0" name="form-0-quantity" value={{pedidosEle.Cantidad}} type="number"></td>
+      <td>{{pedidosEle.Nombre}}</td>
+      <td>{{pedidosEle.Tamano}}</td>
+      <td>{{pedidosEle.Precio}}</td>
+      <td>{{pedidosEle.PrecioT}}</td>
+
+
+      <button onclick="alert('Elimino un elemento');">-</button>
+  </tr>
+  </tbody> 
+</table>
+
+<table id="total">
+  <tbody  style ="font-size: 20px;">
+    <tr>
+      <td>Total Articulos:</td>
+      <td style="text-align: 10px;">5</td>
+      <td style="text-align: right;">150 Bs.</td>
+    </tr>
+  </tbody>
+</table>

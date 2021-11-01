@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Params } from '@angular/router';
-import { FinalOrderModel } from 'src/app/models/finalOrder';
-import { AppHttpService } from 'src/app/services/app-http.service';
+import { FinalOrderModel } from 'src/app/modelos/finalOrder';
+import { AppHttpService } from 'src/app/servicios/app-http.service';
 import { ModalService } from '../modal/modal.service';
 import { UserService } from '../servicesPrueba/user.service';
 
