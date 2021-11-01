@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class InventarioComponent implements OnInit {
 
   constructor() { }
-
+  subMenus : string[] = ["compras","bienes","ingredientes","productos"]
   ngOnInit(): void {
   }
 

@@ -10,19 +10,21 @@ import { MainButtonsComponent } from './modules/orders/main-buttons/main-buttons
 import { ModalModule } from './modules/orders/modal/modal.module';
 import { ReusableTableComponent } from './modules/orders/reusable-table/reusable-table.component';
 import { HttpClientModule } from '@angular/common/http';
-import { ListaArmadoPedidosComponent } from './modulos/hacer-pedido/lista-armado-pedidos/lista-armado-pedidos.component';
 import { AppHttpService } from './servicios/app-http.service';
-import { InicioComponent } from './modulos/inicio/inicio.component';
 import { PedidosComponent } from './modulos/pedidos/pedidos.component';
-import { HacerPedidoComponent } from './modulos/hacer-pedido/hacer-pedido.component';
-import { InfoClienteComponent } from './modulos/hacer-pedido/info-cliente/info-cliente.component';
-import { MostrarProductosComponent } from './modulos/hacer-pedido/mostrar-productos/mostrar-productos.component';
-import { ListaProductosComponent } from './modulos/hacer-pedido/mostrar-productos/lista-productos/lista-productos.component';
 import { InventarioComponent } from './modulos/inventario/inventario.component';
 import { ComprasComponent } from './modulos/inventario/compras/compras.component';
 import { IngredientesComponent } from './modulos/inventario/ingredientes/ingredientes.component';
 import { ProductosComponent } from './modulos/inventario/productos/productos.component';
 import { BienesComponent } from './modulos/inventario/bienes/bienes.component';
+import { ListaArmadoPedidosComponent } from './modulos/hacer-pedido/lista-armado-pedidos/lista-armado-pedidos.component';
+import { InicioComponent } from './modulos/inicio/inicio.component';
+import { InfoClienteComponent } from './modulos/hacer-pedido/info-cliente/info-cliente.component';
+import { HacerPedidoComponent } from './modulos/hacer-pedido/hacer-pedido.component';
+import { MostrarProductosComponent } from './modulos/hacer-pedido/mostrar-productos/mostrar-productos.component';
+import { ListaProductosComponent } from './modulos/hacer-pedido/mostrar-productos/lista-productos/lista-productos.component';
+import { ListSubMenuComponent } from './shared-modules/list-sub-menu/list-sub-menu.component';
+import { ComSubMenuComponent } from './shared-modules/list-sub-menu/com-sub-menu/com-sub-menu.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +46,9 @@ import { BienesComponent } from './modulos/inventario/bienes/bienes.component';
     ComprasComponent,
     IngredientesComponent,
     ProductosComponent,
-    BienesComponent
+    BienesComponent,
+    ListSubMenuComponent,
+    ComSubMenuComponent
     
   ],
   imports: [

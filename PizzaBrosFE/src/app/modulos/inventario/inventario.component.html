@@ -2,9 +2,12 @@
     <div class="col-md-2">
         <h2>Inventario</h2>
         <br>
-
+        <app-list-sub-menu 
+            [listProducts]= "subMenus" >
+        </app-list-sub-menu>
     </div>
     <div class="col-md-10">
+        <h3>ss</h3>
         <router-outlet></router-outlet>
 
     </div>
