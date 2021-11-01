@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ActiveOrdersComponent } from '../modules/orders/active-orders/active-orders.component';
-import { OrdersHistoryComponent } from '../modules/orders/orders-history/orders-history.component';
-import { OrdersComponent } from '../modules/orders/orders.component';
 import { HacerPedidoComponent } from '../modulos/hacer-pedido/hacer-pedido.component';
 import { InicioComponent } from '../modulos/inicio/inicio.component';
+import { BienesComponent } from '../modulos/inventario/bienes/bienes.component';
+import { ComprasComponent } from '../modulos/inventario/compras/compras.component';
+import { IngredientesComponent } from '../modulos/inventario/ingredientes/ingredientes.component';
+import { InventarioComponent } from '../modulos/inventario/inventario.component';
+import { ProductosComponent } from '../modulos/inventario/productos/productos.component';
 import { PedidosActivosComponent } from '../modulos/pedidos/pedidos-activos/pedidos-activos.component';
 import { PedidosHistorialComponent } from '../modulos/pedidos/pedidos-historial/pedidos-historial.component';
 import { PedidosComponent } from '../modulos/pedidos/pedidos.component';
@@ -31,6 +33,19 @@ const appRoutes: Routes = [
     children: [
     ]
   },
+  {
+    path: 'inventario',
+    component: InventarioComponent,
+    children: [
+      { path: 'compras', component: ComprasComponent },
+      { path: 'bienes', component: BienesComponent},
+      { path: 'productos', component: ProductosComponent },
+      { path: 'ingredientes', component: IngredientesComponent }
+  
+
+     ]
+  },
+
 ]
 @NgModule({
   declarations: [],

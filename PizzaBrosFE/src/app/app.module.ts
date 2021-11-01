@@ -18,6 +18,11 @@ import { HacerPedidoComponent } from './modulos/hacer-pedido/hacer-pedido.compon
 import { InfoClienteComponent } from './modulos/hacer-pedido/info-cliente/info-cliente.component';
 import { MostrarProductosComponent } from './modulos/hacer-pedido/mostrar-productos/mostrar-productos.component';
 import { ListaProductosComponent } from './modulos/hacer-pedido/mostrar-productos/lista-productos/lista-productos.component';
+import { InventarioComponent } from './modulos/inventario/inventario.component';
+import { ComprasComponent } from './modulos/inventario/compras/compras.component';
+import { IngredientesComponent } from './modulos/inventario/ingredientes/ingredientes.component';
+import { ProductosComponent } from './modulos/inventario/productos/productos.component';
+import { BienesComponent } from './modulos/inventario/bienes/bienes.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +39,12 @@ import { ListaProductosComponent } from './modulos/hacer-pedido/mostrar-producto
     HacerPedidoComponent,
     InfoClienteComponent,
     MostrarProductosComponent,
-    ListaProductosComponent
+    ListaProductosComponent,
+    InventarioComponent,
+    ComprasComponent,
+    IngredientesComponent,
+    ProductosComponent,
+    BienesComponent
     
   ],
   imports: [
