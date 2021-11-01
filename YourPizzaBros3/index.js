@@ -8,7 +8,7 @@ const { query } = require('express');
 database = require('./config')
 const ingrediente = database.ingrediente;
 const producto = database.producto;
-const familia = database.familia;
+const categoria = database.categoria;
 const cliente = database.cliente;
 const pedido = database.pedido;
 const firebase = database.firebase;
@@ -18,51 +18,11 @@ const app = express()
 app.use(express.json())
 app.use(cors())
 
-//GetIngredientes
-async function getIngredientes() {
-  const snapshot = await ingrediente.get();
-  const list = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-  return list;
-}
-app.get("/api/getIngredientes", async (req, res) => {
-  const list = await getIngredientes();
-  res.send(list);
-});
+/*===================================
+          CRUD INGREDIENTES
+//===================================*/
 
-//GetProductos  
-async function getProductos() {
-  const snapshot = await producto.get();
-  const list = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-  return list;
-}
-app.get("/api/getProductos", async (req, res) => {
-  const list = await getProductos();
-  res.send(list);
-});
-
-//GetClientes
-async function getClientes() {
-  const snapshot = await cliente.get();
-  const list = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-  return list;
-}
-app.get("/api/getClientes", async (req, res) => {
-  const list = await getClientes();
-  res.send(list);
-});
-
-//GetPedidos
-async function getPedidos() {
-  const snapshot = await pedido.get();
-  const list = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-  return list;
-}
-app.get("/api/getPedidos", async (req, res) => {
-  const list = await getPedidos();
-  res.send(list);
-});
-
-//PostIngrediente
+//CrearIngrediente
 //Formato del ingrediente en el Body del request:
 // {
 //   "Cantidad": 5,
@@ -72,15 +32,128 @@ app.get("/api/getPedidos", async (req, res) => {
 //   "UnidadMedida": "Kg."
 // }
 
-app.post("/api/postIngrediente", async (req, res) => {
+app.post("/api/ingrediente", async (req, res) => {
   const data = req.body
   console.log("Info Ingredientes ", data)
   await ingrediente.add(data)
   res.send({ msg: "Ingrediente added" })
 })
 
-//PostCliente
-async function postCliente(data) {
+//ObtenerIngredientes
+async function obtenerIngredientes() {
+  const snapshot = await ingrediente.get();
+  const list = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+  return list;
+}
+app.get("/api/ingredientes", async (req, res) => {
+  const list = await obtenerIngredientes();
+  res.send(list);
+});
+
+//ObtenerIngredienteNombre
+async function obtenerIngredienteNombre(nombreIng) {
+
+  let query = await ingrediente.where('Nombre', '==', nombreIng);
+  let querySnapshot = await query.get();
+  let respuesta = null;
+
+  if (querySnapshot.empty) {
+    console.log(`No encontramos al Ingrediente: ${nombreIng}`);
+
+  } else {
+    console.log('Encontramos al ingrediente: ', nombreIng);
+    const list = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+    respuesta = list
+  }
+  return respuesta;
+}
+app.get("/api/ingrediente/:nombre", async (req, res) => {
+  var nombreIng = req.params.nombre
+  var respuesta = await obtenerIngredienteNombre(nombreIng);
+  res.send(respuesta);
+});
+
+
+/*===================================
+          CRUD PRODUCTOS
+//===================================*/
+
+//CrearProducto estructura:
+// {
+    
+//   "ImgURL": "https://live.mrf.io/statics/i/ps/irecetasfaciles.com/wp-content/uploads/2019/08/pizza-de-jamon-queso-y-tocino.jpg?width=1200&enable=upscale",
+//   "Precio": 65,
+//   "Costo": 50,
+//   "Tamano": "Grande",
+//   "Nombre": "Pizza 3 Quesos"
+// }
+app.post("/api/producto", async (req, res) => {
+  var miProducto = req.body;
+  await producto.add(miProducto)
+  res.send({msg:"Producto agregado correctamente","Producto":miProducto});
+});
+
+//ObtenerProductos  
+async function obtenerProductos() {
+  const snapshot = await producto.get();
+  const list = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+  return list;
+}
+app.get("/api/productos", async (req, res) => {
+  const list = await obtenerProductos();
+  res.send(list);
+});
+
+//ObtenerProductoId
+async function obtenerProductoId(prd) {
+  let respuesta = null;
+  await producto.doc(prd).get().then(snapshot => {
+    let querySnapshot = snapshot.data()
+    console.log(querySnapshot)
+    if (typeof querySnapshot == 'undefined' || querySnapshot.empty || querySnapshot == null) {
+      console.log(`No encontramos el producto con Id: ${prd}`);
+
+    } else {
+      console.log('Encontramos al producto: ', prd);
+      respuesta = querySnapshot
+    }
+  })
+  return respuesta;
+}
+app.get("/api/producto/Id/:id", async (req, res) => {
+  var prd = req.params.id
+  var respuesta = await obtenerProductoId(prd);
+
+  res.send(respuesta);
+});
+
+//ObtenerProductoNombre
+async function obtenerProductoNombre(prd) {
+  let query = await producto.where('Nombre', '==', prd);
+  let querySnapshot = await query.get();
+  let respuesta = null;
+
+  if (querySnapshot.empty) {
+    console.log(`No encontramos el producto con nombre: ${prd}`);
+    respuesta = `No encontramos el producto con nombre: ${prd}`;
+
+  } else {
+    console.log('Encontramos al producto: ', prd);
+    respuesta = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+  }
+  return respuesta;
+}
+app.get("/api/producto/Nombre/:nombre", async (req, res) => {
+  var prd = req.params.nombre
+  var respuesta = await obtenerProductoNombre(prd);
+  res.send(respuesta);
+});
+
+/*===================================
+          CRUD CLIENTES
+//===================================*/
+//CrearCliente
+async function crearCliente(data) {
   const nit = data.NIT
   var respuesta = null;
   var resp = null;
@@ -114,38 +187,26 @@ async function postCliente(data) {
 
   return resp;
 }
-app.post("/api/postCliente", async (req, res) => {
+app.post("/api/cliente", async (req, res) => {
   const data = req.body
-  const respuesta = await postCliente(data);
+  const respuesta = await crearCliente(data);
   console.log(respuesta);
   res.send(respuesta)
 })
 
-//GetIngredienteByNombre
-async function getIngredienteByNombre(nombreIng) {
-
-  let query = await ingrediente.where('Nombre', '==', nombreIng);
-  let querySnapshot = await query.get();
-  let respuesta = null;
-
-  if (querySnapshot.empty) {
-    console.log(`No encontramos al Ingrediente: ${nombreIng}`);
-
-  } else {
-    console.log('Encontramos al ingrediente: ', nombreIng);
-    const list = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-    respuesta = list
-  }
-  return respuesta;
+//ObtenerClientes
+async function obtenerClientes() {
+  const snapshot = await cliente.get();
+  const list = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+  return list;
 }
-app.get("/api/getIngrediente/:nombre", async (req, res) => {
-  var nombreIng = req.params.nombre
-  var respuesta = await getIngredienteByNombre(nombreIng);
-  res.send(respuesta);
+app.get("/api/clientes", async (req, res) => {
+  const list = await obtenerClientes();
+  res.send(list);
 });
 
-//GetClienteByNit
-async function getClienteByNit(nitCliente) {
+//ObtenerClienteNit
+async function obtenerClienteNit(nitCliente) {
 
   nitCliente = parseInt(nitCliente, 10);
   let query = await cliente.where('NIT', '==', nitCliente);
@@ -162,84 +223,42 @@ async function getClienteByNit(nitCliente) {
   }
   return respuesta;
 }
-app.get("/api/getCliente/:nit", async (req, res) => {
+app.get("/api/cliente/:nit", async (req, res) => {
   var nitCliente = req.params.nit
-  var respuesta = await getClienteByNit(nitCliente);
+  var respuesta = await obtenerClienteNit(nitCliente);
   res.send(respuesta);
 });
 
-//GatFamiliaByNombre
-async function getFamiliaByNombre(prd) {
-  let query = await familia.where('Nombre', '==', prd);
+/*===================================
+          CRUD CATEGORIA
+//===================================*/
+
+//ObtenerCategoriaNombre
+async function obtenerCategoriaNombre(prd) {
+  let query = await categoria.where('Nombre', '==', prd);
   let querySnapshot = await query.get();
   let respuesta = null;
 
   if (querySnapshot.empty) {
-    console.log(`No encontramos la familia con nombre: ${prd}`);
+    console.log(`No encontramos la categoria con nombre: ${prd}`);
 
   } else {
-    console.log('Encontramos a la familia: ', prd);
+    console.log('Encontramos a la categoria: ', prd);
     respuesta = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
   }
   return respuesta;
 }
-app.get("/api/getFamilia/:nombre", async (req, res) => {
+app.get("/api/categoria/:nombre", async (req, res) => {
   var prd = req.params.nombre;
-  var respuesta = await getFamiliaByNombre(prd);
+  var respuesta = await obtenerCategoriaNombre(prd);
   res.send(respuesta);
 });
 
-//GetProductoById
-/* async function getPedidos() {
-  const snapshot = await pedido.get();
-  const list = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-  return list;
-} */
-async function getProductoById(prd) {
-  let respuesta = null;
-  await producto.doc(prd).get().then(snapshot => {
-    let querySnapshot = snapshot.data()
-    console.log(querySnapshot)
-    if (typeof querySnapshot == 'undefined' || querySnapshot.empty || querySnapshot == null) {
-      console.log(`No encontramos el producto con Id: ${prd}`);
+/*===================================
+          CRUD PEDIDOS
+//===================================*/
 
-    } else {
-      console.log('Encontramos al producto: ', prd);
-      respuesta = querySnapshot
-    }
-  })
-  return respuesta;
-}
-app.get("/api/getProducto/Id/:id", async (req, res) => {
-  var prd = req.params.id
-  var respuesta = await getProductoById(prd);
-
-  res.send(respuesta);
-});
-
-//GetProductoByNombre
-async function getProductoByNombre(prd) {
-  let query = await producto.where('Nombre', '==', prd);
-  let querySnapshot = await query.get();
-  let respuesta = null;
-
-  if (querySnapshot.empty) {
-    console.log(`No encontramos el producto con nombre: ${prd}`);
-    respuesta = `No encontramos el producto con nombre: ${prd}`;
-
-  } else {
-    console.log('Encontramos al producto: ', prd);
-    respuesta = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-  }
-  return respuesta;
-}
-app.get("/api/getProducto/Nombre/:nombre", async (req, res) => {
-  var prd = req.params.nombre
-  var respuesta = await getProductoByNombre(prd);
-  res.send(respuesta);
-});
-
-//PostPedido
+//CrearPedido
 /*
   Para el siguiente post es necesaria la siguiente estructura en el requestbody:
   {
@@ -257,23 +276,8 @@ app.get("/api/getProducto/Nombre/:nombre", async (req, res) => {
     "Estado":"Entregado"
   }
 */
-app.post("/api/postPedido", async (req, res) => {
+app.post("/api/crearPedido", async (req, res) => {
   const data = req.body
-
-  // const data = {
-  //   "Fecha": "2019-01-02T10:12:04",
-  //   "Detalle": 
-  //   [
-  //     {
-  //       "IdProducto":"xHsRl949N5aptvF0M7vt",
-  //       "Cantidad":4
-  //     }
-  //   ],
-  //   "NombreCliente":"Lopez",
-  //   "NITCliente": 77777,
-  //   "IdEmpleado":"ABCRl949N5aptvF0M7vt"
-  // }
-
   //buscamos todos los productos de la lista
   var misProds = []
   var precioTotal = 0;
@@ -303,8 +307,6 @@ app.post("/api/postPedido", async (req, res) => {
     }
 
   );
-
-
   //Verificamos si el cliente que nos pasan esta ya registrado, si no lo esta, lo registramos
   const nit = data.NITCliente;
   const nombre = data.NombreCliente;
@@ -315,7 +317,7 @@ app.post("/api/postPedido", async (req, res) => {
     "Nombre": nombre
   }
 
-  var miCliente = await postCliente(dataCliente)
+  var miCliente = await crearCliente(dataCliente)
   if (miCliente != null) {
     var newPedido =
     {
@@ -338,8 +340,51 @@ app.post("/api/postPedido", async (req, res) => {
 
   res.send(respuesta)
 })
-//GetPedidosBetween2Dates
-async function getPedidosBetween2Dates(start, end) {
+
+async function crearPedidoEstado(idPedido,estado) {
+  let respuesta = null;
+  await pedido.doc(idPedido).get().then(snapshot => {
+    let querySnapshot = snapshot.data()
+    console.log(querySnapshot)
+    if (typeof querySnapshot == 'undefined' || querySnapshot.empty || querySnapshot == null) {
+      console.log(`No encontramos el pedido con Id: ${idPedido}`);
+
+    } else {
+      console.log('Encontramos al pedido: ', idPedido);
+      var a = pedido.doc(idPedido).update({"Estado":estado});
+      querySnapshot.Estado = estado;
+      
+      
+      
+      
+      respuesta = querySnapshot;
+    }
+  })
+  return respuesta;
+}
+
+app.post("/api/pedidoEstado", async (req, res) => {
+  console.log("entro api 1");
+  var idPedido = req.body.IdPedido;
+  var estado = req.body.Estado;
+
+  var respuesta = await crearPedidoEstado(idPedido,estado);
+  res.send(respuesta);
+});
+
+//ObtenerPedidos
+async function obtenerPedidos() {
+  const snapshot = await pedido.get();
+  const list = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+  return list;
+}
+app.get("/api/pedidos", async (req, res) => {
+  const list = await obtenerPedidos();
+  res.send(list);
+});
+
+//ObtenerPedidos2Fechas
+async function obtenerPedidos2Fechas(start, end) {
   console.log("start:", start);
   console.log("end", end);
 
@@ -371,15 +416,15 @@ async function getPedidosBetween2Dates(start, end) {
 }
 
 */
-app.get("/api/getPedidosBetween2Dates", async (req, res) => {
-  var inicio = req.body.Inicio;
-  var final = req.body.Final;
+app.get("/api/pedidos2Fechas/:inicio/:final", async (req, res) => {
+  var inicio = req.params.inicio;
+  var final = req.params.final;
   console.log("inicio:", inicio);
   console.log("final:", final);
-  var respuesta = await getPedidosBetween2Dates(inicio, final);
+  var respuesta = await obtenerPedidos2Fechas(inicio, final);
   res.send(respuesta);
 });
-/*
+/*//YA NO SIRVE, SOLO PARAMETROS DEL ENDPOINT
 {
   "Inicio":"2020-01-01T12:01:18",
   "Final":"2020-07-12T12:06:00",
@@ -387,7 +432,7 @@ app.get("/api/getPedidosBetween2Dates", async (req, res) => {
 }
 
 */
-async function getPedidos2DatesClientNIT(start, end, NITCliente) {
+async function obtenerPedidos2FechasNITCliente(start, end, NITCliente) {
   console.log("start:", start);
   console.log("end", end);
 
@@ -416,17 +461,17 @@ async function getPedidos2DatesClientNIT(start, end, NITCliente) {
 }
 
 
-app.get("/api/getPedidos2DatesClientNIT", async (req, res) => {
-  var inicio = req.body.Inicio;
-  var final = req.body.Final;
-  var nitCliente = req.body.NITCliente;
+app.get("/api/pedidos2FechasNITCliente/:inicio/:final/:nit", async (req, res) => {
+  var inicio = req.params.inicio;
+  var final = req.params.final;
+  var nitCliente = req.params.nit;
   console.log("inicio:", inicio);
   console.log("final:", final);
-  var respuesta = await getPedidos2DatesClientNIT(inicio, final, nitCliente);
+  var respuesta = await obtenerPedidos2FechasNITCliente(inicio, final, nitCliente);
   res.send(respuesta);
 });
 
-//UpdateState
+//CrearPedidoEstado
 /*
   {
     "IdPedido": "NXp6KInuGOHtoJWv9cnN",
@@ -434,55 +479,26 @@ app.get("/api/getPedidos2DatesClientNIT", async (req, res) => {
   }
   */
 
-async function updatePedidoEstado(idPedido,estado) {
-  let respuesta = null;
-  await pedido.doc(idPedido).get().then(snapshot => {
-    let querySnapshot = snapshot.data()
-    console.log(querySnapshot)
-    if (typeof querySnapshot == 'undefined' || querySnapshot.empty || querySnapshot == null) {
-      console.log(`No encontramos el pedido con Id: ${idPedido}`);
 
-    } else {
-      console.log('Encontramos al pedido: ', idPedido);
-      var a = pedido.doc(idPedido).update({"Estado":estado});
-      querySnapshot.Estado = estado;
-      
-      
-      
-      
-      respuesta = querySnapshot;
-    }
-  })
-  return respuesta;
-}
 
-app.post("/api/updatePedidoEstado", async (req, res) => {
-  console.log("entro api 1");
-  var idPedido = req.body.IdPedido;
-  var estado = req.body.Estado;
-
-  var respuesta = await updatePedidoEstado(idPedido,estado);
-  res.send(respuesta);
-});
-
-//GetPedidosEstado Obtener los pedidos segun su estado
-async function getPedidosEstado(estado) {
+//ObtenerPedidosEstado Obtener los pedidos segun su estado
+async function obtenerPedidosEstado(estado) {
   const snapshot = await pedido.where('Estado','==',estado).get();
   const list = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
   return list;
 } 
-app.get("/api/getPedidosEstado/:estado", async (req, res) => {
+app.get("/api/pedidosEstado/:estado", async (req, res) => {
   var estado = req.params.estado;
-  const list = await getPedidosEstado(estado);
+  const list = await obtenerPedidosEstado(estado);
   res.send(list);
 });
-/*
+/*//YA NO SIRVE, SOLO PARAMETROS DEL ENDPOINT
   {
     "Fecha":"2020-07-12T12:06:00",
     "NITCliente": 123456
   }
   */
-async function getPedidoFechaNIT(fecha, nitCliente) {
+async function obtenerPedidoFechaNIT(fecha, nitCliente) {
   fecha = firebase.firestore.Timestamp.fromDate(new Date(fecha));
   const snapshot = await pedido.where('Fecha','==',fecha).where('NITCliente','==',nitCliente).get();
   var list = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
@@ -492,10 +508,10 @@ async function getPedidoFechaNIT(fecha, nitCliente) {
   }
   return list;
 } 
-app.get("/api/getPedidoFechaNIT", async (req, res) => {
-  var fecha = req.body.Fecha;
-  var nitCliente = req.body.NITCliente;
-  const list = await getPedidoFechaNIT(fecha, nitCliente);
+app.get("/api/pedidoFechaNIT/:fecha/:nit", async (req, res) => {
+  var fecha = req.params.fecha;
+  var nitCliente = req.params.nit;
+  const list = await obtenerPedidoFechaNIT(fecha, nitCliente);
   res.send(list);
 });
 
@@ -503,7 +519,7 @@ app.get("/api/getPedidoFechaNIT", async (req, res) => {
 
 
 //GetPedidosCliente
-async function getPedidosCliente(nitCliente) {
+async function obtenerPedidosCliente(nitCliente) {
   console.log("NIT CLIENTE: ",nitCliente);
   const snapshot = await pedido.where('NITCliente','==',parseInt(nitCliente,10)).get();
   var list = await snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
@@ -515,13 +531,13 @@ async function getPedidosCliente(nitCliente) {
   return list;
 
 }
-app.get("/api/getPedidosCliente/nit/:nit", async (req, res) => {
+app.get("/api/pedidosCliente/nit/:nit", async (req, res) => {
   var nitCliente = req.params.nit;
-  const list = await getPedidosCliente(nitCliente);
+  const list = await obtenerPedidosCliente(nitCliente);
 
 
   res.send(list);
 });
-//Digamos que cambie algo 
+ 
 
 app.listen(4000, () => console.log("Up and Running on 4000"));
