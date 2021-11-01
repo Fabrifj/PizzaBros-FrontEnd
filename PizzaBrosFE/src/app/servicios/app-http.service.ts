@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+
 import { catchError, retry } from 'rxjs/operators';
 import paths from './config.json';
 
@@ -33,6 +33,25 @@ export class AppHttpService {
   updateOrderState( body: any){
     let path = this.defUrl+"updatePedidoEstado"
     this.http.post(path,body)
+  }
+  getOrderB2datesAll(body : any){
+    var inicio = body[0];
+    var final = body[1];
+    var path = "/api/pedidos2Fechas/" + inicio + "/"+ final;
+    return this.http.get(paths.getPedidosBetween2Dates,body)
+  }
+  getOrderB2datesCli(body : any){
+    
+    return this.http.get(paths.getPedidosBetween2DatesClientNIT,body)
+  }
+  getOrder1dayClient(body:any){
+
+    return this.http.get(paths.getPedidoFechaNIT,body)
+  }
+  obtenerPedidosCliente(nitCliente:any){
+    let path = paths.getPedidosCliente + nitCliente;
+    console.log(path);
+    return this.http.get(path )
   }
 
 
