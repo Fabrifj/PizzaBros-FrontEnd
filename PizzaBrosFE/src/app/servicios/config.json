@@ -14,7 +14,7 @@
     "obtenerPedidos2D":"/api/pedidos2Fechas/", 
     "obtenerPedidos2DCli":"/api/pedidos2FechasNITCliente/",
     "actualizarPedidoEstado":"/api/pedidoEstado",
-    "obtenerPedidoEstado":"/api/pedidosEstado/:estado",
+    "obtenerPedidoEstado":"/api/pedidosEstado/",
     "obtenerPedidoFechaNit":"/api/pedidoFechaNIT/",
     "obtenerPedidosCliente":"/api/pedidosCliente/nit/"
 

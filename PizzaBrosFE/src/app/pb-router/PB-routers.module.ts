@@ -10,6 +10,7 @@ import { ProductosComponent } from '../modulos/inventario/productos/productos.co
 import { PedidosActivosComponent } from '../modulos/pedidos/pedidos-activos/pedidos-activos.component';
 import { PedidosHistorialComponent } from '../modulos/pedidos/pedidos-historial/pedidos-historial.component';
 import { PedidosComponent } from '../modulos/pedidos/pedidos.component';
+import { TablaReusableComponent } from '../modulos/pedidos/tabla-reusable/tabla-reusable.component';
 
 
 
@@ -24,7 +25,7 @@ const appRoutes: Routes = [
     component: PedidosComponent,
     children: [
       { path: 'pedidos-activos', component: PedidosActivosComponent },
-      { path: 'pedidos-historial', component: PedidosHistorialComponent}  
+      { path: 'pedidos-historial', component: PedidosHistorialComponent} 
      ]
   },
   {

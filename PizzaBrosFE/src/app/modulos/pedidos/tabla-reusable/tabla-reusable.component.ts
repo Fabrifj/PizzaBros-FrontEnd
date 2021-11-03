@@ -1,4 +1,4 @@
-import { Component, OnInit,Input, EventEmitter,Output } from '@angular/core';
+import { Component, OnInit,Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-tabla-reusable',
@@ -7,13 +7,17 @@ import { Component, OnInit,Input, EventEmitter,Output } from '@angular/core';
 })
 export class TablaReusableComponent implements OnInit {
 
+  
   @Input() datos : any;
   @Input() columnas: any;
-  @Input() nombreBotones : string[] =[];
+  @Input() nombreBotones : string[] | undefined;
+
+  //['name','kevin']
+  //bool yes, solo eso, bool no, quitar eso
+  //@Input() filtros : [string, string, boolean][] = [] ;
   @Output() parentMethod = new EventEmitter<any>();
   constructor() { }
-
-  ngOnInit() {
+  ngOnInit()  {
   }
   botonPresionado(nombreFuncion:string,objecto:any){
    
@@ -21,4 +25,5 @@ export class TablaReusableComponent implements OnInit {
     
 
   }
+
 }

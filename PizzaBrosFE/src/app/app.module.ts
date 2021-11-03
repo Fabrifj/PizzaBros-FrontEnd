@@ -19,12 +19,16 @@ import { MostrarProductosComponent } from './modulos/hacer-pedido/mostrar-produc
 import { ListaProductosComponent } from './modulos/hacer-pedido/mostrar-productos/lista-productos/lista-productos.component';
 import { ListSubMenuComponent } from './shared-modules/list-sub-menu/list-sub-menu.component';
 import { ComSubMenuComponent } from './shared-modules/list-sub-menu/com-sub-menu/com-sub-menu.component';
-
+import { TablaReusableComponent } from './modulos/pedidos/tabla-reusable/tabla-reusable.component';
+import { PedidosActivosComponent } from './modulos/pedidos/pedidos-activos/pedidos-activos.component';
+import { PedidosHistorialComponent } from './modulos/pedidos/pedidos-historial/pedidos-historial.component';
+import { ModalModule } from './modulos/pedidos/modal/modal.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
+    TablaReusableComponent,
     ListaArmadoPedidosComponent,
     InicioComponent,
     PedidosComponent,
@@ -38,7 +42,11 @@ import { ComSubMenuComponent } from './shared-modules/list-sub-menu/com-sub-menu
     ProductosComponent,
     BienesComponent,
     ListSubMenuComponent,
-    ComSubMenuComponent
+    ComSubMenuComponent,
+    PedidosActivosComponent,
+    PedidosHistorialComponent
+   
+    
     
     
     
@@ -46,7 +54,8 @@ import { ComSubMenuComponent } from './shared-modules/list-sub-menu/com-sub-menu
   imports: [
     BrowserModule,
     HttpClientModule,
-    PBRoutersModule
+    PBRoutersModule,
+    ModalModule
   ],
   
   providers: [AppHttpService],

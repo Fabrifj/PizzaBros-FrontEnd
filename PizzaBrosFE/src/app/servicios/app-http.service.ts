@@ -39,21 +39,24 @@ export class AppHttpService {
   obtenerPedido2DiasT(body : any){
     var inicio = body[0];
     var final = body[1];
+    
     var path = paths.obtenerPedidos2D + inicio + "/"+ final;
-    return this.http.get(path,body)
+    
+    return this.http.get(path)
   }
   obtenerPedido2DiasCli(body : any){
     var inicio = body[0];
     var final = body[1];
     var cli = body[2];
     var path = paths.obtenerPedidos2DCli + inicio + "/"+ final + "/" + cli ;
-    return this.http.get(path,body)
+    return this.http.get(path)
   }
   obtenerPedido1DiaCli(body:any){
     var fecha = body[0];
     var cli = body[1];
-    var path = paths.obtenerPedidosFechaNit + fecha + "/"+ cli ;
-    return this.http.get(path,body)
+    var path = paths.obtenerPedidoFechaNit + fecha + "/"+ cli ;
+    console.log(path);
+    return this.http.get(path)
   }
   obtenerPedidosCliente(nitCliente:any){
     let path = paths.obtenerPedidosCliente+ nitCliente;

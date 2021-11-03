@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FinalOrderModel } from 'src/app/modelos/finalOrder';
 import { AppHttpService } from 'src/app/servicios/app-http.service';
+import { ModalService } from '../modal/modal.service';
+
 
 
 @Component({
@@ -43,7 +45,7 @@ export class PedidosHistorialComponent implements OnInit {
 
 
 
-  constructor(  private servicioHttp: AppHttpService) { }
+  constructor( public modalServicio:ModalService, private servicioHttp: AppHttpService) { }
 
   ngOnInit() {
 
@@ -67,6 +69,7 @@ export class PedidosHistorialComponent implements OnInit {
     } )
   }
   obtenerPedido2DiasT(body:any){
+    console.log("vector",body);
     this.servicioHttp.obtenerPedido2DiasT(body)
     .subscribe((jsonFile)=>{
       //this.Orders = this.JSON_MAPPER.readValue(jsonFile, FinalOrderModel[])
@@ -77,7 +80,7 @@ export class PedidosHistorialComponent implements OnInit {
 
     } )
   }
-  obtenerPedido2DaiasCli(body:any){
+  obtenerPedido2DiasCli(body:any){
     this.servicioHttp.obtenerPedido2DiasCli(body)
     .subscribe((jsonFile)=>{
       //this.Orders = this.JSON_MAPPER.readValue(jsonFile, FinalOrderModel[])
@@ -139,7 +142,7 @@ export class PedidosHistorialComponent implements OnInit {
         this.pedidoSeleccionadoDatos = this.pedidoSeleccionado.Detalle;
 
         console.log(names[1])
-        //this.modalServicio.abrir('modal-1');
+        this.modalServicio.abrir('modal-1');
     }
     else{
 
@@ -181,15 +184,15 @@ export class PedidosHistorialComponent implements OnInit {
 
     }
     else if (selectedFecha == "soloFecha") {
-      if (selectedClientes == "allcli"){
+      if (selectedClientes == "todosCli"){
         //una fecha, todos los clientes
 
         console.log(fechaI);
-        newFechaD = fechaI + + "T23:59:59";
+        newFechaD = fechaI + "T23:59:59";
        
         var body2:string[]; 
         body2 = [newFechaI , newFechaD ];
-        this.obtenerPedido2DaiasCli(body2);
+        this.obtenerPedido2DiasT(body2);
 
 
       }
@@ -221,7 +224,7 @@ export class PedidosHistorialComponent implements OnInit {
       
         var body2:string[]; 
         body2 = [newFechaI , newFechaD,NITCliente ];
-        this.obtenerPedido2DaiasCli(body2);
+        this.obtenerPedido2DiasCli(body2);
       }
 
 

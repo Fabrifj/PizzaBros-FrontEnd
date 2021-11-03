@@ -28,3 +28,11 @@ jw-modal btnCerrar{
     cursor: pointer;
     border-radius: 20%;
 }
+
+.tablaPedidos{
+
+    border-radius: 5px;
+    height: 80%;
+    width: 100%;
+
+}
