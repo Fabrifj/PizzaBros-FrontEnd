@@ -539,5 +539,27 @@ app.get("/api/pedidosCliente/nit/:nit", async (req, res) => {
   res.send(list);
 });
  
+//CONSULTAR ANDY
+//GetPedidosCliente
+async function getPedidosCliente(nitCliente) {
+  console.log("NIT CLIENTE: ",nitCliente);
+  const snapshot = await pedido.where('NITCliente','==',parseInt(nitCliente,10)).get();
+  var list = await snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+  console.log(list);
+  if(list.length < 1)
+  {
+    list = null;
+  }
+  return list;
 
+}
+app.get("/api/getPedidosCliente/nit/:nit", async (req, res) => {
+  var nitCliente = req.params.nit;
+  const list = await getPedidosCliente(nitCliente);
+
+
+  res.send(list);
+});
+
+/////////
 app.listen(4000, () => console.log("Up and Running on 4000"));

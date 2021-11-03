@@ -11,11 +11,20 @@
     "getProductoByNombre":"/api/getProducto/Nombre/:nombre",
     "obtenerPedidos":"/api/pedidos",
     "postPedido":"/api/postPedido",
+<<<<<<< HEAD
     "obtenerPedidos2D":"/api/pedidos2Fechas/", 
     "obtenerPedidos2DCli":"/api/pedidos2FechasNITCliente/",
     "actualizarPedidoEstado":"/api/pedidoEstado",
     "obtenerPedidoEstado":"/api/pedidosEstado/",
     "obtenerPedidoFechaNit":"/api/pedidoFechaNIT/",
     "obtenerPedidosCliente":"/api/pedidosCliente/nit/"
+=======
+    "getPedidosBetween2Dates":"/api/getPedidosBetween2Dates",
+    "getPedidos2DatesClientNIT":"/api/getPedidos2DatesClientNIT",
+    "updatePedidoEstado":"/api/updatePedidoEstado",
+    "getPedidosEstado":"/api/getPedidosEstado/:estado",
+    "getPedidoFechaNIT":"/api/getPedidoFechaNIT",
+    "getPedidosCliente":"/api/getPedidosCliente/nit/"
+>>>>>>> main
 
 }

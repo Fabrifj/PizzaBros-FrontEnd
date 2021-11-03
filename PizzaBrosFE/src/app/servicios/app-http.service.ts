@@ -36,14 +36,10 @@ export class AppHttpService {
     let path = paths.actualizarPedidoEstado;
     return this.http.post(path,body)
   }
-  obtenerPedido2DiasT(body : any){
-    var inicio = body[0];
-    var final = body[1];
-    
-    var path = paths.obtenerPedidos2D + inicio + "/"+ final;
-    
-    return this.http.get(path)
-  }
+  
+ 
+
+  
   obtenerPedido2DiasCli(body : any){
     var inicio = body[0];
     var final = body[1];
@@ -64,5 +60,7 @@ export class AppHttpService {
     return this.http.get(path )
   }
 
+   
 
+  
 }
