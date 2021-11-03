@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-
+import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
+
 import paths from './config.json';
 
 @Injectable({
@@ -17,63 +18,55 @@ export class AppHttpService {
     console.log(paths.getProducts)
     return this.http.get(paths.getProducts)
   }
-  getOrders() {
-    return this.http.get(paths.getPedidos)
-  }
-  postOrders(body:undefined) {
+  crearPedidos(body:undefined) {
     return this.http.get(paths.postPedido,body)
   }
+  obtenerPedidos() {
+    return this.http.get(paths.obtenerPedidos)
+  }
   
-  getOrderStatePreparing(){
+  
+  obtenerPedidoEstadoPr(){
     ///api/getPedidosEstado/:estado
-    return this.http.get(this.defUrl+"getPedidosEstado/Preparando")
+    return this.http.get(paths.obtenerPedidoEstado+"Preparando")
   }
 
   // "updatePedidoEstado":"/api/updatePedidoEstado",
-  updateOrderState( body: any){
-    
-    return this.http.post(paths.updatePedidoEstado,body);
-
+  actualizarPedidoEstado( body: any){
+    let path = paths.actualizarPedidoEstado;
+    return this.http.post(path,body)
   }
-  getOrderB2datesAll(body : any){
-    
-    return this.http.get(paths.getPedidosBetween2Dates,body)
-  }
-  getOrderB2datesCli(body : any){
-    
-    return this.http.get(paths.getPedidosBetween2DatesClientNIT,body)
-  }
-<<<<<<< HEAD:PizzaBrosFE/src/app/services/app-http.service.ts
-  getOrder1dayClient(body:any){
-=======
-  getOrderB2datesAll(body : any){
+  
+ 
+  obtenerPedido2DiasT(body : any){
     var inicio = body[0];
     var final = body[1];
-    var path = "/api/pedidos2Fechas/" + inicio + "/"+ final;
-    return this.http.get(paths.getPedidosBetween2Dates,body)
-  }
-  getOrderB2datesCli(body : any){
     
-    return this.http.get(paths.getPedidosBetween2DatesClientNIT,body)
+    var path = paths.obtenerPedidos2D + inicio + "/"+ final  ;
+    return this.http.get(path)
   }
-  getOrder1dayClient(body:any){
-
-    return this.http.get(paths.getPedidoFechaNIT,body)
+  
+  obtenerPedido2DiasCli(body : any){
+    var inicio = body[0];
+    var final = body[1];
+    var cli = body[2];
+    var path = paths.obtenerPedidos2DCli + inicio + "/"+ final + "/" + cli ;
+    return this.http.get(path)
+  }
+  obtenerPedido1DiaCli(body:any){
+    var fecha = body[0];
+    var cli = body[1];
+    var path = paths.obtenerPedidoFechaNit + fecha + "/"+ cli ;
+    console.log(path);
+    return this.http.get(path)
   }
   obtenerPedidosCliente(nitCliente:any){
-    let path = paths.getPedidosCliente + nitCliente;
-    console.log(path);
+    let path = paths.obtenerPedidosCliente+ nitCliente;
+    
     return this.http.get(path )
   }
->>>>>>> 51727b9f8585b403e0ce00225bdf3154508d793c:PizzaBrosFE/src/app/servicios/app-http.service.ts
 
-    return this.http.get(paths.getPedidoFechaNIT,body)
-  }
-  getPedidosCliente(nitCliente:any){
-    let path = paths.getPedidosCliente + nitCliente;
-    console.log(path);
-    return this.http.get(path )
-  }
+   
 
   
 }

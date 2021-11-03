@@ -2,20 +2,20 @@
     "getProducts":"/api/getProductos",
     "getIngredientes": "/api/getIngredientes",
     "getClientes": "/api/getClientes",
-    "getPedidos":"/api/getPedidos",
-    "postIngrediente":"/api/postIngrediente",
     "postCliente": "/api/postCliente",
+    "postIngrediente":"/api/postIngrediente",
     "getIngredienteByNombre":"/api/getIngrediente/:nombre",
     "getClienteByNit":"/api/getCliente/:nit",
     "getFamiliaByNombre":"/api/getFamilia/:nombre",
     "getProductoById":"/api/getProducto/Id/:id",
     "getProductoByNombre":"/api/getProducto/Nombre/:nombre",
+    "obtenerPedidos":"/api/pedidos",
     "postPedido":"/api/postPedido",
-    "getPedidosBetween2Dates":"/api/getPedidosBetween2Dates",
-    "getPedidos2DatesClientNIT":"/api/getPedidos2DatesClientNIT",
-    "updatePedidoEstado":"/api/updatePedidoEstado",
-    "getPedidosEstado":"/api/getPedidosEstado/:estado",
-    "getPedidoFechaNIT":"/api/getPedidoFechaNIT",
-    "getPedidosCliente":"/api/getPedidosCliente/nit/"
+    "obtenerPedidos2D":"/api/pedidos2Fechas/", 
+    "obtenerPedidos2DCli":"/api/pedidos2FechasNITCliente/",
+    "actualizarPedidoEstado":"/api/pedidoEstado",
+    "obtenerPedidoEstado":"/api/pedidosEstado/",
+    "obtenerPedidoFechaNit":"/api/pedidoFechaNIT/",
+    "obtenerPedidosCliente":"/api/pedidosCliente/nit/"
 
 }

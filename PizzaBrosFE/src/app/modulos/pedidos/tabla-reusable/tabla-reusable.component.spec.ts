@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { OrdersHistoryComponent } from './orders-history.component';
+import { TablaReusableComponent } from './tabla-reusable.component';
 
-describe('OrdersHistoryComponent', () => {
-  let component: OrdersHistoryComponent;
-  let fixture: ComponentFixture<OrdersHistoryComponent>;
+describe('TablaReusableComponent', () => {
+  let component: TablaReusableComponent;
+  let fixture: ComponentFixture<TablaReusableComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ OrdersHistoryComponent ]
+      declarations: [ TablaReusableComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(OrdersHistoryComponent);
+    fixture = TestBed.createComponent(TablaReusableComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -2,13 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
-import { ActiveOrdersComponent } from './modules/orders/active-orders/active-orders.component';
-import { OrdersHistoryComponent } from './modules/orders/orders-history/orders-history.component';
-import { OrdersComponent } from './modules/orders/orders.component';
 import { PBRoutersModule } from './pb-router/PB-routers.module';
-import { MainButtonsComponent } from './modules/orders/main-buttons/main-buttons.component';
-import { ModalModule } from './modules/orders/modal/modal.module';
-import { ReusableTableComponent } from './modules/orders/reusable-table/reusable-table.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AppHttpService } from './servicios/app-http.service';
 import { PedidosComponent } from './modulos/pedidos/pedidos.component';
@@ -25,16 +19,16 @@ import { MostrarProductosComponent } from './modulos/hacer-pedido/mostrar-produc
 import { ListaProductosComponent } from './modulos/hacer-pedido/mostrar-productos/lista-productos/lista-productos.component';
 import { ListSubMenuComponent } from './shared-modules/list-sub-menu/list-sub-menu.component';
 import { ComSubMenuComponent } from './shared-modules/list-sub-menu/com-sub-menu/com-sub-menu.component';
+import { TablaReusableComponent } from './modulos/pedidos/tabla-reusable/tabla-reusable.component';
+import { PedidosActivosComponent } from './modulos/pedidos/pedidos-activos/pedidos-activos.component';
+import { PedidosHistorialComponent } from './modulos/pedidos/pedidos-historial/pedidos-historial.component';
+import { ModalModule } from './modulos/pedidos/modal/modal.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    OrdersComponent,
-    ActiveOrdersComponent,
-    OrdersHistoryComponent,
-    MainButtonsComponent,
-    ReusableTableComponent,
+    TablaReusableComponent,
     ListaArmadoPedidosComponent,
     InicioComponent,
     PedidosComponent,
@@ -48,14 +42,22 @@ import { ComSubMenuComponent } from './shared-modules/list-sub-menu/com-sub-menu
     ProductosComponent,
     BienesComponent,
     ListSubMenuComponent,
-    ComSubMenuComponent
+    ComSubMenuComponent,
+    PedidosActivosComponent,
+    PedidosHistorialComponent
+   
+    
+    
+    
     
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     PBRoutersModule,
-    ModalModule  ],
+    ModalModule
+  ],
+  
   providers: [AppHttpService],
   bootstrap: [AppComponent]
 })
