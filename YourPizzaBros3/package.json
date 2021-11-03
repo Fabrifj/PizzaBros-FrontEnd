@@ -11,7 +11,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "install":"npm install cors express firebase nodemon",
+    "install": "npm install cors express firebase nodemon",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

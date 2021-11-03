@@ -10,12 +10,12 @@ import { ModalService } from './modal.service';
 })
 export class ModalComponent implements OnInit, OnDestroy {
     @Input() id: string = "";
-    private element: any;
+    private elemento: any;
     
     object : any;
 
-    constructor(private modalService: ModalService, private el: ElementRef) {
-        this.element = el.nativeElement;
+    constructor(private modalService: ModalService, private referenciaEl: ElementRef) {
+        this.elemento = referenciaEl.nativeElement;
     }
 
     ngOnInit(): void {
@@ -26,36 +26,36 @@ export class ModalComponent implements OnInit, OnDestroy {
         }
 
         // move element to bottom of page (just before </body>) so it can be displayed above everything else
-        document.body.appendChild(this.element);
+        document.body.appendChild(this.elemento);
 
         // close modal on background click
         //el esta solito
-        this.element.addEventListener('click', (el: { target: { className: string; }; }) => {
+        this.elemento.addEventListener('click', (el: { target: { className: string; }; }) => {
             if (el.target.className === 'jw-modal') {
-                this.close();
+                this.cerrar();
             }
         });
 
         // add self (this modal instance) to the modal service so it's accessible from controllers
-        this.modalService.add(this);
+        this.modalService.anadir(this);
     }
 
     // remove self from modal service when component is destroyed
     ngOnDestroy(): void {
-        this.modalService.remove(this.id);
-        this.element.remove();
+        this.modalService.eliminar(this.id);
+        this.elemento.remove();
     }
 
     // open modal
-    open(): void {
+    abrir(): void {
         
-        this.element.style.display = 'block';
+        this.elemento.style.display = 'block';
         document.body.classList.add('jw-modal-open');
     }
 
     // close modal
-    close(): void {
-        this.element.style.display = 'none';
+    cerrar(): void {
+        this.elemento.style.display = 'none';
         document.body.classList.remove('jw-modal-open');
     }
 }

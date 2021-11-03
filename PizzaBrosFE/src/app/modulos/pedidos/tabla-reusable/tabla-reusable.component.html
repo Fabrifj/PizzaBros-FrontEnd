@@ -1,5 +1,4 @@
-
-<div class="containerTable">
+<div class="tablaContenedora">
     <table class="table table-bordered table-striped table-trapped">
         <thead>
             <tr>
@@ -17,10 +16,10 @@
                     
                 </td>
 
-                <td *ngFor= "let boton of buttonNames">
+                <td *ngFor= "let boton of nombreBotones">
                     <button 
                     class="btn btn-primary" 
-                    (click)="pressedbtn(boton,dato)">
+                    (click)="botonPresionado(boton,dato)">
                         
                         {{boton}}</button> 
                     
@@ -35,4 +34,3 @@
     </table>
 
 </div>
-

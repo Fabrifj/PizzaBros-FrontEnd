@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-
+import { Observable, throwError } from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
+
 import paths from './config.json';
 
 @Injectable({
@@ -17,40 +18,46 @@ export class AppHttpService {
     console.log(paths.getProducts)
     return this.http.get(paths.getProducts)
   }
-  getOrders() {
-    return this.http.get(paths.getPedidos)
-  }
-  postOrders(body:undefined) {
+  crearPedidos(body:undefined) {
     return this.http.get(paths.postPedido,body)
   }
+  obtenerPedidos() {
+    return this.http.get(paths.obtenerPedidos)
+  }
   
-  getOrderStatePreparing(){
+  
+  obtenerPedidoEstadoPr(){
     ///api/getPedidosEstado/:estado
-    return this.http.get(this.defUrl+"getPedidosEstado/Preparando")
+    return this.http.get(paths.obtenerPedidoEstado+"Preparando")
   }
 
   // "updatePedidoEstado":"/api/updatePedidoEstado",
-  updateOrderState( body: any){
-    let path = this.defUrl+"updatePedidoEstado"
-    this.http.post(path,body)
+  actualizarPedidoEstado( body: any){
+    let path = paths.actualizarPedidoEstado;
+    return this.http.post(path,body)
   }
-  getOrderB2datesAll(body : any){
+  obtenerPedido2DiasT(body : any){
     var inicio = body[0];
     var final = body[1];
-    var path = "/api/pedidos2Fechas/" + inicio + "/"+ final;
-    return this.http.get(paths.getPedidosBetween2Dates,body)
+    var path = paths.obtenerPedidos2D + inicio + "/"+ final;
+    return this.http.get(path,body)
   }
-  getOrderB2datesCli(body : any){
-    
-    return this.http.get(paths.getPedidosBetween2DatesClientNIT,body)
+  obtenerPedido2DiasCli(body : any){
+    var inicio = body[0];
+    var final = body[1];
+    var cli = body[2];
+    var path = paths.obtenerPedidos2DCli + inicio + "/"+ final + "/" + cli ;
+    return this.http.get(path,body)
   }
-  getOrder1dayClient(body:any){
-
-    return this.http.get(paths.getPedidoFechaNIT,body)
+  obtenerPedido1DiaCli(body:any){
+    var fecha = body[0];
+    var cli = body[1];
+    var path = paths.obtenerPedidosFechaNit + fecha + "/"+ cli ;
+    return this.http.get(path,body)
   }
   obtenerPedidosCliente(nitCliente:any){
-    let path = paths.getPedidosCliente + nitCliente;
-    console.log(path);
+    let path = paths.obtenerPedidosCliente+ nitCliente;
+    
     return this.http.get(path )
   }
 

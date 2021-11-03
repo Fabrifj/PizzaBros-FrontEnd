@@ -1,1 +1,99 @@
-<p>pedidos-historial works!</p>
+
+
+<div class = "contenedorFiltros">
+    <div class = "Filtro1">
+            
+                <h3>Fecha:</h3>
+                
+               <div>
+                <form>
+        
+                    <div>
+                        <div>
+                            <input type="radio" id="tfec" name= "fechas" checked (click) = "filtroTodos()">
+                            <label for="contactChoice3">Todos los dias</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="soloFecha" name="fechas" (click) = "soloFechaFiltro()">
+                            <label for="contactChoice2">Solo Fecha Seleccionada</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="rangofec" name="fechas" (click) = "rangoFechaFiltro()">
+                            <label for="contactChoice1">Rango</label>
+                            
+                        </div>
+
+                    </div>
+                  </form>
+
+               </div>
+                <div id="fechaInicio">
+                    <input type="date" id="fechaI">
+                </div>
+                <div id="fechaDestino" >
+                    <input type="date" id="fechaD">
+                </div>
+
+               
+            
+        
+    </div>
+
+    <div class = "Filtro2">
+
+        <h3>NIT Cliente:</h3>
+
+        <div>
+            <form>
+    
+                <div>
+                    <div>
+                        <input type="radio" id="todosCli" name= "clientes" checked (click) = "todosFiltrosCli()">
+                        <label for="contactChoice2">Todos los clientes</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="soloCli" name="clientes" (click) = "filtroEspecificoCli()">
+                        <label for="contactChoice2">NIT Especifico</label>
+                    </div>
+    
+                </div>
+              </form>
+
+        </div>
+
+
+        <div id="clienteCampus">
+
+            <input type="text" id= "nitCliente" name="nitCliente">
+        </div>
+        
+        
+        
+    </div>
+    
+    <button class="submit"(click)="actualizarTable()">Ok</button>
+</div>
+
+
+<div class="tablaUsuarios">
+
+
+    <app-tabla-reusable [datos]="datos" [columnas]="columnas" [nombreBotones]="nombreBotones" (parentMethod)="funcionBoton($event)" >
+       
+    </app-tabla-reusable>
+ 
+ </div>
+
+ 
+<jw-modal id="modal-1" >
+    <h1>Informacion Pedido</h1>
+   
+    <app-tabla-reusable [datos]="pedidoSeleccionadoDatos" [columnas]="pedidoSeleccionadoColumnas"  >
+       
+    </app-tabla-reusable>
+
+
+    <p><button class="btnCerrar" (click)="modalServicio.cerrar('modal-1');">Cerrar</button></p>
+ 
+ </jw-modal>
+ 

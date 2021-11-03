@@ -1,7 +1,18 @@
-<app-main-buttons>
+<div class = "container1">
+    
+  <h1>Elija Accion</h1>
+ 
+</div>
+<div class="grupoBotones" >
+  <button class="btn"><a class="ref" routerLink="/hacer-pedidos">Realizar Pedido</a></button>
+  <button class="btn"><a class="ref" [routerLink]="['pedidos-historial']">Historia de pedidos</a></button>
+  <button class="btn"><a class="ref" [routerLink]="['pedidos-activos']">Pedidos Actuales</a></button>
 
-</app-main-buttons>
 
+</div>
+
+
+<!-- apartir de aca estaba-->
 <div class="col-md-5">
     <h3>Fecha: {{date}}</h3>
     

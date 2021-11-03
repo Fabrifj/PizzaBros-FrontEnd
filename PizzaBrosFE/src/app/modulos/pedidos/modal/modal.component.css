@@ -10,7 +10,7 @@ jw-modal .jw-modal {
     z-index: 1000;
     overflow: auto;
 }
-jw-modal .jw-modal .jw-modal-body {
+jw-modal .jw-modal .jw-modal-cuerpo {
     padding: 20px;
     background: #fff;
     margin: 40px;
