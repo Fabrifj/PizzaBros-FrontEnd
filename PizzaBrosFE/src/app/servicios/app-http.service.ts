@@ -38,7 +38,13 @@ export class AppHttpService {
   }
   
  
-
+  obtenerPedido2DiasT(body : any){
+    var inicio = body[0];
+    var final = body[1];
+    
+    var path = paths.obtenerPedidos2D + inicio + "/"+ final  ;
+    return this.http.get(path)
+  }
   
   obtenerPedido2DiasCli(body : any){
     var inicio = body[0];
