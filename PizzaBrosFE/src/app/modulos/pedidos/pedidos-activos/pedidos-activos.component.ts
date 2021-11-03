@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { AppHttpService } from 'src/app/servicios/app-http.service';
 
-import { ModalService } from '../modal/modal.service';
-import { TablaReusableComponent } from '../tabla-reusable/tabla-reusable.component';
+
 
 @Component({
   selector: 'app-pedidos-activos',
@@ -48,7 +47,7 @@ export class PedidosActivosComponent implements OnInit {
 
     filtros : [string,string,boolean][] = [['username','Bret',true], ['username','Antonette',true]];
 
-  constructor(public modalServicio:ModalService, private httpServicio:AppHttpService) { }
+  constructor( private httpServicio:AppHttpService) { }
 
   ngOnInit() {
 
@@ -95,7 +94,7 @@ export class PedidosActivosComponent implements OnInit {
         console.log("boton: ver pedido");
         this.pedidoSeleccionado = nombres[1];
         console.log(nombres[1])
-        this.modalServicio.abrir('modal-1');
+        //this.modalServicio.abrir('modal-1');
 
         this.pedidoSeleccionadoDatos = this.pedidoSeleccionado.Detalle;
 
@@ -104,7 +103,7 @@ export class PedidosActivosComponent implements OnInit {
 
       console.log("papa: cambiar estado");
       this.pedidoSeleccionado = nombres[1];
-      this.modalServicio.abrir('modal-2');
+      //this.modalServicio.abrir('modal-2');
       //this.cambiarEstado(names[1]);
 
     }
@@ -130,7 +129,7 @@ export class PedidosActivosComponent implements OnInit {
     
     
     
-    this.modalServicio.cerrar('modal-2');
+    //this.modalServicio.cerrar('modal-2');
     
 
   }

@@ -71,20 +71,22 @@
         
     </div>
     
-    <button class="submit"(click)="actualizarTable()">Ok</button>
+    <button class="submit"(click)="actualizarTabla()">Ok</button>
 </div>
 
 
 <div class="tablaUsuarios">
 
-
-    <app-tabla-reusable [datos]="datos" [columnas]="columnas" [nombreBotones]="nombreBotones" (parentMethod)="funcionBoton($event)" >
+ <!-- <app-tabla-reusable [datos]="datos" [columnas]="columnas" [nombreBotones]="nombreBotones" (parentMethod)="funcionBoton($event)" >
        
-    </app-tabla-reusable>
+    </app-tabla-reusable> -->
+    
+ <app-tabla-reusable></app-tabla-reusable>
  
+    
  </div>
 
- 
+ <!--  
 <jw-modal id="modal-1" >
     <h1>Informacion Pedido</h1>
    
@@ -96,4 +98,4 @@
     <p><button class="btnCerrar" (click)="modalServicio.cerrar('modal-1');">Cerrar</button></p>
  
  </jw-modal>
- 
+-->

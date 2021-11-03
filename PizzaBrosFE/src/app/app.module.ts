@@ -5,8 +5,6 @@ import { HeaderComponent } from './header/header.component';
 import { PBRoutersModule } from './pb-router/PB-routers.module';
 import { HttpClientModule } from '@angular/common/http';
 import { AppHttpService } from './servicios/app-http.service';
-import { ModalModule } from './modulos/pedidos/modal/modal.module';
-import { TablaReusableComponent } from './modulos/pedidos/tabla-reusable/tabla-reusable.component';
 import { PedidosComponent } from './modulos/pedidos/pedidos.component';
 import { InventarioComponent } from './modulos/inventario/inventario.component';
 import { ComprasComponent } from './modulos/inventario/compras/compras.component';
@@ -29,7 +27,6 @@ import { ComSubMenuComponent } from './shared-modules/list-sub-menu/com-sub-menu
     HeaderComponent,
     ListaArmadoPedidosComponent,
     InicioComponent,
-    TablaReusableComponent,
     PedidosComponent,
     HacerPedidoComponent,
     InfoClienteComponent,
@@ -41,15 +38,15 @@ import { ComSubMenuComponent } from './shared-modules/list-sub-menu/com-sub-menu
     ProductosComponent,
     BienesComponent,
     ListSubMenuComponent,
-    ComSubMenuComponent,
+    ComSubMenuComponent
+    
     
     
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
-    PBRoutersModule,
-    ModalModule 
+    PBRoutersModule
   ],
   
   providers: [AppHttpService],
