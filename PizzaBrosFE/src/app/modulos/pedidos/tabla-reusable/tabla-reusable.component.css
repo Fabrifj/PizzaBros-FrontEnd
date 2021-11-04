@@ -8,3 +8,9 @@
     overflow: scroll;
 
 }
+.botones{
+    border-radius: 6px;
+    background-color: brown;
+    color: cornsilk;
+
+}
