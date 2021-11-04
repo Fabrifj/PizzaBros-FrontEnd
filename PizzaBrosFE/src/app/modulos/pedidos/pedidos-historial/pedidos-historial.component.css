@@ -1,8 +1,63 @@
+*{
+    font-family: 'open sans';
+}
+
+/*CONTENEDOR FILTROS*/
+
+.contenedorFiltros {
+    display: grid;
+    /*border: 1px solid black;*/
+    border-radius: 5px;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+    gap: 0px 0px;
+    grid-auto-flow: row;
+    grid-template-areas:
+      "Filtro1 Filtro2";
+    height: 280px;
+    margin-top: -40px;
+    margin-left: 10px;
+    margin-right: 30px;
+  }
+.contenedorFiltros .submit {
+    background-color: rgba(241, 193, 35, 0.945);
+    width: 60px;
+    height: 30px;
+    margin-left: 100%;
+    margin-bottom: 3%;
+    border: 0px;
+    border-radius: 10px;
+}
+.Filtro1 { 
+    grid-area: Filtro1;
+ }
+  
+.Filtro2 { 
+    grid-area: Filtro2; 
+}
+
+#fechaInicio{
+
+    display: none;
+
+}
+#fechaDestino{
+
+    display: none;
+   
+}
+#clienteCampus{
+
+    display: none;
+}
+
+/*TABLA DE USUARIOS*/
+
+
+/*VENTANA CERRAR*/
 
 div{
     
-    
-    font-family: sans-serif;
     text-align: center;
     color:black;
     margin: 2px;
@@ -27,6 +82,7 @@ div{
     width: 100%;
 
 }
+
 .tablaPedidos{
 
     border-radius: 5px;
@@ -48,38 +104,4 @@ jw-modal btnCerrar{
 
 
 
-.contenedorFiltros {
-    display: grid;
-    border: 1px solid black;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr;
-    gap: 0px 0px;
-    grid-auto-flow: row;
-    grid-template-areas:
-      "Filtro1 Filtro2"
-      ;
 
-    height: 300px;
-
-  }
-  
-.Filtro1 { 
-    grid-area: Filtro1;
- }
-  
-.Filtro2 { grid-area: Filtro2; }
-
-#fechaInicio{
-
-    display: none;
-
-}
-#fechaDestino{
-
-    display: none;
-   
-}
-#clienteCampus{
-
-    display: none;
-}

@@ -6,6 +6,7 @@
     caption-side: top;
     margin-left: 10px;
     text-align: left;
+    overflow: scroll;
  }
 input{
     width: 50px;
