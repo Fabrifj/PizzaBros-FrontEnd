@@ -31,7 +31,7 @@ export class PedidosHistorialComponent implements OnInit {
     columnas = [
       {field:'NITCliente',header:'NIT de Cliente'},
       {field:'NombreCliente',header:'Nombre de Cliente'},
-      {field:'Precio',header:'Total'},
+      {field:'Precio',header:'Total Bs.'},
       {field:'Fecha',header:'Fecha'},
       {field:'Estado',header:'Estado'}
 

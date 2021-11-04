@@ -32,8 +32,9 @@ export class ModalComponent implements OnInit, OnDestroy {
         document.body.appendChild(this.elemento);
 
         //class="jw-modal-cuerpo">
-        //var altura = this.altura + "%";
-        //(<HTMLCollection>document.getElementsByClassName('jw-modal')).style.height = altura;
+       
+        
+        
         // close modal on background click
         //el esta solito
         this.elemento.addEventListener('click', (el: { target: { className: string; }; }) => {
@@ -54,7 +55,17 @@ export class ModalComponent implements OnInit, OnDestroy {
 
     // open modal
     abrir(): void {
-        
+         //cambiar altura
+         console.log("altura:" + this.altura);
+         var altura = this.altura + "%";
+         const elem = document.getElementsByClassName('jw-modal');
+         for (let i =0 ; i< elem.length ; i++){
+             const e = elem[i];
+             if(e instanceof HTMLElement){
+                 e.style.height = altura;
+             }
+ 
+         }
         this.elemento.style.display = 'block';
         document.body.classList.add('jw-modal-open');
     }

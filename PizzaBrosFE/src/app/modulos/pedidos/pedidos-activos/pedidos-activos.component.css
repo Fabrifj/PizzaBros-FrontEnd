@@ -1,7 +1,7 @@
 
 div{
     
-    border: 2px solid black;
+    border: 2px solid rgb(97, 62, 62);
     font-family: sans-serif;
     text-align: center;
     color:black;
@@ -41,4 +41,9 @@ jw-modal btnCerrar{
     height: 300px;
     width: 100%;
 
+}
+.boton{
+
+    height: 50px;
+    width: 70px;
 }

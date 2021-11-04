@@ -30,9 +30,9 @@
       
       <h1>Seguro que quiere cambiar estado de pedido?</h1>
       <p>{{pedidoSeleccionado.name}}</p>
-      <p><button class="btnCerrar" (click)="cambiarEstado(pedidoSeleccionado);">SI</button></p>
+      <p><button class="boton" id="btnCambiarEstado" (click)="cambiarEstado(pedidoSeleccionado);">SI</button></p>
    
-      <p><button class="btnCerrar" (click)="modalServicio.cerrar('modal-2');">Cancelar</button></p>
+      <p><button class="boton" id="btnCerrar" (click)="modalServicio.cerrar('modal-2');">Cancelar</button></p>
       
    </jw-modal>
 
