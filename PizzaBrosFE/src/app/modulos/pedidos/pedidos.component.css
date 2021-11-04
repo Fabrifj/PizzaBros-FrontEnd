@@ -1,0 +1,25 @@
+.ref{
+
+    text-decoration:none;
+    color: #000;
+}
+div{
+
+border: 1px solid black;
+
+}
+.btn{
+    margin: 5px;
+    width: 200px;
+    height: 50px;
+    font-size: 18px;
+}
+
+.col-md-5{
+
+
+    width:100%
+
+
+
+}

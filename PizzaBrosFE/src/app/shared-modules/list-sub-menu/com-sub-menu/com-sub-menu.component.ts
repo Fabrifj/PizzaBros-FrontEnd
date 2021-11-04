@@ -6,7 +6,7 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./com-sub-menu.component.css']
 })
 export class ComSubMenuComponent implements OnInit {
-  @Input() name: string ="";
+  @Input() subTitulo: string ="";
   @Input() index: number=0;
   constructor() { }
 

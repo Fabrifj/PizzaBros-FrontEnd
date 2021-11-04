@@ -1,0 +1,25 @@
+<p>mostrar-productos works!</p>
+<h3>Categorias: {{categoria}}</h3>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+            <div class="btn-group" role="group" aria-label="Basic outlined example">
+                <button type="button" class="btn btn-outline-primary" (click)="cambiarCategoria('Pizza')">Pizzas</button>
+                <button type="button" class="btn btn-outline-primary" (click)="cambiarCategoria('Refrescos')">Refrescos</button>
+                <button type="button" class="btn btn-outline-primary" (click)="cambiarCategoria('Extras')">Extras</button>
+            </div>
+		</div>
+	</div>
+	<br>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="list-group">
+				<app-lista-productos
+								*ngFor="let producEle of products; let i = index"
+								[product] = "producEle"
+								[index] = "i"
+								></app-lista-productos>
+			</div>
+		</div>
+	</div>
+</div>
