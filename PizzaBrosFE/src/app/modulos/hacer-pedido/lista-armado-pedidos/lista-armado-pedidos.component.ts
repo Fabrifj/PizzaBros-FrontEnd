@@ -24,12 +24,9 @@ export class ListaArmadoPedidosComponent implements OnInit,OnChanges {
         this.pedidos = newOrders;
       }
     )
-<<<<<<< HEAD:PizzaBrosFE/src/app/modules/do-order/lista-armado-pedidos/lista-armado-pedidos.component.ts
-    }
-=======
+    
   }
    //asdasdasda
->>>>>>> 51727b9f8585b403e0ce00225bdf3154508d793c:PizzaBrosFE/src/app/modulos/hacer-pedido/lista-armado-pedidos/lista-armado-pedidos.component.ts
   ngOnChanges(){
     this.pedidos = this.hacerPedidoServicio.obtenerPedidos();
     console.log("on changes listado");

@@ -198,11 +198,11 @@ export class PedidosHistorialComponent implements OnInit {
       }
       else{
         //solo un cliente especifico y una fecha
-        
+        newFechaD = fechaI + "T23:59:59";
         var body2:string[]; 
-        body2 = [newFechaI , NITCliente ];
+        body2 = [newFechaI , newFechaD,NITCliente ];
         
-        this.obtenerPedido1DiaCli(body2);
+        this.obtenerPedido2DiasCli(body2);
       }
 
 
