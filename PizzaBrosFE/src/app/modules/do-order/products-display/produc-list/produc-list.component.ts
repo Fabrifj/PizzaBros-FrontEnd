@@ -18,6 +18,6 @@ export class ProducListComponent implements OnInit {
   ngOnInit(): void {
   }
   addProduct(){
-    this.doOrderService.addOrder(this.product,2);
+    this.doOrderService.addOrder(this.product,1);
   }
 }
