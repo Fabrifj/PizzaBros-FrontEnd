@@ -9,12 +9,18 @@ jw-modal .jw-modal {
     left: 0;
     z-index: 1000;
     overflow: auto;
-}
-jw-modal .jw-modal .jw-modal-cuerpo {
     padding: 20px;
-    background: #fff;
+    background: white;
     margin: 40px;
-    width: 50%;
+    width: 60%;
+    height: 80%;
+    justify-content: center ;
+}
+jw-modal .jw-modal-cuerpo {
+    padding: 20px;
+    background: white;
+    margin: 40px;
+    width: 80%;
     height: 80%;
     justify-content: center ;
 }

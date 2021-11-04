@@ -32,7 +32,13 @@ jw-modal btnCerrar{
 .tablaPedidos{
 
     border-radius: 5px;
-    height: 80%;
+    height: 70%;
+    width: 100%;
+
+}
+.tablaConfirmacion{
+
+    height: 300px;
     width: 100%;
 
 }

@@ -10,6 +10,7 @@ import { ModalService } from './modal.service';
 })
 export class ModalComponent implements OnInit, OnDestroy {
     @Input() id: string = "";
+    @Input() altura : string = "";
     private elemento: any;
     
     object : any;
@@ -20,14 +21,19 @@ export class ModalComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         // ensure id attribute exists
+
         if (!this.id) {
             console.error('modal must have an id');
             return;
         }
 
+
         // move element to bottom of page (just before </body>) so it can be displayed above everything else
         document.body.appendChild(this.elemento);
 
+        //class="jw-modal-cuerpo">
+        //var altura = this.altura + "%";
+        //(<HTMLCollection>document.getElementsByClassName('jw-modal')).style.height = altura;
         // close modal on background click
         //el esta solito
         this.elemento.addEventListener('click', (el: { target: { className: string; }; }) => {

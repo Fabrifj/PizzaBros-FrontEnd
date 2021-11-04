@@ -12,7 +12,7 @@
  
  
  
-<jw-modal id="modal-1" >
+<jw-modal id="modal-1" altura="80" >
     <h1>Informacion Pedido</h1>
     <div class="tablaPedidos">
       <app-tabla-reusable [datos]="pedidoSeleccionadoDatos" [columnas]="pedidoSeleccionadoColumnas"  >
@@ -25,14 +25,18 @@
  
  </jw-modal>
  
- <jw-modal id="modal-2" >
-    
-    <h1>Seguro que quiere cambiar estado de pedido?</h1>
-    <p>{{pedidoSeleccionado.name}}</p>
-    <p><button class="btnCerrar" (click)="cambiarEstado(pedidoSeleccionado);">SI</button></p>
  
-    <p><button class="btnCerrar" (click)="modalServicio.cerrar('modal-2');">Cancelar</button></p>
+   <jw-modal id="modal-2" altura="30">
+      
+      <h1>Seguro que quiere cambiar estado de pedido?</h1>
+      <p>{{pedidoSeleccionado.name}}</p>
+      <p><button class="btnCerrar" (click)="cambiarEstado(pedidoSeleccionado);">SI</button></p>
+   
+      <p><button class="btnCerrar" (click)="modalServicio.cerrar('modal-2');">Cancelar</button></p>
+      
+   </jw-modal>
+
  
- </jw-modal>
+
  
  
