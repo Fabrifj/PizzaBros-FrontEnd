@@ -11,6 +11,7 @@ import { ModalService } from './modal.service';
 export class ModalComponent implements OnInit, OnDestroy {
     @Input() id: string = "";
     @Input() altura : string = "";
+    @Input() ancho : string = "";
     private elemento: any;
     
     object : any;
@@ -66,6 +67,20 @@ export class ModalComponent implements OnInit, OnDestroy {
              }
  
          }
+
+
+         //cambiar ancho
+         console.log("altura:" + this.ancho);
+         var ancho = this.ancho + "%";
+         const elem2 = document.getElementsByClassName('jw-modal');
+         for (let i =0 ; i< elem2.length ; i++){
+             const e = elem2[i];
+             if(e instanceof HTMLElement){
+                 e.style.width = ancho;
+             }
+ 
+         }
+
         this.elemento.style.display = 'block';
         document.body.classList.add('jw-modal-open');
     }
