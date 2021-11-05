@@ -327,11 +327,8 @@ app.post("/api/pedido", async (req, res) => {
     {
       "Fecha": firebase.firestore.Timestamp.fromDate(new Date(data.Fecha)),
       "Detalle": misProds,
-      "Cliente":
-      {
-        "Nombre":nombre,
-        "NIT":nit
-      },
+      "NITCliente": nit,
+      "NombreCliente": nombre,
       "IdEmpleado": data.IdEmpleado,
       "Precio": precioTotal,
       "Estado": data.Estado
