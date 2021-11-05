@@ -1,6 +1,6 @@
 
 <div class="tablaContenedora">
-    <table class="table table-bordered table-striped table-trapped">
+    <table class="table table-bordered  ">
         <thead>
             <tr>
 
@@ -13,7 +13,7 @@
             
             <tr *ngFor="let dato of datos" >
                 <td *ngFor= "let nombrecolumna of columnas">
-                    <span> {{dato[nombrecolumna.field]}}</span>
+                    <span class="letras"> {{dato[nombrecolumna.field]}}</span>
                     
                 </td>
 
