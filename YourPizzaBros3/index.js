@@ -273,7 +273,7 @@ app.get("/api/categoria/:nombre", async (req, res) => {
     "Cliente":
     {
       "Nombre":"Lopez",
-      "NIT":"4488"
+      "NIT": 4488
     },
     
     "IdEmpleado":"ABCRl949N5aptvF0M7vt",
@@ -327,7 +327,7 @@ app.post("/api/pedido", async (req, res) => {
     {
       "Fecha": firebase.firestore.Timestamp.fromDate(new Date(data.Fecha)),
       "Detalle": misProds,
-      "NITCliente": nit,
+      "NITCliente": parseInt(nit, 10),
       "NombreCliente": nombre,
       "IdEmpleado": data.IdEmpleado,
       "Precio": precioTotal,
