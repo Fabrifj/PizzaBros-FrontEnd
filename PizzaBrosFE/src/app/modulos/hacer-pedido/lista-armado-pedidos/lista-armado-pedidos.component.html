@@ -13,23 +13,17 @@
   <tbody>
     <tr 
     *ngFor="let pedidosEle of pedidos; let i = index">
-      <td><input class="quantity" id="id_cantidad" min="0" name="form-0-quantity" value={{pedidosEle.Cantidad}} type="number"></td>
+      <td><input class="quantity" id="amount" min="0" name="cantidad" value={{pedidosEle.Cantidad}} type="number" (click)="cambioCantidad(i)" #amountInput></td>
       <td>{{pedidosEle.Nombre}}</td>
       <td>{{pedidosEle.Tamano}}</td>
       <td>{{pedidosEle.Precio}}</td>
       <td>{{pedidosEle.PrecioT}}</td>
 
 
-      <button onclick="alert('Elimino un elemento');">-</button>
+      <button (click)="eliminarPedido(i)" >-</button>
+      
   </tr>
-  <!--<tr>
-      <td><input class="quantity" id="id_cantidad" min="0" name="form-0-quantity" value="1" type="number" (click)="updateCantidad()"></td>
-      <td>Napolitana</td>
-      <td>Tamaño</td>
-      <td>25</td>
-      <td>25</td>
-      <button onclick="alert('Elimino un elemento');">-</button>
-  </tr>-->
+
   </tbody> 
 </table>
 
@@ -37,8 +31,8 @@
   <tbody>
     <tr>
       <td>Total Articulos:</td>
-      <td style="text-align: 10px;">5</td>
-      <td style="text-align: right;">150 Bs.</td>
+      <td style="text-align: 10px;">{{cantidadPedidos}}</td>
+      <td style="text-align: right;">{{totalPrecio}} Bs.</td>
     </tr>
   </tbody>
 </table>

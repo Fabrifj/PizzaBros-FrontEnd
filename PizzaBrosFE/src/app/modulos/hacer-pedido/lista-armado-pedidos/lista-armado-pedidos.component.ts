@@ -1,4 +1,4 @@
-import { Component, OnInit ,OnChanges } from '@angular/core';
+import { Component, OnInit ,OnChanges, ElementRef, ViewChild } from '@angular/core';
 import { UnitOrderModel } from 'src/app/modelos/unitOrder.model';
 import { HacerPedidoService } from '../hacer-pedido.service';
 
@@ -8,7 +8,7 @@ import { HacerPedidoService } from '../hacer-pedido.service';
   styleUrls: ['./lista-armado-pedidos.component.css']
 })
 export class ListaArmadoPedidosComponent implements OnInit,OnChanges {
-
+  @ViewChild('amountInput', { static: false }) amount: ElementRef ;
 
   datos = ['hey','heo'];
   
@@ -16,12 +16,16 @@ export class ListaArmadoPedidosComponent implements OnInit,OnChanges {
   constructor( private hacerPedidoServicio:HacerPedidoService ) { }
 
   pedidos: UnitOrderModel[]=[];
+  cantidadPedidos: number = 0;
+  totalPrecio:number =0; 
 
   ngOnInit(): void {
     this.pedidos= this.hacerPedidoServicio.obtenerPedidos();
     this.hacerPedidoServicio.ordersChanged.subscribe(
       (newOrders:  UnitOrderModel[])=>{
         this.pedidos = newOrders;
+        this.calcularActualizacion();
+
       }
     )
     
@@ -29,18 +33,38 @@ export class ListaArmadoPedidosComponent implements OnInit,OnChanges {
    //asdasdasda
   ngOnChanges(){
     this.pedidos = this.hacerPedidoServicio.obtenerPedidos();
+    this.calcularActualizacion();
     console.log("on changes listado");
     console.log(this.pedidos);
 
 
 
   }
+  calcularActualizacion(){
+    this.cantidadPedidos = 0;
+    this.totalPrecio =0; 
+    for (let index = 0; index < this.pedidos.length; index++) {
+      this.cantidadPedidos += this.pedidos[index].Cantidad;
+      console.log(this.cantidadPedidos);
+      this.totalPrecio += this.pedidos[index].PrecioT;  
+    }
+  }
+
   saveOrders(item:any){
     this.pedidos = item;
 
   }
+  cambioCantidad(i:number ){
+    this.pedidos[i].Cantidad = +this.amount.nativeElement.value;
+    this.pedidos[i].PrecioT = this.pedidos[i].Cantidad * this.pedidos[i].Precio; 
+    this.calcularActualizacion();
+  }
 
-  
-  
+  eliminarPedido(i:number){
+    let foo_object  = this.pedidos[i]// Item to remove
+    this.pedidos = this.pedidos.filter(obj => obj !== foo_object);
+    alert('Elimino un elemento');
+    this.calcularActualizacion();
+  }
 
 }

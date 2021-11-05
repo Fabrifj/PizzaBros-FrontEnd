@@ -1,13 +1,20 @@
-<div class="Datos del cliente">
-    <form class="row g-3">
-        <div>
-          <label>Cliente</label>
-          <input type="text" id=Nombre>
-        </div>
-        
-        <div>
-          <label>NIT</label>
-          <input type="text" id=Nit>
-        </div>
-      </form>
+
+<div class="containerPedidos">
+	<div class="row">
+		<div class="col-md-8">
+      <div>
+        <label class="labelPedidos">Client</label>
+        <input type="text" class="inputPedidos" id=Nombre #nombreInput>
+      </div>
+      
+      <div>
+        <label class="labelPedidos">NIT</label>
+        <input type="number" class="inputPedidos" id=Nit #nitInput>
+      </div>
+		</div>
+		<div class="col-md-4">
+      <button type="submit" class="box" (click)="registarPedido()">Registrar Venta </button>
+
+		</div>
+	</div>
 </div>

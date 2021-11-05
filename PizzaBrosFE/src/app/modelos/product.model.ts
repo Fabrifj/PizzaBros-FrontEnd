@@ -1,5 +1,5 @@
 export class productModel {
-    public id: number;
+    public Id: number;
     public Nombre: string;
     // public lengt: string
     public Tamano: string;
@@ -9,7 +9,7 @@ export class productModel {
 
   
     constructor(id: number, name: string, tam: string, precio:number,costo: number,  image: string) {
-      this.id = id;
+      this.Id = id;
       this.Nombre = name;
       this.Tamano = tam;
       this.Precio = precio;
