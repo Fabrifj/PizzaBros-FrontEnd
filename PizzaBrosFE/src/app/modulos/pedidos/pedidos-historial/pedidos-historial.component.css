@@ -19,14 +19,46 @@
     margin-left: 10px;
     margin-right: 30px;
   }
+
+h3{
+    font-size: 30px;
+    margin-top: 1px;
+}
+
+input{
+    margin: 5px;
+}
+
+label {
+    font-size: 15px;
+}
+
+form{
+    margin-top: -15px;
+}
+
+.btnCerrar
+{
+    background-color: whitesmoke;
+    border-radius: 10px;
+    margin-top: 10px;
+
+    position: absolute;
+    width: 100px;
+    height: 40px;
+    margin-left: 31%;
+    font-size: 20px;
+}
+
 .contenedorFiltros .submit {
     background-color: rgba(241, 193, 35, 0.945);
-    width: 60px;
-    height: 30px;
+    width: 85px;
+    height: 32px;
     margin-left: 100%;
     margin-bottom: 3%;
     border: 0px;
     border-radius: 10px;
+    font-size: 20px;
 }
 .Filtro1 { 
     grid-area: Filtro1;
@@ -51,7 +83,15 @@
     display: none;
 }
 
-/*TABLA DE USUARIOS*/
+/*TABLA DE INFORMACION PEDIDOS*/
+h1{
+    margin-top: -40px;
+    font-size: 50px;
+}
+
+app-tabla-reusable {
+    color: black;
+}
 
 
 /*VENTANA CERRAR*/

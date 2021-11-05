@@ -10,7 +10,8 @@ jw-modal .jw-modal {
     z-index: 1000;
     overflow: auto;
     padding: 20px;
-    background: white;
+    background: url(https://st.depositphotos.com/3470617/4920/v/950/depositphotos_49203401-stock-illustration-pizza-background.jpg);
+    background-size: cover;
     margin: 40px;
     width: 60%;
     height: 80%;
@@ -19,11 +20,11 @@ jw-modal .jw-modal {
 }
 jw-modal .jw-modal-cuerpo {
     padding: 20px;
-    background: white;
+    background:transparent;
     margin: 40px;
     width: 80%;
     height: 80%;
-    justify-content: center ;
+    justify-content: center;
 }
 jw-modal .jw-modal-background {
     position: fixed;

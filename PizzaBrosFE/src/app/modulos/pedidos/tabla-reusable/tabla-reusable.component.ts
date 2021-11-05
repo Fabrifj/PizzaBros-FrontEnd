@@ -11,6 +11,7 @@ export class TablaReusableComponent implements OnInit {
   @Input() datos : any;
   @Input() columnas: any;
   @Input() nombreBotones : string[] | undefined;
+  @Input() colorLetra : string="cornsilk";
 
   //['name','kevin']
   //bool yes, solo eso, bool no, quitar eso
@@ -18,6 +19,15 @@ export class TablaReusableComponent implements OnInit {
   @Output() parentMethod = new EventEmitter<any>();
   constructor() { }
   ngOnInit()  {
+         const elem = document.getElementsByClassName('tablaContenedora');
+         for (let i =0 ; i< elem.length ; i++){
+             const e = elem[i];
+             if(e instanceof HTMLElement){
+                 e.style.color = this.colorLetra;
+             }
+ 
+         }
+
   }
   botonPresionado(nombreFuncion:string,objecto:any){
    
