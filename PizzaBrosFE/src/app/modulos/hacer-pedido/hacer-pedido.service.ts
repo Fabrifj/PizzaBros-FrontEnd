@@ -55,8 +55,10 @@ export class HacerPedidoService {
 
   }
   crearPedido( cliente:Cliente){
-    let date=new Date();
-    let pedidoFinal = new FinalOrderModel(1,123,cliente,date.toISOString(),"Preparando",this.pedidos);
+    let today=new Date();
+    let date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+
+    let pedidoFinal = new FinalOrderModel(1,123,cliente,date,"Preparando",this.pedidos);
     this.crearPedidoHttp(pedidoFinal);
   }
 }
