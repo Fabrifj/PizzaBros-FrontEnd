@@ -270,13 +270,17 @@ app.get("/api/categoria/:nombre", async (req, res) => {
         "Cantidad":2
       }
     ],
-    "NombreCliente":"Lopez",
-    "NITCliente": 77777,
+    "Cliente":
+    {
+      "Nombre":"Lopez",
+      "NIT":"4488"
+    },
+    
     "IdEmpleado":"ABCRl949N5aptvF0M7vt",
     "Estado":"Entregado"
   }
 */
-app.post("/api/crearPedido", async (req, res) => {
+app.post("/api/pedido", async (req, res) => {
   const data = req.body
   //buscamos todos los productos de la lista
   var misProds = []
@@ -308,8 +312,8 @@ app.post("/api/crearPedido", async (req, res) => {
 
   );
   //Verificamos si el cliente que nos pasan esta ya registrado, si no lo esta, lo registramos
-  const nit = data.NITCliente;
-  const nombre = data.NombreCliente;
+  const nit = data.Cliente.NIT;
+  const nombre = data.Cliente.Nombre;
   var respuesta = null;
   const dataCliente =
   {
@@ -323,8 +327,11 @@ app.post("/api/crearPedido", async (req, res) => {
     {
       "Fecha": firebase.firestore.Timestamp.fromDate(new Date(data.Fecha)),
       "Detalle": misProds,
-      "NITCliente": nit,
-      "NombreCliente": nombre,
+      "Cliente":
+      {
+        "Nombre":nombre,
+        "NIT":nit
+      },
       "IdEmpleado": data.IdEmpleado,
       "Precio": precioTotal,
       "Estado": data.Estado
