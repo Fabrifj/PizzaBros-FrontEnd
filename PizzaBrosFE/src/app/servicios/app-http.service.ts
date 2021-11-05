@@ -19,8 +19,11 @@ export class AppHttpService {
     return this.http.get(paths.obtenerProductos)
   }
 
-  crearPedidos(body:any) {
-    return this.http.post(paths.postPedido,body)
+  crearPedido(body:any) {
+    console.log("ssss");
+    return  this.http.post(paths.crearPedido,body)
+   
+
   }
   obtenerPedidos() {
     return this.http.get(paths.obtenerPedidos)

@@ -2,7 +2,7 @@ import { Cliente } from "./cliente";
 import { UnitOrderModel } from "./unitOrder.model";
 
 export class FinalOrderModel {
-    public id: number;
+    public Id: number;
     public Cliente: Cliente;
     public IdEmpleado: number;
     public Fecha: string;
@@ -10,7 +10,7 @@ export class FinalOrderModel {
     public Detalle: UnitOrderModel[];
   
     constructor(id:number, idEmpleado: number, cliente:Cliente, fecha:string, estado:string, detalle: UnitOrderModel[]) {
-      this.id = id;
+      this.Id = id;
       this.IdEmpleado = idEmpleado;
       this.Cliente = cliente;
       this.Fecha = fecha;

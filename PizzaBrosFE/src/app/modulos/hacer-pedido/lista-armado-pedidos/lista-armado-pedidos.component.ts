@@ -59,7 +59,12 @@ export class ListaArmadoPedidosComponent implements OnInit,OnChanges {
     this.pedidos[i].PrecioT = this.pedidos[i].Cantidad * this.pedidos[i].Precio; 
     this.calcularActualizacion();
   }
-  
-  
+
+  eliminarPedido(i:number){
+    let foo_object  = this.pedidos[i]// Item to remove
+    this.pedidos = this.pedidos.filter(obj => obj !== foo_object);
+    alert('Elimino un elemento');
+    this.calcularActualizacion();
+  }
 
 }

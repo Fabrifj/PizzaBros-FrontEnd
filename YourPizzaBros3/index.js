@@ -266,7 +266,7 @@ app.get("/api/categoria/:nombre", async (req, res) => {
     "Detalle": 
     [
       {
-        "IdProducto":"xHsRl949N5aptvF0M7vt",
+        "Id":"xHsRl949N5aptvF0M7vt",
         "Cantidad":2
       }
     ],
@@ -281,6 +281,7 @@ app.get("/api/categoria/:nombre", async (req, res) => {
   }
 */
 app.post("/api/pedido", async (req, res) => {
+  console.log('hola')
   const data = req.body
   //buscamos todos los productos de la lista
   var misProds = []
@@ -299,7 +300,7 @@ app.post("/api/pedido", async (req, res) => {
           console.log('Encontramos al producto: ', prd.IdProducto);
           var miProd = {
             "Cantidad": prd.Cantidad,
-            "Id": prd.IdProducto,
+            "Id": prd.Id,
             "Nombre": querySnapshot.Nombre,
             "Precio": (parseInt(prd.Cantidad, 10) * Number(querySnapshot.Precio))
           }

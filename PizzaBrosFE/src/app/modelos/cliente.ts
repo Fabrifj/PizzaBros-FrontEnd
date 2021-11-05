@@ -1,12 +1,12 @@
 export class Cliente {
     public Nombre: string;
-    public nit: number;
+    public NIT: number;
 
 
   
     constructor(name: string, nit: number) {
       this.Nombre = name;
-      this.nit = nit;
+      this.NIT = nit;
     
     }
   }

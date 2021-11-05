@@ -20,16 +20,10 @@
       <td>{{pedidosEle.PrecioT}}</td>
 
 
-      <button onclick="alert('Elimino un elemento');">-</button>
+      <button (click)="eliminarPedido(i)" >-</button>
+      
   </tr>
-  <!--<tr>
-      <td><input class="quantity" id="id_cantidad" min="0" name="form-0-quantity" value="1" type="number" (click)="updateCantidad()"></td>
-      <td>Napolitana</td>
-      <td>Tamaño</td>
-      <td>25</td>
-      <td>25</td>
-      <button onclick="alert('Elimino un elemento');">-</button>
-  </tr>-->
+
   </tbody> 
 </table>
 

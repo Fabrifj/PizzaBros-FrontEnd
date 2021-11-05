@@ -1,5 +1,6 @@
 {
     "obtenerProductos":"/api/productos",
+    "crearPedido":"/api/pedido",
     "getIngredientes": "/api/getIngredientes",
     "getClientes": "/api/getClientes",
     "postCliente": "/api/postCliente",
