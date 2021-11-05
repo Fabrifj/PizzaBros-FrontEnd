@@ -13,7 +13,7 @@
   <tbody>
     <tr 
     *ngFor="let pedidosEle of pedidos; let i = index">
-      <td><input class="quantity" id="id_cantidad" min="0" name="form-0-quantity" value={{pedidosEle.Cantidad}} type="number"></td>
+      <td><input class="quantity" id="amount" min="0" name="cantidad" value={{pedidosEle.Cantidad}} type="number" (click)="cambioCantidad(i)" #amountInput></td>
       <td>{{pedidosEle.Nombre}}</td>
       <td>{{pedidosEle.Tamano}}</td>
       <td>{{pedidosEle.Precio}}</td>
@@ -29,8 +29,8 @@
   <tbody  style ="font-size: 20px;">
     <tr>
       <td>Total Articulos:</td>
-      <td style="text-align: 10px;">5</td>
-      <td style="text-align: right;">150 Bs.</td>
+      <td style="text-align: 10px;">{{cantidadPedidos}}</td>
+      <td style="text-align: right;">{{totalPrecio}} Bs.</td>
     </tr>
   </tbody>
 </table>

@@ -23,6 +23,7 @@ import { TablaReusableComponent } from './modulos/pedidos/tabla-reusable/tabla-r
 import { PedidosActivosComponent } from './modulos/pedidos/pedidos-activos/pedidos-activos.component';
 import { PedidosHistorialComponent } from './modulos/pedidos/pedidos-historial/pedidos-historial.component';
 import { ModalModule } from './modulos/pedidos/modal/modal.module';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,7 @@ import { ModalModule } from './modulos/pedidos/modal/modal.module';
     ModalModule
   ],
   
-  providers: [AppHttpService],
+  providers: [AppHttpService,DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -19,6 +19,6 @@ export class ListaProductosComponent implements OnInit {
   ngOnInit(): void {
   }
   anhadirProducto(){
-    this.hacerPedidoServicio.addOrder(this.product,2);
+    this.hacerPedidoServicio.addOrder(this.product,1);
   }
 }

@@ -1,16 +1,18 @@
 import { Injectable } from '@angular/core';
 import { EventEmitter } from '@angular/core';
+import { Cliente } from 'src/app/modelos/cliente';
+import { FinalOrderModel } from 'src/app/modelos/finalOrder';
 import { productModel } from 'src/app/modelos/product.model';
 import { UnitOrderModel } from 'src/app/modelos/unitOrder.model';
 import { AppHttpService } from 'src/app/servicios/app-http.service';
-
+import { DatePipe } from '@angular/common'
 
 @Injectable({
   providedIn: 'root'
 })
 export class HacerPedidoService {
 
-  constructor(private httpService: AppHttpService) {
+  constructor(private httpService: AppHttpService,private datepipe: DatePipe) {
     this.obtenerProductosHttp();
   }
 
@@ -21,14 +23,19 @@ export class HacerPedidoService {
     this.obtenerProductosHttp();
 
   }
+  
   obtenerProductosHttp() {
-    this.httpService.getProducts()
+    this.httpService.obtenerProductos()
       .subscribe((jsonFile) => {
         console.log(jsonFile);
         this.productos = <productModel[]>jsonFile;
         console.log(this.productos[0]);
 
       });
+  }
+  crearPedidoHttp(pedidoFinal: FinalOrderModel){
+    console.log(pedidoFinal);
+    this.httpService.crearPedidos(pedidoFinal);
   }
   obtenerProductos() {
     return this.productos.slice();
@@ -46,5 +53,10 @@ export class HacerPedidoService {
     console.log("add order");
     this.ordersChanged.emit(this.obtenerPedidos());
 
+  }
+  crearPedido( cliente:Cliente){
+    let date=new Date();
+    let pedidoFinal = new FinalOrderModel(1,123,cliente,date.toISOString(),"Preparando",this.pedidos);
+    this.crearPedidoHttp(pedidoFinal);
   }
 }

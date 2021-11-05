@@ -14,12 +14,13 @@ export class AppHttpService {
   constructor( private http: HttpClient) { }
 
   defUrl = "/api/";
-  getProducts() {
-    console.log(paths.getProducts)
-    return this.http.get(paths.getProducts)
+  obtenerProductos() {
+    console.log(paths.obtenerProductos)
+    return this.http.get(paths.obtenerProductos)
   }
-  crearPedidos(body:undefined) {
-    return this.http.get(paths.postPedido,body)
+
+  crearPedidos(body:any) {
+    return this.http.post(paths.postPedido,body)
   }
   obtenerPedidos() {
     return this.http.get(paths.obtenerPedidos)

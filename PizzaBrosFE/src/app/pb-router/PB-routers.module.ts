@@ -15,7 +15,7 @@ import { TablaReusableComponent } from '../modulos/pedidos/tabla-reusable/tabla-
 
 
 const appRoutes: Routes = [
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: '', redirectTo: '/inicio', pathMatch: 'full' },
   {
     path: 'inicio',
     component: InicioComponent,

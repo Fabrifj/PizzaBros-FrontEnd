@@ -1,5 +1,5 @@
 {
-    "getProducts":"/api/getProductos",
+    "obtenerProductos":"/api/productos",
     "getIngredientes": "/api/getIngredientes",
     "getClientes": "/api/getClientes",
     "postCliente": "/api/postCliente",
@@ -10,7 +10,7 @@
     "getProductoById":"/api/getProducto/Id/:id",
     "getProductoByNombre":"/api/getProducto/Nombre/:nombre",
     "obtenerPedidos":"/api/pedidos",
-    "postPedido":"/api/postPedido",
+    "postPedido":"/api/crearPedido",
     "obtenerPedidos2D":"/api/pedidos2Fechas/", 
     "obtenerPedidos2DCli":"/api/pedidos2FechasNITCliente/",
     "actualizarPedidoEstado":"/api/pedidoEstado",
