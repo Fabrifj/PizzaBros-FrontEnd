@@ -31,7 +31,7 @@ export class PedidosHistorialComponent implements OnInit {
     columnas = [
       {field:'NITCliente',header:'NIT de Cliente'},
       {field:'NombreCliente',header:'Nombre de Cliente'},
-      {field:'Precio',header:'Total'},
+      {field:'Precio',header:'Total Bs.'},
       {field:'Fecha',header:'Fecha'},
       {field:'Estado',header:'Estado'}
 
@@ -198,11 +198,11 @@ export class PedidosHistorialComponent implements OnInit {
       }
       else{
         //solo un cliente especifico y una fecha
-        
+        newFechaD = fechaI + "T23:59:59";
         var body2:string[]; 
-        body2 = [newFechaI , NITCliente ];
+        body2 = [newFechaI , newFechaD,NITCliente ];
         
-        this.obtenerPedido1DiaCli(body2);
+        this.obtenerPedido2DiasCli(body2);
       }
 
 

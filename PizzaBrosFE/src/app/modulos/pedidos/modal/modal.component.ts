@@ -10,6 +10,8 @@ import { ModalService } from './modal.service';
 })
 export class ModalComponent implements OnInit, OnDestroy {
     @Input() id: string = "";
+    @Input() altura : string = "";
+    @Input() ancho : string = "";
     private elemento: any;
     
     object : any;
@@ -20,14 +22,20 @@ export class ModalComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         // ensure id attribute exists
+
         if (!this.id) {
             console.error('modal must have an id');
             return;
         }
 
+
         // move element to bottom of page (just before </body>) so it can be displayed above everything else
         document.body.appendChild(this.elemento);
 
+        //class="jw-modal-cuerpo">
+       
+        
+        
         // close modal on background click
         //el esta solito
         this.elemento.addEventListener('click', (el: { target: { className: string; }; }) => {
@@ -48,7 +56,31 @@ export class ModalComponent implements OnInit, OnDestroy {
 
     // open modal
     abrir(): void {
-        
+         //cambiar altura
+         console.log("altura:" + this.altura);
+         var altura = this.altura + "%";
+         const elem = document.getElementsByClassName('jw-modal');
+         for (let i =0 ; i< elem.length ; i++){
+             const e = elem[i];
+             if(e instanceof HTMLElement){
+                 e.style.height = altura;
+             }
+ 
+         }
+
+
+         //cambiar ancho
+         console.log("altura:" + this.ancho);
+         var ancho = this.ancho + "%";
+         const elem2 = document.getElementsByClassName('jw-modal');
+         for (let i =0 ; i< elem2.length ; i++){
+             const e = elem2[i];
+             if(e instanceof HTMLElement){
+                 e.style.width = ancho;
+             }
+ 
+         }
+
         this.elemento.style.display = 'block';
         document.body.classList.add('jw-modal-open');
     }

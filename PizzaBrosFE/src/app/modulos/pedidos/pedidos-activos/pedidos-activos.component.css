@@ -1,15 +1,56 @@
 
 div{
-    
-    border: 2px solid black;
-    font-family: sans-serif;
-    text-align: center;
-    color:black;
     margin: 2px;
     padding: 3px;
 }
 
+*{
+    font-family: 'open sans';
+}
 
+h1{
+    margin-top: -40px;
+    font-size: 50px;
+}
+
+h2{
+    font-size: 40px;
+    margin-top: -50px;
+}
+
+.boton {
+    background-color: whitesmoke;
+    border-radius: 10px;
+    margin-top: 20px
+}
+
+#btnCambiarEstado{
+    position: absolute;
+    width: 60px;
+    height: 40px;
+    margin-left: 21% ;
+    font-size: 20px;
+}
+
+#btnCerrar{
+    position: absolute;
+    width: 110px;
+    height: 40px;
+    margin-left: 43% ;
+    font-size: 25px;
+}
+
+.btnCerrar{
+    background-color: whitesmoke;
+    border-radius: 10px;
+    margin-top: 10px;
+
+    position: absolute;
+    width: 100px;
+    height: 40px;
+    margin-left: 31%;
+    font-size: 20px;
+}
 
 .tablaUsuarios{
 
@@ -32,7 +73,18 @@ jw-modal btnCerrar{
 .tablaPedidos{
 
     border-radius: 5px;
-    height: 80%;
+    height: 70%;
     width: 100%;
 
+}
+.tablaConfirmacion{
+
+    height: 300px;
+    width: 100%;
+
+}
+.boton{
+
+    height: 50px;
+    width: 70px;
 }

@@ -28,6 +28,10 @@ export class ListaArmadoPedidosComponent implements OnInit,OnChanges {
 
       }
     )
+<<<<<<< HEAD
+=======
+    
+>>>>>>> ac495eed9853406e0720b3250b662340bd4711e4
   }
    //asdasdasda
   ngOnChanges(){

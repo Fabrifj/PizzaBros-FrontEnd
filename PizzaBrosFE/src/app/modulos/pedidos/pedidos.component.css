@@ -1,25 +1,52 @@
+*{
+	font-family: 'open sans';
+    margin-left: 7px;
+}
+
 .ref{
 
     text-decoration:none;
     color: #000;
+    font-size: 120%;
 }
-div{
 
-border: 1px solid black;
-
+h1{
+    color: blanchedalmond;
+    font-size: 40px;
+    padding-top: 10px;
 }
+h3 {
+    position: absolute;
+    color: blanchedalmond ;
+    top: -129px; 
+    right: 3%;
+    font-size: 40px;
+}
+.fondo {
+    width: 115%;
+	height: 900px;
+    margin-left: -7%;
+    margin-top: -40px;
+	padding-bottom: 20px;
+	background: url(https://comingsoon13.files.wordpress.com/2012/05/fondo-madera-marron.jpg);
+	background-size: cover;
+	background-attachment: fixed;
+	position: relative;
+}
+
+
 .btn{
     margin: 5px;
     width: 200px;
     height: 50px;
     font-size: 18px;
+    background-color: rgb(218, 75, 32);
 }
 
 .col-md-5{
-
-
-    width:100%
-
-
-
+    /*border: 2px solid black;
+    border-radius: 5px;*/
+    width: 100%;
+    height: 90%;
+    padding: 15px;
 }
