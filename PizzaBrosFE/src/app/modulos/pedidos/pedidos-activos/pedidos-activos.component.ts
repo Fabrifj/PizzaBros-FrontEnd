@@ -103,6 +103,10 @@ export class PedidosActivosComponent implements OnInit {
 
         this.pedidoSeleccionadoDatos = this.pedidoSeleccionado.Detalle;
 
+
+
+        //inicialize tabla dos
+        
     }
     else{
 

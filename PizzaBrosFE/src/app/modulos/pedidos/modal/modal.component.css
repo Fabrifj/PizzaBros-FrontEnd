@@ -25,6 +25,7 @@ jw-modal .jw-modal-cuerpo {
     width: 80%;
     height: 80%;
     justify-content: center;
+    
 }
 jw-modal .jw-modal-background {
     position: fixed;
