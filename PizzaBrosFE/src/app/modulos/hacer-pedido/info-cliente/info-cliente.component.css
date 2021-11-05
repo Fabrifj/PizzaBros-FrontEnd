@@ -1,10 +1,14 @@
-<<<<<<< HEAD
 .containerPedidos{
 	width:500px;
-=======
+    width:100%;
+	padding:1%;
+	/*border-radius:10px;*/
+	margin-left: 10px;
+	/*background-color:#b6a5a5fb;*/
+	margin-top: 20px;
+}
 form{
 	width:100%;
->>>>>>> ac495eed9853406e0720b3250b662340bd4711e4
 	padding:1%;
 	/*border-radius:10px;*/
 	margin-left: 10px;
@@ -24,7 +28,6 @@ form input{
 	border: 0;
 	margin: 10px;
 }
-<<<<<<< HEAD
 form button{
     height:12%; 
     width:10%;  
@@ -65,5 +68,3 @@ form button{
     border-radius: 10px;
     border: 1px;
  }
-=======
->>>>>>> ac495eed9853406e0720b3250b662340bd4711e4
