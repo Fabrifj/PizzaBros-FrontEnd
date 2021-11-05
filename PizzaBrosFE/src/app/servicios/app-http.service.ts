@@ -43,9 +43,11 @@ export class AppHttpService {
     
     return this.http.get(paths.getPedidosBetween2DatesClientNIT,body)
   }
-<<<<<<< HEAD:PizzaBrosFE/src/app/services/app-http.service.ts
+
   getOrder1dayClient(body:any){
-=======
+
+    return this.http.get(paths.getPedidoFechaNIT,body)
+  }
   getOrderB2datesAll(body : any){
     var inicio = body[0];
     var final = body[1];
@@ -65,10 +67,7 @@ export class AppHttpService {
     console.log(path);
     return this.http.get(path )
   }
->>>>>>> 51727b9f8585b403e0ce00225bdf3154508d793c:PizzaBrosFE/src/app/servicios/app-http.service.ts
 
-    return this.http.get(paths.getPedidoFechaNIT,body)
-  }
   getPedidosCliente(nitCliente:any){
     let path = paths.getPedidosCliente + nitCliente;
     console.log(path);
