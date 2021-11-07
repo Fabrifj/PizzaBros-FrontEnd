@@ -71,6 +71,12 @@ export class AppHttpService {
   }
 
    
-
+///ingredientrs
+obtenerIngredientes() {
+  return this.http.get(paths.obtenerIngredientes)
+}
+crearIngrediente(body:any) {
+  return this.http.post(paths.crearIngrediente,body)
+}
   
 }

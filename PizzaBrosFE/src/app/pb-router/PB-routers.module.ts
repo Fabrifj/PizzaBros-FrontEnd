@@ -10,7 +10,7 @@ import { ProductosComponent } from '../modulos/inventario/productos/productos.co
 import { PedidosActivosComponent } from '../modulos/pedidos/pedidos-activos/pedidos-activos.component';
 import { PedidosHistorialComponent } from '../modulos/pedidos/pedidos-historial/pedidos-historial.component';
 import { PedidosComponent } from '../modulos/pedidos/pedidos.component';
-import { TablaReusableComponent } from '../modulos/pedidos/tabla-reusable/tabla-reusable.component';
+import { TablaReusableComponent } from '../shared-modules/tabla-reusable/tabla-reusable.component';
 
 
 

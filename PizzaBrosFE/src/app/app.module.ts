@@ -19,11 +19,12 @@ import { MostrarProductosComponent } from './modulos/hacer-pedido/mostrar-produc
 import { ListaProductosComponent } from './modulos/hacer-pedido/mostrar-productos/lista-productos/lista-productos.component';
 import { ListSubMenuComponent } from './shared-modules/list-sub-menu/list-sub-menu.component';
 import { ComSubMenuComponent } from './shared-modules/list-sub-menu/com-sub-menu/com-sub-menu.component';
-import { TablaReusableComponent } from './modulos/pedidos/tabla-reusable/tabla-reusable.component';
+import { TablaReusableComponent } from './shared-modules/tabla-reusable/tabla-reusable.component';
 import { PedidosActivosComponent } from './modulos/pedidos/pedidos-activos/pedidos-activos.component';
 import { PedidosHistorialComponent } from './modulos/pedidos/pedidos-historial/pedidos-historial.component';
-import { ModalModule } from './modulos/pedidos/modal/modal.module';
+import { ModalModule } from './shared-modules/modal/modal.module';
 import { DatePipe } from '@angular/common';
+
 
 @NgModule({
   declarations: [
