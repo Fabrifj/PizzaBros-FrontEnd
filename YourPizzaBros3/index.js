@@ -11,6 +11,7 @@ const producto = database.producto;
 const categoria = database.categoria;
 const cliente = database.cliente;
 const pedido = database.pedido;
+const bien = database.bien;
 const firebase = database.firebase;
 
 //const { async } = require('@firebase/util')
@@ -73,6 +74,15 @@ app.get("/api/ingrediente/:nombre", async (req, res) => {
   res.send(respuesta);
 });
 
+//Actualizar Ingrediente
+app.put("/api/ingrediente/:nombre", async (req, res) =>{
+  var nombreIng = req.params.nombre
+  var data = req.params.body
+
+  // data = {data}
+  const ref = await bien.where('Nombre', '==', nombreIng).set(data, { merge: true });
+  res.send({ msg: "Ingrediente actualizado" })
+})
 
 /*===================================
           CRUD PRODUCTOS
@@ -565,6 +575,72 @@ app.get("/api/getPedidosCliente/nit/:nit", async (req, res) => {
 
   res.send(list);
 });
+
+
+/*===================================
+          CRUD BIENES
+//===================================*/
+
+//CrearBien
+//Formato del bien en el Body del request:
+// {
+//   "Cantidad": 5,
+//   "Descripcion": "Objeto para tal cosa",
+//   "Nombre": "Mesa",
+//   "PrecioUnidad": 20,
+//   "UnidadMedida": "Unidades"
+// }
+
+app.post("/api/bien", async (req, res) => {
+  const data = req.body
+  console.log("Informacion del Bien ", data)
+  await bien.add(data)
+  res.send({ msg: "Bien agregado" })
+})
+
+//ObtenerBien
+async function obtenerBien() {
+  const snapshot = await bien.get();
+  const list = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+  return list;
+}
+app.get("/api/bienes", async (req, res) => {
+  const list = await obtenerBien();
+  res.send(list);
+});
+
+//ObtenerBienNombre
+async function obtenerBienNombre(nombreBien) {
+
+  let query = await bien.where('Nombre', '==', nombreBien);
+  let querySnapshot = await query.get();
+  let respuesta = null;
+
+  if (querySnapshot.empty) {
+    console.log(`No encontramos el Bien: ${nombreBien}`);
+
+  } else {
+    console.log('Encontramos el Bien: ', nombreBien);
+    const list = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+    respuesta = list
+  }
+  return respuesta;
+}
+app.get("/api/bien/:nombre", async (req, res) => {
+  var nombreBien = req.params.nombre
+  var respuesta = await obtenerBienNombre(nombreBien);
+  res.send(respuesta);
+});
+
+//Actualizar Bien
+app.put("/api/bien/:nombre", async (req, res) =>{
+  var nombreBien = req.params.nombre
+  var data = req.params.body
+
+  // data = {data}
+  const ref = await bien.where('Nombre', '==', nombreBien).set(data, { merge: true });
+  res.send({ msg: "Bien actualizado" })
+})
 
 /////////
 app.listen(4000, () => console.log("Up and Running on 4000"));
