@@ -168,7 +168,7 @@ export class IngredientesComponent implements OnInit {
     var nuevoValorUnidad = (<HTMLInputElement>document.getElementById("valorUnidadCrear")).value;
 
     //let body = JSON.stringify({ IdPedido: pedido.id , Estado: "Entregado"})
-    let ingredienteNuevo = JSON.stringify({Cantidad: 0, CostoUnidad:0, Nombre: nuevoValorNombre , UnidadMedida: nuevoValorUnidad});
+    let ingredienteNuevo = JSON.stringify({cantidad: 0, costoTotal:0, nombre: nuevoValorNombre , ipoUnidad: nuevoValorUnidad});
     let body = JSON.parse(ingredienteNuevo)
     this.servicioHttp.crearIngrediente(body).subscribe((response) => {
       console.log('Response from API', response);
