@@ -17,6 +17,13 @@
     "actualizarPedidoEstado":"/api/pedidoEstado",
     "obtenerPedidoEstado":"/api/pedidosEstado/",
     "obtenerPedidoFechaNit":"/api/pedidoFechaNIT/",
-    "obtenerPedidosCliente":"/api/pedidosCliente/nit/"
+    "obtenerPedidosCliente":"/api/pedidosCliente/nit/",
+
+
+
+    "crearBien":"/api/bien",
+    "obtenerBien":"/api/bienes",
+    "obtenerBienNombre":"/api/bien/:nombre",
+    "actualizarBien":"/api/bien/:nombre"
 
 }
