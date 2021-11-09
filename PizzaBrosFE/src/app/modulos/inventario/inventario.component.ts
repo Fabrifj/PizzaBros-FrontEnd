@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { RutaTituloModel } from 'src/app/modelos/rutaTitulo.model';
 
 @Component({
   selector: 'app-inventario',
@@ -8,7 +9,12 @@ import { Component, OnInit } from '@angular/core';
 export class InventarioComponent implements OnInit {
 
   constructor() { }
-  subMenus : string[] = ["compras","bienes","ingredientes","productos"]
+  subMenus : RutaTituloModel[] = [
+    {Ruta: "compras",Nombre: "Compras"},
+    {Ruta: "bienes",Nombre: "Bienes"},
+    {Ruta: "ingredientes",Nombre: "Ingredientes"},
+    {Ruta: "productos",Nombre: "Productos"},
+  ];
   ngOnInit(): void {
   }
 

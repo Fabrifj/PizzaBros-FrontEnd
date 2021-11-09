@@ -1,22 +1,26 @@
 {
-    "obtenerProductos":"/api/productos",
-    "crearPedido":"/api/pedido",
-    "obtenerIngredientes": "/api/ingredientes",
-    "getClientes": "/api/getClientes",
-    "postCliente": "/api/postCliente",
+    
     "crearIngrediente":"/api/ingrediente",
-    "obtenerIngredienteByNombre":"/api/ingrediente/:nombre",
-    "getClienteByNit":"/api/getCliente/:nit",
-    "getFamiliaByNombre":"/api/getFamilia/:nombre",
-    "getProductoById":"/api/getProducto/Id/:id",
-    "getProductoByNombre":"/api/getProducto/Nombre/:nombre",
-    "obtenerPedidos":"/api/pedidos",
-    "postPedido":"/api/crearPedido",
-    "obtenerPedidos2D":"/api/pedidos2Fechas/", 
-    "obtenerPedidos2DCli":"/api/pedidos2FechasNITCliente/",
-    "actualizarPedidoEstado":"/api/pedidoEstado",
-    "obtenerPedidoEstado":"/api/pedidosEstado/",
-    "obtenerPedidoFechaNit":"/api/pedidoFechaNIT/",
-    "obtenerPedidosCliente":"/api/pedidosCliente/nit/"
+    "obtenerIngredientes": "/api/ingredientes",
+    "obtenerIngredienteNombre":"/api/ingrediente/:nombre",
+    
+    "crearProducto":"/api/producto",
+    "obtenerProducts":"/api/productos",
+    "obtenerProductoId":"/api/producto/Id/:id",
+    "obtenerProductoNombre":"/api/producto/Nombre/:nombre",
 
+    "crearCliente": "/api/cliente",
+    "obtenerClientes": "/api/clientes",
+    "obtenerClienteNit":"/api/cliente/:nit",
+
+    "obtenerCategoriaNombre":"/api/categoria/:nombre",
+
+    "crearPedido":"/api/pedido",
+    "crearPedidoEstado":"/api/pedidoEstado",
+    "obtenerPedidos":"/api/pedidos",
+    "obtenerPedidos2Fechas":"/api/pedidos2Fechas",
+    "obtenerPedidos2FechasNITCliente":"/api/pedidos2FechasNITCliente",
+    "obtenerPedidosEstado":"/api/pedidosEstado/:estado",
+    "obtenerPedidoFechaNIT":"/api/pedidoFechaNIT"
+    
 }

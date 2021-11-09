@@ -28,7 +28,10 @@ export class AppHttpService {
   obtenerPedidos() {
     return this.http.get(paths.obtenerPedidos)
   }
-  
+  obtenerCompras(){
+    ///api/getPedidosEstado/:estado
+    return this.http.get(paths.obtenerPedidoEstado+"Preparando")
+  }
   
   obtenerPedidoEstadoPr(){
     ///api/getPedidosEstado/:estado

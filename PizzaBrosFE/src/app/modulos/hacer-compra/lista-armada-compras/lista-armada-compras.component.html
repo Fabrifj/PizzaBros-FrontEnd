@@ -1,0 +1,39 @@
+<table class="tabla">
+    <caption>Lista Pedido</caption>
+    <thead>
+      <tr>
+        <th scope="col">Item</th>
+        <th scope="col">Cantidad</th>
+        <th scope="col">UnidadMedida</th>
+        <th scope="col">CostoUnidad</th>
+        <th scope="col">Eliminar</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr 
+      *ngFor="let ingredientesEle of ingredientes; let i = index">
+
+        <td>{{ingredientesEle.Nombre}}</td>
+        <td>{{ingredientesEle.Cantidad}}</td>
+        <td>{{ingredientesEle.UnidadMedida}}</td>
+        <td>{{ingredientesEle.CostoUnidad}}</td>
+  
+  
+        <button (click)="eliminarPedido(i)" >-</button>
+        
+    </tr>
+  
+    </tbody> 
+  </table>
+  
+  <table class="total">
+    <tbody>
+      <tr>
+        <td>Total Articulos:</td>
+        <td style="text-align: 10px;">{{catidadIngredientes}}</td>
+        <td>Total :</td>
+        <td style="text-align: right;">{{totalCompra}} Bs.</td>
+      </tr>
+    </tbody>
+  </table>
+  

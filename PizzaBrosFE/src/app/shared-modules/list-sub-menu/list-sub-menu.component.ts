@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { RutaTituloModel } from 'src/app/modelos/rutaTitulo.model';
 
 @Component({
   selector: 'app-list-sub-menu',
@@ -7,7 +8,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class ListSubMenuComponent implements OnInit {
 
-  @Input() listProducts: string[] = [];
+  @Input() listProducts: RutaTituloModel[] = [];
 
   constructor() { }
 

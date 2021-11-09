@@ -1,1 +1,18 @@
-<p>compras works!</p>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-8">
+            <h3>Compras</h3>
+		</div>
+		<div class="col-md-4">
+            <button class="btn btn-success" routerLink="/hacer-compra">Realizr Compra</button>
+		</div>
+	</div>
+    <div class="tablaIngredientes">
+
+        <app-tabla-reusable [datos]="datos" [columnas]="columnas" [nombreBotones]="nombreBotones" (parentMethod)="funcionBoton($event)" colorLetra="black">
+              
+           </app-tabla-reusable> 
+           
+           
+    </div>
+</div>
