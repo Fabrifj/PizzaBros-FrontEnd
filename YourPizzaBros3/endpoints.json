@@ -3,6 +3,7 @@
     "crearIngrediente":"/api/ingrediente",
     "obtenerIngredientes": "/api/ingredientes",
     "obtenerIngredienteNombre":"/api/ingrediente/:nombre",
+    "actualizarIngrediente":"/api/ingrediente/:nombre",
     
     "crearProducto":"/api/producto",
     "obtenerProducts":"/api/productos",
@@ -21,6 +22,11 @@
     "obtenerPedidos2Fechas":"/api/pedidos2Fechas",
     "obtenerPedidos2FechasNITCliente":"/api/pedidos2FechasNITCliente",
     "obtenerPedidosEstado":"/api/pedidosEstado/:estado",
-    "obtenerPedidoFechaNIT":"/api/pedidoFechaNIT"
+    "obtenerPedidoFechaNIT":"/api/pedidoFechaNIT",
+
+    "crearBien":"/api/bien",
+    "obtenerBien":"/api/bienes",
+    "obtenerBienNombre":"/api/bien/:nombre",
+    "actualizarBien":"/api/bien/:nombre"
     
 }
