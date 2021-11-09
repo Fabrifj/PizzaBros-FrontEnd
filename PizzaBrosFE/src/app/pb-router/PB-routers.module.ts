@@ -44,7 +44,12 @@ const appRoutes: Routes = [
     children: [
       { path: 'compras', component: ComprasComponent },
       { path: 'bienes', component: BienesComponent},
-      { path: 'productos', component: ProductosComponent },
+      { path: 'productos', component: ProductosComponent ,
+      children:[
+        
+      ]
+    
+    },
       { path: 'ingredientes', component: IngredientesComponent }
   
 

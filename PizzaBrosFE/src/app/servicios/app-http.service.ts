@@ -74,12 +74,23 @@ export class AppHttpService {
   }
 
    
-///ingredientrs
-obtenerIngredientes() {
-  return this.http.get(paths.obtenerIngredientes)
-}
-crearIngrediente(body:any) {
-  return this.http.post(paths.crearIngrediente,body)
-}
+  ///ingredientrs
+  obtenerIngredientes() {
+    return this.http.get(paths.obtenerIngredientes)
+  }
+  crearIngrediente(body:any) {
+    return this.http.post(paths.crearIngrediente,body)
+  }
+
+  //bienes
+  obtenerBien(){
+    return this.http.get(paths.obtenerBien)
+
+  }
+  crearBien(body:any){
+    return this.http.post(paths.crearBien,body)
+  }
+  ///no implementado obtener bien nombre ni acutalizar bien
+  
   
 }

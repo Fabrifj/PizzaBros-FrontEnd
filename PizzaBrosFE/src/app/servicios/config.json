@@ -1,5 +1,5 @@
 {
-    
+    "obtenerIngredienteByNombre":"/api/ingrediente/:nombre",
     "crearIngrediente":"/api/ingrediente",
     "obtenerIngredientes": "/api/ingredientes",
     "obtenerIngredienteNombre":"/api/ingrediente/:nombre",
@@ -8,6 +8,28 @@
     "obtenerProducts":"/api/productos",
     "obtenerProductoId":"/api/producto/Id/:id",
     "obtenerProductoNombre":"/api/producto/Nombre/:nombre",
+
+    
+    "getClienteByNit":"/api/getCliente/:nit",
+    "getFamiliaByNombre":"/api/getFamilia/:nombre",
+    "getProductoById":"/api/getProducto/Id/:id",
+    "getProductoByNombre":"/api/getProducto/Nombre/:nombre",
+    "obtenerPedidos":"/api/pedidos",
+    "postPedido":"/api/crearPedido",
+    "obtenerPedidos2D":"/api/pedidos2Fechas/", 
+    "obtenerPedidos2DCli":"/api/pedidos2FechasNITCliente/",
+    "actualizarPedidoEstado":"/api/pedidoEstado",
+    "obtenerPedidoEstado":"/api/pedidosEstado/",
+    "obtenerPedidoFechaNit":"/api/pedidoFechaNIT/",
+    "obtenerPedidosCliente":"/api/pedidosCliente/nit/",
+
+
+
+    "crearBien":"/api/bien",
+    "obtenerBien":"/api/bienes",
+    "obtenerBienNombre":"/api/bien/:nombre",
+    "actualizarBien":"/api/bien/:nombre"
+
 
     "crearCliente": "/api/cliente",
     "obtenerClientes": "/api/clientes",

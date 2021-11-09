@@ -1,1 +1,82 @@
-<app-tabla-reusable> </app-tabla-reusable>
+<div>
+
+    <h2>Bienes</h2>
+</div>
+<div class = "sectorFiltros">
+    <input type="text" id="txtBuscar">
+    <button type="submit" (click)="buscar()">Buscar</button>
+
+    <button id="crearBtn" (click)="mandarCrearBien()">Crear Bien</button>
+</div>
+
+<div class="tablaIngredientes">
+
+    <app-tabla-reusable [datos]="datos" [columnas]="columnas" [nombreBotones]="nombreBotones" (parentMethod)="funcionBoton($event)" colorLetra="black">
+          
+       </app-tabla-reusable> 
+       
+       
+</div>
+
+<jw-modal id="modal-3" altura="70" >
+    <h1>Modificar Bien:</h1>
+    <div class="infoEditable">
+        <h1>Nombre:</h1>
+        <h3>{{bienSeleccionado.Nombre}}</h3>
+        <button (click)="cambiarValor('Nombre')">Editar</button>
+        
+        <h1>Cantidad Restante:</h1>
+        <h3>{{bienSeleccionado.Cantidad}}</h3>
+        <p> NO EDITABLE </p>
+
+        <h1>Medida de Unidad:</h1>
+        <h3>{{bienSeleccionado.UnidadMedida}}</h3>
+        <button (click)="cambiarValor('UnidadMedida' )">Editar</button>
+
+        <div class="nuevoValorC">
+            <input type="text" id= "valorN" name="nuevoValor">
+            <button type="submit" (click)= "guardarValor()">Ok</button>
+        </div>
+    </div>
+    
+    
+    <div class="botones">
+        <button class="btnGuardado" (click)="guardarCambios(bienSeleccionado)">Guardar Cambios</button>
+       <button class="btnCerrar" (click)="servicioModal.cerrar('modal-3');">Cancelar</button>
+    </div>
+ </jw-modal>
+
+ <jw-modal id="modal-4" altura="70" >
+    <h1>Crear Bien:</h1>
+    <div class="infoEditable">
+        
+       
+            <h1>Nombre:</h1>
+            <input type="text" id= "valorNombreCrear" name="nombreV">
+            
+        
+            <h1>Tipo de Medida:</h1>
+            <p>Colocar si es Kg. ,gr, unidades, etc.</p>
+            <input type="text" id= "valorUnidadCrear" name="nombreV">
+             
+            <h1>Descripcion:</h1>
+            <!--<input type="text" id= "valorDescripcion" name="nombreV">
+            -->
+            <textarea name="descrip" rows="6" cols="50" id="valorDescripcion"></textarea>
+            <h1>Cantidad: 0</h1>
+        
+        
+            <h1>CostoUnidad: No se sabe</h1>
+
+            
+       
+        
+
+    </div>
+    
+    
+    <div class="botones">
+        <button class="btnGuardado" (click)="crearBien()">Guardar Cambios</button>
+       <button class="btnCerrar" (click)="servicioModal.cerrar('modal-4');">Cancelar</button>
+    </div>
+ </jw-modal>

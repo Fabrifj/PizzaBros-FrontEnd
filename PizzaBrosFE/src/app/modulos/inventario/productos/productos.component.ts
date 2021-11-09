@@ -8,8 +8,10 @@ import { Component, OnInit } from '@angular/core';
 export class ProductosComponent implements OnInit {
 
   constructor() { }
-
+  subMenus : string[] = ["Crear Producto","Crear Familia"]
   ngOnInit(): void {
+
+    
   }
 
 }
