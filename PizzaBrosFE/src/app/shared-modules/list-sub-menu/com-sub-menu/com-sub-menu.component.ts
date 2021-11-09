@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { RutaTituloModel } from 'src/app/modelos/rutaTitulo.model';
 
 @Component({
   selector: 'app-com-sub-menu',
@@ -6,7 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./com-sub-menu.component.css']
 })
 export class ComSubMenuComponent implements OnInit {
-  @Input() subTitulo: string ="";
+  @Input() subTitulo: RutaTituloModel;
   @Input() index: number=0;
   constructor() { }
 

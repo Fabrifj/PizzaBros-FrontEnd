@@ -50,10 +50,6 @@ export class ListaArmadoPedidosComponent implements OnInit,OnChanges {
     }
   }
 
-  saveOrders(item:any){
-    this.pedidos = item;
-
-  }
   cambioCantidad(i:number ){
     this.pedidos[i].Cantidad = +this.amount.nativeElement.value;
     this.pedidos[i].PrecioT = this.pedidos[i].Cantidad * this.pedidos[i].Precio; 

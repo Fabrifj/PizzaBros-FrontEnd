@@ -1,0 +1,24 @@
+<h3>Categorias: {{categoria}}</h3>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+            <div class="btn-group" role="group" aria-label="Basic outlined example">
+                <button type="button" class="btn btn-outline-primary" (click)="cambiarCategoria('Ingredientes')">Ingredientes</button>
+                <button type="button" class="btn btn-outline-primary" (click)="cambiarCategoria('Bienes')">Bienes</button>
+                <button type="button" class="btn btn-outline-primary" (click)="cambiarCategoria('Sugerencias')">Sugerencias</button>
+            </div>
+		</div>
+	</div>
+	<br>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="list-group">
+				<app-lista-ingredientes
+								*ngFor="let ingredientesEle of ingredientes; let i = index"
+								[product] = "ingredientesEle"
+								[index] = "i"
+								></app-lista-ingredientes>
+			</div>
+		</div>
+	</div>
+</div>
