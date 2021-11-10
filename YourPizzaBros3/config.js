@@ -25,9 +25,10 @@ const app = firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 const ingrediente = db.collection("Ingrediente");
 const producto = db.collection("Producto");
-const familia = db.collection("Familia");
+const familia = db.collection("Familia");// Borrame
+const categoria = db.collection("Categoria");
 const cliente = db.collection("Cliente");
 const pedido = db.collection("Pedido");
 const bien = db.collection("Bien");
 
-module.exports = { producto,ingrediente,familia,cliente,pedido,bien,firebase};
+module.exports = { producto,ingrediente,familia,cliente,pedido,bien,firebase,categoria};

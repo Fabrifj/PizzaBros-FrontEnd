@@ -159,6 +159,28 @@ app.get("/api/producto/Nombre/:nombre", async (req, res) => {
   res.send(respuesta);
 });
 
+app.get("/api/categoria/:nombre/productos", async (req, res) => {
+  var cat = req.params.nombre
+  var respuesta = await obtenerProductosCategoriaNombre(cat);
+  res.send(respuesta);
+});
+//Obtener productos por nombre de categoria
+async function obtenerProductosCategoriaNombre(Cat){
+  let query = await categoria.where('Nombre', '==', Cat);
+  let querySnapshot = await query.get();
+  let respuesta = null;
+
+  if (querySnapshot.empty) {
+    console.log(`No encontramos la categoria con nombre: ${Cat}`);
+
+  } else {
+    console.log('Encontramos a la categoria: ', Cat);
+    respuesta = querySnapshot.docs.map((doc) => (doc.data().ListaProductos));
+    respuesta = respuesta[0]
+  }
+  return respuesta;
+}
+
 /*===================================
           CRUD CLIENTES
 //===================================*/
