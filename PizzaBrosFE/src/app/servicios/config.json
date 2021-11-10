@@ -28,7 +28,7 @@
     "crearBien":"/api/bien",
     "obtenerBien":"/api/bienes",
     "obtenerBienNombre":"/api/bien/:nombre",
-    "actualizarBien":"/api/bien/:nombre"
+    "actualizarBien":"/api/bien/:nombre",
 
 
     "crearCliente": "/api/cliente",

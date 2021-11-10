@@ -8,8 +8,8 @@
 
 
 .textos-header {
-    width: 100%;
-    height: 400px;
+    width: 120%;
+    height: 500px;
     background: /* #bc4e9c;*/
     /* fallback for old browsers */
     /*background: -webkit-linear-gradient(to right, hsla(340, 95%, 50%, 0.459), hsla(317, 45%, 52%, 0.664)),*/ url(https://upload.wikimedia.org/wikipedia/commons/b/bc/Pizza_pie.jpg);
@@ -19,6 +19,9 @@
     background-size: cover;
     background-attachment: fixed;
     position: relative;
+    margin-top: -20px;
+    margin-left: -89px;
+    margin-right: -80px;
 }
 
 .textos-header {
@@ -48,6 +51,8 @@ footer{
     padding: 60px 0 30px 0;
     margin: auto;
     overflow: hidden;
+    margin-left: -74px;
+    width: 114%;
 }
 
 .contenedor-footer{
