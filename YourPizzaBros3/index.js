@@ -166,15 +166,17 @@ app.get("/api/categoria/:nombre/productos", async (req, res) => {
 });
 //Obtener productos por nombre de categoria
 async function obtenerProductosCategoriaNombre(Cat){
-  let categoria = await obtenerCategoriaNombre(Cat)
+  let query = await categoria.where('Nombre', '==', Cat);
+  let querySnapshot = await query.get();
   let respuesta = null;
 
-  if (categoria == null) {
+  if (querySnapshot.empty) {
     console.log(`No encontramos la categoria con nombre: ${Cat}`);
 
   } else {
-    console.log('Encontramos la categoria: ', Cat);
-    respuesta = categoria['ListaProductos']
+    console.log('Encontramos a la categoria: ', Cat);
+    respuesta = querySnapshot.docs.map((doc) => (doc.data().ListaProductos));
+    respuesta = respuesta[0]
   }
   return respuesta;
 }

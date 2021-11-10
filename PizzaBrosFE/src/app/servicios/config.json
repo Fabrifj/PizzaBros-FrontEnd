@@ -28,7 +28,7 @@
     "crearBien":"/api/bien",
     "obtenerBien":"/api/bienes",
     "obtenerBienNombre":"/api/bien/:nombre",
-    "actualizarBien":"/api/bien/:nombre"
+    "actualizarBien":"/api/bien/:nombre",
 
 
     "crearCliente": "/api/cliente",
@@ -36,6 +36,7 @@
     "obtenerClienteNit":"/api/cliente/:nit",
 
     "obtenerCategoriaNombre":"/api/categoria/:nombre",
+    "obtenerProductosCategoriaNombre":"/api/categoria/:nombre/productos",
 
     "crearPedido":"/api/pedido",
     "crearPedidoEstado":"/api/pedidoEstado",

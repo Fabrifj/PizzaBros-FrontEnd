@@ -15,6 +15,7 @@
     "obtenerClienteNit":"/api/cliente/:nit",
 
     "obtenerCategoriaNombre":"/api/categoria/:nombre",
+    "obtenerProductosCategoriaNombre":"/api/categoria/:nombre/productos",
 
     "crearPedido":"/api/pedido",
     "crearPedidoEstado":"/api/pedidoEstado",
