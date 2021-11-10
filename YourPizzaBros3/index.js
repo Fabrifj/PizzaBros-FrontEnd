@@ -159,6 +159,26 @@ app.get("/api/producto/Nombre/:nombre", async (req, res) => {
   res.send(respuesta);
 });
 
+app.get("/api/categoria/:nombre/productos", async (req, res) => {
+  var cat = req.params.nombre
+  var respuesta = await obtenerProductosCategoriaNombre(cat);
+  res.send(respuesta);
+});
+//Obtener productos por nombre de categoria
+async function obtenerProductosCategoriaNombre(Cat){
+  let categoria = await obtenerCategoriaNombre(Cat)
+  let respuesta = null;
+
+  if (categoria == null) {
+    console.log(`No encontramos la categoria con nombre: ${Cat}`);
+
+  } else {
+    console.log('Encontramos la categoria: ', Cat);
+    respuesta = categoria['ListaProductos']
+  }
+  return respuesta;
+}
+
 /*===================================
           CRUD CLIENTES
 //===================================*/
