@@ -14,7 +14,7 @@
     "getFamiliaByNombre":"/api/getFamilia/:nombre",
     "getProductoById":"/api/getProducto/Id/:id",
     "getProductoByNombre":"/api/getProducto/Nombre/:nombre",
-    "obtenerPedidos":"/api/pedidos",
+    
     "postPedido":"/api/crearPedido",
     "obtenerPedidos2D":"/api/pedidos2Fechas/", 
     "obtenerPedidos2DCli":"/api/pedidos2FechasNITCliente/",
