@@ -13,7 +13,7 @@ export class InventarioComponent implements OnInit {
     {Ruta: "compras",Nombre: "Compras"},
     {Ruta: "bienes",Nombre: "Bienes"},
     {Ruta: "ingredientes",Nombre: "Ingredientes"},
-    {Ruta: "productos",Nombre: "Productos"},
+    {Ruta: "productos",Nombre: "Productos y Categorias"},
   ];
   ngOnInit(): void {
   }
