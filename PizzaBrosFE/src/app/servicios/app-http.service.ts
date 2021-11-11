@@ -14,9 +14,16 @@ export class AppHttpService {
   constructor( private http: HttpClient) { }
 
   defUrl = "/api/";
+
+
+  //productos
   obtenerProductos() {
-    console.log(paths.obtenerProductos)
+    console.log("path:",paths.obtenerProductos)
     return this.http.get(paths.obtenerProductos)
+  }
+  crearProducto(body:any) {
+    console.log(paths.obtenerProductos)
+    return this.http.post(paths.creaProducto , body)
   }
 
   crearPedido(body:any) {

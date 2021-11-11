@@ -5,7 +5,7 @@
     "obtenerIngredienteNombre":"/api/ingrediente/:nombre",
     
     "crearProducto":"/api/producto",
-    "obtenerProducts":"/api/productos",
+    "obtenerProductos":"/api/productos",
     "obtenerProductoId":"/api/producto/Id/:id",
     "obtenerProductoNombre":"/api/producto/Nombre/:nombre",
 

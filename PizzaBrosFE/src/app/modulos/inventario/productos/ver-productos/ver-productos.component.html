@@ -1,0 +1,96 @@
+
+<div class="contenedorFiltros">
+
+    <form>
+        
+        <div>
+            <div>
+                <input type="radio" id="rprod" name= "prodCat" checked (click) = "filtroProd()">
+                <label for="contactChoice1">Ver Productos</label>
+            </div>
+            <div>
+                <input type="radio" id="rcat" name="prodCat" (click) = "filtroCat()">
+                <label for="contactChoice2">Ver Categorias</label>
+            </div>
+            
+
+        </div>
+      </form>
+
+</div>
+
+<div id="tablaProductos">
+
+    <app-tabla-reusable [datos]="datosProd" [columnas]="columnasProd" [nombreBotones]="nombreBotonesProd" (parentMethod)="funcionBoton($event)" colorLetra="black">
+          
+       </app-tabla-reusable> 
+       
+       
+</div>
+
+<div id="tablaCategorias">
+
+    <app-tabla-reusable [datos]="datosCat" [columnas]="columnasCat" [nombreBotones]="nombreBotonesCat" (parentMethod)="funcionBoton($event)" colorLetra="black">
+          
+       </app-tabla-reusable> 
+       
+       
+</div>
+
+
+<jw-modal id="modalProd-1" altura="70" >
+    <h1>Producto:</h1>
+    <div class="infoEditable">
+        <h1>Nombre:</h1>
+        <h3>{{objetoSeleccionado.Nombre}}</h3>
+        
+        <h1>Ingredientes:</h1>
+        <app-tabla-reusable 
+        [datos]="datosIng" 
+        [columnas]="columnasIng" 
+        colorLetra="black">
+        </app-tabla-reusable> 
+
+
+        <h1>Receta:</h1>
+        <textarea readonly >{{objetoSeleccionado.Receta}}</textarea>
+    
+
+        
+
+    </div>
+    
+    
+    <div class="botones">
+        <button class="btnGuardado" (click)="guardarModificar(objetoSeleccionado)">Modificar</button>
+       <button class="btnCerrar" (click)="servicioModal.cerrar('modalProd-1');">Cancelar</button>
+    </div>
+ </jw-modal>
+
+ <jw-modal id="modalCat-1" altura="70" >
+    <h1>Modificar Ingrediente:</h1>
+    <div class="infoEditable">
+        <h1>Nombre:</h1>
+        <h3>{{objetoSeleccionado.Nombre}}</h3>
+        <button (click)="cambiarValor('Nombre')">Editar</button>
+        
+        <h1>Cantidad Restante:</h1>
+        <h3>{{objetoSeleccionado.Cantidad}}</h3>
+        <p> NO EDITABLE </p>
+
+        <h1>Medida de Unidad:</h1>
+        <h3>{{objetoSeleccionado.UnidadMedida}}</h3>
+        <button (click)="cambiarValor('UnidadMedida' )">Editar</button>
+
+        <div class="nuevoValorC">
+            <input type="text" id= "valorN" name="nuevoValor">
+            <button type="submit" (click)= "guardarValor()">Ok</button>
+        </div>
+    </div>
+    
+    
+    <div class="botones">
+        <button class="btnGuardado" (click)="guardarCambios(objetoSeleccionado)">Modificar</button>
+       <button class="btnCerrar" (click)="servicioModal.cerrar('modalCat-1');">Cancelar</button>
+    </div>
+ </jw-modal>
