@@ -4,35 +4,23 @@
 const express = require('express')
 const cors = require('cors');
 const { query } = require('express');
-
-database = require('./config')
-const ingrediente = database.ingrediente;
+database = require('./config');
+//const ingrediente = database.ingrediente;
 const producto = database.producto;
-const categoria = database.categoria;
 const cliente = database.cliente;
 const pedido = database.pedido;
-const bien = database.bien;
 const firebase = database.firebase;
+const categoria = database.categoria;
+const elemento = database.elemento;
 
 //const { async } = require('@firebase/util')
 const app = express()
+
+
 app.use(express.json())
 app.use(cors())
 
-/*===================================
-          CRUD INGREDIENTES
-//===================================*/
-
-//CrearIngrediente
-//Formato del ingrediente en el Body del request:
-// {
-//   "Cantidad": 5,
-//   "CostoUnidad": 10,
-//   "Nombre": "Lechuga",
-//   "Proveedor": "348887",
-//   "UnidadMedida": "Kg."
-// }
-
+/*
 app.post("/api/ingrediente", async (req, res) => {
   const data = req.body
   console.log("Info Ingredientes ", data)
@@ -84,13 +72,15 @@ app.put("/api/ingrediente/:nombre", async (req, res) =>{
   res.send({ msg: "Ingrediente actualizado" })
 })
 
+*/
+
 /*===================================
           CRUD PRODUCTOS
 //===================================*/
 
 //CrearProducto estructura:
 // {
-    
+
 //   "ImgURL": "https://live.mrf.io/statics/i/ps/irecetasfaciles.com/wp-content/uploads/2019/08/pizza-de-jamon-queso-y-tocino.jpg?width=1200&enable=upscale",
 //   "Precio": 65,
 //   "Costo": 50,
@@ -98,9 +88,9 @@ app.put("/api/ingrediente/:nombre", async (req, res) =>{
 //   "Nombre": "Pizza 3 Quesos"
 // }
 app.post("/api/producto", async (req, res) => {
-  var miProducto = req.body;
-  await producto.add(miProducto)
-  res.send({msg:"Producto agregado correctamente","Producto":miProducto});
+  var miCategoria = req.body;
+  await producto.add(miCategoria)
+  res.send({ msg: "Producto agregado correctamente", "Producto": miCategoria });
 });
 
 //ObtenerProductos  
@@ -243,6 +233,49 @@ app.get("/api/cliente/:nit", async (req, res) => {
           CRUD CATEGORIA
 //===================================*/
 
+//CrearCategoria
+//Body del request:
+/*
+{
+  "ListaProductos":
+  [
+    {
+      "IdProducto":"",
+      "ImgURL":"",
+      "NombreProducto":""
+    },
+    {
+      "IdProducto":"",
+      "ImgURL":"",
+      "NombreProducto":""
+    }
+    
+  ],
+  "Descripcion":"",
+  "Nombre":""
+
+}
+
+ */
+
+app.post("/api/categoria", async (req, res) => {
+  var miCategoria = req.body;
+  await categoria.add(miCategoria)
+  res.send({ msg: "Categoria agregada correctamente", "Producto": miCategoria });
+});
+
+//ObtenerCategorias
+async function obtenerCategorias() {
+  const snapshot = await categoria.get();
+  const list = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+  return list;
+}
+app.get("/api/categorias", async (req, res) => {
+  const list = await obtenerCategorias();
+  res.send(list);
+});
+
+
 //ObtenerCategoriaNombre
 async function obtenerCategoriaNombre(prd) {
   let query = await categoria.where('Nombre', '==', prd);
@@ -262,6 +295,75 @@ app.get("/api/categoria/:nombre", async (req, res) => {
   var prd = req.params.nombre;
   var respuesta = await obtenerCategoriaNombre(prd);
   res.send(respuesta);
+});
+
+//EliminarCategoria
+async function eliminarCategoria(idCat) {
+  
+  var resp = null;
+  await categoria.doc(idCat).delete().then(() => {
+    resp = "Categoria successfully deleted!"
+    console.log(resp);
+  }).catch((error) => 
+  {
+    console.error("Error removing document: ", error);
+  });
+
+  return resp;
+}
+
+app.delete("/api/categoria/:id", async (req, res) => {
+  var cat = req.params.id;
+  const resp = await eliminarCategoria(cat);
+  res.send(resp);
+});
+
+//ActualizarCategoria
+//Body a mandar para actualizar:
+/*
+{
+  "ListaProductos":
+  [
+    {
+      "IdProducto":"",
+      "ImgURL":"",
+      "NombreProducto":""
+    },
+    {
+      "IdProducto":"",
+      "ImgURL":"",
+      "NombreProducto":""
+    }
+    
+  ],
+  "Descripcion":"",
+  "Nombre":""
+
+}
+
+ */
+async function actualizarCategoria(idCat, cat) {
+  
+  var resp = null;
+  await categoria.doc(idCat).update(cat)
+  .then(() => 
+  {
+    resp = cat;  
+    console.log("Categoria successfully updated!");
+  })
+  .catch((error) => 
+  {
+      // The document probably doesn't exist.
+      console.error("Error updating categoria: ", error);
+  });
+
+  return resp;
+}
+app.put("/api/categoria/:id", async (req, res) => {
+  var catid = req.params.id;
+  var cat = req.body;
+  const resp = await actualizarCategoria(catid,cat);
+  res.send(resp);
 });
 
 /*===================================
@@ -356,7 +458,7 @@ app.post("/api/pedido", async (req, res) => {
   res.send(respuesta)
 })
 
-async function crearPedidoEstado(idPedido,estado) {
+async function crearPedidoEstado(idPedido, estado) {
   let respuesta = null;
   await pedido.doc(idPedido).get().then(snapshot => {
     let querySnapshot = snapshot.data()
@@ -366,12 +468,12 @@ async function crearPedidoEstado(idPedido,estado) {
 
     } else {
       console.log('Encontramos al pedido: ', idPedido);
-      var a = pedido.doc(idPedido).update({"Estado":estado});
+      var a = pedido.doc(idPedido).update({ "Estado": estado });
       querySnapshot.Estado = estado;
-      
-      
-      
-      
+
+
+
+
       respuesta = querySnapshot;
     }
   })
@@ -383,7 +485,7 @@ app.post("/api/pedidoEstado", async (req, res) => {
   var idPedido = req.body.IdPedido;
   var estado = req.body.Estado;
 
-  var respuesta = await crearPedidoEstado(idPedido,estado);
+  var respuesta = await crearPedidoEstado(idPedido, estado);
   res.send(respuesta);
 });
 
@@ -475,7 +577,6 @@ async function obtenerPedidos2FechasNITCliente(start, end, NITCliente) {
   return respuesta;
 }
 
-
 app.get("/api/pedidos2FechasNITCliente/:inicio/:final/:nit", async (req, res) => {
   var inicio = req.params.inicio;
   var final = req.params.final;
@@ -494,14 +595,12 @@ app.get("/api/pedidos2FechasNITCliente/:inicio/:final/:nit", async (req, res) =>
   }
   */
 
-
-
 //ObtenerPedidosEstado Obtener los pedidos segun su estado
 async function obtenerPedidosEstado(estado) {
-  const snapshot = await pedido.where('Estado','==',estado).get();
+  const snapshot = await pedido.where('Estado', '==', estado).get();
   const list = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
   return list;
-} 
+}
 app.get("/api/pedidosEstado/:estado", async (req, res) => {
   var estado = req.params.estado;
   const list = await obtenerPedidosEstado(estado);
@@ -515,14 +614,13 @@ app.get("/api/pedidosEstado/:estado", async (req, res) => {
   */
 async function obtenerPedidoFechaNIT(fecha, nitCliente) {
   fecha = firebase.firestore.Timestamp.fromDate(new Date(fecha));
-  const snapshot = await pedido.where('Fecha','==',fecha).where('NITCliente','==',nitCliente).get();
+  const snapshot = await pedido.where('Fecha', '==', fecha).where('NITCliente', '==', nitCliente).get();
   var list = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-  if(list.length < 1)
-  {
+  if (list.length < 1) {
     list = null;
   }
   return list;
-} 
+}
 app.get("/api/pedidoFechaNIT/:fecha/:nit", async (req, res) => {
   var fecha = req.params.fecha;
   var nitCliente = req.params.nit;
@@ -530,17 +628,13 @@ app.get("/api/pedidoFechaNIT/:fecha/:nit", async (req, res) => {
   res.send(list);
 });
 
-
-
-
 //GetPedidosCliente
 async function obtenerPedidosCliente(nitCliente) {
-  console.log("NIT CLIENTE: ",nitCliente);
-  const snapshot = await pedido.where('NITCliente','==',parseInt(nitCliente,10)).get();
+  console.log("NIT CLIENTE: ", nitCliente);
+  const snapshot = await pedido.where('NITCliente', '==', parseInt(nitCliente, 10)).get();
   var list = await snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
   console.log(list);
-  if(list.length < 1)
-  {
+  if (list.length < 1) {
     list = null;
   }
   return list;
@@ -553,16 +647,15 @@ app.get("/api/pedidosCliente/nit/:nit", async (req, res) => {
 
   res.send(list);
 });
- 
+
 //CONSULTAR ANDY
 //GetPedidosCliente
 async function getPedidosCliente(nitCliente) {
-  console.log("NIT CLIENTE: ",nitCliente);
-  const snapshot = await pedido.where('NITCliente','==',parseInt(nitCliente,10)).get();
+  console.log("NIT CLIENTE: ", nitCliente);
+  const snapshot = await pedido.where('NITCliente', '==', parseInt(nitCliente, 10)).get();
   var list = await snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
   console.log(list);
-  if(list.length < 1)
-  {
+  if (list.length < 1) {
     list = null;
   }
   return list;
@@ -591,56 +684,62 @@ app.get("/api/getPedidosCliente/nit/:nit", async (req, res) => {
 //   "UnidadMedida": "Unidades"
 // }
 
-app.post("/api/bien", async (req, res) => {
-  const data = req.body
-  console.log("Informacion del Bien ", data)
-  await bien.add(data)
-  res.send({ msg: "Bien agregado" })
-})
+// app.post("/api/bien", async (req, res) => {
+//   const data = req.body
+//   console.log("Informacion del Bien ", data)
+//   await bien.add(data)
+//   res.send({ msg: "Bien agregado" })
+// })
 
-//ObtenerBien
-async function obtenerBien() {
-  const snapshot = await bien.get();
-  const list = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-  return list;
-}
-app.get("/api/bienes", async (req, res) => {
-  const list = await obtenerBien();
-  res.send(list);
-});
+// //ObtenerBien
+// async function obtenerBien() {
+//   const snapshot = await bien.get();
+//   const list = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+//   return list;
+// }
+// app.get("/api/bienes", async (req, res) => {
+//   const list = await obtenerBien();
+//   res.send(list);
+// });
 
-//ObtenerBienNombre
-async function obtenerBienNombre(nombreBien) {
+// //ObtenerBienNombre
+// async function obtenerBienNombre(nombreBien) {
 
-  let query = await bien.where('Nombre', '==', nombreBien);
-  let querySnapshot = await query.get();
-  let respuesta = null;
+//   let query = await bien.where('Nombre', '==', nombreBien);
+//   let querySnapshot = await query.get();
+//   let respuesta = null;
 
-  if (querySnapshot.empty) {
-    console.log(`No encontramos el Bien: ${nombreBien}`);
+//   if (querySnapshot.empty) {
+//     console.log(`No encontramos el Bien: ${nombreBien}`);
 
-  } else {
-    console.log('Encontramos el Bien: ', nombreBien);
-    const list = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-    respuesta = list
-  }
-  return respuesta;
-}
-app.get("/api/bien/:nombre", async (req, res) => {
-  var nombreBien = req.params.nombre
-  var respuesta = await obtenerBienNombre(nombreBien);
-  res.send(respuesta);
-});
+//   } else {
+//     console.log('Encontramos el Bien: ', nombreBien);
+//     const list = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+//     respuesta = list
+//   }
+//   return respuesta;
+// }
+// app.get("/api/bien/:nombre", async (req, res) => {
+//   var nombreBien = req.params.nombre
+//   var respuesta = await obtenerBienNombre(nombreBien);
+//   res.send(respuesta);
+// });
 
-//Actualizar Bien
-app.put("/api/bien/:nombre", async (req, res) =>{
-  var nombreBien = req.params.nombre
-  var data = req.params.body
+// //Actualizar Bien
+// app.put("/api/bien/:nombre", async (req, res) =>{
+//   var nombreBien = req.params.nombre
+//   var data = req.params.body
 
-  // data = {data}
-  const ref = await bien.where('Nombre', '==', nombreBien).set(data, { merge: true });
-  res.send({ msg: "Bien actualizado" })
-})
+//   // data = {data}
+//   const ref = await bien.where('Nombre', '==', nombreBien).set(data, { merge: true });
+//   res.send({ msg: "Bien actualizado" })
+// })
+
+/*===================================
+          CRUD ELEMENTO
+//===================================*/
+
+
 
 /////////
 app.listen(4000, () => console.log("Up and Running on 4000"));
