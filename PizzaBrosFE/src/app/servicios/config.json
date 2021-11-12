@@ -6,7 +6,7 @@
     
     "crearProducto":"/api/producto",
     "obtenerProductos":"/api/productos",
-    "obtenerProductoId":"/api/producto/Id/:id",
+    "obtenerProductoId":"/api/producto/Id/",
     "obtenerProductoNombre":"/api/producto/Nombre/:nombre",
 
     
@@ -35,8 +35,13 @@
     "obtenerClientes": "/api/clientes",
     "obtenerClienteNit":"/api/cliente/:nit",
 
+    
+    "crearCategoria":"/api/categoria",
+    "obtenerCategorias":"/api/categoria",
     "obtenerCategoriaNombre":"/api/categoria/:nombre",
-    "obtenerProductosCategoriaNombre":"/api/categoria/:nombre/productos",
+    "obtenerProductosCategoriaNombre":"/api/categoria/",
+    "eliminarCategoria":"/api/categoria/:",
+    "actualizarCategoria":"/api/categoria/",
 
     "crearPedido":"/api/pedido",
     "crearPedidoEstado":"/api/pedidoEstado",

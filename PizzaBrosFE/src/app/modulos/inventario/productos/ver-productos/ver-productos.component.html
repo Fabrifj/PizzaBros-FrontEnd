@@ -38,7 +38,7 @@
 </div>
 
 
-<jw-modal id="modalProd-1" altura="70" >
+<jw-modal id="modalProd-1" altura="80" >
     <h1>Producto:</h1>
     <div class="infoEditable">
         <h1>Nombre:</h1>
@@ -62,35 +62,38 @@
     
     
     <div class="botones">
-        <button class="btnGuardado" (click)="guardarModificar(objetoSeleccionado)">Modificar</button>
+        <button class="btnGuardado" (click)="modificar(objetoSeleccionado)">Modificar</button>
        <button class="btnCerrar" (click)="servicioModal.cerrar('modalProd-1');">Cancelar</button>
     </div>
  </jw-modal>
 
- <jw-modal id="modalCat-1" altura="70" >
-    <h1>Modificar Ingrediente:</h1>
+
+ <!--CATEGORIA-->
+ <jw-modal id="modalCat-1" altura="80" >
+    <h1>Categoria:</h1>
     <div class="infoEditable">
         <h1>Nombre:</h1>
         <h3>{{objetoSeleccionado.Nombre}}</h3>
-        <button (click)="cambiarValor('Nombre')">Editar</button>
         
-        <h1>Cantidad Restante:</h1>
-        <h3>{{objetoSeleccionado.Cantidad}}</h3>
-        <p> NO EDITABLE </p>
+        <h1>Productos:</h1>
+        <app-tabla-reusable 
+        [datos]="datosProdMini" 
+        [columnas]="columnasProdMini" 
+        colorLetra="black">
+        </app-tabla-reusable> 
 
-        <h1>Medida de Unidad:</h1>
-        <h3>{{objetoSeleccionado.UnidadMedida}}</h3>
-        <button (click)="cambiarValor('UnidadMedida' )">Editar</button>
 
-        <div class="nuevoValorC">
-            <input type="text" id= "valorN" name="nuevoValor">
-            <button type="submit" (click)= "guardarValor()">Ok</button>
-        </div>
+        <!--<h1>Descripcion:</h1>
+        <textarea readonly >{{objetoSeleccionado.Receta}}</textarea>-->
+    
+
+        
+
     </div>
     
     
     <div class="botones">
-        <button class="btnGuardado" (click)="guardarCambios(objetoSeleccionado)">Modificar</button>
+        <button class="btnGuardado" (click)="modificar(objetoSeleccionado)">Modificar</button>
        <button class="btnCerrar" (click)="servicioModal.cerrar('modalCat-1');">Cancelar</button>
     </div>
  </jw-modal>

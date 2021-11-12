@@ -11,7 +11,7 @@ export class VerProductosComponent implements OnInit {
 
   objetoSeleccionado:any = {}
 
-  valorOriginal :any;
+  
 
   datosProd: any | undefined;
   
@@ -45,6 +45,14 @@ export class VerProductosComponent implements OnInit {
 
   ];
 
+  datosProdMini: any | undefined;
+  columnasProdMini = [
+    {field:'NombreProducto',header:'Nombre Producto'}
+   // {field:'Imagen',header:'Imagen'}
+    
+
+  ];
+
 
 
 
@@ -57,6 +65,7 @@ export class VerProductosComponent implements OnInit {
 
     
     this.obtenerProductos();
+    this.obtenerCategorias();
     this.filtroProd();
     
   }
@@ -74,7 +83,20 @@ export class VerProductosComponent implements OnInit {
 
     } )
   }
+  obtenerCategorias(){
+    this.servicioHttp.obtenerCategorias()
+    .subscribe((jsonFile:any)=>{
+     
+      console.log(jsonFile);
+      this.datosCat = jsonFile;
+      
+      
 
+    } ,(error)=>{
+        console.log("hubo error con categoria")
+
+    } )
+  }
   obtenerIng(){
     this.servicioHttp.obtenerIngredientes()
     .subscribe((jsonFile:any)=>{
@@ -95,7 +117,7 @@ export class VerProductosComponent implements OnInit {
     this.objetoSeleccionado = names[1];
     if (names[0] == "Ver Receta"){
       
-        
+        this.obtenerIng();
 
         //new
         
@@ -105,7 +127,10 @@ export class VerProductosComponent implements OnInit {
     }
     else{
       //es el boton de ver productos
-      this.servicioModal.abrir('modalProd-1');
+      this.datosProdMini = this.objetoSeleccionado.ListaProductos
+      
+      this.servicioModal.abrir('modalCat-1');
+
 
 
     }
@@ -124,9 +149,9 @@ export class VerProductosComponent implements OnInit {
       (<HTMLInputElement>document.getElementById("tablaCategorias")).style.display = "inline";
   
     }
-    modificar(){
+    modificar(objetoSeleccionado:any){
 
-
+        //conectar con modificar
       
     }
 
