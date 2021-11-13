@@ -55,13 +55,13 @@
     
     <div class="infoEditable">
         <h2>Nombre:</h2>
-        <input type="text" value="{{objetoSeleccionado.Nombre}}">
+        <input type="text" id="nuevoNC">
         
         
 
 
         <h2>Descripcion:</h2>
-        <textarea>{{objetoSeleccionado.Descripcion}}</textarea>
+        <textarea id="nuevoDC"></textarea>
     
 
         
@@ -97,5 +97,13 @@
     (parentMethod) = "funcionBoton($event)"
     colorLetra="black">
     </app-tabla-reusable> 
+
+</div>
+
+
+
+<div class="contenedorBotones">
+    <button class="botonFinal" (click)="this.crearCategoria();">{{nombreBoton}}</button>
+    <button class="botonFinal" (click)="this.filtroCrear()">Cancelar</button>
 
 </div>

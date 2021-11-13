@@ -40,7 +40,7 @@
     "obtenerCategorias":"/api/categoria",
     "obtenerCategoriaNombre":"/api/categoria/:nombre",
     "obtenerProductosCategoriaNombre":"/api/categoria/",
-    "eliminarCategoria":"/api/categoria/:",
+    "eliminarCategoria":"/api/categoria/",
     "actualizarCategoria":"/api/categoria/",
 
     "crearPedido":"/api/pedido",
