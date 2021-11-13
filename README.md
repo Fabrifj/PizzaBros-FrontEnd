@@ -9,6 +9,7 @@ Entrar en esa carpeta y abrir un editor ahi, puede ser visual code.
 ```
 
 $ cd YourPizzaBros3
+$ npm init -y
 $ npm install firebase nodemon express cors
 $ nodemon index.js
 ```
