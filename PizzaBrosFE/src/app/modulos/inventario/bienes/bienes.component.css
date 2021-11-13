@@ -1,7 +1,92 @@
+*{
+    font-family: 'open sans';
+}
+
 .nuevoValorC{
 
     display: none;
 }
 .botones{
     margin: 5px;
+}
+
+.sectorFiltros{
+    position: absolute;
+    top: -370px;
+    right: 130px;
+}
+
+.buscarBtn{
+    background-color: rgba(241, 193, 35, 0.945);
+    width: 85px;
+    height: 30px;
+    margin-left: 1%;
+    margin-bottom: 1%;
+    border: 0px;
+    border-radius: 10px;
+    font-size: 20px;
+}
+ 
+#crearBtn {
+    background-color: rgba(241, 193, 35, 0.945);
+    width: 125px;
+    height: 30px;
+    margin-left: 1%;
+    margin-bottom: 1%;
+    border: 0px;
+    border-radius: 10px;
+    font-size: 20px;
+}
+
+#txtBuscar{
+    margin-left: -10%;
+    margin-bottom: 1%;
+    width: 250px;
+    height: 30px;
+    border-radius: 6px;
+}
+.tablaIngredientes {
+    position: absolute;
+    width: 96%;
+    text-align-last: center;
+
+    top:-320px;
+    right: -180px;
+    
+}
+
+.bien{
+    margin-top:-90px;
+    margin-left: 90px;
+}
+
+.bien h1{
+    font-weight: bold;
+    margin-top: 15px;
+}
+
+.infoEditable p{
+    font-size: 30px;
+}
+
+.infoEditable input,textarea{
+    width: 400px;
+}
+
+.btnCerrar{
+    position: absolute;
+    width: 110px;
+    height: 40px;
+    margin-left: 35% ;
+    font-size: 25px;
+    bottom: 20px;
+}
+
+.btnGuardado{
+    position: absolute;
+    width: 180px;
+    height: 40px;
+    margin-left: 5% ;
+    font-size: 22px;
+    bottom: 20px;
 }
