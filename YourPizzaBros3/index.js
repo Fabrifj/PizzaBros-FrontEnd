@@ -1,9 +1,8 @@
-
-
 //const firestore = require('firebase/firestore')
-const express = require('express')
+const express = require('express');
 const cors = require('cors');
 const { query } = require('express');
+const { compra } = require('./config');
 database = require('./config');
 //const ingrediente = database.ingrediente;
 const producto = database.producto;
@@ -13,12 +12,9 @@ const firebase = database.firebase;
 const categoria = database.categoria;
 const elemento = database.elemento;
 
-//const { async } = require('@firebase/util')
-const app = express()
-
-
-app.use(express.json())
-app.use(cors())
+const app = express();
+app.use(express.json());
+app.use(cors());
 
 /*
 app.post("/api/ingrediente", async (req, res) => {
@@ -741,5 +737,161 @@ app.get("/api/getPedidosCliente/nit/:nit", async (req, res) => {
 
 
 
-/////////
+
+
+/*===================================
+          CRUD COMPRA
+===================================*/
+
+/* 
+Estructura del body para la creacion de una compra
+{
+    "Fecha":"2021-02-14T",
+    "Total":60,
+    "ListaElementos":
+    [
+        {
+            "IdElemento":"1",
+            "Marca":"Salsa de Tomate Flor",
+            "TipoUnidad":"ml",
+            "CantidadMedida":500,
+            "CostoUnidad":15,
+            "CantidadComprada":2,
+            "Tipo": "Ingrediente",
+            "Nombre": "Salsa de Tomate"
+        },
+        {
+            "IdElemento":"2",
+            "Marca":"Harina BlancaFlor",
+            "TipoUnidad":"kg",
+            "CantidadMedida":0.5,
+            "CostoUnidad":10,
+            "CantidadComprada":3,
+            "Tipo": "Ingrediente",
+            "Nombre:" "Salsa de Tomate"
+        }
+    ]
+}
+
+Estructura de la compra individual a crear
+{
+    "Id":"ABDHSJOOO",
+    "Tipo":"Individual"
+    "Fecha":"2021-02-14T",
+    "CostoTotal":30,
+    "CostoUnitario":15,
+    "CantidadComprada":2,
+    "TipoUnidad":"ml",
+    "CantidadMedida":500,
+    "IdElemento":"1"
+}
+*/
+
+// Crear una compra
+app.post("/api/compra", async (req, res) => {
+  const data = req.body;
+
+  const fecha = data.Fecha;
+  const total = data.Total;
+
+  var misElems = [];
+  var msg = {};
+  // Iteramos por todos los elementos dentro de la lista de elementos
+  data.ListaElementos.forEach(
+    async (elem) => {
+      //Creacion del objeto elemento necesario para la creacion de la base de datos
+      var elemBD = {
+        "IdElemento": elem.IdElemento,
+        "NombreMarca": elem.Marca,
+        "TipoUnidad": elem.TipoUnidad,
+        "CantidadMedida": elem.CantidadMedida,
+        "CostoUnidad": elem.CostoUnidad,
+        "CantidadComprada": elem.CantidadComprada
+      }
+      misElems.push(elemBD);
+      //console.log("Elementos a ingresar dentro de compra en la BD: ", misElems);
+
+      // Creacion de la compra individual
+      var nuevaCompraIndividual = {
+        "Tipo":"Individual",
+        "Fecha": firebase.firestore.Timestamp.fromDate(new Date(fecha)),
+        "Total": total,
+        "CostoUnidad": elem.CostoUnidad,
+        "CantidadComprada": elem.CantidadComprada,
+        "TipoUnidad": elem.TipoUnidad,
+        "CantidadMedida": elem.CantidadMedida,
+        "IdElemento": elem.IdElemento
+      }
+
+      console.log("Nueva compra individual a ingresar en la base de datos: ", nuevaCompraIndividual);
+      await compra.add(nuevaCompraIndividual);
+      console.log("Compra individual agregada");
+      msg["Compra Individual"] = nuevaCompraIndividual;
+
+
+      // Verificacion de la existencia del elemento dentro de la base de datos
+      await elemento.doc(elem.IdElemento).get().then(snapshot => {
+        let querySnapshot = snapshot.data();
+        //console.log("Resultado de la consulta: ", querySnapshot);
+          
+        if (typeof querySnapshot == 'undefined' || querySnapshot.empty || querySnapshot == null){
+          console.log(`elemento con el id: ${elem.idelemento} no encontrado en la base de datos`);
+          // formato del elemento
+          var cantinventario = elem.cantidadmedida * elem.cantidadcomprada;
+          var mielem = {
+            "nombre": elem.nombre,
+            "tipounidad": elem.tipounidad,
+            "listaarticulos":
+            [
+                {
+                    "marca": elem.marca,
+                    "costo": elem.costounidad,
+                    "cantidadmedida": elem.cantidadmedida
+                }
+            ],
+            "cantidadinventario": cantinventario,
+            "costomedia": elem.costounidad,
+            "tipo": elem.tipo
+          }
+          //console.log("En caso de que el elemento no este creado: ", miElem);
+
+          // Creacion del elemento con la funcion de Gaby
+
+        } else {
+          // Dado que el elemento existe se capturara los nuevos datos que el elemento
+          // trae con la compra
+          console.log("Elemento encontrado: ", elem.IdElemento);
+
+          var miElem = {
+            "NombreMarca": elem.Marca,
+            "CantidadMedida": elem.CantidadMedida,
+            "CostoUnidad": elem.CostoUnidad,
+            "CantidadComprada": elem.CantidadComprada      
+          }
+          //console.log("En caso de que el elemento este creado: ", miElem);
+
+          // Actualizacion del elemento mediante la funcion de Gaby
+        }
+      })
+    }
+  )
+  var respuesta = null;
+
+  // Creacion de la compra de tipo grupal
+  var nuevaCompraGrupal = {
+    "Tipo": "Grupal",
+    "Fecha": firebase.firestore.Timestamp.fromDate(new Date(fecha)),
+    "Total": total,
+    "ListaElementos": misElems
+  }
+  console.log("Nueva compra grupal a ingresar en la base de datos: ", nuevaCompraGrupal);
+  await compra.add(nuevaCompraGrupal);
+  console.log("Compra grupal agregada");
+  msg["CompraGrupal"] = nuevaCompraGrupal;
+
+  respuesta = msg;
+  res.send(respuesta);
+})
+
+///////
 app.listen(4000, () => console.log("Up and Running on 4000"));

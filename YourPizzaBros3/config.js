@@ -28,5 +28,6 @@ const producto = db.collection("Producto");
 const categoria = db.collection("Categoria");
 const cliente = db.collection("Cliente");
 const pedido = db.collection("Pedido");
+const compra = db.collection("Compra");
 
-module.exports = { producto,cliente,pedido,firebase,categoria, elemento};
+module.exports = { producto,cliente,pedido,firebase,categoria,elemento,compra};

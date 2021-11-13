@@ -16,7 +16,7 @@
     "obtenerClienteNit":"/api/cliente/:nit",
 
     "crearCategoria":"/api/categoria",
-    "obtenerCategorias":"/api/categoria",
+    "obtenerCategorias":"/api/categorias",
     "obtenerCategoriaNombre":"/api/categoria/:nombre",
     "obtenerProductosCategoriaNombre":"/api/categoria/:nombre/productos",
     "eliminarCategoria":"/api/categoria/:id",
@@ -33,6 +33,7 @@
     "crearBien":"/api/bien",
     "obtenerBien":"/api/bienes",
     "obtenerBienNombre":"/api/bien/:nombre",
-    "actualizarBien":"/api/bien/:nombre"
+    "actualizarBien":"/api/bien/:nombre",
     
+    "crearCompra": "/api/compra"
 }
