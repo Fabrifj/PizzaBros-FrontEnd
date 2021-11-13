@@ -1,0 +1,27 @@
+*{
+	font-family: 'open sans';
+    margin-left: 7px;
+}
+.fondo {
+    width: 115%;
+	height: 900px;
+    margin-left: -74px;
+    margin-top: -30px;
+	padding-bottom: 20px;
+	background: url(https://comingsoon13.files.wordpress.com/2012/05/fondo-madera-marron.jpg);
+	background-size: cover;
+	background-attachment: fixed;
+	position: relative;
+}
+h2{
+    color: blanchedalmond;
+    font-size: 40px;
+    padding-top: 10px;
+}
+.btn{
+    margin: 5px;
+    width: 200px;
+    height: 50px;
+    font-size: 18px;
+    background-color: rgb(218, 75, 32);
+}

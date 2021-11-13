@@ -1,104 +1,192 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'open sans';
-}
-
-
-
-.textos-header {
-    width: 100%;
-    height: 400px;
-    background: /* #bc4e9c;*/
-    /* fallback for old browsers */
-    /*background: -webkit-linear-gradient(to right, hsla(340, 95%, 50%, 0.459), hsla(317, 45%, 52%, 0.664)),*/ url(https://upload.wikimedia.org/wikipedia/commons/b/bc/Pizza_pie.jpg);
-    /* Chrome 10-25, Safari 5.1-6 */
-    /*background: linear-gradient(to right, hsla(340, 95%, 50%, 0.459), hsla(317, 45%, 52%, 0.664)), url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRE6Dg8j-ioPmHdS5TCcpVUzXTTSF9GjaxXcA&usqp=CAU);
-    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    background-size: cover;
-    background-attachment: fixed;
+/* Inicio */
+.pagina{
     position: relative;
+    width: 1287px;
+    height: 1300px;
+    left: -74px;
+    top: -11px;
+
+    background: #121010;
+    border: 1px solid #000000;
+    box-sizing: border-box;
 }
 
-.textos-header {
-    display: flex;
-    /*height: 430px;
-    width: 100%;*/
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    text-align: center;
-}
+.imagen{
+    /*position: absolute;*/
+    width: 100%;
+    height: 622px;
+    
 
-.textos-header h1{
-    font-size: 50px;
-    color:#fff;
-}
+    background: url(src/imagenes/fondoInicio.jpg);
+    /*mix-blend-mode: normal;*/
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
 
-.textos-header h2{
-    font-size: 30px;
-    font-weight: 300;
-    color:#fff;
 }
-/* footer */
 
 footer{
-    background: #414141;
-    padding: 60px 0 30px 0;
-    margin: auto;
-    overflow: hidden;
+    position: absolute;
+    width: 1292px;
+    height: 548px;
+    left: 0px;
+    top: 692px;
 }
 
-.contenedor-footer{
-    display: flex;
-    width: 90%;
-    justify-content: space-evenly;
-    margin: auto;
-    padding-bottom: 50px;
-    border-bottom: 1px solid #ccc;
-}
 
-.content-foo{
+.frase {
+    position: absolute;
+    width: 459px;
+    height: 489px;
+    left: 815px;
+    top: 10px;
+
+    font-family: Montaga;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 72px;
+    line-height: 89px;
     text-align: center;
+
+    color: #FFFFFF;
+}
+.sucursal{
+    position: absolute;
+    width: 253px;
+    height: 46px;
+    left: 42px;
+    top: -30px;
+
+    font-family: Aclonica;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 34px;
+    line-height: 39px;
+
+    color: #B57F16;
+}
+.sucursales{
+    position: absolute;
+    width: 255px;
+    height: 370px;
+    left: 42px;
+    top: 20px;
+    
+    font-family: Montaga;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 30px;
+    
+    color: #FFFFFF;
+
+
 }
 
-.content-foo h4{
-    color: #fff;
-    border-bottom: 3px solid #af20d3;
-    padding-bottom: 5px;
-    margin-bottom: 10px;
+.sucursales p{
+    margin-top: 50px;
 }
 
-.content-foo p{
-    color: #ccc;
+.horario{
+    position: absolute;
+    width: 475px;
+    height: 38px;
+    left: 354px;
+    top: -30px;
+
+    font-family: Aclonica;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 34px;
+    line-height: 39px;
+
+    color: #B57F16;
 }
 
+.horarios{
+    position: absolute;
+    /*width: 44px;
+    height: 355px;*/
+    left: 355px;
+    top: 0px;
+}
 
+.horarios h1{
+    width: 406px;
+    height: 26px;
+    left: 12px;
+    top: 18px;
 
-@media screen and (max-width:900px){
-    .textos-header{
-        background-position: center;
-    }
-    /* Footer */
+    font-family: Aclonica;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 27px;
 
-    .contenedor-footer{
-        flex-direction: column;
-        border: none;
-    }
+    color: #B57F16;
 
-    .content-foo{
-        margin-bottom: 20px;
-        text-align: center;
-    }
+    padding-top: 50px;
+}
+.horarios p{
+    width: 254px;
+    height: 30px;
+    left: 12px;
+    top: 133px;
 
-    .content-foo h4{
-        border: none;
-    }
+    font-family: Montaga;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 30px;
 
-    .content-foo p{
-        color: #ccc;
-        border-bottom: 1px solid #f2f2f2;
-        padding-bottom: 20px;
-    }
+    color: #FFFFFF;
+    padding-top: 20px;
+
+}
+
+.horarios ul{
+    width: 254px;
+    height: 30px;
+
+    font-family: Montaga;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 30px;
+    color: #D92B13;
+
+    padding-top: 20px;
+    padding-left: 0px;
+}
+
+.amor{
+    position: absolute;
+    width: 287px;
+    height: 44px;
+    left: 56px;
+    top: 530px;
+
+    font-family: Montaga;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 30px;
+    line-height: 37px;
+
+    color: #B57F16;
+}
+
+.bros{
+    position: absolute;
+    width: 138px;
+    height: 38px;
+    left: 310px;
+    top: 530px;
+
+    font-family: Montaga;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 30px;
+    line-height: 37px;
+
+    color: #137C02;
 }

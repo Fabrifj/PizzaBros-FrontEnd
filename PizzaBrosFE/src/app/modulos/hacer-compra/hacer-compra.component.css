@@ -1,0 +1,35 @@
+.container-fluid{
+	width: 115%;
+	height: 1000px;
+    margin-left: -74px;
+    margin-top: -10px;
+	padding-bottom: 20px;
+	background: url(https://comingsoon13.files.wordpress.com/2012/05/fondo-madera-marron.jpg);
+	background-size: cover;
+	background-attachment: fixed;
+	position: relative;
+}
+
+h2 { 
+    font-family: 'open sans';
+    color: rgb(224, 103, 21);
+    font-size: 40px;
+	font-weight: bold;
+    font-family: 'open sans';
+    margin-left: 9px ;
+    
+}
+.btn {
+    background-color: rgba(241, 193, 35, 0.945);
+	color:whitesmoke;
+    width: 180px;
+    height: 39px;
+    margin-bottom: 3%;
+    border: 0px;
+    border-radius: 10px;
+    font-size: 20px;
+    position:absolute;
+
+    top: 25px;
+    right: 780px;
+}
