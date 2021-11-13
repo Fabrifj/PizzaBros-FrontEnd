@@ -12,11 +12,13 @@ export class ProductosComponent implements OnInit {
   
 
   subMenus : RutaTituloModel[] = [
-    {Ruta: "crear-productos",Nombre: "Crear Producto"},
-    {Ruta: "crear-categorias",Nombre: "Crear Familia"}
+    {Ruta: "ver-productos",Nombre: "Ver Productos/Categorias"},
+    {Ruta: "creacion-productos",Nombre: "Crear/Modificar Producto"},
+    {Ruta: "creacion-categorias",Nombre: "Crear/Modificar Categoria"}
+    
   ];
   ngOnInit(): void {
-
+ 
     
   }
 

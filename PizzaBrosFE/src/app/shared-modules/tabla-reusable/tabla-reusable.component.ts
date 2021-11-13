@@ -20,12 +20,12 @@ export class TablaReusableComponent implements OnInit {
   constructor() { }
   ngOnInit()  {
 
-    console.log("cambio color", this.colorLetra)
+    
     const elem = document.getElementsByClassName('tablaContenedora');
     var indice  = parseInt(this.indice,10);
     const e = elem[indice];
     if(e instanceof HTMLElement){
-      console.log("entro a cambiar el color");
+      
        e.style.color = this.colorLetra;
    }
     /*for (let i =0 ; i< elem.length ; i++){
