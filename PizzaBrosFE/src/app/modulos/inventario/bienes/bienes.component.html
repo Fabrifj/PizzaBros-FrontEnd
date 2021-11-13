@@ -1,10 +1,10 @@
 <div>
 
-    <h2>Bienes</h2>
+    
 </div>
 <div class = "sectorFiltros">
     <input type="text" id="txtBuscar">
-    <button type="submit" (click)="buscar()">Buscar</button>
+    <button type="submit" class="buscarBtn"(click)="buscar()">Buscar</button>
 
     <button id="crearBtn" (click)="mandarCrearBien()">Crear Bien</button>
 </div>
@@ -46,8 +46,8 @@
     </div>
  </jw-modal>
 
- <jw-modal id="modal-4" altura="70" >
-    <h1>Crear Bien:</h1>
+ <jw-modal id="modal-4" altura="90" >
+    <div class="bien">
     <div class="infoEditable">
         
        
@@ -78,5 +78,6 @@
     <div class="botones">
         <button class="btnGuardado" (click)="crearBien()">Guardar Cambios</button>
        <button class="btnCerrar" (click)="servicioModal.cerrar('modal-4');">Cancelar</button>
+    </div>
     </div>
  </jw-modal>
