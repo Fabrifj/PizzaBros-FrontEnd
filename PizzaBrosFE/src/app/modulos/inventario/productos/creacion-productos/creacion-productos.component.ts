@@ -9,117 +9,232 @@ import { ModalService } from 'src/app/shared-modules/modal/modal.service';
 })
 export class CreacionProductosComponent implements OnInit {
 
-  ingredienteSeleccionado:any = {}
-  nombreBotones: string[] | undefined;
+  objetoSeleccionado:any = {};
+
+ 
 
 
-  datos: any | undefined;
-  datosRespaldo: any | undefined;
-  columnas = [
+  datosIngBackUp:any | undefined;
+
+
+  datosProd: any | undefined;
+  columnasProd = [
     {field:'Nombre',header:'Nombre'},
-    {field:'Cantidad',header:'Unidades Restantes'},
-    {field:'UnidadMedida',header:'Medida de Unidad'},
-    //{field:'CostoUnidad',header:'Costo Unidad Bs'},
-    {field:'Proveedor',header:'Proveedor'}
+    {field:'Descripcion',header:'Descripcion'}
+   // {field:'Imagen',header:'Imagen'}
     
 
   ];
+
+
+  datosIngMini: any | undefined;
+  columnasIngMini = [
+    {field:'NombreProducto',header:'Nombre Producto'}
+   // {field:'Imagen',header:'Imagen'}
+    
+
+  ];
+
+  datosIng: any | undefined;
+  columnasIng = [
+    {field:'Nombre',header:'Nombre Producto'}
+   // {field:'Imagen',header:'Imagen'}
+    
+
+  ];
+
+
+
+
+
+  nombreBotonesProd1: string[] = ['Seleccionar'];
+  nombreBotonesIng1: string[] = ['Agregar'];
+  nombreBotonesIng2: string[] = ['Quitar'];
+
+
+  nombreBoton :any ;
 
   constructor(private servicioHttp: AppHttpService, public servicioModal: ModalService) { }
 
   ngOnInit(): void {
 
-    this.nombreBotones = ['Modificar','Comprar'];
-    this.obtenerProductos();
+    this.filtroCrear();
+    this.obtenerIngredientes();
   }
-
-  obtenerProductos(){
+  obtenerIngredientes(){
     this.servicioHttp.obtenerIngredientes()
     .subscribe((jsonFile:any)=>{
      
       console.log(jsonFile);
-      this.datos = jsonFile;
-       this.datosRespaldo = jsonFile;
+
+      this.datosIng = jsonFile;
+      this.datosIngBackUp = this.datosIng;
       
+
+    } ,(error)=>{
+        console.log("hubo error con categoria")
 
     } )
   }
-   ///crear Ingrediente
-   crearIngrediente( ){
-
-    var nuevoValorNombre = (<HTMLInputElement>document.getElementById("valorNombreCrear")).value;
-    var nuevoValorUnidad = (<HTMLInputElement>document.getElementById("valorUnidadCrear")).value;
-
-    //let body = JSON.stringify({ IdPedido: pedido.id , Estado: "Entregado"})
-    let ingredienteNuevo = JSON.stringify({cantidad: 0, costoTotal:0, nombre: nuevoValorNombre , ipoUnidad: nuevoValorUnidad});
-    let body = JSON.parse(ingredienteNuevo)
-    this.servicioHttp.crearProducto(body).subscribe((response) => {
-      console.log('Response from API', response);
-      this.obtenerProductos();
-    }, (error)=>{
-      console.log('Error',error);
-    })
-	
 
 
-    this.servicioModal.cerrar('modal-4');
+  obtenerProductos(){
+    this.servicioHttp.obtenerProductos()
+    .subscribe((jsonFile:any)=>{
+     
+      console.log(jsonFile);
+      this.datosProd = jsonFile;
+     
+      
+
+    } ,(error)=>{
+        console.log("hubo error con productos")
+
+    } )
   }
 
-  funcionBoton( names: any){
-    if(names[0] == "Modificar")
-    {
-        console.log("boton:modificar");
-        this.ingredienteSeleccionado = names[1];
 
+
+
+  
+  funcionBoton( names: any){
+    
+    if (names[0] == "Seleccionar"){
+      
+        this.obtenerIngredientes();
+        this.objetoSeleccionado = names[1] ;
+
+        console.log("objetoseleccion:",this.objetoSeleccionado)
+        this.datosIngMini = this.objetoSeleccionado.ListaProductos;
+
+        this.datosIngMini.forEach((element:any) => {
+            //quitar de lista grande
+            this.datosProd = this.datosProd.filter((obj:any) => obj.id !== element.IdProducto);
+        });
+      
+
+        (<HTMLInputElement>document.getElementById("objetoSeleccionadoID")).value = this.objetoSeleccionado.Nombre;
+        (<HTMLInputElement>document.getElementById("nuevoNP")).value = this.objetoSeleccionado.Nombre;
+        (<HTMLInputElement>document.getElementById("nuevoDP")).value = this.objetoSeleccionado.Descripcion;
         //new
         
 
-        console.log(names[1])
-        this.servicioModal.abrir('modal-3');
+                
+        this.servicioModal.cerrar('modalProd-2');
+
+
+
+
+
+
+    }
+    else if(names[0]=="Agregar"){
+
+      var elemAgregar = names[1];
+      
+      //console.log(elemAgregar);
+     
+      
+      //quitar de lista grande
+      this.datosIng = this.datosIng.filter((obj:any) => obj.id !== elemAgregar.id);
+
+      //agregar a lista pequna
+      var elemNuevo = JSON.stringify({IdProducto: elemAgregar.id , NombreProducto: elemAgregar.Nombre , ImgURL: elemAgregar.ImgURL});
+      this.datosIngMini.push(JSON.parse(elemNuevo));
+      
     }
     else{
+        //quitar
 
-      console.log("comprar ingrediente");
-      
-      
+        var elemQuitar = names[1];
+        var ingSeleccionado :any = {};
+        this.datosIngBackUp.forEach((element:any) => {
+          if(element.id == elemQuitar.IdProducto){
+            ingSeleccionado = element;
+          }
+        });
+
+        
+        //qutiar mini lista
+        this.datosIngMini = this.datosIngMini.filter((obj:any) => obj.IdProducto !== elemQuitar.IdProducto);
+        
+       // var elemNuevo = JSON.stringify({ id: elemQuitar.IdProducto , Nombre: elemQuitar.NombreProducto , ImgURL: elemQuitar.ImgURL});
+        
+        
+
+        console.log("ingseleccionado", ingSeleccionado)
+        this.datosIng.push( ingSeleccionado);
+
     }
-
   }
 
-  buscar(){
-    
-    var varBuscar   = (<HTMLInputElement>document.getElementById("txtBuscar")).value.toLowerCase();
-    console.log(varBuscar);
-    
-    if(!!varBuscar.trim()){
+  filtroCrear(){
+    this.nombreBoton = "CREAR";
+    this.objetoSeleccionado = "";
+    this.datosIngMini = [];
+    this.datosProd = this.datosIngBackUp;
+    (<HTMLInputElement>document.getElementById("nuevoNP")).value = "";
+    (<HTMLInputElement>document.getElementById("siModifico")).style.display = "none";
+    (<HTMLInputElement>document.getElementById("nuevoDP")).value = "";
+    (<HTMLInputElement>document.getElementById("crearP")).checked = true;
+  }
 
-      
-      
-      var datosAux:Array<Object> =[];
-      this.datosRespaldo.forEach((dato:any) => {
-        
-        var nombreD = dato.Nombre.toLowerCase();
-        if(nombreD.includes(varBuscar.trim())){
-          datosAux.push(dato);
+  filtroModificar(){
 
-        }
+    this.nombreBoton = "MODIFICAR";
+    this.obtenerProductos();
+    
+    this.servicioModal.abrir('modalProd-2');
+    (<HTMLInputElement>document.getElementById("siModifico")).style.display = "inline";
+
+  }
+  crearProducto(){
+
+    var nombreC = (<HTMLInputElement>document.getElementById("nuevoNP")).value;
+    var descripcionC = (<HTMLInputElement>document.getElementById("nuevoDP")).value;
+
+
+   
+    var categoria = JSON.stringify({ ListaProductos : this.datosIngMini , Nombre: nombreC , Descripcion: descripcionC })
+    console.log(JSON.parse(categoria));
+
+    if(this.nombreBoton == "CREAR"){
+
+      this.servicioHttp.crearProducto(JSON.parse(categoria))
+      .subscribe((jsonFile:any)=>{
         
-      });
-      
-      this.datos = datosAux;
+        console.log("creado bien");
+        alert('producto creada correctamente');
+  
+      } ,(error)=>{
+          console.log("hubo error con crear producto")
+  
+      } )
 
     }
     else{
-
-      console.log("no valores");
-      this.obtenerProductos();
-
+      //modificar
+      
+      /*console.log("id modificar:",this.objetoSeleccionado.id)
+      this.servicioHttp.actualizarProducto(this.objetoSeleccionado.id, JSON.parse(categoria) )
+      .subscribe((jsonFile:any)=>{
+        
+        alert('Categoria modificada correctamente');
+        console.log("modificado bien");
+  
+  
+      } ,(error)=>{
+          console.log("hubo error con modificar categoria")
+  
+      } )
+*/
     }
-    
 
     
-    
-    
+    this.filtroCrear()
+
   }
+  
+    
 
 }
