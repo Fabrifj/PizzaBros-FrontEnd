@@ -20,7 +20,7 @@
     "obtenerClienteNit":"/api/cliente/:nit",
 
     "crearCategoria":"/api/categoria",
-    "obtenerCategorias":"/api/categoria",
+    "obtenerCategorias":"/api/categorias",
     "obtenerCategoriaNombre":"/api/categoria/:nombre",
     "obtenerProductosCategoriaNombre":"/api/categoria/",
     "eliminarCategoria":"/api/categoria/:id",
@@ -34,5 +34,9 @@
     "obtenerPedidosEstado":"/api/pedidosEstado/:estado",
     "obtenerPedidoFechaNIT":"/api/pedidoFechaNIT",
 
-    
+    "crearCompra": "/api/compra",
+    "obtenerCompras": "/api/compras",
+    "obtenerCompraId": "/api/compra/:id",
+    "actualizarCompraId": "/api/compra/:id",
+    "eliminarCompraId":"/api/compra/:id"
 }
