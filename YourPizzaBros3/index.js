@@ -1176,13 +1176,13 @@ app.get("/api/compra/:id", async (req, res) => {
 
 
 // Actualizar compra
-async function actualizarCompra(compraId, compra) {
+async function actualizarCompra(compraId, cmp) {
   
   var resp = null;
-  await elemento.doc(compraId).update(compra)
+  await compra.doc(compraId).update(cmp)
   .then(() => 
   {
-    resp = compra;  
+    resp = cmp;  
     console.log("Compra actualizada");
   })
   .catch((error) => 
@@ -1196,8 +1196,8 @@ async function actualizarCompra(compraId, compra) {
 
 app.put("/api/compra/:id", async (req, res) => {
   var compraId = req.params.id;
-  var compra = req.body;
-  const resp = await actualizarCompra(compraId,compra);
+  var cmp = req.body;
+  const resp = await actualizarCompra(compraId,cmp);
   res.send(resp);
 });
 
