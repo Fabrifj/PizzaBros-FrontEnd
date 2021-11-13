@@ -266,7 +266,7 @@ async function obtenerCategorias() {
   const list = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
   return list;
 }
-app.get("/api/categoria", async (req, res) => {
+app.get("/api/categorias", async (req, res) => {
   const list = await obtenerCategorias();
   res.send(list);
 });
@@ -1018,22 +1018,13 @@ Estructura del body para la creacion de una compra
         }
     ]
 }
-
-Estructura de la compra individual a crear
-{
-    "Id":"ABDHSJOOO",
-    "Tipo":"Individual"
-    "Fecha":"2021-02-14T",
-    "CostoTotal":30,
-    "CostoUnitario":15,
-    "CantidadComprada":2,
-    "TipoUnidad":"ml",
-    "CantidadMedida":500,
-    "IdElemento":"1"
-}
 */
 
 // Crear una compra
+async function CrearElem(elem){
+  await elemento.add(elem);
+} 
+
 app.post("/api/compra", async (req, res) => {
   const data = req.body;
 
@@ -1048,7 +1039,7 @@ app.post("/api/compra", async (req, res) => {
       //Creacion del objeto elemento necesario para la creacion de la base de datos
       var elemBD = {
         "IdElemento": elem.IdElemento,
-        "NombreMarca": elem.Marca,
+        "Marca": elem.Marca,
         "TipoUnidad": elem.TipoUnidad,
         "CantidadMedida": elem.CantidadMedida,
         "CostoUnidad": elem.CostoUnidad,
@@ -1081,42 +1072,45 @@ app.post("/api/compra", async (req, res) => {
         //console.log("Resultado de la consulta: ", querySnapshot);
           
         if (typeof querySnapshot == 'undefined' || querySnapshot.empty || querySnapshot == null){
-          console.log(`elemento con el id: ${elem.idelemento} no encontrado en la base de datos`);
+          console.log(`elemento con el id: ${elem.IdElemento} no encontrado en la base de datos`);
           // formato del elemento
-          var cantinventario = elem.cantidadmedida * elem.cantidadcomprada;
-          var mielem = {
-            "nombre": elem.nombre,
-            "tipounidad": elem.tipounidad,
-            "listaarticulos":
+          var cantInventario = elem.CantidadMedida * elem.CantidadComprada;
+          var miElem = {
+            "Nombre": elem.Nombre,
+            "Tipounidad": elem.TipoUnidad,
+            "ListaArticulos":
             [
                 {
-                    "marca": elem.marca,
-                    "costo": elem.costounidad,
-                    "cantidadmedida": elem.cantidadmedida
+                    "Marca": elem.Marca,
+                    "Costo": elem.CostoUnidad,
+                    "CantidadMedida": elem.CantidadMedida
                 }
             ],
-            "cantidadinventario": cantinventario,
-            "costomedia": elem.costounidad,
-            "tipo": elem.tipo
+            "CantidadInventario": cantInventario,
+            "CostoMedia": elem.CostoUnidad,
+            "Tipo": elem.Tipo
           }
           //console.log("En caso de que el elemento no este creado: ", miElem);
 
           // Creacion del elemento con la funcion de Gaby
-
+          
+          CrearElem(miElem);
         } else {
           // Dado que el elemento existe se capturara los nuevos datos que el elemento
           // trae con la compra
           console.log("Elemento encontrado: ", elem.IdElemento);
 
           var miElem = {
-            "NombreMarca": elem.Marca,
+            "Marca": elem.Marca,
             "CantidadMedida": elem.CantidadMedida,
-            "CostoUnidad": elem.CostoUnidad,
+            "Costo": elem.CostoUnidad,
             "CantidadComprada": elem.CantidadComprada      
           }
           //console.log("En caso de que el elemento este creado: ", miElem);
 
           // Actualizacion del elemento mediante la funcion de Gaby
+          actualizarElemAgregarInv(elem.IdElemento,miElem);
+
         }
       })
     }
@@ -1138,6 +1132,95 @@ app.post("/api/compra", async (req, res) => {
   respuesta = msg;
   res.send(respuesta);
 })
+
+
+//Obtener todas las compras
+async function obtenerCompras(){
+  const snapshot = await compra.get();
+  const list = snapshot.docs.map((doc) => ({
+    id: doc.id,
+    ...doc.data()
+  }));
+  return list;
+}
+
+app.get("/api/compras", async (req, res) => {
+  const lista = await obtenerCompras();
+  res.send(lista);
+})
+
+// Obtener compra mediante su ID
+async function obetenerCompraId(compraId) 
+{
+  var resp = null;
+  await compra.doc(compraId).get().then((doc) => {
+    if (doc.exists) {
+      resp = { id: doc.id, ...doc.data() }  
+      console.log("Informacion de la compra:", doc.data());
+    } else {
+      console.log("La compra no existe");
+    }
+  }).catch((error) => 
+  {
+      console.log("Error getting document:", error);
+  });
+
+  return resp;
+}
+
+app.get("/api/compra/:id", async (req, res) => {
+  var compraId = req.params.id;
+  const resp = await obetenerCompraId(compraId);
+  res.send(resp);
+});
+
+
+// Actualizar compra
+async function actualizarCompra(compraId, compra) {
+  
+  var resp = null;
+  await elemento.doc(compraId).update(compra)
+  .then(() => 
+  {
+    resp = compra;  
+    console.log("Compra actualizada");
+  })
+  .catch((error) => 
+  {
+      // The document probably doesn't exist.
+      console.error("Error al actualizar la compra: ", error);
+  });
+
+  return resp;
+};
+
+app.put("/api/compra/:id", async (req, res) => {
+  var compraId = req.params.id;
+  var compra = req.body;
+  const resp = await actualizarCompra(compraId,compra);
+  res.send(resp);
+});
+
+
+// Eliminar Compra
+async function eliminarCompra(compraId) {
+  var resp = null;
+  await compra.doc(compraId).delete().then(() => {
+    resp = "Compra borrada correctamente!"
+    console.log(resp);
+  }).catch((error) => 
+  {
+    console.error("Error eliminando la compra: ", error);
+  });
+
+  return resp;
+}
+
+app.delete("/api/compra/:id", async (req, res) => {
+  var compraId = req.params.id;
+  const resp = await eliminarCompra(compraId);
+  res.send(resp);
+});
 
 ///////
 app.listen(4000, () => console.log("Up and Running on 4000"));

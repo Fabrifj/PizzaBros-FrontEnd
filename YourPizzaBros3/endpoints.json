@@ -34,5 +34,9 @@
     "obtenerPedidosEstado":"/api/pedidosEstado/:estado",
     "obtenerPedidoFechaNIT":"/api/pedidoFechaNIT",
 
-    "crearCompra": "/api/compra"
+    "crearCompra": "/api/compra",
+    "obtenerCompras": "/api/compras",
+    "obtenerCompraId": "/api/compra/:id",
+    "actualizarCompraId": "/api/compra/:id",
+    "eliminarCompraId":"/api/compra/:id"
 }
