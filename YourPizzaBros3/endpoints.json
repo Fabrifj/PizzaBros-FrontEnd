@@ -1,11 +1,15 @@
 {
     "NOTA":"sI empieza con: crear=>POST, obtener=>GET, actualizar=>PUT, eliminar=>DELETE",
 
-    "crearIngrediente":"/api/ingrediente",
-    "obtenerIngredientes": "/api/ingredientes",
-    "obtenerIngredienteNombre":"/api/ingrediente/:nombre",
-    "actualizarIngrediente":"/api/ingrediente/:nombre",
-    
+    "crearElemento":"/api/elemento",
+    "obtenerElementos":"/api/elemento",
+    "obtenerIngredientes":"/api/ingrediente",
+    "obtenerBienes":"/api/bien",
+    "eliminarElemento":"/api/elemento/:id",
+    "actualizarElemento":"/api/elemento/:id",
+    "obtenerElementoId":"/api/elemento/:id",
+    "actualizarElemAgregarInv":"/api/elemento/:id/agregarInv",
+
     "crearProducto":"/api/producto",
     "obtenerProducts":"/api/productos",
     "obtenerProductoId":"/api/producto/Id/:id",
@@ -30,9 +34,5 @@
     "obtenerPedidosEstado":"/api/pedidosEstado/:estado",
     "obtenerPedidoFechaNIT":"/api/pedidoFechaNIT",
 
-    "crearBien":"/api/bien",
-    "obtenerBien":"/api/bienes",
-    "obtenerBienNombre":"/api/bien/:nombre",
-    "actualizarBien":"/api/bien/:nombre"
     
 }
