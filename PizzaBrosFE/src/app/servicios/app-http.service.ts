@@ -126,9 +126,9 @@ export class AppHttpService {
     var path = paths.eliminarCategoria + idCat
     return this.http.delete(path)
   }
-  actualizarCategoria(idCat:any){
+  actualizarCategoria(idCat:any, cat:any){
     var path = paths.actualizarCategoria + idCat
-    return this.http.post(path,idCat)
+    return this.http.put(path,cat)
   }
   
 }
