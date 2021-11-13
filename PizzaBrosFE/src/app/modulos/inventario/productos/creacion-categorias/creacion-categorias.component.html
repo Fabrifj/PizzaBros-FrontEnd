@@ -1,0 +1,109 @@
+<div class="contenedorFiltros">
+
+    <form>
+        
+        <div>
+            <div>
+                <input type="radio" id="crearC" name= "catCrear" checked (click) = "filtroCrear()">
+                <label for="contactChoice1">Crear Categoria</label>
+            </div>
+            <div>
+                <input type="radio" id="modC" name="catCrear" (click) = "filtroModificar()">
+                <label for="contactChoice2">Modificar Categoria</label>
+            </div>
+            
+
+        </div>
+      </form>
+
+</div>
+
+<div id="siModifico">
+    <h3>Categoria a Modificar:</h3>
+    <input type="text" id="objetoSeleccionadoID" readonly>
+
+
+
+</div>
+
+
+
+
+
+ <!--CATEGORIA-->
+ <jw-modal id="modalCat-2" altura="80" >
+    <h1>Elegir Categoria:</h1>
+    <div id="tablaCategorias">
+
+        <app-tabla-reusable [datos]="datosCat" [columnas]="columnasCat" [nombreBotones]="nombreBotonesCat1" (parentMethod)="funcionBoton($event)" colorLetra="black">
+              
+           </app-tabla-reusable> 
+           
+           
+    </div>
+    
+    
+    <div class="botones">
+
+       <button class="btnCerrar" (click)="servicioModal.cerrar('modalCat-2'); this.filtroCrear()">Cancelar</button>
+    </div>
+ </jw-modal>
+
+
+
+ <div class="contendorDatosC">
+    
+    <div class="infoEditable">
+        <h2>Nombre:</h2>
+        <input type="text" id="nuevoNC">
+        
+        
+
+
+        <h2>Descripcion:</h2>
+        <textarea id="nuevoDC"></textarea>
+    
+
+        
+
+    </div>
+
+
+ </div>
+
+ 
+ <div class="contendorListadoSi">
+
+    <h1>Productos que estan:</h1>
+    <app-tabla-reusable 
+    [datos]="datosProdMini" 
+    [columnas]="columnasProdMini" 
+    [nombreBotones] = "nombreBotonesProd2"
+    (parentMethod) = "funcionBoton($event)"
+    colorLetra="black">
+    </app-tabla-reusable> 
+
+</div>
+
+
+
+<div class="contendorListadoNo">
+
+    <h1>Productos por anadir:</h1>
+    <app-tabla-reusable 
+    [datos]="datosProd" 
+    [columnas]="columnasProd" 
+    [nombreBotones] = "nombreBotonesProd1"
+    (parentMethod) = "funcionBoton($event)"
+    colorLetra="black">
+    </app-tabla-reusable> 
+
+</div>
+
+
+
+<div class="contenedorBotones">
+    <button class="botonFinal" (click)="this.crearCategoria();">{{nombreBoton}}</button>
+    <button class="botonFinal" (click)="this.filtroCrear()">Cancelar</button>
+
+</div>

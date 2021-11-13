@@ -14,11 +14,26 @@ export class AppHttpService {
   constructor( private http: HttpClient) { }
 
   defUrl = "/api/";
+
+
+  //productos
   obtenerProductos() {
-    console.log(paths.obtenerProductos)
+    console.log("path:",paths.obtenerProductos)
     return this.http.get(paths.obtenerProductos)
   }
+  crearProducto(body:any) {
+    console.log(paths.obtenerProductos)
+    return this.http.post(paths.creaProducto , body)
+  }
+  obtenerProductoId(Id:any) {
+    var path = paths.obtenerProductoId + Id;
+    return this.http.get(path)
+  }
 
+
+
+
+  //pedidos
   crearPedido(body:any) {
     console.log("ssss");
     return  this.http.post(paths.crearPedido,body)
@@ -28,11 +43,6 @@ export class AppHttpService {
   obtenerPedidos() {
     return this.http.get(paths.obtenerPedidos)
   }
-  obtenerCompras(){
-    ///api/getPedidosEstado/:estado
-    return this.http.get(paths.obtenerPedidoEstado+"Preparando")
-  }
-  
   obtenerPedidoEstadoPr(){
     ///api/getPedidosEstado/:estado
     return this.http.get(paths.obtenerPedidoEstado+"Preparando")
@@ -72,6 +82,13 @@ export class AppHttpService {
     
     return this.http.get(path )
   }
+  //compras
+  obtenerCompras(){
+    ///api/getPedidosEstado/:estado
+    return this.http.get(paths.obtenerPedidoEstado+"Preparando")
+  }
+  
+  
 
    
   ///ingredientrs
@@ -90,7 +107,28 @@ export class AppHttpService {
   crearBien(body:any){
     return this.http.post(paths.crearBien,body)
   }
-  ///no implementado obtener bien nombre ni acutalizar bien
   
+
+  //categoria
+  crearCategoria(body:any){
+    return this.http.post(paths.crearCategoria,body)
+
+  }
+  obtenerCategorias(){
+    console.log(paths.obtenerCategorias)
+    return this.http.get(paths.obtenerCategorias)
+  }
+  obtenerProdCatNombre(nombreCat:any){
+    var path = paths.obtenerProdCatNombre + nombreCat + '/productos';
+    return this.http.get(path)
+  }
+  eliminarCategoria(idCat:any){
+    var path = paths.eliminarCategoria + idCat
+    return this.http.delete(path)
+  }
+  actualizarCategoria(idCat:any, cat:any){
+    var path = paths.actualizarCategoria + idCat
+    return this.http.put(path,cat)
+  }
   
 }

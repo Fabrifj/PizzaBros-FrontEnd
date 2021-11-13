@@ -32,6 +32,9 @@ import { EmpleadosComponent } from './modulos/empleados/empleados.component';
 import { SueldosEmpleadosComponent } from './modulos/empleados/sueldos-empleados/sueldos-empleados.component';
 import { TurnosEmpleadosComponent } from './modulos/empleados/turnos-empleados/turnos-empleados.component';
 import { DetallesEmpleadosComponent } from './modulos/empleados/detalles-empleados/detalles-empleados.component';
+import { CreacionProductosComponent } from './modulos/inventario/productos/creacion-productos/creacion-productos.component';
+import { CreacionCategoriasComponent } from './modulos/inventario/productos/creacion-categorias/creacion-categorias.component';
+import { VerProductosComponent } from './modulos/inventario/productos/ver-productos/ver-productos.component';
 
 
 @NgModule({
@@ -62,7 +65,10 @@ import { DetallesEmpleadosComponent } from './modulos/empleados/detalles-emplead
     EmpleadosComponent,
     SueldosEmpleadosComponent,
     TurnosEmpleadosComponent,
-    DetallesEmpleadosComponent
+    DetallesEmpleadosComponent,
+    CreacionProductosComponent,
+    CreacionCategoriasComponent,
+    VerProductosComponent
    
     
     

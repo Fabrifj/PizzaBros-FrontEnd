@@ -23,11 +23,10 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
-const ingrediente = db.collection("Ingrediente");
+const elemento = db.collection("Elemento");
 const producto = db.collection("Producto");
-const familia = db.collection("Familia");
+const categoria = db.collection("Categoria");
 const cliente = db.collection("Cliente");
 const pedido = db.collection("Pedido");
-const bien = db.collection("Bien");
 
-module.exports = { producto,ingrediente,familia,cliente,pedido,bien,firebase};
+module.exports = { producto,cliente,pedido,firebase,categoria,elemento};

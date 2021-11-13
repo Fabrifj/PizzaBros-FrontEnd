@@ -9,7 +9,7 @@
     "firebase": "^8.10.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.14"
+    "nodemon": "^2.0.15"
   },
   "scripts": {
     "install": "npm install cors express firebase nodemon",

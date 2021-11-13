@@ -1,10 +1,15 @@
 {
-    
-    "crearIngrediente":"/api/ingrediente",
-    "obtenerIngredientes": "/api/ingredientes",
-    "obtenerIngredienteNombre":"/api/ingrediente/:nombre",
-    "actualizarIngrediente":"/api/ingrediente/:nombre",
-    
+    "NOTA":"sI empieza con: crear=>POST, obtener=>GET, actualizar=>PUT, eliminar=>DELETE",
+
+    "crearElemento":"/api/elemento",
+    "obtenerElementos":"/api/elemento",
+    "obtenerIngredientes":"/api/ingrediente",
+    "obtenerBienes":"/api/bien",
+    "eliminarElemento":"/api/elemento/:id",
+    "actualizarElemento":"/api/elemento/:id",
+    "obtenerElementoId":"/api/elemento/:id",
+    "actualizarElemAgregarInv":"/api/elemento/:id/agregarInv",
+
     "crearProducto":"/api/producto",
     "obtenerProducts":"/api/productos",
     "obtenerProductoId":"/api/producto/Id/:id",
@@ -14,7 +19,12 @@
     "obtenerClientes": "/api/clientes",
     "obtenerClienteNit":"/api/cliente/:nit",
 
+    "crearCategoria":"/api/categoria",
+    "obtenerCategorias":"/api/categoria",
     "obtenerCategoriaNombre":"/api/categoria/:nombre",
+    "obtenerProductosCategoriaNombre":"/api/categoria/",
+    "eliminarCategoria":"/api/categoria/:id",
+    "actualizarCategoria":"/api/categoria/:id",
 
     "crearPedido":"/api/pedido",
     "crearPedidoEstado":"/api/pedidoEstado",
@@ -24,9 +34,5 @@
     "obtenerPedidosEstado":"/api/pedidosEstado/:estado",
     "obtenerPedidoFechaNIT":"/api/pedidoFechaNIT",
 
-    "crearBien":"/api/bien",
-    "obtenerBien":"/api/bienes",
-    "obtenerBienNombre":"/api/bien/:nombre",
-    "actualizarBien":"/api/bien/:nombre"
     
 }
