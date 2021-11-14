@@ -75,18 +75,87 @@ app.put("/api/ingrediente/:nombre", async (req, res) =>{
 //===================================*/
 
 //CrearProducto estructura:
-// {
+/*
+{
 
-//   "ImgURL": "https://live.mrf.io/statics/i/ps/irecetasfaciles.com/wp-content/uploads/2019/08/pizza-de-jamon-queso-y-tocino.jpg?width=1200&enable=upscale",
-//   "Precio": 65,
-//   "Costo": 50,
-//   "Tamano": "Grande",
-//   "Nombre": "Pizza 3 Quesos"
-// }
+  "ImgURL": "https://live.mrf.io/statics/i/ps/irecetasfaciles.com/wp-content/uploads/2019/08/pizza-de-jamon-queso-y-tocino.jpg?width=1200&enable=upscale",
+  "Precio": 65,
+  "Costo": 50,
+  "Tamano": "Grande",
+  "Nombre": "Pizza 3 Quesos"
+  "ListaIngredientes":
+  [
+  	{
+  		"IdIngrediente":"ANICBIWBCIE",
+  		"Cantidad": 500,
+  		"TipoUnidad":"ml",
+  		"Costo": 10,
+  		"Nombre": "Tomate"
+  	}
+  ]
+}
+*/
+//El body que se debe mandar:
+/*
+{
+
+  "ImgURL": "https://live.mrf.io/statics/i/ps/irecetasfaciles.com/wp-content/uploads/2019/08/pizza-de-jamon-queso-y-tocino.jpg?width=1200&enable=upscale",
+  "Precio": 65,
+  "Tamano": "Grande",
+  "Nombre": "Pizza 3 Quesos",
+  "ListaIngredientes":
+  [
+    {
+      "IdIngrediente":"PGVhUoHrbLGLr080Euu6",
+      "Cantidad": 200
+    }
+  ]
+}
+
+
+*/
+
+async function crearProducto(miProd) 
+{
+  var elcosto = 0;
+  var nuevaListaIng = []
+  for await (const ing of miProd.ListaIngredientes)
+  {
+
+    var elem = await obetenerElementoId(ing.IdIngrediente);
+    var costoArt = parseFloat(ing.Cantidad) *(parseFloat(elem.CostoMedia)/parseFloat(elem.CantidadMedida));
+    var faltante = {
+      "TipoUnidad":elem.TipoUnidad,
+      "Costo": costoArt,
+      "Nombre": elem.Nombre
+    }
+    var articulo = Object.assign(ing, faltante);
+    console.log("Articulo: ",articulo);
+    nuevaListaIng.push(articulo);
+    elcosto =elcosto + costoArt;
+    console.log("Costo: ",elcosto)
+
+  }
+
+    console.log("CostoFuera: ",elcosto);
+    var nuevoProd = {
+
+      "ImgURL": miProd.ImgURL,
+      "Precio": miProd.Precio,
+      "Costo": elcosto,
+      "Tamano": miProd.Tamano,
+      "Nombre": miProd.Nombre,
+      "ListaIngredientes":nuevaListaIng
+    }
+
+  await producto.add(nuevoProd);
+  return nuevoProd;
+}
+
 app.post("/api/producto", async (req, res) => {
-  var miCategoria = req.body;
-  await producto.add(miCategoria)
-  res.send({ msg: "Producto agregado correctamente", "Producto": miCategoria });
+  var miProd = req.body;
+  var nuevoProd = await crearProducto(miProd);
+  res.send({ msg: "Producto agregado correctamente", "Producto": nuevoProd });
 });
 
 //ObtenerProductos  
@@ -143,6 +212,129 @@ app.get("/api/producto/Nombre/:nombre", async (req, res) => {
   var prd = req.params.nombre
   var respuesta = await obtenerProductoNombre(prd);
   res.send(respuesta);
+});
+
+//EliminarProducto
+async function eliminarProducto(idProd) {
+  
+  var resp = null;
+  await producto.doc(idProd).delete().then(() => {
+    resp = "Producto successfully deleted!"
+    console.log(resp);
+  }).catch((error) => 
+  {
+    console.error("Error removing document: ", error);
+  });
+
+  return resp;
+}
+
+app.delete("/api/producto/:id", async (req, res) => {
+  var prod = req.params.id;
+  const resp = await eliminarProducto(prod);
+  res.send(resp);
+});
+
+//ActualizarProducto
+async function actualizarProducto(idProd, prod) {
+  
+  var resp = null;
+  await producto.doc(idProd).update(prod)
+  .then(() => 
+  {
+    resp = prod;  
+    console.log("Producto successfully updated!");
+  })
+  .catch((error) => 
+  {
+      // The document probably doesn't exist.
+      console.error("Error updating producto: ", error);
+  });
+
+  return resp;
+}
+app.put("/api/producto/:id", async (req, res) => {
+  var prodid = req.params.id;
+  var prod = req.body;
+  const resp = await actualizarProducto(prodid,prod);
+  res.send(resp);
+});
+//AgregarIngredienteAProducto
+//El body es:
+/*
+[
+  {
+    "IdIngrediente":"ANICBIWBCIE",
+    "Cantidad": 500,
+    
+  }
+]
+{
+  		"IdIngrediente":"ANICBIWBCIE",
+  		"Cantidad": 500,
+  		"TipoUnidad":"ml",
+  		"Costo": 10,
+  		"Nombre": "Tomate"
+  	}
+
+*/
+
+
+async function agregarIngredientesAProducto(idProd, body) {
+  var miProd = await obtenerProductoId(idProd);
+  
+    for await (const ing of body)
+  {
+    var elem = await obetenerElementoId(ing.IdIngrediente);
+    let obj = miProd.ListaIngredientes.find(f=>f.IdIngrediente==ing.IdIngrediente);
+    if(obj)
+    {
+      var costoArt = parseFloat(obj.Cantidad) *(parseFloat(elem.CostoMedia)/parseFloat(elem.CantidadMedida));
+      miProd.Costo += costoArt;
+      var nuevoCosto = parseFloat(obj.Costo)+ costoArt; 
+      obj.Costo=nuevoCosto;
+      console.log("nuevoCosto: ",nuevoCosto);
+      obj.Cantidad = parseFloat(obj.Cantidad) + parseFloat(ing.Cantidad);
+      console.log("obj.Catidad: ",obj.Catidad);
+      console.log("miProd.ListaIngredientes" ,miProd.ListaIngredientes);
+
+    }
+    else
+    {
+      var costoArt = parseFloat(ing.Cantidad) *(parseFloat(elem.CostoMedia)/parseFloat(elem.CantidadMedida));
+      var faltante = {
+        "TipoUnidad":elem.TipoUnidad,
+        "Costo": costoArt,
+        "Nombre": elem.Nombre
+      }
+      var articulo = Object.assign(ing, faltante);
+      console.log("Articulo: ",articulo);
+      miProd.ListaIngredientes.push(articulo);
+      miProd.Costo += costoArt;
+    }
+    
+  }
+
+  var resp = null;
+  await producto.doc(idProd).update(miProd)
+  .then(() => 
+  {
+    resp = miProd;  
+    console.log("Producto successfully updated!");
+  })
+  .catch((error) => 
+  {
+      // The document probably doesn't exist.
+      console.error("Error updating producto: ", error);
+  });
+
+  return resp;
+}
+app.put("/api/producto/:id/agregarIng", async (req, res) => {
+  var prodid = req.params.id;
+  var body = req.body;
+  const resp = await agregarIngredientesAProducto(prodid,body);
+  res.send(resp);
 });
 
 /*===================================
@@ -751,6 +943,7 @@ app.get("/api/getPedidosCliente/nit/:nit", async (req, res) => {
 	],
 	"CantidadInventario":1000,//cantidad de salsa en el inventario medida en ml
 	"CostoMedia":15,//Media de los costos de la listaArticulos
+  "CantidadMedida":500
 	"Tipo":"Ingrediente"
 }
 */
@@ -826,6 +1019,7 @@ app.delete("/api/elemento/:id", async (req, res) => {
 			"CantidadMedida":500
 		},
 	]
+  "CantidadMedida":500
 	"CantidadInventario":1000,//cantidad de salsa en el inventario medida en ml
 	"CostoMedia":15,//Media de los costos de la listaArticulos
 	"Tipo":"Ingrediente" //Puede ser Ingrediente o Bien
@@ -914,7 +1108,7 @@ async function actualizarElemAgregarInv(elid,mibody)
           articulos.forEach(
             async (art) => 
             {
-              costoSum += parseFloat(art.Costo);
+              costoSum += parseFloat(data.CantidadMedida)*(parseFloat(art.Costo)/parseFloat(art.CantidadMedida));
               if(mibody.Marca == art.Marca && mibody.Costo == art.Costo && mibody.CantidadMedida && art.CantidadMedida)
               {
                   artEncontrado = true;
@@ -924,7 +1118,7 @@ async function actualizarElemAgregarInv(elid,mibody)
         
           );
           
-          costoMedia = (costoSum + parseFloat(mibody.Costo))/(articulos.length+1);
+          costoMedia = (costoSum + parseFloat(data.CantidadMedida)*(parseFloat(mibody.Costo)/parseFloat(mibody.CantidadMedida)))/(articulos.length+1);
           if(artEncontrado)
           {
             infoUpdate = {

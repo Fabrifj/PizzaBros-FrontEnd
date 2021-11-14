@@ -11,9 +11,12 @@
     "actualizarElemAgregarInv":"/api/elemento/:id/agregarInv",
 
     "crearProducto":"/api/producto",
-    "obtenerProducts":"/api/productos",
+    "obtenerProductos":"/api/productos",
     "obtenerProductoId":"/api/producto/Id/:id",
     "obtenerProductoNombre":"/api/producto/Nombre/:nombre",
+    "eliminarProducto":"/api/producto/:id",
+    "actualizarProducto":"/api/producto/:id",
+    "agregarIngredientesAProducto":"/api/producto/:id/agregarIng",
 
     "crearCliente": "/api/cliente",
     "obtenerClientes": "/api/clientes",
