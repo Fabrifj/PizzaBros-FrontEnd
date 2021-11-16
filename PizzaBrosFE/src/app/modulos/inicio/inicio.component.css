@@ -13,10 +13,10 @@
 
 .imagen{
     /*position: absolute;*/
-    width: 100%;
+    width: 1305px;
     height: 622px;
     
-
+    overflow: hidden;
     background: url(src/imagenes/fondoInicio.jpg);
     /*mix-blend-mode: normal;*/
     background-size: cover;
