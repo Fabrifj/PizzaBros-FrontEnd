@@ -234,7 +234,8 @@ export class CreacionCategoriasComponent implements OnInit {
     }
 
     
-    this.filtroCrear()
+    this.filtroCrear();
+    this.obtenerCategorias();
 
   }
   
