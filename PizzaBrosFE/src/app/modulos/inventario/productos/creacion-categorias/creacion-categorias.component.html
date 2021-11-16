@@ -3,13 +3,13 @@
     <form>
         
         <div>
-            <div>
+            <div class=crearCate>
                 <input type="radio" id="crearC" name= "catCrear" checked (click) = "filtroCrear()">
-                <label for="contactChoice1">Crear Categoria</label>
+                <label for="contactChoice1">Crear categoría</label>
             </div>
-            <div>
+            <div class=modCate>
                 <input type="radio" id="modC" name="catCrear" (click) = "filtroModificar()">
-                <label for="contactChoice2">Modificar Categoria</label>
+                <label for="contactChoice2">Modificar categoría</label>
             </div>
             
 
@@ -32,7 +32,7 @@
 
  <!--CATEGORIA-->
  <jw-modal id="modalCat-2" altura="80" >
-    <h1>Elegir Categoria:</h1>
+    <h1>Elegir Categoría:</h1>
     <div id="tablaCategorias">
 
         <app-tabla-reusable [datos]="datosCat" [columnas]="columnasCat" [nombreBotones]="nombreBotonesCat1" (parentMethod)="funcionBoton($event)" colorLetra="black">
@@ -104,6 +104,6 @@
 
 <div class="contenedorBotones">
     <button class="botonFinal" (click)="this.crearCategoria();">{{nombreBoton}}</button>
-    <button class="botonFinal" (click)="this.filtroCrear()">Cancelar</button>
+    <button class="botonFinal2" (click)="this.filtroCrear()">Cancelar</button>
 
 </div>

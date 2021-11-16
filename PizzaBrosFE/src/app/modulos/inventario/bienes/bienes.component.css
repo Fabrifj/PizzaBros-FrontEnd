@@ -12,7 +12,7 @@
 
 .sectorFiltros{
     position: absolute;
-    top: -370px;
+    top: -242px;
     right: 130px;
 }
 
@@ -47,10 +47,10 @@
 }
 .tablaIngredientes {
     position: absolute;
-    width: 96%;
+    width: 90%;
     text-align-last: center;
 
-    top:-320px;
+    top:-200px;
     right: -180px;
     
 }
