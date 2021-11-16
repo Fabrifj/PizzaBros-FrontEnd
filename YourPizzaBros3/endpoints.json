@@ -1,22 +1,29 @@
 {
     "NOTA":"sI empieza con: crear=>POST, obtener=>GET, actualizar=>PUT, eliminar=>DELETE",
 
-    "crearIngrediente":"/api/ingrediente",
-    "obtenerIngredientes": "/api/ingredientes",
-    "obtenerIngredienteNombre":"/api/ingrediente/:nombre",
-    "actualizarIngrediente":"/api/ingrediente/:nombre",
-    
+    "crearElemento":"/api/elemento",
+    "obtenerElementos":"/api/elemento",
+    "obtenerIngredientes":"/api/ingrediente",
+    "obtenerBienes":"/api/bien",
+    "eliminarElemento":"/api/elemento/:id",
+    "actualizarElemento":"/api/elemento/:id",
+    "obtenerElementoId":"/api/elemento/:id",
+    "actualizarElemAgregarInv":"/api/elemento/:id/agregarInv",
+
     "crearProducto":"/api/producto",
-    "obtenerProducts":"/api/productos",
+    "obtenerProductos":"/api/productos",
     "obtenerProductoId":"/api/producto/Id/:id",
     "obtenerProductoNombre":"/api/producto/Nombre/:nombre",
+    "eliminarProducto":"/api/producto/:id",
+    "actualizarProducto":"/api/producto/:id",
+    "agregarIngredientesAProducto":"/api/producto/:id/agregarIng",
 
     "crearCliente": "/api/cliente",
     "obtenerClientes": "/api/clientes",
     "obtenerClienteNit":"/api/cliente/:nit",
 
     "crearCategoria":"/api/categoria",
-    "obtenerCategorias":"/api/categoria",
+    "obtenerCategorias":"/api/categorias",
     "obtenerCategoriaNombre":"/api/categoria/:nombre",
     "obtenerProductosCategoriaNombre":"/api/categoria/",
     "eliminarCategoria":"/api/categoria/:id",
@@ -30,9 +37,9 @@
     "obtenerPedidosEstado":"/api/pedidosEstado/:estado",
     "obtenerPedidoFechaNIT":"/api/pedidoFechaNIT",
 
-    "crearBien":"/api/bien",
-    "obtenerBien":"/api/bienes",
-    "obtenerBienNombre":"/api/bien/:nombre",
-    "actualizarBien":"/api/bien/:nombre"
-    
+    "crearCompra": "/api/compra",
+    "obtenerCompras": "/api/compras",
+    "obtenerCompraId": "/api/compra/:id",
+    "actualizarCompraId": "/api/compra/:id",
+    "eliminarCompraId":"/api/compra/:id"
 }

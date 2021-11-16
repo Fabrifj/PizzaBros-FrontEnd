@@ -4,13 +4,13 @@
     <form>
         
         <div>
-            <div>
+            <div class="rProd">
                 <input type="radio" id="rprod" name= "prodCat" checked (click) = "filtroProd()">
                 <label for="contactChoice1">Ver Productos</label>
             </div>
-            <div>
+            <div class="rCat">
                 <input type="radio" id="rcat" name="prodCat" (click) = "filtroCat()">
-                <label for="contactChoice2">Ver Categorias</label>
+                <label for="contactChoice2">Ver Categorías</label>
             </div>
             
 
@@ -39,6 +39,7 @@
 
 
 <jw-modal id="modalProd-1" altura="80" >
+    <div class="editable">
     <h1>Producto:</h1>
     <div class="infoEditable">
         <h1>Nombre:</h1>
@@ -59,10 +60,11 @@
         
 
     </div>
+</div>
     
     
     <div class="botones">
-        <button class="btnGuardado" (click)="modificar(objetoSeleccionado)">Modificar</button>
+        
        <button class="btnCerrar" (click)="servicioModal.cerrar('modalProd-1');">Cancelar</button>
     </div>
  </jw-modal>
@@ -93,7 +95,7 @@
     
     
     <div class="botones">
-        <button class="btnGuardado" (click)="modificar(objetoSeleccionado)">Modificar</button>
+        
        <button class="btnCerrar" (click)="servicioModal.cerrar('modalCat-1');">Cancelar</button>
     </div>
  </jw-modal>

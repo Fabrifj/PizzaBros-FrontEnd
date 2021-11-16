@@ -1,7 +1,6 @@
 {
   "name": "YourPizzaBros3",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "dependencies": {
     "cors": "^2.8.5",
@@ -14,7 +13,7 @@
   "scripts": {
     "install": "npm install cors express firebase nodemon",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon .\\index.js"
+    "serve": "nodemon index.js"
   },
   "repository": {
     "type": "git",
@@ -26,5 +25,6 @@
   "bugs": {
     "url": "https://github.com/GabyAllende/YourPizzaBros3/issues"
   },
-  "homepage": "https://github.com/GabyAllende/YourPizzaBros3#readme"
+  "homepage": "https://github.com/GabyAllende/YourPizzaBros3#readme",
+  "description": ""
 }

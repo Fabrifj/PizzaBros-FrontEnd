@@ -1,77 +1,104 @@
-<div>
 
-    <h2>Ingredientes</h2>
-</div>
 <div class = "sectorFiltros">
     <input type="text" id="txtBuscar">
-    <button type="submit" (click)="buscar()">Buscar</button>
+    <button type="submit" class="buscarBtn"(click)="buscar()">Buscar</button>
 
-    <button id="crearBtn" (click)="mandarCrearIngrediente()">Crear Ingrediente</button>
+    <button id="crearBtn" (click)="mandarCrearIng(); ">Crear/Modificar Ingrediente</button>
 </div>
 
 <div class="tablaIngredientes">
 
-    <app-tabla-reusable [datos]="datos" [columnas]="columnas" [nombreBotones]="nombreBotones" (parentMethod)="funcionBoton($event)" colorLetra="black">
+    <app-tabla-reusable [datos]="datosIng" [columnas]="columnasIng" [nombreBotones]="nombreBotonesIng" (parentMethod)="funcionBoton($event)" colorLetra="black">
           
        </app-tabla-reusable> 
        
        
 </div>
 
-<jw-modal id="modal-3" altura="70" >
-    <h1>Modificar Ingrediente:</h1>
-    <div class="infoEditable">
-        <h1>Nombre:</h1>
-        <h3>{{ingredienteSeleccionado.Nombre}}</h3>
-        <button (click)="cambiarValor('Nombre')">Editar</button>
-        
-        <h1>Cantidad Restante:</h1>
-        <h3>{{ingredienteSeleccionado.Cantidad}}</h3>
-        <p> NO EDITABLE </p>
 
-        <h1>Medida de Unidad:</h1>
-        <h3>{{ingredienteSeleccionado.UnidadMedida}}</h3>
-        <button (click)="cambiarValor('UnidadMedida' )">Editar</button>
 
-        <div class="nuevoValorC">
-            <input type="text" id= "valorN" name="nuevoValor">
-            <button type="submit" (click)= "guardarValor()">Ok</button>
-        </div>
+
+ <jw-modal id="modalIng-01" altura="90" >
+
+    <div class="contenedorFiltros">
+
+        <form>
+            
+            <div>
+                <div>
+                    <input type="radio" id="crearI" name= "ingCrear" checked (click) = "filtroCrear()">
+                    <label for="contactChoice1">Crear Ingrediente</label>
+                </div>
+                <div>
+                    <input type="radio" id="modI" name="ingCrear" (click) = "filtroModificar()">
+                    <label for="contactChoice2">Modificar Ingrediente</label>
+                </div>
+                
+    
+            </div>
+          </form>
+    
     </div>
-    
-    
-    <div class="botones">
-        <button class="btnGuardado" (click)="guardarCambios(ingredienteSeleccionado)">Guardar Cambios</button>
-       <button class="btnCerrar" (click)="servicioModal.cerrar('modal-3');">Cancelar</button>
+
+
+
+
+    <div class="ing">
+
+        <div id="siModifico">
+            <h3>Ingrediente a Modificar:</h3>
+            <input type="text" id="objetoSeleccionadoID" readonly>
+        
+        </div>
+        <div class="infoEditable">
+            
+        
+                <h1>Nombre:</h1>
+                <input type="text" id= "valorNombreCrear" name="nombreV">
+                
+            
+                <h1>Tipo de Medida:</h1>
+                <p>Colocar si es Kg. ,gr, unidades, etc.</p>
+                <input type="text" id= "valorUnidadCrear" name="nombreV">
+                
+                <!--<h1>Descripcion:</h1>
+                <textarea name="descrip" rows="6" cols="50" id="valorDescripcion"></textarea> -->
+                
+
+        </div>
+        <div class="infoNoEditable">
+        
+            <h1>Cantidad en Inventario:</h1>
+            <input type="text" id= "valorCantidad" readonly>      
+            <h1>Costo Unidad Promedio</h1>
+            <input type="text" id= "valorCostoU" readonly>   
+            <h1>Cantidad Medida</h1>
+            <input type="text" id= "valorCantidadMedida" readonly>   
+
+    </div>
+        
+        <div class="botones">
+            <button class="btnGuardado" (click)="crearIng()">{{nombreBoton}}</button>
+            <button class="btnCerrar" (click)="servicioModal.cerrar('modalIng-01'); this.filtroCrear()">Salir</button>
+        </div>
     </div>
  </jw-modal>
 
- <jw-modal id="modal-4" altura="70" >
-    <h1>Crear Ingrediente:</h1>
-    <div class="infoEditable">
-        
-       
-            <h1>Nombre:</h1>
-            <input type="text" id= "valorNombreCrear" name="nombreV">
-            
-        
-            <h1>Unidad Medida:</h1>
-            <p>Colocar si es Kg. ,gr, unidades, etc.</p>
-            <input type="text" id= "valorUnidadCrear" name="nombreV">
-             
-        
-            <h1>Cantidad: 0</h1>
-        
-        
-            <h1>CostoUnidad: No se sabe</h1>
-       
-        
 
+ <jw-modal id="modalIng-2" altura="80" >
+    <h1>Elegir Ingrediente:</h1>
+    <div id="tablaIng">
+
+        <app-tabla-reusable [datos]="datosIng" [columnas]="columnasIng" [nombreBotones]="nombreBotonesIng2" (parentMethod)="funcionBoton($event)" colorLetra="black">
+              
+           </app-tabla-reusable> 
+           
+           
     </div>
     
     
     <div class="botones">
-        <button class="btnGuardado" (click)="crearIngrediente()">Guardar Cambios</button>
-       <button class="btnCerrar" (click)="servicioModal.cerrar('modal-4');">Cancelar</button>
+
+       <button class="btnCerrar" (click)="servicioModal.cerrar('modalIng-2'); this.filtroCrear()">Cancelar</button>
     </div>
  </jw-modal>
