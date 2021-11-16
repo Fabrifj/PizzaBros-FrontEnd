@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { catchError, retry } from 'rxjs/operators';
+import { catchError, retry, throttleTime } from 'rxjs/operators';
 
 import paths from './config.json';
 
@@ -91,22 +91,39 @@ export class AppHttpService {
   
 
    
-  ///ingredientrs
+  ///elementos
   obtenerIngredientes() {
     return this.http.get(paths.obtenerIngredientes)
   }
-  crearIngrediente(body:any) {
-    return this.http.post(paths.crearIngrediente,body)
-  }
-
-  //bienes
   obtenerBien(){
-    return this.http.get(paths.obtenerBien)
+    return this.http.get(paths.obtenerBienes)
 
   }
-  crearBien(body:any){
-    return this.http.post(paths.crearBien,body)
+  obtenerElementos(){
+
+    return this.http.get(paths.obtenerElementos);
   }
+  obtenerElementoId(id:any){
+    var path = paths.obtenerElementoId + id;
+    return this.http.get(path)
+  }
+  crearElemento(body:any) {
+    return this.http.post(paths.crearElemento,body)
+  }
+  eliminarElemento(id:any){
+    var path = paths.eliminarElemento + id;
+    return this.http.delete(path);
+  }
+  actualizarElemento(id:any,body:any){
+    var path = paths.actualizarElemento + id;
+    return this.http.put(path,body);
+  }
+  actualizarElemAgregarInv(id:any,body:any){
+
+    var path = paths.actualizarElemAgregarInv + id + "/agregarInv";
+    return this.http.put(path ,body)
+  }
+
   
 
   //categoria

@@ -10,45 +10,38 @@ import { ModalService } from 'src/app/shared-modules/modal/modal.service';
 export class IngredientesComponent implements OnInit {
 
   
+  objetoSeleccionado:any = {};
   
-
-  ingredienteSeleccionado:any = {}
+  ingSeleccionado:any = {}
   columnaCambiar :string = "";
   valorOriginal :any;
-  
-  //CrearIngrediente
-  //Formato del ingrediente en el Body del request:
-  // {
-  //   "Cantidad": 5,
-  //   "CostoUnidad": 10,
-  //   "Nombre": "Lechuga",
-  //   "Proveedor": "348887",
-  //   "UnidadMedida": "Kg."
-  // }
-
-  datos: any | undefined;
-  datosRespaldo: any | undefined;
-  columnas = [
+  datosIng: any | undefined;
+  datosIngRespaldo: any | undefined;
+  columnasIng = [
     {field:'Nombre',header:'Nombre'},
-    {field:'Cantidad',header:'Unidades Restantes'},
-    {field:'UnidadMedida',header:'Medida de Unidad'},
-    //{field:'CostoUnidad',header:'Costo Unidad Bs'},
-    {field:'Proveedor',header:'Proveedor'}
+    {field:'TipoUnidad',header:'Tipo de Unidad'},
+    {field:'CantidadInventario',header:'Cantidad en Inventario'},
+    {field:'CostoMedia',header:'Costo Media'}
+    
+    
+    
     
 
   ];
 
-  nombreBotones: string[] | undefined;
+  nombreBotonesIng: string[] = ['Comprar'];
+  nombreBotonesIng2 = ['Seleccionar'];
+  nombreBoton :any; 
 
 
   constructor( private servicioHttp: AppHttpService, public servicioModal: ModalService) { }
 
   ngOnInit(): void {
 
-    this.nombreBotones = ['Modificar','Comprar'];
-    this.obtenerIngredientes();
     
-
+    this.obtenerIngredientes();
+    (<HTMLInputElement>document.getElementById("siModifico")).style.display = "o";
+    this.filtroCrear();
 
   }
 
@@ -57,24 +50,35 @@ export class IngredientesComponent implements OnInit {
     .subscribe((jsonFile:any)=>{
      
       console.log(jsonFile);
-      this.datos = jsonFile;
-       this.datosRespaldo = jsonFile;
+       this.datosIng = jsonFile;
+       this.datosIngRespaldo = jsonFile;
       
 
     } )
   }
  
+  
   funcionBoton( names: any){
-    if(names[0] == "Modificar")
+    if(names[0] == "Seleccionar")
     {
-        console.log("boton:modificar");
-        this.ingredienteSeleccionado = names[1];
+      this.obtenerIngredientes();
+      this.objetoSeleccionado = names[1] ;
 
-        //new
-        
+      
 
-        console.log(names[1])
-        this.servicioModal.abrir('modal-3');
+    
+
+      (<HTMLInputElement>document.getElementById("objetoSeleccionadoID")).value = this.objetoSeleccionado.Nombre;
+      (<HTMLInputElement>document.getElementById("valorNombreCrear")).value = this.objetoSeleccionado.Nombre;
+      (<HTMLInputElement>document.getElementById("valorUnidadCrear")).value = this.objetoSeleccionado.TipoUnidad;
+      (<HTMLInputElement>document.getElementById("valorCantidad")).value = this.objetoSeleccionado.CantidadInventario;
+      (<HTMLInputElement>document.getElementById("valorCostoU")).value = this.objetoSeleccionado.CostoMedia;
+      (<HTMLInputElement>document.getElementById("valorCantidadMedida")).value = this.objetoSeleccionado.CantidadMedida;
+      
+
+              
+      this.servicioModal.cerrar('modalIng-2');
+
     }
     else{
 
@@ -94,7 +98,7 @@ export class IngredientesComponent implements OnInit {
       
       
       var datosAux:Array<Object> =[];
-      this.datosRespaldo.forEach((dato:any) => {
+      this.datosIngRespaldo.forEach((dato:any) => {
         
         var nombreD = dato.Nombre.toLowerCase();
         if(nombreD.includes(varBuscar.trim())){
@@ -104,7 +108,7 @@ export class IngredientesComponent implements OnInit {
         
       });
       
-      this.datos = datosAux;
+      this.datosIng = datosAux;
 
     }
     else{
@@ -122,70 +126,86 @@ export class IngredientesComponent implements OnInit {
 
 
 
-  //modificar ingrediente
-  desaparecerCampo(){
 
-    (<HTMLElement>document.getElementsByClassName("nuevoValorC")[0]).style.display = "none";
-    
-  }
-  aparecerCampo(){
-
-    (<HTMLElement>document.getElementsByClassName("nuevoValorC")[0]).style.display = "inline";
-    
-  }
-
-  guardarValor(){
-
-    var nuevoValor = (<HTMLInputElement>document.getElementById("valorN")).value;
-    var objeto =  this.ingredienteSeleccionado;
-    if(!!nuevoValor.trim()){
-
-      this.ingredienteSeleccionado[this.columnaCambiar] = nuevoValor;
-    }
-    
-    this.desaparecerCampo();
-
-  }
-  cambiarValor(columnaC:any ){
-    this.valorOriginal = this.ingredienteSeleccionado[columnaC];
-    (<HTMLInputElement>document.getElementById("valorN")).value = this.valorOriginal;
-    this.aparecerCampo();
-    
-    this.columnaCambiar = columnaC ; 
-    
-  }
-  guardarCambios(ingSele:any){
-    //post
-
-  }
-
-
-
-  ///crear Ingrediente
-  crearIngrediente(){
-
-    var nuevoValorNombre = (<HTMLInputElement>document.getElementById("valorNombreCrear")).value;
-    var nuevoValorUnidad = (<HTMLInputElement>document.getElementById("valorUnidadCrear")).value;
-
-    //let body = JSON.stringify({ IdPedido: pedido.id , Estado: "Entregado"})
-    let ingredienteNuevo = JSON.stringify({cantidad: 0, costoTotal:0, nombre: nuevoValorNombre , ipoUnidad: nuevoValorUnidad});
-    let body = JSON.parse(ingredienteNuevo)
-    this.servicioHttp.crearIngrediente(body).subscribe((response) => {
-      console.log('Response from API', response);
-      this.obtenerIngredientes();
-    }, (error)=>{
-      console.log('Error',error);
-    })
-	
-
-
-    this.servicioModal.cerrar('modal-4');
-  }
-  mandarCrearIngrediente(){
+  mandarCrearIng(){
     (<HTMLInputElement>document.getElementById("valorNombreCrear")).value = "";
     (<HTMLInputElement>document.getElementById("valorUnidadCrear")).value = "";
-    this.servicioModal.abrir('modal-4');
+    this.servicioModal.abrir('modalIng-01');
 
+  }
+
+
+  filtroCrear(){
+    this.nombreBoton = "CREAR";
+    this.objetoSeleccionado = "";
+    
+    
+    
+    (<HTMLInputElement>document.getElementById("siModifico")).style.display = "none";
+    (<HTMLInputElement>document.getElementById("valorNombreCrear")).value = "";
+    (<HTMLInputElement>document.getElementById("valorUnidadCrear")).value = "";
+    (<HTMLInputElement>document.getElementById("valorCantidad")).value = "0";
+    (<HTMLInputElement>document.getElementById("valorCostoU")).value = "0";
+    (<HTMLInputElement>document.getElementById("valorCantidadMedida")).value = "0";
+    (<HTMLInputElement>document.getElementById("crearI")).checked = true;
+
+
+
+  }
+
+  filtroModificar(){
+    ///(<HTMLInputElement>document.getElementById("modB")).checked = true;
+    this.nombreBoton = "MODIFICAR";
+    this.obtenerIngredientes();
+    this.servicioModal.abrir('modalIng-2');
+    (<HTMLInputElement>document.getElementById("siModifico")).style.display = "inline";
+
+  }
+  crearIng(){
+
+    var nombreB = (<HTMLInputElement>document.getElementById("valorNombreCrear")).value;
+    var tipoB = (<HTMLInputElement>document.getElementById("valorUnidadCrear")).value;
+    var cantidadB = (<HTMLInputElement>document.getElementById("valorCantidad")).value ;
+    var costoU= (<HTMLInputElement>document.getElementById("valorCostoU")).value ;
+    var cantidadMedidaB = (<HTMLInputElement>document.getElementById("valorCantidadMedida")).value ;
+
+   
+    var ings = JSON.stringify({ ListaArticulos : [] , Nombre: nombreB , TipoUnidad: tipoB , CantidadInventario:cantidadB, CostoMedia : costoU, CantidadMedida: cantidadMedidaB , Tipo:"Ingrediente"})
+  
+
+    if(this.nombreBoton == "CREAR"){
+
+      this.servicioHttp.crearElemento(JSON.parse(ings))
+      .subscribe((jsonFile:any)=>{
+        
+       
+        alert('ingrediente creada correctamente');
+  
+      } ,(error)=>{
+          console.log("hubo error con crear bien")
+  
+      } )
+
+    }
+    else{
+      //modificar
+      console.log("id modificar:",this.objetoSeleccionado.id)
+      this.servicioHttp.actualizarElemento(this.objetoSeleccionado.id, JSON.parse(ings) )
+      .subscribe((jsonFile:any)=>{
+        
+        alert('ingrediente modificadp correctamente');
+        
+  
+      } ,(error)=>{
+          console.log("hubo error con modificar ing")
+  
+      } )
+
+    }
+
+    
+    this.filtroCrear();
+    this.obtenerIngredientes();
   }
 
 }

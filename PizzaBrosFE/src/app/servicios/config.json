@@ -1,19 +1,24 @@
-{
-    "obtenerIngredienteByNombre":"/api/ingrediente/:nombre",
-    "crearIngrediente":"/api/ingrediente",
-    "obtenerIngredientes": "/api/ingredientes",
-    "obtenerIngredienteNombre":"/api/ingrediente/:nombre",
+{  
+    "crearElemento":"/api/elemento",
+    "obtenerElementos":"/api/elemento",
+    "obtenerIngredientes":"/api/ingrediente",
+    "obtenerBienes":"/api/bien",
+    "eliminarElemento":"/api/elemento/",
+    "actualizarElemento":"/api/elemento/",
+    "obtenerElementoId":"/api/elemento/",
+    "actualizarElemAgregarInv":"/api/elemento/",
     
     "crearProducto":"/api/producto",
     "obtenerProductos":"/api/productos",
     "obtenerProductoId":"/api/producto/Id/",
     "obtenerProductoNombre":"/api/producto/Nombre/:nombre",
-
+    "eliminarProducto":"/api/producto/:id",
+    "actualizarProducto":"/api/producto/:id",
+    "agregarIngredientesAProducto":"/api/producto/:id/agregarIng",
     
-    "getClienteByNit":"/api/getCliente/:nit",
-    "getFamiliaByNombre":"/api/getFamilia/:nombre",
-    "getProductoById":"/api/getProducto/Id/:id",
-    "getProductoByNombre":"/api/getProducto/Nombre/:nombre",
+    "crearCliente": "/api/cliente",
+    "obtenerClientes": "/api/clientes",
+    "obtenerClienteNit":"/api/cliente/:nit",
     
     "postPedido":"/api/crearPedido",
     "obtenerPedidos2D":"/api/pedidos2Fechas/", 
@@ -31,17 +36,15 @@
     "actualizarBien":"/api/bien/:nombre",
 
 
-    "crearCliente": "/api/cliente",
-    "obtenerClientes": "/api/clientes",
-    "obtenerClienteNit":"/api/cliente/:nit",
 
-    
     "crearCategoria":"/api/categoria",
     "obtenerCategorias":"/api/categoria",
     "obtenerCategoriaNombre":"/api/categoria/:nombre",
     "obtenerProductosCategoriaNombre":"/api/categoria/",
     "eliminarCategoria":"/api/categoria/",
     "actualizarCategoria":"/api/categoria/",
+    
+   
 
     "crearPedido":"/api/pedido",
     "crearPedidoEstado":"/api/pedidoEstado",
@@ -49,6 +52,13 @@
     "obtenerPedidos2Fechas":"/api/pedidos2Fechas",
     "obtenerPedidos2FechasNITCliente":"/api/pedidos2FechasNITCliente",
     "obtenerPedidosEstado":"/api/pedidosEstado/:estado",
-    "obtenerPedidoFechaNIT":"/api/pedidoFechaNIT"
+    "obtenerPedidoFechaNIT":"/api/pedidoFechaNIT",
     
+
+
+    "crearCompra": "/api/compra",
+    "obtenerCompras": "/api/compras",
+    "obtenerCompraId": "/api/compra/:id",
+    "actualizarCompraId": "/api/compra/:id",
+    "eliminarCompraId":"/api/compra/:id"
 }
