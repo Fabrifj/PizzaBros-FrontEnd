@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AppHttpService } from 'src/app/servicios/app-http.service';
 import {MostrarProductosComponent} from "../mostrar-productos.component";
 
 @Component({
@@ -8,9 +9,26 @@ import {MostrarProductosComponent} from "../mostrar-productos.component";
 })
 export class BotonesCategoriaComponent implements OnInit {
 
-  constructor() { }
+  datosCat: any | undefined;
 
+  constructor(private servicioHttp: AppHttpService, public mostrarProductos: MostrarProductosComponent) { }
+  
   ngOnInit(): void {
+    this.obtenerCategorias();
   }
 
+  obtenerCategorias(){
+    this.servicioHttp.obtenerCategorias()
+    .subscribe((jsonFile:any)=>{
+     
+      console.log(jsonFile);
+      this.datosCat = jsonFile;
+      
+      
+
+    } ,(error)=>{
+        console.log("hubo error con categoria")
+
+    } )
+  }
 }
