@@ -458,7 +458,7 @@ async function obtenerCategorias() {
   const list = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
   return list;
 }
-app.get("/api/categorias", async (req, res) => {
+app.get("/api/categoria", async (req, res) => {
   const list = await obtenerCategorias();
   res.send(list);
 });
