@@ -18,9 +18,11 @@ export class BienesComponent implements OnInit {
   datosRespaldo: any | undefined;
   columnas = [
     {field:'Nombre',header:'Nombre'},
-    {field:'Cantidad',header:'Unidades Restantes'},
-    {field:'UnidadMedida',header:'Medida de Unidad'},
-    {field:'Descripcion',header:'Descripcion'}
+    {field:'TipoUnidad',header:'Tipo de Unidad'},
+    {field:'CantidadInventario',header:'Cantidad en Inventario'},
+    {field:'CostoMedia',header:'Costo Media'},
+    
+    //{field:'Descripcion',header:'Descripcion'}
     //{field:'CostoUnidad',header:'Costo Unidad Bs'},
     
     
@@ -155,7 +157,7 @@ export class BienesComponent implements OnInit {
     //let body = JSON.stringify({ IdPedido: pedido.id , Estado: "Entregado"})
     let bienNuevo = JSON.stringify({Cantidad: 0, PrecioUnidad:0, Nombre: nuevoValorNombre , UnidadMedida: nuevoValorUnidad , Descripcion: nuevoValorDescripcion});
     let body = JSON.parse(bienNuevo)
-    this.servicioHttp.crearBien(body).subscribe((response) => {
+    this.servicioHttp.crearElemento(body).subscribe((response) => {
       console.log('Response from API', response);
       this.obtenerBien();
     }, (error)=>{

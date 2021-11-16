@@ -30,10 +30,9 @@ export class IngredientesComponent implements OnInit {
   datosRespaldo: any | undefined;
   columnas = [
     {field:'Nombre',header:'Nombre'},
-    {field:'Cantidad',header:'Unidades Restantes'},
-    {field:'UnidadMedida',header:'Medida de Unidad'},
-    //{field:'CostoUnidad',header:'Costo Unidad Bs'},
-    {field:'Proveedor',header:'Proveedor'}
+    {field:'TipoUnidad',header:'Tipo de Unidad'},
+    {field:'CantidadInventario',header:'Cantidad en Inventario'},
+    {field:'CostoMedia',header:'Costo Media'},
     
 
   ];
@@ -170,7 +169,7 @@ export class IngredientesComponent implements OnInit {
     //let body = JSON.stringify({ IdPedido: pedido.id , Estado: "Entregado"})
     let ingredienteNuevo = JSON.stringify({cantidad: 0, costoTotal:0, nombre: nuevoValorNombre , ipoUnidad: nuevoValorUnidad});
     let body = JSON.parse(ingredienteNuevo)
-    this.servicioHttp.crearIngrediente(body).subscribe((response) => {
+    this.servicioHttp.crearElemento(body).subscribe((response) => {
       console.log('Response from API', response);
       this.obtenerIngredientes();
     }, (error)=>{
