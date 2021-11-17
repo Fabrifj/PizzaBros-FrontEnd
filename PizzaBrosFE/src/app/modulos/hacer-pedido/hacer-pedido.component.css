@@ -4,7 +4,7 @@
     box-sizing: border-box;
 }*/
 .container-flui {
-	width: 115%;
+	width: 1305px;
 	height: 1000px;
     margin-left: -74px;
     margin-top: -10px;
@@ -13,4 +13,5 @@
 	background-size: cover;
 	background-attachment: fixed;
 	position: relative;
+	overflow: hidden;
 }

@@ -1,0 +1,6 @@
+<p>botones-categoria works!</p>
+<div class="col-md-12">
+    <div class="btn-group" role="group" aria-label="Basic outlined example">
+        <button type="button" class="btn btn-outline-primary" *ngFor="let dato of datosCat" (click)="mostrarProductos.cambiarCategoria(dato['Nombre'],dato['ListaProductos'])">{{dato['Nombre']}}</button>
+    </div>
+</div>
