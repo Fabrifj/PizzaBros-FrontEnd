@@ -157,10 +157,11 @@ export class BienesComponent implements OnInit {
     var cantidadMedidaB = (<HTMLInputElement>document.getElementById("valorCantidadMedida")).value ;
 
    
-    var bienes = JSON.stringify({ ListaArticulos : [] , Nombre: nombreB , TipoUnidad: tipoB , CantidadInventario:cantidadB, CostoMedia : costoU, CantidadMedida: cantidadMedidaB , Tipo:"Bien"})
-  
+    
 
     if(this.nombreBoton == "CREAR"){
+      var bienes = JSON.stringify({ ListaArticulos :[] , Nombre: nombreB , TipoUnidad: tipoB , CantidadInventario:cantidadB, CostoMedia : costoU, CantidadMedida: cantidadMedidaB , Tipo:"Bien"})
+  
 
       this.servicioHttp.crearElemento(JSON.parse(bienes))
       .subscribe((jsonFile:any)=>{
@@ -176,6 +177,8 @@ export class BienesComponent implements OnInit {
     }
     else{
       //modificar
+      var bienes = JSON.stringify({ ListaArticulos : this.objetoSeleccionado.ListaArticulos , Nombre: nombreB , TipoUnidad: tipoB , CantidadInventario:cantidadB, CostoMedia : costoU, CantidadMedida: cantidadMedidaB , Tipo:"Bien"})
+  
       console.log("id modificar:",this.objetoSeleccionado.id)
       this.servicioHttp.actualizarElemento(this.objetoSeleccionado.id, JSON.parse(bienes) )
       .subscribe((jsonFile:any)=>{

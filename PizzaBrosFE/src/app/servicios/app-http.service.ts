@@ -22,15 +22,18 @@ export class AppHttpService {
     return this.http.get(paths.obtenerProductos)
   }
   crearProducto(body:any) {
-    console.log(paths.obtenerProductos)
-    return this.http.post(paths.creaProducto , body)
+    
+    return this.http.post(paths.crearProducto , body)
   }
   obtenerProductoId(Id:any) {
     var path = paths.obtenerProductoId + Id;
     return this.http.get(path)
   }
-
-
+  actualizarProducto(Id:any,body:any) {
+    var path = paths.actualizarProducto + Id;
+    return this.http.put(path,body)
+  }
+  
 
 
   //pedidos
