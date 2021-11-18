@@ -1,11 +1,10 @@
-//const firestore = require('firebase/firestore')
 const express = require('express');
 const cors = require('cors');
 const { query } = require('express');
 const { compra } = require('./config');
 database = require('./config');
-//const ingrediente = database.ingrediente;
-const producto = database.producto;
+
+//const producto = database.producto;
 const cliente = database.cliente;
 const pedido = database.pedido;
 const firebase = database.firebase;
@@ -15,6 +14,8 @@ const elemento = database.elemento;
 const app = express();
 app.use(express.json());
 app.use(cors());
+
+const p = require('./producto');
 
 /*
 app.post("/api/ingrediente", async (req, res) => {
@@ -84,9 +85,9 @@ app.put("/api/ingrediente/:nombre", async (req, res) =>{
 //   "Nombre": "Pizza 3 Quesos"
 // }
 app.post("/api/producto", async (req, res) => {
-  var miCategoria = req.body;
-  await producto.add(miCategoria)
-  res.send({ msg: "Producto agregado correctamente", "Producto": miCategoria });
+  var miProducto = req.body;
+  var resp = await p.crearProducto(miProducto);
+  res.send(resp);
 });
 
 //ObtenerProductos  
