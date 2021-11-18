@@ -7,7 +7,6 @@ app.use(express.json());
 app.use(cors());
 
 const compra = database.compra;
-const pedido = database.pedido;
 const firebase = database.firebase;
 const elemento = database.elemento;
 
@@ -15,6 +14,7 @@ const fnCliente = require('./cliente');
 const fnProducto = require('./producto');
 const fnCategoria = require('./categoria');
 const fnPedido = require('./pedido');
+const fnElemento = require('./elemento');
 
 /*===================================
           CRUD PRODUCTOS
@@ -174,257 +174,65 @@ app.get("/api/pedidosCliente/nit/:nit", async (req, res) => {
   res.send(list);
 });
 
+
 /*===================================
           CRUD ELEMENTO
 //===================================*/
 
-//CrearElemento desde cero con 1 compra
-/*
-{
-	"Nombre": "Salsa Tomate",
-	"TipoUnidad": "ml",
-	"ListaArticulos":
-	[
-		{
-			"Marca":Salsa de Tomate Maggi",
-			"Costo":15,
-			"CantidadMedida":500
-		}
-	],
-	"CantidadInventario":1000,//cantidad de salsa en el inventario medida en ml
-	"CostoMedia":15,//Media de los costos de la listaArticulos
-	"Tipo":"Ingrediente"
-}
-*/
+//CrearElemento
 app.post("/api/elemento", async (req, res) => {
   const data = req.body
-  console.log("Info Elemento", data)
-  await elemento.add(data)
-  res.send({ msg: "Elemento anadido" })
+  const respuesta = await fnElemento.crearElemento(data);
+  res.send(respuesta);
 })
-//ObtenerElementos
-async function obtenerElementos() {
-  const snapshot = await elemento.get();
-  const list = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-  return list;
-}
 
+//ObtenerElemento
 app.get("/api/elemento", async (req, res) => {
-  const list = await obtenerElementos();
+  const list = await fnElemento.obtenerElementos();
   res.send(list);
 });
 
 //ObtenerIngredientes
-async function obtenerIngredientes() {
-  const snapshot = await elemento.where('Tipo','==','Ingrediente').get();
-  const list = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-  return list;
-}
 app.get("/api/ingrediente", async (req, res) => {
-  const list = await obtenerIngredientes();
+  const list = await fnElemento.obtenerIngredientes();
   res.send(list);
 });
 
 //ObtenerBienes
-async function obtenerBienes() {
-  const snapshot = await elemento.where('Tipo','==','Bien').get();
-  const list = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-  return list;
-}
 app.get("/api/bien", async (req, res) => {
-  const list = await obtenerBienes();
+  const list = await fnElemento.obtenerBienes();
   res.send(list);
 });
 
 //EliminarElemento
-async function eliminarElemento(idEl) {
-  
-  var resp = null;
-  await elemento.doc(idEl).delete().then(() => {
-    resp = "Elemento borrado correctamente!"
-    console.log(resp);
-  }).catch((error) => 
-  {
-    console.error("Error eliminando elemento: ", error);
-  });
-
-  return resp;
-}
 app.delete("/api/elemento/:id", async (req, res) => {
   var el = req.params.id;
-  const resp = await eliminarElemento(el);
+  const resp = await fnElemento.eliminarElemento(el);
   res.send(resp);
 });
-//Body para actualizar elemento, borrar los comentarios
-/*
-{
-	"Nombre": "Salsa Tomate",
-	"TipoUnidad": "ml",
-	"ListaArticulos":
-	[
-		{
-			"Marca":Salsa de Tomate Maggi",
-			"Costo":15,
-			"CantidadMedida":500
-		},
-	]
-	"CantidadInventario":1000,//cantidad de salsa en el inventario medida en ml
-	"CostoMedia":15,//Media de los costos de la listaArticulos
-	"Tipo":"Ingrediente" //Puede ser Ingrediente o Bien
-}
 
-*/
-async function actualizarElemento(idEl, el) {
-  
-  var resp = null;
-  await elemento.doc(idEl).update(el)
-  .then(() => 
-  {
-    resp = el;  
-    console.log("Categoria successfully updated!");
-  })
-  .catch((error) => 
-  {
-      // The document probably doesn't exist.
-      console.error("Error updating categoria: ", error);
-  });
-
-  return resp;
-};
+//ActualizarElemento
 app.put("/api/elemento/:id", async (req, res) => {
   var elid = req.params.id;
   var el = req.body;
-  const resp = await actualizarElemento(elid,el);
-  res.send(resp);
+  const respuesta = await fnElemento.actualizarElemento(elid,el);
+  res.send(respuesta);
 });
-//ObetenerElementoById
-async function obetenerElementoId(elid) 
-{
-  var resp = null;
-  await elemento.doc(elid).get().then((doc) => {
-    if (doc.exists) {
-      resp = { id: doc.id, ...doc.data() }  
-      console.log("Data de Elemento:", doc.data());
-    } else {
-        
-        console.log("Elemento no existe");
-    }
-  }).catch((error) => 
-  {
-      console.log("Error getting document:", error);
-  });
 
-  return resp;
-}
-
+//ObtenerElementoId
 app.get("/api/elemento/:id", async (req, res) => {
   var elid = req.params.id;
-  const resp = await obetenerElementoId(elid);
-  res.send(resp);
+  const respuesta = await fnElemento.obtenerElementoId(elid);
+  res.send(respuesta);
 });
 
 //ActualizarElemAgregarInv sirve para agregar cantidad al inventario de un elemento
-//El Body para el endpoint es:
-/*
-{
-	"Marca":"Salsa de Tomate Flor",
-	"Costo":20,
-	"CantidadMedida":800,
-	"CantidadComprada":3
-}
-*/
-async function actualizarElemAgregarInv(elid,mibody) 
-{
-  var resp = null;
-  await elemento.doc(elid).get().then(async (doc) => {
-    if (doc.exists) {
-      console.log("Document data:", doc.data());
-        var costoSum = 0;
-        var costoMedia = 0;
-        var data = doc.data();
-        var articulos = data.ListaArticulos;
-        var artEncontrado = false;
-        var infoUpdate = null;
-        var cantInv=parseFloat(data.CantidadInventario)+ parseInt(mibody.CantidadComprada,10) * parseFloat(mibody.CantidadMedida);
-        var newArt = {
-          "Marca": mibody.Marca,
-          "Costo": mibody.Costo,
-          "CantidadMedida":mibody.CantidadMedida
-        }
-        if(articulos.length >0)
-        {
-          articulos.forEach(
-            async (art) => 
-            {
-              costoSum += parseFloat(art.Costo);
-              if(mibody.Marca == art.Marca && mibody.Costo == art.Costo && mibody.CantidadMedida && art.CantidadMedida)
-              {
-                  artEncontrado = true;
-              }
-            }
-            
-        
-          );
-          
-          costoMedia = (costoSum + parseFloat(mibody.Costo))/(articulos.length+1);
-          if(artEncontrado)
-          {
-            infoUpdate = {
-              "CostoMedia":costoMedia,
-              "CantidadInventario": cantInv
-            }
-          }
-          else
-          {
-            articulos.push(newArt);
-            infoUpdate = {
-              "CostoMedia":costoMedia,
-              "ListaArticulos":articulos,
-              "CantidadInventario": cantInv
-            }
-          }
-
-          
-        }
-        else
-        {
-          infoUpdate = {
-            "CostoMedia":parseFloat(mibody.Costo),
-            "ListaArticulos":[newArt],
-            "CantidadInventario": cantInv
-          }
-        }
-        await elemento.doc(elid).update(infoUpdate)
-          .then(() => 
-          {
-            resp = "Inventario y articulos de elemento updated!";
-            console.log("Inventario y articulos de elemento updated!");
-          })
-          .catch((error) => 
-          {
-              // The document probably doesn't exist.
-              console.error("Error updating elemento: ", error);
-          });
-        
-    } else {
-        
-        console.log("Elemento no existe");
-    }
-  }).catch((error) => 
-  {
-      console.log("Error getting document:", error);
-  });
-  return resp;
-}
-
 app.put("/api/elemento/:id/agregarInv", async (req, res) => {
   var elid = req.params.id;
   var mibody = req.body;
-  const resp = await actualizarElemAgregarInv(elid,mibody);
+  const resp = await fnElemento.actualizarElemAgregarInv(elid,mibody);
   res.send(resp);
 });
-
-
 
 
 /*===================================

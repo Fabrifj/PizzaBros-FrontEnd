@@ -27,7 +27,7 @@ async function crearCategoria(body){
   await categoria.add(body);
   respuesta = {
     "Mensaje" : "Categoria agregada correctamente",
-    "Producto": body
+    "Categoria": body
   }
   return respuesta;
 }
