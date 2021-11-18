@@ -71,19 +71,21 @@
 }
 
 .btnCerrar{
-    position: absolute;
+    position: relative;
     width: 110px;
     height: 40px;
-    margin-left: 35% ;
+    margin-left: 1% ;
+    margin-top: 5%;
     font-size: 25px;
     bottom: 20px;
 }
 
 .btnGuardado{
-    position: absolute;
+    position: relative;
     width: 180px;
     height: 40px;
-    margin-left: 5% ;
+    margin-left: 1% ;
+    margin-top: 5%;
     font-size: 22px;
     bottom: 20px;
 }
