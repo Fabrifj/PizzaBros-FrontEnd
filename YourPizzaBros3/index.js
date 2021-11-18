@@ -1,228 +1,73 @@
 const express = require('express');
 const cors = require('cors');
-const { query } = require('express');
-const { compra } = require('./config');
 database = require('./config');
-
-//const producto = database.producto;
-const cliente = database.cliente;
-const pedido = database.pedido;
-const firebase = database.firebase;
-const categoria = database.categoria;
-const elemento = database.elemento;
 
 const app = express();
 app.use(express.json());
 app.use(cors());
 
-const p = require('./producto');
+const compra = database.compra;
+const pedido = database.pedido;
+const firebase = database.firebase;
+const elemento = database.elemento;
 
-/*
-app.post("/api/ingrediente", async (req, res) => {
-  const data = req.body
-  console.log("Info Ingredientes ", data)
-  await ingrediente.add(data)
-  res.send({ msg: "Ingrediente added" })
-})
-
-//ObtenerIngredientes
-async function obtenerIngredientes() {
-  const snapshot = await ingrediente.get();
-  const list = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-  return list;
-}
-app.get("/api/ingredientes", async (req, res) => {
-  const list = await obtenerIngredientes();
-  res.send(list);
-});
-
-//ObtenerIngredienteNombre
-async function obtenerIngredienteNombre(nombreIng) {
-
-  let query = await ingrediente.where('Nombre', '==', nombreIng);
-  let querySnapshot = await query.get();
-  let respuesta = null;
-
-  if (querySnapshot.empty) {
-    console.log(`No encontramos al Ingrediente: ${nombreIng}`);
-
-  } else {
-    console.log('Encontramos al ingrediente: ', nombreIng);
-    const list = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-    respuesta = list
-  }
-  return respuesta;
-}
-app.get("/api/ingrediente/:nombre", async (req, res) => {
-  var nombreIng = req.params.nombre
-  var respuesta = await obtenerIngredienteNombre(nombreIng);
-  res.send(respuesta);
-});
-
-//Actualizar Ingrediente
-app.put("/api/ingrediente/:nombre", async (req, res) =>{
-  var nombreIng = req.params.nombre
-  var data = req.params.body
-
-  // data = {data}
-  const ref = await bien.where('Nombre', '==', nombreIng).set(data, { merge: true });
-  res.send({ msg: "Ingrediente actualizado" })
-})
-
-*/
+const fnCliente = require('./cliente');
+const fnProducto = require('./producto');
+const fnCategoria = require('./categoria');
+const fnPedido = require('./pedido');
 
 /*===================================
           CRUD PRODUCTOS
-//===================================*/
+===================================*/
 
-//CrearProducto estructura:
-// {
-
-//   "ImgURL": "https://live.mrf.io/statics/i/ps/irecetasfaciles.com/wp-content/uploads/2019/08/pizza-de-jamon-queso-y-tocino.jpg?width=1200&enable=upscale",
-//   "Precio": 65,
-//   "Costo": 50,
-//   "Tamano": "Grande",
-//   "Nombre": "Pizza 3 Quesos"
-// }
+// CrearProducto
 app.post("/api/producto", async (req, res) => {
   var miProducto = req.body;
-  var resp = await p.crearProducto(miProducto);
+  const respuesta = await fnProducto.crearProducto(miProducto);
   res.send(resp);
 });
 
-//ObtenerProductos  
-async function obtenerProductos() {
-  const snapshot = await producto.get();
-  const list = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-  return list;
-}
+// ObtenerProductos  
 app.get("/api/productos", async (req, res) => {
-  const list = await obtenerProductos();
+  const list = await fnProducto.obtenerProductos();
   res.send(list);
 });
 
 //ObtenerProductoId
-async function obtenerProductoId(prd) {
-  let respuesta = null;
-  await producto.doc(prd).get().then(snapshot => {
-    let querySnapshot = snapshot.data()
-    console.log(querySnapshot)
-    if (typeof querySnapshot == 'undefined' || querySnapshot.empty || querySnapshot == null) {
-      console.log(`No encontramos el producto con Id: ${prd}`);
-
-    } else {
-      console.log('Encontramos al producto: ', prd);
-      respuesta = querySnapshot
-    }
-  })
-  return respuesta;
-}
 app.get("/api/producto/Id/:id", async (req, res) => {
   var prd = req.params.id
-  var respuesta = await obtenerProductoId(prd);
-
+  const respuesta = await fnProducto.obtenerProductoId(prd);
   res.send(respuesta);
 });
 
 //ObtenerProductoNombre
-async function obtenerProductoNombre(prd) {
-  let query = await producto.where('Nombre', '==', prd);
-  let querySnapshot = await query.get();
-  let respuesta = null;
-
-  if (querySnapshot.empty) {
-    console.log(`No encontramos el producto con nombre: ${prd}`);
-    respuesta = `No encontramos el producto con nombre: ${prd}`;
-
-  } else {
-    console.log('Encontramos al producto: ', prd);
-    respuesta = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-  }
-  return respuesta;
-}
 app.get("/api/producto/Nombre/:nombre", async (req, res) => {
   var prd = req.params.nombre
-  var respuesta = await obtenerProductoNombre(prd);
+  var respuesta = await fnProducto.obtenerProductoNombre(prd);
   res.send(respuesta);
 });
 
 /*===================================
           CRUD CLIENTES
 //===================================*/
+
 //CrearCliente
-async function crearCliente(data) {
-  const nit = data.NIT
-  var respuesta = null;
-  var resp = null;
-  let query = cliente.where('NIT', '==', nit);
-  let querySnapshot = await query.get();
-
-  if (querySnapshot.empty) {
-    console.log(`No encontramos al NIT: ${nit}, lo creamos`);
-    await cliente.add(data)
-    resp = data
-
-  } else {
-    console.log('Encontramos al NIT: ', nit);
-    querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-
-    querySnapshot.docs.forEach(documentSnapshot => {
-
-      console.log(`Found document at ${documentSnapshot.id}`);
-
-    });
-    if (querySnapshot.length = 1) {
-      console.log("querySnapshot: ", querySnapshot.docs[0].data());
-      if (querySnapshot.docs[0].data().Nombre == data.Nombre) {
-        console.log("SI ES LA MISMA PERSONA");
-        resp = querySnapshot.docs[0].data();
-      }
-    }
-
-
-  }
-
-  return resp;
-}
 app.post("/api/cliente", async (req, res) => {
   const data = req.body
-  const respuesta = await crearCliente(data);
-  console.log(respuesta);
+  const respuesta = await fnCliente.crearCliente(data);
   res.send(respuesta)
 })
 
 //ObtenerClientes
-async function obtenerClientes() {
-  const snapshot = await cliente.get();
-  const list = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-  return list;
-}
 app.get("/api/clientes", async (req, res) => {
-  const list = await obtenerClientes();
+  const list = await fnCliente.obtenerClientes();
   res.send(list);
 });
 
 //ObtenerClienteNit
-async function obtenerClienteNit(nitCliente) {
-
-  nitCliente = parseInt(nitCliente, 10);
-  let query = await cliente.where('NIT', '==', nitCliente);
-  let querySnapshot = await query.get();
-  let respuesta = null;
-
-  if (querySnapshot.empty) {
-    console.log(`No encontramos al cliente con nit: ${nitCliente}`);
-
-  } else {
-    console.log('Encontramos al nit: ', nitCliente);
-    respuesta = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-
-  }
-  return respuesta;
-}
 app.get("/api/cliente/:nit", async (req, res) => {
   var nitCliente = req.params.nit
-  var respuesta = await obtenerClienteNit(nitCliente);
+  var respuesta = await fnCliente.obtenerClienteNit(nitCliente);
   res.send(respuesta);
 });
 
@@ -231,166 +76,46 @@ app.get("/api/cliente/:nit", async (req, res) => {
 //===================================*/
 
 //CrearCategoria
-//Body del request:
-/*
-{
-  "ListaProductos":
-  [
-    {
-      "IdProducto":"",
-      "ImgURL":"",
-      "NombreProducto":""
-    },
-    {
-      "IdProducto":"",
-      "ImgURL":"",
-      "NombreProducto":""
-    }
-    
-  ],
-  "Descripcion":"",
-  "Nombre":""
-
-}
-
- */
-
 app.post("/api/categoria", async (req, res) => {
   var miCategoria = req.body;
-  await categoria.add(miCategoria)
-  res.send({ msg: "Categoria agregada correctamente", "Producto": miCategoria });
-});
-
-//ObtenerCategorias
-async function obtenerCategorias() {
-  const snapshot = await categoria.get();
-  const list = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-  return list;
-}
-app.get("/api/categorias", async (req, res) => {
-  const list = await obtenerCategorias();
-  res.send(list);
-});
-
-
-//ObtenerCategoriaNombre
-async function obtenerCategoriaNombre(prd) {
-  let query = await categoria.where('Nombre', '==', prd);
-  let querySnapshot = await query.get();
-  let respuesta = null;
-
-  if (querySnapshot.empty) {
-    console.log(`No encontramos la categoria con nombre: ${prd}`);
-
-  } else {
-    console.log('Encontramos a la categoria: ', prd);
-    respuesta = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-  }
-  return respuesta;
-}
-app.get("/api/categoria/:nombre", async (req, res) => {
-  var prd = req.params.nombre;
-  var respuesta = await obtenerCategoriaNombre(prd);
+  const respuesta = await fnCategoria.crearCategoria(miCategoria);
   res.send(respuesta);
 });
 
-//EliminarCategoria
-async function eliminarCategoria(idCat) {
-  
-  var resp = null;
-  await categoria.doc(idCat).delete().then(() => {
-    resp = "Categoria successfully deleted!"
-    console.log(resp);
-  }).catch((error) => 
-  {
-    console.error("Error removing document: ", error);
-  });
+//ObtenerCategorias
+app.get("/api/categorias", async (req, res) => {
+  const list = await fnCategoria.obtenerCategorias();
+  res.send(list);
+});
 
-  return resp;
-}
+//ObtenerCategoriaNombre
+app.get("/api/categoria/:nombre", async (req, res) => {
+  var prd = req.params.nombre;
+  var respuesta = await fnCategoria.obtenerCategoriaNombre(prd);
+  res.send(respuesta);
+});
 
+//EliminarCategoriaId
 app.delete("/api/categoria/:id", async (req, res) => {
   var cat = req.params.id;
-  const resp = await eliminarCategoria(cat);
+  const resp = await fnCategoria.eliminarCategoria(cat);
   res.send(resp);
 });
 
 //ActualizarCategoria
-//Body a mandar para actualizar:
-/*
-{
-  "ListaProductos":
-  [
-    {
-      "IdProducto":"",
-      "ImgURL":"",
-      "NombreProducto":""
-    },
-    {
-      "IdProducto":"",
-      "ImgURL":"",
-      "NombreProducto":""
-    }
-    
-  ],
-  "Descripcion":"",
-  "Nombre":""
-
-}
-
- */
-async function actualizarCategoria(idCat, cat) {
-  
-  var resp = null;
-  await categoria.doc(idCat).update(cat)
-  .then(() => 
-  {
-    resp = cat;  
-    console.log("Categoria successfully updated!");
-  })
-  .catch((error) => 
-  {
-      // The document probably doesn't exist.
-      console.error("Error updating categoria: ", error);
-  });
-
-  return resp;
-}
 app.put("/api/categoria/:id", async (req, res) => {
   var catid = req.params.id;
   var cat = req.body;
-  const resp = await actualizarCategoria(catid,cat);
-  res.send(resp);
+  const respuesta = await fnCategoria.actualizarCategoria(catid,cat);
+  res.send(respuesta);
 });
 
 /*===================================
           CRUD PEDIDOS
 //===================================*/
 
-//CrearPedido
-/*
-  Para el siguiente post es necesaria la siguiente estructura en el requestbody:
-  {
-    "Fecha": "2019-01-02T10:12:04",
-    "Detalle": 
-    [
-      {
-        "Id":"xHsRl949N5aptvF0M7vt",
-        "Cantidad":2
-      }
-    ],
-    "Cliente":
-    {
-      "Nombre":"Lopez",
-      "NIT": 4488
-    },
-    
-    "IdEmpleado":"ABCRl949N5aptvF0M7vt",
-    "Estado":"Entregado"
-  }
-*/
+
 app.post("/api/pedido", async (req, res) => {
-  console.log('hola')
   const data = req.body
   //buscamos todos los productos de la lista
   var misProds = []
@@ -493,7 +218,7 @@ async function obtenerPedidos() {
   return list;
 }
 app.get("/api/pedidos", async (req, res) => {
-  const list = await obtenerPedidos();
+  const list = await fnPedido.obtenerPedidos();
   res.send(list);
 });
 
