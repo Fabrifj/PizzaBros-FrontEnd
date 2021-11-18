@@ -27,12 +27,13 @@
     "actualizarCategoria":"/api/categoria/:id",
 
     "crearPedido":"/api/pedido",
-    "crearPedidoEstado":"/api/pedidoEstado",
+    "actualizarPedidoEstado":"/api/pedidoEstado",
     "obtenerPedidos":"/api/pedidos",
     "obtenerPedidos2Fechas":"/api/pedidos2Fechas",
     "obtenerPedidos2FechasNITCliente":"/api/pedidos2FechasNITCliente",
     "obtenerPedidosEstado":"/api/pedidosEstado/:estado",
     "obtenerPedidoFechaNIT":"/api/pedidoFechaNIT",
+    "obtenerPedidoCliente" : "/api/pedidosCliente/nit/:nit",
 
     "crearCompra": "/api/compra",
     "obtenerCompras": "/api/compras",

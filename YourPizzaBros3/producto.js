@@ -11,21 +11,21 @@ Estructura del body -> Crear
 }    
 */ 
 async function crearProducto(body){
-    await producto.add(body);
-    respuesta = {
-        "Mensaje" : "Producto agregado correctamente",
-        "Producto": body
-    }
-    return respuesta;
+  await producto.add(body);
+  respuesta = {
+    "Mensaje" : "Producto agregado correctamente",
+    "Producto": body
+  }
+  return respuesta;
 }
 
 async function obtenerProductos(){
-    const snapshot = await producto.get();
-    const lista = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data()
-    }))
-    return lista;
+  const snapshot = await producto.get();
+  const lista = snapshot.docs.map((doc) => ({
+    id: doc.id,
+    ...doc.data()
+  }))
+  return lista;
 }
 
 //ObtenerProductoId
@@ -64,9 +64,9 @@ async function obtenerProductoNombre(prd) {
 
 
 module.exports = {
-    crearProducto,
-    obtenerProductos,
-    obtenerProductoId,
-    obtenerProductoNombre
+  crearProducto,
+  obtenerProductos,
+  obtenerProductoId,
+  obtenerProductoNombre
 };
 

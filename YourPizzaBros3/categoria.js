@@ -24,22 +24,22 @@ Estructura del Body -> Crear
 
 //CrearCategoria
 async function crearCategoria(body){
-    await categoria.add(body);
-    respuesta = {
-        "Mensaje" : "Categoria agregada correctamente",
-        "Producto": body
-    }
-    return respuesta;
+  await categoria.add(body);
+  respuesta = {
+    "Mensaje" : "Categoria agregada correctamente",
+    "Producto": body
+  }
+  return respuesta;
 }
 
 //ObtenerCategorias
 async function obtenerCategorias(){
-    const snapshot = await categoria.get();
-    const lista = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data()
-    }))
-    return lista;
+  const snapshot = await categoria.get();
+  const lista = snapshot.docs.map((doc) => ({
+    id: doc.id,
+    ...doc.data()
+  }))
+  return lista;
 }
 
 //ObtenerCategoriaNombre
@@ -50,7 +50,6 @@ async function obtenerCategoriaNombre(cat) {
 
   if (querySnapshot.empty) {
     console.log(`No encontramos la categoria con nombre: ${cat}`);
-
   } else {
     console.log('Encontramos a la categoria: ', cat);
     respuesta = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
@@ -111,9 +110,9 @@ async function actualizarCategoria(idCat, cat) {
 }
 
 module.exports = {
-    crearCategoria,
-    obtenerCategorias,
-    obtenerCategoriaNombre,
-    eliminarCategoria,
-    actualizarCategoria
+  crearCategoria,
+  obtenerCategorias,
+  obtenerCategoriaNombre,
+  eliminarCategoria,
+  actualizarCategoria
 };

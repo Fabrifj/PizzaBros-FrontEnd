@@ -24,7 +24,7 @@ const fnPedido = require('./pedido');
 app.post("/api/producto", async (req, res) => {
   var miProducto = req.body;
   const respuesta = await fnProducto.crearProducto(miProducto);
-  res.send(resp);
+  res.send(respuesta);
 });
 
 // ObtenerProductos  
@@ -114,349 +114,65 @@ app.put("/api/categoria/:id", async (req, res) => {
           CRUD PEDIDOS
 //===================================*/
 
-
+//CrearPedido
 app.post("/api/pedido", async (req, res) => {
-  const data = req.body
-  //buscamos todos los productos de la lista
-  var misProds = []
-  var precioTotal = 0;
-  data.Detalle.forEach(
-    async (prd) => {
-
-      //Verificamos si existen los productos y creamos la lista de productos a ingresar
-      await producto.doc(prd.IdProducto).get().then(snapshot => {
-        let querySnapshot = snapshot.data()
-        console.log(querySnapshot)
-        if (typeof querySnapshot == 'undefined' || querySnapshot.empty || querySnapshot == null) {
-          console.log(`No encontramos el producto con Id: ${prd.IdProducto}`);
-
-        } else {
-          console.log('Encontramos al producto: ', prd.IdProducto);
-          var miProd = {
-            "Cantidad": prd.Cantidad,
-            "Id": prd.Id,
-            "Nombre": querySnapshot.Nombre,
-            "Precio": (parseInt(prd.Cantidad, 10) * Number(querySnapshot.Precio))
-          }
-          misProds.push(miProd);
-          precioTotal = precioTotal + Number(miProd.Precio);
-
-        }
-      })
-    }
-
-  );
-  //Verificamos si el cliente que nos pasan esta ya registrado, si no lo esta, lo registramos
-  const nit = data.Cliente.NIT;
-  const nombre = data.Cliente.Nombre;
-  var respuesta = null;
-  const dataCliente =
-  {
-    "NIT": parseInt(nit, 10),
-    "Nombre": nombre
-  }
-
-  var miCliente = await crearCliente(dataCliente)
-  if (miCliente != null) {
-    var newPedido =
-    {
-      "Fecha": firebase.firestore.Timestamp.fromDate(new Date(data.Fecha)),
-      "Detalle": misProds,
-      "NITCliente": parseInt(nit, 10),
-      "NombreCliente": nombre,
-      "IdEmpleado": data.IdEmpleado,
-      "Precio": precioTotal,
-      "Estado": data.Estado
-
-    };
-    console.log("Pedido: ", newPedido);
-    await pedido.add(newPedido)
-    respuesta = { msg: "Pedido added", "Pedido": newPedido }
-  }
-  else {
-    console.log(`Ya existe una un cliente registrado con el NIT ${nit} pero no el nombre ${nombre}`);
-  }
-
+  const data = req.body; 
+  const respuesta = await fnPedido.crearPedido(data);
   res.send(respuesta)
 })
 
-async function crearPedidoEstado(idPedido, estado) {
-  let respuesta = null;
-  await pedido.doc(idPedido).get().then(snapshot => {
-    let querySnapshot = snapshot.data()
-    console.log(querySnapshot)
-    if (typeof querySnapshot == 'undefined' || querySnapshot.empty || querySnapshot == null) {
-      console.log(`No encontramos el pedido con Id: ${idPedido}`);
-
-    } else {
-      console.log('Encontramos al pedido: ', idPedido);
-      var a = pedido.doc(idPedido).update({ "Estado": estado });
-      querySnapshot.Estado = estado;
-
-
-
-
-      respuesta = querySnapshot;
-    }
-  })
-  return respuesta;
-}
-
+//ActualizarPedidoEstado
 app.post("/api/pedidoEstado", async (req, res) => {
-  console.log("entro api 1");
   var idPedido = req.body.IdPedido;
   var estado = req.body.Estado;
-
-  var respuesta = await crearPedidoEstado(idPedido, estado);
+  var respuesta = await fnPedido.actualizarPedidoEstado(idPedido, estado);
   res.send(respuesta);
 });
 
 //ObtenerPedidos
-async function obtenerPedidos() {
-  const snapshot = await pedido.get();
-  const list = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-  return list;
-}
 app.get("/api/pedidos", async (req, res) => {
   const list = await fnPedido.obtenerPedidos();
   res.send(list);
 });
 
 //ObtenerPedidos2Fechas
-async function obtenerPedidos2Fechas(start, end) {
-  console.log("start:", start);
-  console.log("end", end);
-
-  var respuesta = null;
-
-  var inicio = firebase.firestore.Timestamp.fromDate(new Date(start));
-  var final = firebase.firestore.Timestamp.fromDate(new Date(end));
-  console.log("start:", inicio);
-  console.log("end", final);
-  let query = await pedido.where('Fecha', '>=', inicio).where('Fecha', '<=', final);
-  let querySnapshot = await query.get();
-
-  if (querySnapshot.empty) {
-    console.log(`No encontramos pedidos entre esas fechas ${start} - ${end}`);
-
-  } else {
-    console.log(`Encontramos pedidos entre las fechas ${start} - ${end} `);
-    respuesta = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-  }
-
-
-  console.log("ListaFechas", respuesta);
-  return respuesta;
-}
-/*
-{
-  "Inicio":"2020-01-01T12:01:18",
-  "Final":"2020-07-12T12:06:00"
-}
-
-*/
 app.get("/api/pedidos2Fechas/:inicio/:final", async (req, res) => {
   var inicio = req.params.inicio;
   var final = req.params.final;
-  console.log("inicio:", inicio);
-  console.log("final:", final);
-  var respuesta = await obtenerPedidos2Fechas(inicio, final);
+  var respuesta = await fnPedido.obtenerPedidos2Fechas(inicio, final);
   res.send(respuesta);
 });
-/*//YA NO SIRVE, SOLO PARAMETROS DEL ENDPOINT
-{
-  "Inicio":"2020-01-01T12:01:18",
-  "Final":"2020-07-12T12:06:00",
-  "NITCliente": 123456
-}
 
-*/
-async function obtenerPedidos2FechasNITCliente(start, end, NITCliente) {
-  console.log("start:", start);
-  console.log("end", end);
-
-  var respuesta = null;
-
-  var inicio = firebase.firestore.Timestamp.fromDate(new Date(start));
-  var final = firebase.firestore.Timestamp.fromDate(new Date(end));
-  console.log("start:", inicio);
-  console.log("end", final);
-  NITCliente = parseInt(NITCliente, 10);
-
-  let query = await pedido.where('NITCliente', '==', NITCliente).where('Fecha', '>=', inicio).where('Fecha', '<=', final);
-  let querySnapshot = await query.get();
-
-  if (querySnapshot.empty) {
-    console.log(`No encontramos pedidos entre esas fechas ${start} - ${end} del cliente NIT: ${NITCliente}`);
-
-  } else {
-    console.log(`Encontramos pedidos entre las fechas ${start} - ${end} del cliente NIT: ${NITCliente}`);
-    respuesta = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-  }
-
-
-  console.log("ListaFechas", respuesta);
-  return respuesta;
-}
-
+//ObtenerPedidos2FechasNITCliente
 app.get("/api/pedidos2FechasNITCliente/:inicio/:final/:nit", async (req, res) => {
   var inicio = req.params.inicio;
   var final = req.params.final;
   var nitCliente = req.params.nit;
-  console.log("inicio:", inicio);
-  console.log("final:", final);
-  var respuesta = await obtenerPedidos2FechasNITCliente(inicio, final, nitCliente);
+  var respuesta = await fnPedido.obtenerPedidos2FechasNITCliente(inicio, final, nitCliente);
   res.send(respuesta);
 });
 
-//CrearPedidoEstado
-/*
-  {
-    "IdPedido": "NXp6KInuGOHtoJWv9cnN",
-    "Estado":"Entregado"
-  }
-  */
-
-//ObtenerPedidosEstado Obtener los pedidos segun su estado
-async function obtenerPedidosEstado(estado) {
-  const snapshot = await pedido.where('Estado', '==', estado).get();
-  const list = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-  return list;
-}
+//ObtenerPedidosEstado
 app.get("/api/pedidosEstado/:estado", async (req, res) => {
   var estado = req.params.estado;
-  const list = await obtenerPedidosEstado(estado);
+  const list = await fnPedido.obtenerPedidosEstado(estado);
   res.send(list);
 });
-/*//YA NO SIRVE, SOLO PARAMETROS DEL ENDPOINT
-  {
-    "Fecha":"2020-07-12T12:06:00",
-    "NITCliente": 123456
-  }
-  */
-async function obtenerPedidoFechaNIT(fecha, nitCliente) {
-  fecha = firebase.firestore.Timestamp.fromDate(new Date(fecha));
-  const snapshot = await pedido.where('Fecha', '==', fecha).where('NITCliente', '==', nitCliente).get();
-  var list = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-  if (list.length < 1) {
-    list = null;
-  }
-  return list;
-}
+
+//ObtenerPedidoFechaNIT
 app.get("/api/pedidoFechaNIT/:fecha/:nit", async (req, res) => {
   var fecha = req.params.fecha;
   var nitCliente = req.params.nit;
-  const list = await obtenerPedidoFechaNIT(fecha, nitCliente);
+  const list = await fnPedido.obtenerPedidoFechaNIT(fecha, nitCliente);
   res.send(list);
 });
 
-//GetPedidosCliente
-async function obtenerPedidosCliente(nitCliente) {
-  console.log("NIT CLIENTE: ", nitCliente);
-  const snapshot = await pedido.where('NITCliente', '==', parseInt(nitCliente, 10)).get();
-  var list = await snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-  console.log(list);
-  if (list.length < 1) {
-    list = null;
-  }
-  return list;
-
-}
+//ObtenerPedidosCliente
 app.get("/api/pedidosCliente/nit/:nit", async (req, res) => {
   var nitCliente = req.params.nit;
-  const list = await obtenerPedidosCliente(nitCliente);
-
-
+  const list = await fnPedido.obtenerPedidosCliente(nitCliente);
   res.send(list);
 });
-
-//CONSULTAR ANDY
-//GetPedidosCliente
-async function getPedidosCliente(nitCliente) {
-  console.log("NIT CLIENTE: ", nitCliente);
-  const snapshot = await pedido.where('NITCliente', '==', parseInt(nitCliente, 10)).get();
-  var list = await snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-  console.log(list);
-  if (list.length < 1) {
-    list = null;
-  }
-  return list;
-
-}
-app.get("/api/getPedidosCliente/nit/:nit", async (req, res) => {
-  var nitCliente = req.params.nit;
-  const list = await getPedidosCliente(nitCliente);
-
-
-  res.send(list);
-});
-
-
-/*===================================
-          CRUD BIENES
-//===================================*/
-
-//CrearBien
-//Formato del bien en el Body del request:
-// {
-//   "Cantidad": 5,
-//   "Descripcion": "Objeto para tal cosa",
-//   "Nombre": "Mesa",
-//   "PrecioUnidad": 20,
-//   "UnidadMedida": "Unidades"
-// }
-
-// app.post("/api/bien", async (req, res) => {
-//   const data = req.body
-//   console.log("Informacion del Bien ", data)
-//   await bien.add(data)
-//   res.send({ msg: "Bien agregado" })
-// })
-
-// //ObtenerBien
-// async function obtenerBien() {
-//   const snapshot = await bien.get();
-//   const list = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-//   return list;
-// }
-// app.get("/api/bienes", async (req, res) => {
-//   const list = await obtenerBien();
-//   res.send(list);
-// });
-
-// //ObtenerBienNombre
-// async function obtenerBienNombre(nombreBien) {
-
-//   let query = await bien.where('Nombre', '==', nombreBien);
-//   let querySnapshot = await query.get();
-//   let respuesta = null;
-
-//   if (querySnapshot.empty) {
-//     console.log(`No encontramos el Bien: ${nombreBien}`);
-
-//   } else {
-//     console.log('Encontramos el Bien: ', nombreBien);
-//     const list = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-//     respuesta = list
-//   }
-//   return respuesta;
-// }
-// app.get("/api/bien/:nombre", async (req, res) => {
-//   var nombreBien = req.params.nombre
-//   var respuesta = await obtenerBienNombre(nombreBien);
-//   res.send(respuesta);
-// });
-
-
-// //Actualizar Bien
-// app.put("/api/bien/:nombre", async (req, res) =>{
-//   var nombreBien = req.params.nombre
-//   var data = req.params.body
-
-//   // data = {data}
-//   const ref = await bien.where('Nombre', '==', nombreBien).set(data, { merge: true });
-//   res.send({ msg: "Bien actualizado" })
-// })
 
 /*===================================
           CRUD ELEMENTO

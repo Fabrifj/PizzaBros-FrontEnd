@@ -19,12 +19,11 @@ async function crearCliente(data) {
     console.log(`No se encontro al cliente con el NIT: ${nit}, se procedera a crearlo`);
     await cliente.add(data)
     respuesta = data
-
   } else {
-    console.log('Se encoontro al cliente con el NIT: ', nit);
+    console.log('Se encontro al cliente con el NIT: ', nit);
     querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
     querySnapshot.docs.forEach(documentSnapshot => {
-      console.log(`Found document at ${documentSnapshot.id}`);
+      console.log(`Id del cliente: ${documentSnapshot.id}`);
     });
     if (querySnapshot.length = 1) {
       console.log("querySnapshot: ", querySnapshot.docs[0].data());
@@ -49,7 +48,6 @@ async function obtenerClientes() {
 
 //ObtenerClienteNit
 async function obtenerClienteNit(nitCliente) {
-
   nitCliente = parseInt(nitCliente, 10);
   let query = await cliente.where('NIT', '==', nitCliente);
   let querySnapshot = await query.get();
@@ -57,11 +55,9 @@ async function obtenerClienteNit(nitCliente) {
 
   if (querySnapshot.empty) {
     console.log(`No encontramos al cliente con nit: ${nitCliente}`);
-
   } else {
     console.log('Encontramos al nit: ', nitCliente);
     respuesta = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-
   }
   return respuesta;
 }
@@ -70,8 +66,8 @@ async function obtenerClienteNit(nitCliente) {
 
 
 module.exports = {
-    crearCliente,
-    obtenerClientes, 
-    obtenerClienteNit
+  crearCliente,
+  obtenerClientes, 
+  obtenerClienteNit
 };
 
