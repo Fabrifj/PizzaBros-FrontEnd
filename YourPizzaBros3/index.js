@@ -129,6 +129,14 @@ app.put("/api/categoria/:id", async (req, res) => {
   res.send(respuesta);
 });
 
+//AgregarProdsCategoria
+app.put("/api/categoria/:id/agregarProds", async (req, res) => {
+  var catid = req.params.id;
+  var prods = req.body;
+  const respuesta = await fnCategoria.agregarProdsCategoria(catid,prods);
+  res.send(respuesta);
+});
+
 /*===================================
           CRUD PEDIDOS
 //===================================*/
