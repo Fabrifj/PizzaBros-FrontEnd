@@ -28,6 +28,7 @@
     "obtenerProductosCategoriaNombre":"/api/categoria/",
     "eliminarCategoria":"/api/categoria/:id",
     "actualizarCategoria":"/api/categoria/:id",
+    "agregarProdsCategoria":"/api/categoria/:id/agregarProds",
 
     "crearPedido":"/api/pedido",
     "actualizarPedidoEstado":"/api/pedidoEstado",
