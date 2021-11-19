@@ -1,5 +1,6 @@
-const { producto } = require('./config');
+const { producto, categoria } = require('./config');
 const fnElemento = require('./elemento');
+const fnCategoria = require('./categoria');
 
 //CrearProducto estructura:
 /*
@@ -117,17 +118,28 @@ async function obtenerProductoNombre(prd) {
 }
 
 //EliminarProducto
-async function eliminarProducto(idProd) {
+async function eliminarProducto(idProd) 
+{
   
   var resp = null;
-  await producto.doc(idProd).delete().then(() => {
-    resp = "Producto successfully deleted!"
-    console.log(resp);
-  }).catch((error) => 
+  var prod = null;
+  var doc = await producto.doc(idProd).get().then(snapshot =>
   {
-    console.error("Error removing document: ", error);
+    console.log("snapshot.data()",snapshot.data());
+    prod = {id:idProd, ...snapshot.data()}
   });
-  return resp;
+  await producto.doc(idProd).delete().then(() => 
+  {
+    resp = "Producto successfully deleted!"
+
+      fnCategoria.eliminarProdCategorias(prod);
+      console.log(resp);
+    }).catch((error) => 
+    {
+      console.error("Error removing document: ", error);
+    });
+    return resp;
+  
 }
 
 async function actualizarProducto(idProd, prod) {  
