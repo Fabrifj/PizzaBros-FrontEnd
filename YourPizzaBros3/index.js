@@ -6,10 +6,6 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-const compra = database.compra;
-const firebase = database.firebase;
-const elemento = database.elemento;
-
 const fnCliente = require('./cliente');
 const fnProducto = require('./producto');
 const fnCategoria = require('./categoria');
@@ -46,6 +42,129 @@ app.get("/api/producto/Nombre/:nombre", async (req, res) => {
   var prd = req.params.nombre
   var respuesta = await fnProducto.obtenerProductoNombre(prd);
   res.send(respuesta);
+});
+
+//EliminarProducto
+async function eliminarProducto(idProd) {
+  
+  var resp = null;
+  await producto.doc(idProd).delete().then(() => {
+    resp = "Producto successfully deleted!"
+    console.log(resp);
+  }).catch((error) => 
+  {
+    console.error("Error removing document: ", error);
+  });
+
+  return resp;
+}
+
+app.delete("/api/producto/:id", async (req, res) => {
+  var prod = req.params.id;
+  const resp = await eliminarProducto(prod);
+  res.send(resp);
+});
+
+//ActualizarProducto
+async function actualizarProducto(idProd, prod) {
+  
+  var resp = null;
+  await producto.doc(idProd).update(prod)
+  .then(() => 
+  {
+    resp = prod;  
+    console.log("Producto successfully updated!");
+  })
+  .catch((error) => 
+  {
+      // The document probably doesn't exist.
+      console.error("Error updating producto: ", error);
+  });
+
+  return resp;
+}
+app.put("/api/producto/:id", async (req, res) => {
+  var prodid = req.params.id;
+  var prod = req.body;
+  const resp = await actualizarProducto(prodid,prod);
+  res.send(resp);
+});
+//AgregarIngredienteAProducto
+//El body es:
+/*
+[
+  {
+    "IdIngrediente":"ANICBIWBCIE",
+    "Cantidad": 500,
+    
+  }
+]
+{
+  		"IdIngrediente":"ANICBIWBCIE",
+  		"Cantidad": 500,
+  		"TipoUnidad":"ml",
+  		"Costo": 10,
+  		"Nombre": "Tomate"
+  	}
+
+*/
+
+
+async function agregarIngredientesAProducto(idProd, body) {
+  var miProd = await obtenerProductoId(idProd);
+  
+    for await (const ing of body)
+  {
+    var elem = await obetenerElementoId(ing.IdIngrediente);
+    let obj = miProd.ListaIngredientes.find(f=>f.IdIngrediente==ing.IdIngrediente);
+    if(obj)
+    {
+      var costoArt = parseFloat(obj.Cantidad) *(parseFloat(elem.CostoMedia)/parseFloat(elem.CantidadMedida));
+      miProd.Costo += costoArt;
+      var nuevoCosto = parseFloat(obj.Costo)+ costoArt; 
+      obj.Costo=nuevoCosto;
+      console.log("nuevoCosto: ",nuevoCosto);
+      obj.Cantidad = parseFloat(obj.Cantidad) + parseFloat(ing.Cantidad);
+      console.log("obj.Catidad: ",obj.Catidad);
+      console.log("miProd.ListaIngredientes" ,miProd.ListaIngredientes);
+
+    }
+    else
+    {
+      var costoArt = parseFloat(ing.Cantidad) *(parseFloat(elem.CostoMedia)/parseFloat(elem.CantidadMedida));
+      var faltante = {
+        "TipoUnidad":elem.TipoUnidad,
+        "Costo": costoArt,
+        "Nombre": elem.Nombre
+      }
+      var articulo = Object.assign(ing, faltante);
+      console.log("Articulo: ",articulo);
+      miProd.ListaIngredientes.push(articulo);
+      miProd.Costo += costoArt;
+    }
+    
+  }
+
+  var resp = null;
+  await producto.doc(idProd).update(miProd)
+  .then(() => 
+  {
+    resp = miProd;  
+    console.log("Producto successfully updated!");
+  })
+  .catch((error) => 
+  {
+      // The document probably doesn't exist.
+      console.error("Error updating producto: ", error);
+  });
+
+  return resp;
+}
+app.put("/api/producto/:id/agregarIng", async (req, res) => {
+  var prodid = req.params.id;
+  var body = req.body;
+  const resp = await agregarIngredientesAProducto(prodid,body);
+  res.send(resp);
 });
 
 /*===================================
@@ -212,21 +331,6 @@ app.delete("/api/elemento/:id", async (req, res) => {
   res.send(resp);
 });
 
-//ActualizarElemento
-app.put("/api/elemento/:id", async (req, res) => {
-  var elid = req.params.id;
-  var el = req.body;
-  const respuesta = await fnElemento.actualizarElemento(elid,el);
-  res.send(respuesta);
-});
-
-//ObtenerElementoId
-app.get("/api/elemento/:id", async (req, res) => {
-  var elid = req.params.id;
-  const respuesta = await fnElemento.obtenerElementoId(elid);
-  res.send(respuesta);
-});
-
 //ActualizarElemAgregarInv sirve para agregar cantidad al inventario de un elemento
 app.put("/api/elemento/:id/agregarInv", async (req, res) => {
   var elid = req.params.id;
@@ -234,7 +338,6 @@ app.put("/api/elemento/:id/agregarInv", async (req, res) => {
   const resp = await fnElemento.actualizarElemAgregarInv(elid,mibody);
   res.send(resp);
 });
-
 
 /*===================================
           CRUD COMPRA
@@ -245,13 +348,13 @@ app.post("/api/compra", async (req, res) => {
   const data = req.body;
   const respuesta = await fnCompra.crearCompra(data)
   res.send(respuesta);
-})
+});
 
 //ObtenerCompras
 app.get("/api/compras", async (req, res) => {
   const lista = await fnCompra.obtenerCompras();
   res.send(lista);
-})
+});
 
 //ObtenerCompraId
 app.get("/api/compra/:id", async (req, res) => {

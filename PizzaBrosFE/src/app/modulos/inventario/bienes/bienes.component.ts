@@ -9,29 +9,32 @@ import { ModalService } from 'src/app/shared-modules/modal/modal.service';
 })
 export class BienesComponent implements OnInit {
 
-
+  objetoSeleccionado:any = {};
   
   bienSeleccionado:any = {}
   columnaCambiar :string = "";
   valorOriginal :any;
-  datos: any | undefined;
-  datosRespaldo: any | undefined;
-  columnas = [
+  datosBien: any | undefined;
+  datosBienesRespaldo: any | undefined;
+  columnasBien = [
     {field:'Nombre',header:'Nombre'},
-    {field:'Cantidad',header:'Unidades Restantes'},
-    {field:'UnidadMedida',header:'Medida de Unidad'},
-    {field:'Descripcion',header:'Descripcion'}
-    //{field:'CostoUnidad',header:'Costo Unidad Bs'},
+    {field:'TipoUnidad',header:'Tipo de Unidad'},
+    {field:'CantidadInventario',header:'Cantidad en Inventario'},
+    {field:'CostoMedia',header:'Costo Media'}
+    
+    
     
     
 
   ];
 
-  nombreBotones: string[] | undefined;
+  nombreBotonesBien: string[] = ['Comprar'];
+  nombreBotonesBien2 = ['Seleccionar'];
+  nombreBoton :any; 
   constructor( private servicioHttp: AppHttpService, public servicioModal: ModalService) { }
 
   ngOnInit(): void {
-    this.nombreBotones = ['Modificar','Comprar'];
+   this.filtroCrear();
     this.obtenerBien();
     
   }
@@ -41,24 +44,34 @@ export class BienesComponent implements OnInit {
     .subscribe((jsonFile:any)=>{
      
       console.log(jsonFile);
-      this.datos = jsonFile;
-       this.datosRespaldo = jsonFile;
+      this.datosBien = jsonFile;
+       this.datosBienesRespaldo = jsonFile;
       
 
     } )
   }
  
   funcionBoton( names: any){
-    if(names[0] == "Modificar")
+    if(names[0] == "Seleccionar")
     {
-        console.log("boton:modificar");
-        this.bienSeleccionado = names[1];
+      this.obtenerBien();
+      this.objetoSeleccionado = names[1] ;
 
-        //new
-        
+      
 
-        console.log(names[1])
-        this.servicioModal.abrir('modal-3');
+    
+
+      (<HTMLInputElement>document.getElementById("objetoSeleccionadoID")).value = this.objetoSeleccionado.Nombre;
+      (<HTMLInputElement>document.getElementById("valorNombreCrear")).value = this.objetoSeleccionado.Nombre;
+      (<HTMLInputElement>document.getElementById("valorUnidadCrear")).value = this.objetoSeleccionado.TipoUnidad;
+      (<HTMLInputElement>document.getElementById("valorCantidad")).value = this.objetoSeleccionado.CantidadInventario;
+      (<HTMLInputElement>document.getElementById("valorCostoU")).value = this.objetoSeleccionado.CostoMedia;
+      (<HTMLInputElement>document.getElementById("valorCantidadMedida")).value = this.objetoSeleccionado.CantidadMedida;
+      
+
+              
+      this.servicioModal.cerrar('modalBien-2');
+
     }
     else{
 
@@ -75,10 +88,9 @@ export class BienesComponent implements OnInit {
     
     if(!!varBuscar.trim()){
 
-      
-      
+     
       var datosAux:Array<Object> =[];
-      this.datosRespaldo.forEach((dato:any) => {
+      this.datosBienesRespaldo.forEach((dato:any) => {
         
         var nombreD = dato.Nombre.toLowerCase();
         if(nombreD.includes(varBuscar.trim())){
@@ -88,7 +100,7 @@ export class BienesComponent implements OnInit {
         
       });
       
-      this.datos = datosAux;
+      this.datosBien = datosAux;
 
     }
     else{
@@ -98,78 +110,95 @@ export class BienesComponent implements OnInit {
 
     }
     
-
-    
-    
-    
   }
 
 
 
-  //modificar ingrediente
-  desaparecerCampo(){
-
-    (<HTMLElement>document.getElementsByClassName("nuevoValorC")[0]).style.display = "none";
-    
-  }
-  aparecerCampo(){
-
-    (<HTMLElement>document.getElementsByClassName("nuevoValorC")[0]).style.display = "inline";
-    
-  }
-
-  guardarValor(){
-
-    var nuevoValor = (<HTMLInputElement>document.getElementById("valorN")).value;
-    var objeto =  this.bienSeleccionado;
-    if(!!nuevoValor.trim()){
-
-      this.bienSeleccionado[this.columnaCambiar] = nuevoValor;
-    }
-    
-    this.desaparecerCampo();
-
-  }
-  cambiarValor(columnaC:any ){
-    this.valorOriginal = this.bienSeleccionado[columnaC];
-    (<HTMLInputElement>document.getElementById("valorN")).value = this.valorOriginal;
-    this.aparecerCampo();
-    
-    this.columnaCambiar = columnaC ; 
-    
-  }
-  guardarCambios(ingSele:any){
-    //post
-
-  }
 
 
 
-  ///crear Ingrediente
-  crearBien(){
-
-    var nuevoValorNombre = (<HTMLInputElement>document.getElementById("valorNombreCrear")).value;
-    var nuevoValorUnidad = (<HTMLInputElement>document.getElementById("valorUnidadCrear")).value;
-    var nuevoValorDescripcion = (<HTMLInputElement>document.getElementById("valorDescripcion")).value;
-
-    //let body = JSON.stringify({ IdPedido: pedido.id , Estado: "Entregado"})
-    let bienNuevo = JSON.stringify({Cantidad: 0, PrecioUnidad:0, Nombre: nuevoValorNombre , UnidadMedida: nuevoValorUnidad , Descripcion: nuevoValorDescripcion});
-    let body = JSON.parse(bienNuevo)
-    this.servicioHttp.crearBien(body).subscribe((response) => {
-      console.log('Response from API', response);
-      this.obtenerBien();
-    }, (error)=>{
-      console.log('Error',error);
-    })
-	
-
-
-    this.servicioModal.cerrar('modal-4');
-  }
   mandarCrearBien(){
     (<HTMLInputElement>document.getElementById("valorNombreCrear")).value = "";
     (<HTMLInputElement>document.getElementById("valorUnidadCrear")).value = "";
-    this.servicioModal.abrir('modal-4');
+    this.servicioModal.abrir('modalBien-01');
 
   }
+
+
+  filtroCrear(){
+    this.nombreBoton = "CREAR";
+    this.objetoSeleccionado = "";
+    
+    
+    
+    (<HTMLInputElement>document.getElementById("siModifico")).style.display = "none";
+    (<HTMLInputElement>document.getElementById("valorNombreCrear")).value = "";
+    (<HTMLInputElement>document.getElementById("valorUnidadCrear")).value = "";
+    (<HTMLInputElement>document.getElementById("valorCantidad")).value = "0";
+    (<HTMLInputElement>document.getElementById("valorCostoU")).value = "0";
+    (<HTMLInputElement>document.getElementById("valorCantidadMedida")).value = "0";
+    (<HTMLInputElement>document.getElementById("crearB")).checked = true;
+  }
+
+  filtroModificar(){
+    ///(<HTMLInputElement>document.getElementById("modB")).checked = true;
+    this.nombreBoton = "MODIFICAR";
+    this.obtenerBien();
+    this.servicioModal.abrir('modalBien-2');
+    (<HTMLInputElement>document.getElementById("siModifico")).style.display = "inline";
+
+  }
+  crearBien(){
+
+    var nombreB = (<HTMLInputElement>document.getElementById("valorNombreCrear")).value;
+    var tipoB = (<HTMLInputElement>document.getElementById("valorUnidadCrear")).value;
+    var cantidadB = (<HTMLInputElement>document.getElementById("valorCantidad")).value ;
+    var costoU= (<HTMLInputElement>document.getElementById("valorCostoU")).value ;
+    var cantidadMedidaB = (<HTMLInputElement>document.getElementById("valorCantidadMedida")).value ;
+
+   
+    
+
+    if(this.nombreBoton == "CREAR"){
+      var bienes = JSON.stringify({ ListaArticulos :[] , Nombre: nombreB , TipoUnidad: tipoB , CantidadInventario:cantidadB, CostoMedia : costoU, CantidadMedida: cantidadMedidaB , Tipo:"Bien"})
+  
+
+      this.servicioHttp.crearElemento(JSON.parse(bienes))
+      .subscribe((jsonFile:any)=>{
+        
+        console.log("creado bien");
+        alert('bien creada correctamente');
+  
+      } ,(error)=>{
+          console.log("hubo error con crear bien")
+  
+      } )
+
+    }
+    else{
+      //modificar
+      var bienes = JSON.stringify({ ListaArticulos : this.objetoSeleccionado.ListaArticulos , Nombre: nombreB , TipoUnidad: tipoB , CantidadInventario:cantidadB, CostoMedia : costoU, CantidadMedida: cantidadMedidaB , Tipo:"Bien"})
+  
+      console.log("id modificar:",this.objetoSeleccionado.id)
+      this.servicioHttp.actualizarElemento(this.objetoSeleccionado.id, JSON.parse(bienes) )
+      .subscribe((jsonFile:any)=>{
+        
+        alert('Categoria modificada correctamente');
+        console.log("modificado bien");
+  
+  
+      } ,(error)=>{
+          console.log("hubo error con modificar bien")
+  
+      } )
+
+    }
+
+    
+    this.filtroCrear();
+    this.obtenerBien();
+  }
+
+
+
 }

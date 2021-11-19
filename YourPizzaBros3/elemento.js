@@ -8,11 +8,12 @@ Estructura Body -> Crear
 	"ListaArticulos":
 	[
 		{
-			"Marca":Salsa de Tomate Maggi",
+			"Marca":"Salsa de Tomate Maggi",
 			"Costo":15,
 			"CantidadMedida":500
 		}
 	],
+  "CantidadMedida":500,
 	"CantidadInventario":1000,//cantidad de salsa en el inventario medida en ml
 	"CostoMedia":15,//Media de los costos de la listaArticulos
 	"Tipo":"Ingrediente"
@@ -77,6 +78,7 @@ Estructura Body -> Actualizar
 			"CantidadMedida":500
 		}
 	],
+  "CantidadMedida":500,
 	"CantidadInventario":1000,//cantidad de salsa en el inventario medida en ml
 	"CostoMedia":15,//Media de los costos de la listaArticulos
 	"Tipo":"Ingrediente" //Puede ser Ingrediente o Bien
@@ -132,7 +134,7 @@ Estructura Body -> Actualizar
 //ActualizarElemAgregarInv sirve apra aggregar cantidad al inventario de un elemento.
 async function actualizarElemAgregarInv(elid,mibody) 
 {
-  var respuesta = null;
+  var resp = null;
   await elemento.doc(elid).get().then(async (doc) => {
     if (doc.exists) {
       console.log("Document data:", doc.data());
@@ -153,15 +155,17 @@ async function actualizarElemAgregarInv(elid,mibody)
           articulos.forEach(
             async (art) => 
             {
-              costoSum += parseFloat(art.Costo);
+              costoSum += parseFloat(data.CantidadMedida)*(parseFloat(art.Costo)/parseFloat(art.CantidadMedida));
               if(mibody.Marca == art.Marca && mibody.Costo == art.Costo && mibody.CantidadMedida && art.CantidadMedida)
               {
                   artEncontrado = true;
               }
             }
+            
+        
           );
           
-          costoMedia = (costoSum + parseFloat(mibody.Costo))/(articulos.length+1);
+          costoMedia = (costoSum + parseFloat(data.CantidadMedida)*(parseFloat(mibody.Costo)/parseFloat(mibody.CantidadMedida)))/(articulos.length+1);
           if(artEncontrado)
           {
             infoUpdate = {
@@ -177,7 +181,9 @@ async function actualizarElemAgregarInv(elid,mibody)
               "ListaArticulos":articulos,
               "CantidadInventario": cantInv
             }
-          }        
+          }
+
+          
         }
         else
         {
@@ -190,14 +196,15 @@ async function actualizarElemAgregarInv(elid,mibody)
         await elemento.doc(elid).update(infoUpdate)
           .then(() => 
           {
-            respuesta = "Inventario y articulos de elemento updated!";
+            resp = "Inventario y articulos de elemento updated!";
             console.log("Inventario y articulos de elemento updated!");
           })
           .catch((error) => 
           {
               // The document probably doesn't exist.
               console.error("Error updating elemento: ", error);
-          });    
+          });
+        
     } else {
         
         console.log("Elemento no existe");
@@ -206,10 +213,8 @@ async function actualizarElemAgregarInv(elid,mibody)
   {
       console.log("Error getting document:", error);
   });
-  return respuesta;
+  return resp;
 }
-
-
 
 module.exports = {
   crearElemento,

@@ -1,11 +1,3 @@
-.divCM{
-    border: 1px solid black;
-}
-
-
-
-div .col-md-10 {
-
-    border: 1px solid black;
-    margin: 5px;
+.col-md-2{
+    left:20px;
 }

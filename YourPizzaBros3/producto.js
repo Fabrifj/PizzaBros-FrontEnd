@@ -1,22 +1,78 @@
 const { producto } = require('./config');
+const fnElemento = require('./elemento');
 
-/*  
-Estructura del body -> Crear
+//CrearProducto estructura:
+/*
 {
   "ImgURL": "https://live.mrf.io/statics/i/ps/irecetasfaciles.com/wp-content/uploads/2019/08/pizza-de-jamon-queso-y-tocino.jpg?width=1200&enable=upscale",
   "Precio": 65,
   "Costo": 50,
   "Tamano": "Grande",
   "Nombre": "Pizza 3 Quesos"
-}    
-*/ 
-async function crearProducto(body){
-  await producto.add(body);
-  respuesta = {
-    "Mensaje" : "Producto agregado correctamente",
-    "Producto": body
+  "ListaIngredientes":
+  [
+  	{
+  		"IdIngrediente":"ANICBIWBCIE",
+  		"Cantidad": 500,
+  		"TipoUnidad":"ml",
+  		"Costo": 10,
+  		"Nombre": "Tomate"
+  	}
+  ]
+}
+*/
+
+/*
+Estructura Body -> Crear
+{
+
+  "ImgURL": "https://live.mrf.io/statics/i/ps/irecetasfaciles.com/wp-content/uploads/2019/08/pizza-de-jamon-queso-y-tocino.jpg?width=1200&enable=upscale",
+  "Precio": 65,
+  "Tamano": "Grande",
+  "Nombre": "Pizza 3 Quesos",
+  "ListaIngredientes":
+  [
+    {
+      "IdIngrediente":"PGVhUoHrbLGLr080Euu6",
+      "Cantidad": 200
+    }
+  ]
+}
+*/
+
+async function crearProducto(miProd) 
+{
+  var elcosto = 0;
+  var nuevaListaIng = []
+  for await (const ing of miProd.ListaIngredientes)
+  {
+
+    var elem = await fnElemento.obtenerElementoId(ing.IdIngrediente);
+    var costoArt = parseFloat(ing.Cantidad) *(parseFloat(elem.CostoMedia)/parseFloat(elem.CantidadMedida));
+    var faltante = {
+      "TipoUnidad":elem.TipoUnidad,
+      "Costo": costoArt,
+      "Nombre": elem.Nombre
+    }
+    var articulo = Object.assign(ing, faltante);
+    console.log("Articulo: ",articulo);
+    nuevaListaIng.push(articulo);
+    elcosto =elcosto + costoArt;
+    console.log("Costo: ",elcosto)
+
   }
-  return respuesta;
+    console.log("CostoFuera: ",elcosto);
+    var nuevoProd = {
+
+      "ImgURL": miProd.ImgURL,
+      "Precio": miProd.Precio,
+      "Costo": elcosto,
+      "Tamano": miProd.Tamano,
+      "Nombre": miProd.Nombre,
+      "ListaIngredientes":nuevaListaIng
+    }
+  await producto.add(nuevoProd);
+  return nuevoProd;
 }
 
 async function obtenerProductos(){

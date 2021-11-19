@@ -106,10 +106,10 @@ export class CreacionCategoriasComponent implements OnInit {
     
     if (names[0] == "Seleccionar"){
       
-        this.obtenerCategorias();
+        
         this.objetoSeleccionado = names[1] ;
 
-        console.log("objetoseleccion:",this.objetoSeleccionado)
+        
         this.datosProdMini = this.objetoSeleccionado.ListaProductos;
 
         this.datosProdMini.forEach((element:any) => {
@@ -234,7 +234,9 @@ export class CreacionCategoriasComponent implements OnInit {
     }
 
     
-    this.filtroCrear()
+    this.filtroCrear();
+    this.obtenerCategorias();
+    this.obtenerProductos();
 
   }
   

@@ -1,1 +1,110 @@
-<p>creacion-productos works!</p>
+<div class="contenedorFiltros">
+
+    <form>
+        
+        <div>
+            <div>
+                <input type="radio" id="crearP" name= "prodCrear" checked (click) = "filtroCrear()">
+                <label for="contactChoice1">Crear Producto</label>
+            </div>
+            <div>
+                <input type="radio" id="modP" name="prodCrear" (click) = "filtroModificar()">
+                <label for="contactChoice2">Modificar Producto</label>
+            </div>
+            
+
+        </div>
+      </form>
+
+</div>
+
+<div id="siModifico">
+    <h3>Producto a Modificar:</h3>
+    <input type="text" id="objetoSeleccionadoID" readonly>
+
+</div>
+
+
+
+ <!--PRODUCTO-->
+ <jw-modal id="modalProd-2" altura="80" >
+    <h1>Elegir Producto:</h1>
+    <div id="tablaProductos">
+
+        <app-tabla-reusable [datos]="datosProd" [columnas]="columnasProd" [nombreBotones]="nombreBotonesProd1" (parentMethod)="funcionBoton($event)" colorLetra="black">
+              
+           </app-tabla-reusable> 
+           
+           
+    </div>
+    
+    
+    <div class="botones">
+
+       <button class="btnCerrar" (click)="servicioModal.cerrar('modalProd-2'); this.filtroCrear()">Cancelar</button>
+    </div>
+ </jw-modal>
+
+
+ 
+ <div class="contendorDatosP">
+    
+    <div class="infoEditable">
+        <h2>Nombre:</h2>
+        <input type="text" id="nuevoNP">
+    
+        <h2>Tamaño:</h2>
+        <input id="nuevoTP">
+
+        <h2>Costo:</h2>
+        <input readonly type="text" id="nuevoCP">
+
+        <h2>Precio:</h2>
+        <input type="text" id="nuevoPP">
+
+        <h2>Imagen:</h2>
+        <input type="text" id="nuevoIP">
+
+    </div>
+ </div>
+ 
+ <div class="contendorListadoSi">
+
+    <h1>Ingredientes que estan:</h1>
+    <app-tabla-reusable 
+    [datos]="datosIngMini" 
+    [columnas]="columnasIngMini" 
+    [nombreBotones] = "nombreBotonesIng2"
+    (parentMethod) = "funcionBoton($event)"
+    colorLetra="black"
+    [titulosTextos]="titulosIng"
+    botonGuardarDatos = 'si'>
+    </app-tabla-reusable> 
+
+</div>
+
+
+
+
+<div class="contendorListadoNo">
+
+    <h1>Ingredientes por anadir:</h1>
+    <app-tabla-reusable 
+    [datos]="datosIng" 
+    [columnas]="columnasIng" 
+    [nombreBotones] = "nombreBotonesIng1"
+    (parentMethod) = "funcionBoton($event)"
+    colorLetra="black"
+    indice = "1"
+    >
+    </app-tabla-reusable> 
+
+</div>
+
+
+
+<div class="contenedorBotones">
+    <button class="botonFinal" (click)="this.crearProducto();">{{nombreBoton}}</button>
+    <button class="botonFinal" (click)="this.filtroCrear()">Cancelar</button>
+
+</div>

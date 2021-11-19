@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TablaReusableComponent } from './tabla-reusable.component';
+import { BotonesCategoriaComponent } from './botones-categoria.component';
 
-describe('TablaReusableComponent', () => {
-  let component: TablaReusableComponent;
-  let fixture: ComponentFixture<TablaReusableComponent>;
+describe('BotonesCategoriaComponent', () => {
+  let component: BotonesCategoriaComponent;
+  let fixture: ComponentFixture<BotonesCategoriaComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TablaReusableComponent ]
+      declarations: [ BotonesCategoriaComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TablaReusableComponent);
+    fixture = TestBed.createComponent(BotonesCategoriaComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
