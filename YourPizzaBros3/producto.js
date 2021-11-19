@@ -116,13 +116,107 @@ async function obtenerProductoNombre(prd) {
   return respuesta;
 }
 
-// Hacen falta funciones para poder actualizar y eliminar un producto.
+//EliminarProducto
+async function eliminarProducto(idProd) {
+  
+  var resp = null;
+  await producto.doc(idProd).delete().then(() => {
+    resp = "Producto successfully deleted!"
+    console.log(resp);
+  }).catch((error) => 
+  {
+    console.error("Error removing document: ", error);
+  });
+  return resp;
+}
+
+async function actualizarProducto(idProd, prod) {  
+  var resp = null;
+  await producto.doc(idProd).update(prod)
+  .then(() => 
+  {
+    resp = prod;  
+    console.log("Producto actualizado correctamente");
+  })
+  .catch((error) => 
+  {
+      // The document probably doesn't exist.
+      console.error("Error updating producto: ", error);
+  });
+  return resp;
+}
+
+
+
+/*
+Estructura Body -> Actualizar
+
+  [
+    {
+      "IdIngrediente":"ANICBIWBCIE",
+      "Cantidad": 500,
+    }
+  ]
+
+*/
+
+async function agregarIngredientesAProducto(idProd, body) {
+  var miProd = await obtenerProductoId(idProd);
+  
+    for await (const ing of body)
+  {
+    var elem = await fnElemento.obtenerElementoId(ing.IdIngrediente);
+    let obj = miProd.ListaIngredientes.find(f=>f.IdIngrediente==ing.IdIngrediente);
+    if(obj)
+    {
+      var costoArt = parseFloat(obj.Cantidad) *(parseFloat(elem.CostoMedia)/parseFloat(elem.CantidadMedida));
+      miProd.Costo += costoArt;
+      var nuevoCosto = parseFloat(obj.Costo)+ costoArt; 
+      obj.Costo=nuevoCosto;
+      console.log("nuevoCosto: ",nuevoCosto);
+      obj.Cantidad = parseFloat(obj.Cantidad) + parseFloat(ing.Cantidad);
+      console.log("obj.Catidad: ",obj.Catidad);
+      console.log("miProd.ListaIngredientes" ,miProd.ListaIngredientes);
+
+    }
+    else
+    {
+      var costoArt = parseFloat(ing.Cantidad) *(parseFloat(elem.CostoMedia)/parseFloat(elem.CantidadMedida));
+      var faltante = {
+        "TipoUnidad":elem.TipoUnidad,
+        "Costo": costoArt,
+        "Nombre": elem.Nombre
+      }
+      var articulo = Object.assign(ing, faltante);
+      console.log("Articulo: ",articulo);
+      miProd.ListaIngredientes.push(articulo);
+      miProd.Costo += costoArt;
+    }
+  }
+
+  var resp = null;
+  await producto.doc(idProd).update(miProd)
+  .then(() => 
+  {
+    resp = miProd;  
+    console.log("Producto successfully updated!");
+  })
+  .catch((error) => 
+  {
+      // The document probably doesn't exist.
+      console.error("Error updating producto: ", error);
+  });
+  return resp;
+}
 
 
 module.exports = {
   crearProducto,
   obtenerProductos,
   obtenerProductoId,
-  obtenerProductoNombre
+  obtenerProductoNombre, 
+  eliminarProducto,
+  actualizarProducto,
+  agregarIngredientesAProducto
 };
 

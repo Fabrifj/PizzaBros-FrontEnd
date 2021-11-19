@@ -1,6 +1,5 @@
 const express = require('express');
 const cors = require('cors');
-database = require('./config');
 
 const app = express();
 app.use(express.json());
@@ -45,125 +44,25 @@ app.get("/api/producto/Nombre/:nombre", async (req, res) => {
 });
 
 //EliminarProducto
-async function eliminarProducto(idProd) {
-  
-  var resp = null;
-  await producto.doc(idProd).delete().then(() => {
-    resp = "Producto successfully deleted!"
-    console.log(resp);
-  }).catch((error) => 
-  {
-    console.error("Error removing document: ", error);
-  });
-
-  return resp;
-}
-
 app.delete("/api/producto/:id", async (req, res) => {
   var prod = req.params.id;
-  const resp = await eliminarProducto(prod);
+  const resp = await fnProducto.eliminarProducto(prod);
   res.send(resp);
 });
 
 //ActualizarProducto
-async function actualizarProducto(idProd, prod) {
-  
-  var resp = null;
-  await producto.doc(idProd).update(prod)
-  .then(() => 
-  {
-    resp = prod;  
-    console.log("Producto successfully updated!");
-  })
-  .catch((error) => 
-  {
-      // The document probably doesn't exist.
-      console.error("Error updating producto: ", error);
-  });
-
-  return resp;
-}
 app.put("/api/producto/:id", async (req, res) => {
   var prodid = req.params.id;
   var prod = req.body;
-  const resp = await actualizarProducto(prodid,prod);
+  const resp = await fnProducto.actualizarProducto(prodid,prod);
   res.send(resp);
 });
-//AgregarIngredienteAProducto
-//El body es:
-/*
-[
-  {
-    "IdIngrediente":"ANICBIWBCIE",
-    "Cantidad": 500,
-    
-  }
-]
-{
-  		"IdIngrediente":"ANICBIWBCIE",
-  		"Cantidad": 500,
-  		"TipoUnidad":"ml",
-  		"Costo": 10,
-  		"Nombre": "Tomate"
-  	}
 
-*/
-
-
-async function agregarIngredientesAProducto(idProd, body) {
-  var miProd = await obtenerProductoId(idProd);
-  
-    for await (const ing of body)
-  {
-    var elem = await obetenerElementoId(ing.IdIngrediente);
-    let obj = miProd.ListaIngredientes.find(f=>f.IdIngrediente==ing.IdIngrediente);
-    if(obj)
-    {
-      var costoArt = parseFloat(obj.Cantidad) *(parseFloat(elem.CostoMedia)/parseFloat(elem.CantidadMedida));
-      miProd.Costo += costoArt;
-      var nuevoCosto = parseFloat(obj.Costo)+ costoArt; 
-      obj.Costo=nuevoCosto;
-      console.log("nuevoCosto: ",nuevoCosto);
-      obj.Cantidad = parseFloat(obj.Cantidad) + parseFloat(ing.Cantidad);
-      console.log("obj.Catidad: ",obj.Catidad);
-      console.log("miProd.ListaIngredientes" ,miProd.ListaIngredientes);
-
-    }
-    else
-    {
-      var costoArt = parseFloat(ing.Cantidad) *(parseFloat(elem.CostoMedia)/parseFloat(elem.CantidadMedida));
-      var faltante = {
-        "TipoUnidad":elem.TipoUnidad,
-        "Costo": costoArt,
-        "Nombre": elem.Nombre
-      }
-      var articulo = Object.assign(ing, faltante);
-      console.log("Articulo: ",articulo);
-      miProd.ListaIngredientes.push(articulo);
-      miProd.Costo += costoArt;
-    }
-    
-  }
-
-  var resp = null;
-  await producto.doc(idProd).update(miProd)
-  .then(() => 
-  {
-    resp = miProd;  
-    console.log("Producto successfully updated!");
-  })
-  .catch((error) => 
-  {
-      // The document probably doesn't exist.
-      console.error("Error updating producto: ", error);
-  });
-
-  return resp;
-}
+//AgregarIngredientesaProducto
 app.put("/api/producto/:id/agregarIng", async (req, res) => {
   var prodid = req.params.id;
   var body = req.body;
-  const resp = await agregarIngredientesAProducto(prodid,body);
+  const resp = await fnProducto.agregarIngredientesAProducto(prodid,body);
   res.send(resp);
 });
 
