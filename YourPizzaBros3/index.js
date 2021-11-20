@@ -11,6 +11,7 @@ const fnCategoria = require('./categoria');
 const fnPedido = require('./pedido');
 const fnElemento = require('./elemento');
 const fnCompra = require('./compra');
+const fnEmpleado = require('./empleado');
 
 /*===================================
           CRUD PRODUCTOS
@@ -284,6 +285,35 @@ app.delete("/api/compra/:id", async (req, res) => {
   const respuesta = await fnCompra.eliminarCompra(compraId);
   res.send(respuesta);
 });
+
+/*===================================
+          CRUD EMPLEADO
+===================================*/
+// CrearEmpleado
+app.post("/api/empleado", async (req, res) => {
+  const data = req.body;
+  const respuesta = await fnEmpleado.crearEmpleado(data)
+  res.send(respuesta);
+});
+
+//Calcular y actualizar horario
+app.put("/api/empleado/turnos", async (req, res) => {
+  var body = req.body;
+  const respuesta = await fnEmpleado.calcularHorario(body);
+  res.send(respuesta);
+});
+
+/*===================================
+          ENDPOINT DE PRUEBA
+===================================*/
+//Se puede poner lo que se quiera en el metodo, solo es para prueba
+app.get("/api/prueba", async (req, res) => {
+  var body = req.body;
+  await fnEmpleado.calcularHorario(body);
+  res.send("Endpoint de prueba");
+});
+
+
 
 ///////
 app.listen(4000, () => console.log("Up and Running on 4000"));
