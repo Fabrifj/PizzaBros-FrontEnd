@@ -11,7 +11,7 @@
 .sectorFiltros{
     position: absolute;
     top: -250px;
-    right: 70px;
+    left: 45%;
 }
 
 .buscarBtn{
@@ -27,7 +27,7 @@
  
 #crearBtn {
     background-color: rgba(241, 193, 35, 0.945);
-    width: 170px;
+    width: 260px;
     height: 30px;
     margin-left: 1%;
     margin-bottom: 1%;
