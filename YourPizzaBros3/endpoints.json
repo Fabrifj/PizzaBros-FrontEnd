@@ -28,18 +28,23 @@
     "obtenerProductosCategoriaNombre":"/api/categoria/",
     "eliminarCategoria":"/api/categoria/:id",
     "actualizarCategoria":"/api/categoria/:id",
+    "agregarProdsCategoria":"/api/categoria/:id/agregarProds",
 
     "crearPedido":"/api/pedido",
-    "crearPedidoEstado":"/api/pedidoEstado",
+    "actualizarPedidoEstado":"/api/pedidoEstado",
     "obtenerPedidos":"/api/pedidos",
     "obtenerPedidos2Fechas":"/api/pedidos2Fechas",
     "obtenerPedidos2FechasNITCliente":"/api/pedidos2FechasNITCliente",
     "obtenerPedidosEstado":"/api/pedidosEstado/:estado",
     "obtenerPedidoFechaNIT":"/api/pedidoFechaNIT",
+    "obtenerPedidoCliente" : "/api/pedidosCliente/nit/:nit",
 
     "crearCompra": "/api/compra",
     "obtenerCompras": "/api/compras",
     "obtenerCompraId": "/api/compra/:id",
     "actualizarCompraId": "/api/compra/:id",
-    "eliminarCompraId":"/api/compra/:id"
+    "eliminarCompraId":"/api/compra/:id",
+
+    "crearEmpleado":"/api/empleado",
+    "calcularHorario":"/api/empleado/turnos"
 }

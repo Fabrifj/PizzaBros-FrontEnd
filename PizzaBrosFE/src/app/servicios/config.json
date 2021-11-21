@@ -13,7 +13,7 @@
     "obtenerProductoId":"/api/producto/Id/",
     "obtenerProductoNombre":"/api/producto/Nombre/:nombre",
     "eliminarProducto":"/api/producto/:id",
-    "actualizarProducto":"/api/producto/:id",
+    "actualizarProducto":"/api/producto/",
     "agregarIngredientesAProducto":"/api/producto/:id/agregarIng",
     
     "crearCliente": "/api/cliente",

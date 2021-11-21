@@ -29,30 +29,38 @@ export class CreacionProductosComponent implements OnInit {
 
   datosIngMini: any | undefined;
   columnasIngMini = [
-    {field:'NombreProducto',header:'Nombre Producto'}
-   // {field:'Imagen',header:'Imagen'}
+    {field:'Nombre',header:'Nombre Ingrediente'},
+    {field:'TipoUnidad',header:'Tipo de Unidad'},
+    {field:'Costo',header:'Costo Media'}
     
 
   ];
 
   datosIng: any | undefined;
+
   columnasIng = [
-    {field:'Nombre',header:'Nombre Producto'}
-   // {field:'Imagen',header:'Imagen'}
+    
+    {field:'Nombre',header:'Nombre Ingrediente'},
+    {field:'TipoUnidad',header:'Tipo de Unidad'},
+    //{field:'CantidadInventario',header:'Cantidad en Inventario'},
+    {field:'CostoMedia',header:'Costo Media'}
+    
     
 
   ];
-
-
 
 
 
   nombreBotonesProd1: string[] = ['Seleccionar'];
   nombreBotonesIng1: string[] = ['Agregar'];
   nombreBotonesIng2: string[] = ['Quitar'];
-
+  
+  titulosIng: string[] = ['Cantidad'];
 
   nombreBoton :any ;
+
+
+  datosIngrendientesCCantidad :any;
 
   constructor(private servicioHttp: AppHttpService, public servicioModal: ModalService) { }
 
@@ -61,6 +69,8 @@ export class CreacionProductosComponent implements OnInit {
     this.filtroCrear();
     this.obtenerIngredientes();
   }
+  
+  
   obtenerIngredientes(){
     this.servicioHttp.obtenerIngredientes()
     .subscribe((jsonFile:any)=>{
@@ -68,11 +78,11 @@ export class CreacionProductosComponent implements OnInit {
       console.log(jsonFile);
 
       this.datosIng = jsonFile;
-      this.datosIngBackUp = this.datosIng;
+      this.datosIngBackUp = jsonFile;
       
 
     } ,(error)=>{
-        console.log("hubo error con categoria")
+        console.log("hubo error con productos")
 
     } )
   }
@@ -101,21 +111,50 @@ export class CreacionProductosComponent implements OnInit {
     
     if (names[0] == "Seleccionar"){
       
-        this.obtenerIngredientes();
+        //this.obtenerIngredientes();
         this.objetoSeleccionado = names[1] ;
 
         console.log("objetoseleccion:",this.objetoSeleccionado)
-        this.datosIngMini = this.objetoSeleccionado.ListaProductos;
+        this.datosIngMini = this.objetoSeleccionado.ListaIngredientes;
 
+        console.log('datosINGmini', this.datosIngMini);
         this.datosIngMini.forEach((element:any) => {
             //quitar de lista grande
-            this.datosProd = this.datosProd.filter((obj:any) => obj.id !== element.IdProducto);
+            console.log("element:",element.IdIngrediente);
+            console.log("datos",this.datosIng);
+            this.datosIng = this.datosIng.filter((obj:any) => obj.id !== element.IdIngrediente);
         });
       
 
+
+        //rellenamos los valores
         (<HTMLInputElement>document.getElementById("objetoSeleccionadoID")).value = this.objetoSeleccionado.Nombre;
         (<HTMLInputElement>document.getElementById("nuevoNP")).value = this.objetoSeleccionado.Nombre;
-        (<HTMLInputElement>document.getElementById("nuevoDP")).value = this.objetoSeleccionado.Descripcion;
+        (<HTMLInputElement>document.getElementById("nuevoTP")).value = this.objetoSeleccionado.Tamano;
+        (<HTMLInputElement>document.getElementById("nuevoPP")).value = this.objetoSeleccionado.Precio;
+        (<HTMLInputElement>document.getElementById("nuevoCP")).value = this.objetoSeleccionado.Costo;
+        (<HTMLInputElement>document.getElementById("nuevoIP")).value = this.objetoSeleccionado.ImgURL;
+
+        var indice1 = 0 ;
+     
+        this.datosIngMini.forEach((element:any) => {
+          var indice2 = 0 ;
+          this.titulosIng.forEach((titulo:any) => {
+    
+            var nombreCC  = 'textoCantidad' + indice1 + indice2 ; 
+            
+            (<HTMLInputElement>document.getElementById(nombreCC)).value = element.Cantidad ;
+    
+            
+            indice2 = indice2 +1;
+          });
+          
+    
+          indice1= indice1+1;
+        });
+
+
+
         //new
         
 
@@ -139,33 +178,82 @@ export class CreacionProductosComponent implements OnInit {
       this.datosIng = this.datosIng.filter((obj:any) => obj.id !== elemAgregar.id);
 
       //agregar a lista pequna
-      var elemNuevo = JSON.stringify({IdProducto: elemAgregar.id , NombreProducto: elemAgregar.Nombre , ImgURL: elemAgregar.ImgURL});
+      var elemNuevo = JSON.stringify({IdIngrediente: elemAgregar.id , Nombre: elemAgregar.Nombre , Costo: elemAgregar.CostoMedia , Cantidad: elemAgregar.CantidadInventario , TipoUnidad:elemAgregar.TipoUnidad});
       this.datosIngMini.push(JSON.parse(elemNuevo));
       
+
+
+      var costo = 0 ;
+      this.datosIngMini.forEach((element:any) => {
+         costo = costo + parseInt(element.Costo);
+      });
+
+      (<HTMLInputElement>document.getElementById("nuevoCP")).value = String(costo);
+
+
+      var indice1 = 0 ;
+     
+      this.datosIngMini.forEach((element:any) => {
+        var indice2 = 0 ;
+        this.titulosIng.forEach((titulo:any) => {
+
+          var nombreCC  = 'textoCantidad' + String(indice1) + String(indice2) ;
+          console.log(nombreCC); 
+          (<HTMLInputElement>document.getElementById(nombreCC)).value = "0" ;
+  
+          
+          indice2 = indice2 +1;
+        });
+        
+  
+        indice1= indice1+1;
+      });
+
+      
+
     }
-    else{
+    else if(names[0]=="Quitar"){
         //quitar
 
         var elemQuitar = names[1];
         var ingSeleccionado :any = {};
         this.datosIngBackUp.forEach((element:any) => {
-          if(element.id == elemQuitar.IdProducto){
+          if(element.id == elemQuitar.IdIngrediente){
             ingSeleccionado = element;
           }
         });
 
         
         //qutiar mini lista
-        this.datosIngMini = this.datosIngMini.filter((obj:any) => obj.IdProducto !== elemQuitar.IdProducto);
+        this.datosIngMini = this.datosIngMini.filter((obj:any) => obj.IdIngrediente !== elemQuitar.IdIngrediente);
         
        // var elemNuevo = JSON.stringify({ id: elemQuitar.IdProducto , Nombre: elemQuitar.NombreProducto , ImgURL: elemQuitar.ImgURL});
-        
+       var costo = 0 ;
+       this.datosIngMini.forEach((element:any) => {
+          costo = costo + parseInt(element.Costo);
+       });
+ 
+       (<HTMLInputElement>document.getElementById("nuevoCP")).value = String(costo);
         
 
         console.log("ingseleccionado", ingSeleccionado)
         this.datosIng.push( ingSeleccionado);
 
     }
+    else{
+      //Guardar todo
+      this.datosIngrendientesCCantidad = names[1];
+      var costo = 0 ;
+      this.datosIngrendientesCCantidad.forEach((element:any) => {
+         costo = costo + parseInt(element.Costo);
+      });
+
+      (<HTMLInputElement>document.getElementById("nuevoCP")).value = String(costo);
+
+    }
+
+
+
   }
 
   filtroCrear(){
@@ -173,10 +261,18 @@ export class CreacionProductosComponent implements OnInit {
     this.objetoSeleccionado = "";
     this.datosIngMini = [];
     this.datosProd = this.datosIngBackUp;
-    (<HTMLInputElement>document.getElementById("nuevoNP")).value = "";
-    (<HTMLInputElement>document.getElementById("siModifico")).style.display = "none";
-    (<HTMLInputElement>document.getElementById("nuevoDP")).value = "";
+
     (<HTMLInputElement>document.getElementById("crearP")).checked = true;
+    (<HTMLInputElement>document.getElementById("siModifico")).style.display = "none";
+    
+    
+    
+    (<HTMLInputElement>document.getElementById("nuevoNP")).value = "";
+    (<HTMLInputElement>document.getElementById("nuevoTP")).value = "";
+    (<HTMLInputElement>document.getElementById("nuevoPP")).value = "0";
+    (<HTMLInputElement>document.getElementById("nuevoCP")).value = "0";
+    (<HTMLInputElement>document.getElementById("nuevoIP")).value = "";
+
   }
 
   filtroModificar(){
@@ -190,17 +286,22 @@ export class CreacionProductosComponent implements OnInit {
   }
   crearProducto(){
 
-    var nombreC = (<HTMLInputElement>document.getElementById("nuevoNP")).value;
-    var descripcionC = (<HTMLInputElement>document.getElementById("nuevoDP")).value;
-
+   
+    
+    var nombreP = (<HTMLInputElement>document.getElementById("nuevoNP")).value ;
+    var tamanoP = (<HTMLInputElement>document.getElementById("nuevoTP")).value ;
+    var precioP = (<HTMLInputElement>document.getElementById("nuevoPP")).value ;
+    var costoP = (<HTMLInputElement>document.getElementById("nuevoCP")).value ;
+    var imgP = (<HTMLInputElement>document.getElementById("nuevoIP")).value ;
 
    
-    var categoria = JSON.stringify({ ListaProductos : this.datosIngMini , Nombre: nombreC , Descripcion: descripcionC })
-    console.log(JSON.parse(categoria));
+    console.log(this.datosIngrendientesCCantidad);
+    var producto = JSON.stringify({ ListaIngredientes : this.datosIngrendientesCCantidad , Nombre: nombreP , Tamano : tamanoP , Costo: costoP , Precio:precioP ,ImgURL:imgP })
+    console.log(JSON.parse(producto));
 
     if(this.nombreBoton == "CREAR"){
 
-      this.servicioHttp.crearProducto(JSON.parse(categoria))
+      this.servicioHttp.crearProducto(JSON.parse(producto))
       .subscribe((jsonFile:any)=>{
         
         console.log("creado bien");
@@ -215,23 +316,24 @@ export class CreacionProductosComponent implements OnInit {
     else{
       //modificar
       
-      /*console.log("id modificar:",this.objetoSeleccionado.id)
-      this.servicioHttp.actualizarProducto(this.objetoSeleccionado.id, JSON.parse(categoria) )
+      console.log("id modificar:",this.objetoSeleccionado.id)
+      this.servicioHttp.actualizarProducto(this.objetoSeleccionado.id, JSON.parse(producto) )
       .subscribe((jsonFile:any)=>{
         
-        alert('Categoria modificada correctamente');
+        alert('producto modificada correctamente');
         console.log("modificado bien");
   
   
       } ,(error)=>{
-          console.log("hubo error con modificar categoria")
+          console.log("hubo error con modificar prodcuto")
   
       } )
-*/
+
     }
 
     
-    this.filtroCrear()
+    this.filtroCrear();
+    this.obtenerIngredientes();
 
   }
   

@@ -35,6 +35,7 @@ import { DetallesEmpleadosComponent } from './modulos/empleados/detalles-emplead
 import { CreacionProductosComponent } from './modulos/inventario/productos/creacion-productos/creacion-productos.component';
 import { CreacionCategoriasComponent } from './modulos/inventario/productos/creacion-categorias/creacion-categorias.component';
 import { VerProductosComponent } from './modulos/inventario/productos/ver-productos/ver-productos.component';
+import { BotonesCategoriaComponent } from './modulos/hacer-pedido/mostrar-productos/botones-categoria/botones-categoria.component';
 
 
 @NgModule({
@@ -68,7 +69,8 @@ import { VerProductosComponent } from './modulos/inventario/productos/ver-produc
     DetallesEmpleadosComponent,
     CreacionProductosComponent,
     CreacionCategoriasComponent,
-    VerProductosComponent
+    VerProductosComponent,
+    BotonesCategoriaComponent
    
     
     

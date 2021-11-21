@@ -53,8 +53,18 @@
         <h2>Nombre:</h2>
         <input type="text" id="nuevoNP">
     
-        <h2>Descripcion:</h2>
-        <textarea id="nuevoDP"></textarea>
+        <h2>Tamaño:</h2>
+        <input id="nuevoTP">
+
+        <h2>Costo:</h2>
+        <input readonly type="text" id="nuevoCP">
+
+        <h2>Precio:</h2>
+        <input type="text" id="nuevoPP">
+
+        <h2>Imagen:</h2>
+        <input type="text" id="nuevoIP">
+
     </div>
  </div>
  
@@ -66,7 +76,9 @@
     [columnas]="columnasIngMini" 
     [nombreBotones] = "nombreBotonesIng2"
     (parentMethod) = "funcionBoton($event)"
-    colorLetra="black">
+    colorLetra="black"
+    [titulosTextos]="titulosIng"
+    botonGuardarDatos = 'si'>
     </app-tabla-reusable> 
 
 </div>
@@ -82,7 +94,9 @@
     [columnas]="columnasIng" 
     [nombreBotones] = "nombreBotonesIng1"
     (parentMethod) = "funcionBoton($event)"
-    colorLetra="black">
+    colorLetra="black"
+    indice = "1"
+    >
     </app-tabla-reusable> 
 
 </div>
