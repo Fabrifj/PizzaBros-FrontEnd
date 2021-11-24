@@ -12,6 +12,10 @@ const fnPedido = require('./pedido');
 const fnElemento = require('./elemento');
 const fnCompra = require('./compra');
 const fnEmpleado = require('./empleado');
+const fnHorario = require('./horario');
+const fnHistorialActividad = require('./historialActividad');
+const fnDetalleSueldo = require('./detalleSueldo');
+
 
 /*===================================
           CRUD PRODUCTOS
@@ -314,6 +318,103 @@ app.get("/api/prueba", async (req, res) => {
 });
 
 
+/*===================================
+          CRUD HORARIO
+===================================*/
+
+//CrearHorario
+app.post("/api/horario/:id", async (req, res) => {
+  const idHor = req.params.id;
+  const data = req.body;
+  const respuesta = await fnHorario.crearHorario(idHor,data)
+  res.send(respuesta);
+});
+
+//ObtenerHorario
+app.get("/api/horario", async (req, res) => {
+  const respuesta = await fnHorario.obtenerHorarios();
+  res.send(respuesta);
+});
+
+//ActualizarHorario
+app.put("/api/horario/:id", async (req, res) => {
+  var idHor = req.params.id;
+  var hor = req.body;
+  const respuesta = await fnHorario.actualizarHorario(idHor,hor);
+  res.send(respuesta);
+});
+
+//EliminarHorario
+app.delete("/api/horario/:id", async (req, res) => {
+  var idHor = req.params.id;
+  const respuesta = await fnHorario.eliminarHorario(idHor);
+  res.send(respuesta);
+});
+
+/*===================================
+      CRUD HISTORIAL ACTIVIDAD
+===================================*/
+
+//CrearHistorialActividad
+app.post("/api/historialActividad", async (req, res) => {
+  const data = req.body;
+  const respuesta = await fnHistorialActividad.crearHistorialActividad(data)
+  res.send(respuesta);
+});
+
+//ObtenerHistorialActividad
+app.get("/api/historialActividad", async (req, res) => {
+  const respuesta = await fnHistorialActividad.obtenerHistorialActividades();
+  res.send(respuesta);
+});
+
+//ActualizarHistorialActividad
+app.put("/api/historialActividad/:id", async (req, res) => {
+  var idHis = req.params.id;
+  var his = req.body;
+  const respuesta = await fnHistorialActividad.actualizarHistorialActividad(idHis,his);
+  res.send(respuesta);
+});
+
+//EliminarHistorialActividad
+app.delete("/api/historialActividad/:id", async (req, res) => {
+  var idHis = req.params.id;
+  const respuesta = await fnHistorialActividad.eliminarHistorialActividad(idHis);
+  res.send(respuesta);
+});
+
+
+/*===================================
+      CRUD DETALLE SUELDO
+===================================*/
+
+//CrearDetalleSueldo
+app.post("/api/detalleSueldo", async (req, res) => {
+  const data = req.body;
+  const respuesta = await fnDetalleSueldo.crearDetalleSueldo(data)
+  res.send(respuesta);
+});
+
+//ObtenerDetalleSueldo
+app.get("/api/detalleSueldo", async (req, res) => {
+  const respuesta = await fnDetalleSueldo.obtenerDetalleSueldo();
+  res.send(respuesta);
+});
+
+//ActualizarDetalleSueldo
+app.put("/api/detalleSueldo/:id", async (req, res) => {
+  var idDS = req.params.id;
+  var ds = req.body;
+  const respuesta = await fnDetalleSueldo.actualizarDetalleSueldo(idDS,ds);
+  res.send(respuesta);
+});
+
+//EliminarDetalleSueldo
+app.delete("/api/detalleSueldo/:id", async (req, res) => {
+  var idDS = req.params.id;
+  const respuesta = await fnDetalleSueldo.eliminarDetalleSueldo(idDS);
+  res.send(respuesta);
+});
 
 ///////
 app.listen(4000, () => console.log("Up and Running on 4000"));
