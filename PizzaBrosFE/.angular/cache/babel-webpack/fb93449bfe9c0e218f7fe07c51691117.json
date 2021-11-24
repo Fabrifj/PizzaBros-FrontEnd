@@ -1,0 +1,1 @@
+{"ast":null,"code":"export class UnitOrderModel {\n  constructor(id, name, tam, precio, precioT, amount) {\n    this.Id = id;\n    this.Nombre = name;\n    this.Tamano = tam;\n    this.Precio = precio;\n    this.PrecioT = precioT;\n    this.Cantidad = amount;\n  }\n\n}","map":null,"metadata":{},"sourceType":"module"}
