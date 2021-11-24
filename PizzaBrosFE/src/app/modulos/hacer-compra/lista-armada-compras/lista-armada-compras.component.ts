@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { ingredienteModel } from 'src/app/modelos/ingrediente.model';
+import { ArticuloCompradoModel } from 'src/app/modelos/articuloComprado.model';
 import { HacerCompraService } from '../hacer-compra.service';
 
 @Component({
@@ -11,14 +11,14 @@ export class ListaArmadaComprasComponent implements OnInit {
 
   @ViewChild('amountInput', { static: false }) amount: ElementRef ;
 
-  ingredientes:ingredienteModel[]=[];
+  ingredientes:ArticuloCompradoModel[]=[];
   catidadIngredientes:number=0;
   totalCompra:number=0;
   constructor(private hacerCompraServicio:HacerCompraService) { }
 
   ngOnInit(): void {
     this.hacerCompraServicio.comprasCambio.subscribe(
-      (newOrders:  ingredienteModel[])=>{
+      (newOrders:  ArticuloCompradoModel[])=>{
         this.ingredientes = newOrders;
         this.calcularActualizacion();
 
@@ -30,7 +30,7 @@ export class ListaArmadaComprasComponent implements OnInit {
     this.totalCompra =0; 
     this.catidadIngredientes = this.ingredientes.length;
     for (let index = 0; index < this.ingredientes.length; index++) {
-      this.totalCompra += this.ingredientes[index].CostoUnidad;  
+      this.totalCompra += this.ingredientes[index].Precio;  
     }
   }
 
