@@ -1,12 +1,17 @@
-<h3>Categorias: {{categoria}}</h3>
 <div class="container-fluid">
+	<h1>sss</h1>
 	<div class="row">
 		<div class="col-md-12">
-            <div class="btn-group" role="group" aria-label="Basic outlined example">
-                <button type="button" class="btn btn-outline-primary" (click)="cambiarCategoria('Ingredientes')">Ingredientes</button>
-                <button type="button" class="btn btn-outline-primary" (click)="cambiarCategoria('Bienes')">Bienes</button>
-                <button type="button" class="btn btn-outline-primary" (click)="cambiarCategoria('Sugerencias')">Sugerencias</button>
-            </div>
+            <div class="dropdown">
+				<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+				  Dropdown button
+				</button>
+				<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+				  <li><a class="dropdown-item" href="#">Action</a></li>
+				  <li><a class="dropdown-item" href="#">Another action</a></li>
+				  <li><a class="dropdown-item" href="#">Something else here</a></li>
+				</ul>
+			  </div>
 		</div>
 	</div>
 	<br>
@@ -14,7 +19,7 @@
 		<div class="col-md-12">
 			<div class="list-group">
 				<app-lista-ingredientes
-								*ngFor="let ingredientesEle of ingredientes; let i = index"
+								*ngFor="let ingredientesEle of articulos; let i = index"
 								[product] = "ingredientesEle"
 								[index] = "i"
 								></app-lista-ingredientes>

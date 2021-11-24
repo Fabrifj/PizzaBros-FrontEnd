@@ -1,16 +1,7 @@
-
 const firebase = require('firebase')
 const firestore = require('firebase/firestore')
 
-
-//mport { collection, query, where, getDocs } from "firebase/firestore";
-//YPB3
-// Import the functions you need from the SDKs you need
-//import { initializeApp } from "firebase/app";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
+// Configuracion Firebase
 const firebaseConfig = {
   apiKey: "AIzaSyAXyGp_AK-2n7atboPbQCAmATWSO4t53-M",
   authDomain: "yourpizzabros3.firebaseapp.com",
@@ -20,14 +11,18 @@ const firebaseConfig = {
   appId: "1:639778295816:web:7264b8fe7e2ee8bef041bd"
 };
 
-// Initialize Firebase
-const app = firebase.initializeApp(firebaseConfig);
+// Inicializar Firebase
+firebase.initializeApp(firebaseConfig);
+// Acceder a Firestore
 const db = firebase.firestore();
+
+// Obtener las colecciones necesarias
 const elemento = db.collection("Elemento");
 const producto = db.collection("Producto");
 const categoria = db.collection("Categoria");
 const cliente = db.collection("Cliente");
 const pedido = db.collection("Pedido");
 const compra = db.collection("Compra");
+const empleado = db.collection("Empleado");
 
-module.exports = { producto,cliente,pedido,firebase,categoria,elemento,compra};
+module.exports = { firebase,producto,cliente,pedido,categoria,elemento,compra,empleado};

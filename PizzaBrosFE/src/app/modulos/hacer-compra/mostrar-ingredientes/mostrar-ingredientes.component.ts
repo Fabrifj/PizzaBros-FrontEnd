@@ -1,30 +1,34 @@
 import { Component, OnInit } from '@angular/core';
-import { ingredienteModel } from 'src/app/modelos/ingrediente.model';
-import { AppHttpService } from 'src/app/servicios/app-http.service';
+import { ArticuloModel } from 'src/app/modelos/articulo.model';
+import { ElementoModel } from 'src/app/modelos/elementos.model';
+
+import { HacerCompraService } from '../hacer-compra.service';
 
 @Component({
+  
   selector: 'app-mostrar-ingredientes',
   templateUrl: './mostrar-ingredientes.component.html',
   styleUrls: ['./mostrar-ingredientes.component.css']
 })
 export class MostrarIngredientesComponent implements OnInit {
 
-  ingredientes: ingredienteModel[]=[]; 
-  categoria ="Ingredientes";
+  ingrediente: ElementoModel|any ; 
+  articulos:ArticuloModel[] =[];
+  categorias:string[] =[];
 
-  constructor(private httpService: AppHttpService) { }
+  constructor(private hacerCompraService:HacerCompraService) { }
 
   ngOnInit(): void {
-    this.httpService.obtenerIngredientes()
-      .subscribe((jsonFile) => {
-        console.log(jsonFile);
-        this.ingredientes = <ingredienteModel[]>jsonFile;
-        console.log(this.ingredientes[0]);
+    this.hacerCompraService.ngOnInit()
+    this.categorias = this.hacerCompraService.obtenerNombres();
+    
+    console.log(this.categorias)
+  }
 
-      });
+  actualizarCetegoria(categoria:string){
+    this.ingrediente = this.hacerCompraService.obtenerElementos(categoria);
+    this.articulos = this.ingrediente.ListaArticulos;
   }
-  cambiarCategoria(newCategory:string){
-    this.categoria= newCategory;
-  }
+
 
 }

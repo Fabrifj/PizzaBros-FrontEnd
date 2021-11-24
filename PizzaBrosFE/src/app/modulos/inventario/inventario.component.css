@@ -3,11 +3,10 @@
     margin-left: 7px;
 }
 .fondo {
-    width: 1305px;
+    width: 100%;
 	height: 1200px;
-    margin-left: -74px;
-    margin-top: -10px;
-	padding-bottom: 20px;
+    top: -10px;
+    left: -7px;
 	background: url(https://comingsoon13.files.wordpress.com/2012/05/fondo-madera-marron.jpg);
 	background-size: cover;
 	background-attachment: fixed;
