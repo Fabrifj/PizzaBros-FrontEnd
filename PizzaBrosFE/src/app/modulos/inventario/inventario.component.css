@@ -11,7 +11,7 @@
 	background-size: cover;
 	background-attachment: fixed;
 	position: relative;
-    overflow: hidden;
+    /*overflow: hidden;*/
 }
 h2{
     color: blanchedalmond;

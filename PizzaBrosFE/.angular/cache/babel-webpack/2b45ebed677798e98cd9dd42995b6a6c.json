@@ -1,0 +1,1 @@
+{"ast":null,"code":"export class Cliente {\n  constructor(name, nit) {\n    this.Nombre = name;\n    this.NIT = nit;\n  }\n\n}","map":null,"metadata":{},"sourceType":"module"}

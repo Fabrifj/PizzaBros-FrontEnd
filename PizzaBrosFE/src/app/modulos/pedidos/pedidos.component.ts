@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { RutaTituloModel } from 'src/app/modelos/rutaTitulo.model';
 
 @Component({
   selector: 'app-pedidos',
@@ -12,7 +13,12 @@ export class PedidosComponent implements OnInit {
   //var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
   
   constructor() { }
-
+  subMenus : RutaTituloModel[] = [
+    {Ruta: "hacer-pedidos",Nombre: "Realizar Pedido"},
+    {Ruta: "pedidos-historial",Nombre: "Historial Pedidos"},
+    {Ruta: "pedidos-activos",Nombre: "Pedidos Actuales"}
+    
+  ];
   ngOnInit(): void {
   }
 

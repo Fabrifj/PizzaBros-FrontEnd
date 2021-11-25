@@ -1,0 +1,1 @@
+{"ast":null,"code":"export class ArticuloCompradoModel {\n  constructor(id, marca, nombre, caM, cantidad, precio) {\n    this.Id = id;\n    this.Nombre = nombre;\n    this.Marca = marca;\n    this.CantidadMedida = caM;\n    this.Cantidad = cantidad;\n    this.Precio = precio;\n  }\n\n}","map":null,"metadata":{},"sourceType":"module"}
