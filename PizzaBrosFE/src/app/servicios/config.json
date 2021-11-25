@@ -38,7 +38,7 @@
 
 
     "crearCategoria":"/api/categoria",
-    "obtenerCategorias":"/api/categoria",
+    "obtenerCategorias":"/api/categorias",
     "obtenerCategoriaNombre":"/api/categoria/:nombre",
     "obtenerProductosCategoriaNombre":"/api/categoria/",
     "eliminarCategoria":"/api/categoria/",

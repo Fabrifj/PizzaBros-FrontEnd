@@ -12,7 +12,7 @@
   </thead>
   <tbody>
     <tr 
-    *ngFor="let pedidosEle of pedidos; let i = index">
+    *ngFor="let pedidosEle of hacerPedidoServicio.pedidos; let i = index">
       <td><input class="quantity" id="amount" min="0" name="cantidad" value={{pedidosEle.Cantidad}} type="number" (click)="cambioCantidad(i)" #amountInput></td>
       <td>{{pedidosEle.Nombre}}</td>
       <td>{{pedidosEle.Tamano}}</td>
