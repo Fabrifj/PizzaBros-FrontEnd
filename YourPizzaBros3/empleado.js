@@ -257,8 +257,29 @@ async function actualizarEstadoTurno(IdEmpleado,body)
       
     return respuesta;
 }
+
+async function obtenerEmpleado(idEmpleado)
+{
+    var miEmpleado= null;
+    await empleado.doc(idEmpleado).get().then((doc) => {
+        if (doc.exists) {
+            miEmpleado = doc.data();
+            
+            console.log("Data empleado:", miEmpleado);
+           
+        } else {
+            // doc.data() will be undefined in this case
+            console.log("El empleado no existe!");
+        }
+    }).catch((error) => {
+        console.log("Error obteniendo empleado:", error);
+    });
+    
+    return miEmpleado;
+}
 module.exports = {
     crearEmpleado,
     calcularHorario,
-    actualizarEstadoTurno
+    actualizarEstadoTurno,
+    obtenerEmpleado
   };
