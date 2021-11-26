@@ -1,4 +1,5 @@
 const { empleado, firebase } = require('./config');
+const fnHerramientas = require('./herramientas');
 var dias = 
 {
     Domingo: 0,
@@ -75,18 +76,10 @@ var dias2 = ["Domingo","Lunes","Martes","Miercoles","Jueves","Viernes"];
  * @param {string} fecha "2000-08-15"
  * @returns {Date} mydate
  */
-function stringAFecha(fecha)
-{
-    var parts = fecha.split('-');
-    // Please pay attention to the month (parts[1]); JavaScript counts months from 0:
-    // January - 0, February - 1, etc.
-    var mydate = new Date(parts[0], parts[1] - 1, parts[2]); 
-    return mydate;
-}
 async function crearEmpleado(body)
 {
     body.ListaTurnos = [];
-    var mydate = stringAFecha(body.FechaNacimiento);
+    var mydate = fnHerramientas.stringAFecha(body.FechaNacimiento);
     console.log(mydate.toDateString());
     body.FechaNacimiento = firebase.firestore.Timestamp.fromDate(mydate);
     await empleado.add(body);
@@ -237,7 +230,7 @@ async function actualizarEstadoTurno(IdEmpleado,body)
         {
             fechaTurno = turno.Fecha.toDate();
             //miFecga = firebase.firestore.Timestamp.fromDate(new Date(fecha));
-            miFecha = stringAFecha(body.Fecha)
+            miFecha = fnHerramientas.stringAFecha(body.Fecha);
             if(fechaTurno.toDateString() == miFecha.toDateString())
             {
                 turno.Turnos.forEach(trn => 
@@ -266,7 +259,6 @@ async function actualizarEstadoTurno(IdEmpleado,body)
 }
 module.exports = {
     crearEmpleado,
-    stringAFecha,
     calcularHorario,
     actualizarEstadoTurno
   };
