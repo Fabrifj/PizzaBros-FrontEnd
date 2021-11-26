@@ -303,6 +303,14 @@ app.put("/api/empleado/turnos", async (req, res) => {
   res.send(respuesta);
 });
 
+//Cambiar estado de un determinado turno de un determinado empleado
+app.put("/api/empleado/:id/estadoturno", async (req, res) => {
+  var body = req.body;
+  var idEmpleado = req.params.id;
+  const respuesta = await fnEmpleado.actualizarEstadoTurno(idEmpleado,body);
+  res.send(respuesta);
+});
+
 /*===================================
           ENDPOINT DE PRUEBA
 ===================================*/

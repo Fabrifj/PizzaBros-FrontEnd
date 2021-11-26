@@ -203,8 +203,70 @@ function incluidoEnHorario(year, month, day, miHorario) {
     const found = miHorario.find(element => element == day);
     return found;
     }
+/**
+ * 
+ * @param {string} IdEmpleado 
+ * @param {
+ * 
+ *  
+ {
+    "Fecha":"2020-01-20"//Debe ser string
+    "Turno":"A",
+    "Estado":"Puntual"
+ }  
+ *  
+ * } body 
+ * @returns 
+ */
+async function actualizarEstadoTurno(IdEmpleado,body)
+{
+    var miEmpleado = null;
+    var respuesta = null;
+    await empleado.doc(IdEmpleado).get().then((doc) => {
+        if (doc.exists) {
+            console.log("Data empleado:", doc.data());
+            miEmpleado = doc.data();
+        } else {
+            // doc.data() will be undefined in this case
+            console.log("No existe el empleado!");
+        }
+    }).catch((error) => {
+        console.log("Error getting empleado:", error);
+    });
+    miEmpleado.ListaTurnos.forEach(turno =>
+        {
+            fechaTurno = turno.Fecha.toDate();
+            //miFecga = firebase.firestore.Timestamp.fromDate(new Date(fecha));
+            miFecha = stringAFecha(body.Fecha)
+            if(fechaTurno.toDateString() == miFecha.toDateString())
+            {
+                turno.Turnos.forEach(trn => 
+                    {
+                        if(trn.Id == body.Turno)
+                        {
+                            trn.Estado = body.Estado;
+                        }
+                    });
+            }
+            
+        });
+    await empleado.doc(IdEmpleado).update({"ListaTurnos":miEmpleado.ListaTurnos})
+    .then(() => 
+    {
+        respuesta = miEmpleado;  
+        console.log("Turnos actualizados correctamente!");
+    })
+    .catch((error) => 
+    {
+        // The document probably doesn't exist.
+        console.error("Error al actualizar turnos: ", error);
+    });
+      
+    return respuesta;
+}
 module.exports = {
     crearEmpleado,
     stringAFecha,
-    calcularHorario
+    calcularHorario,
+    actualizarEstadoTurno
   };
