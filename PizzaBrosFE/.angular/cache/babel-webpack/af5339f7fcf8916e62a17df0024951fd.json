@@ -1,1 +1,0 @@
-{"ast":null,"code":"export class FinalOrderModel {\n  constructor(id, idEmpleado, cliente, fecha, estado, detalle) {\n    this.Id = id;\n    this.IdEmpleado = idEmpleado;\n    this.Cliente = cliente;\n    this.Fecha = fecha;\n    this.Estado = estado;\n    this.Detalle = detalle;\n  }\n\n}","map":null,"metadata":{},"sourceType":"module"}
