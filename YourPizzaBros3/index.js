@@ -371,6 +371,13 @@ app.get("/api/horario", async (req, res) => {
   res.send(respuesta);
 });
 
+//ObtenerHorarioId
+app.get("/api/horario/:id", async (req, res) => {
+  var idHorario = req.params.id;
+  const respuesta = await fnHorario.obtenerHorarioId(idHorario);
+  res.send(respuesta);
+});
+
 //ActualizarHorario
 app.put("/api/horario/:id", async (req, res) => {
   var idHor = req.params.id;

@@ -1,5 +1,6 @@
 const { historialActividad, firebase, empleado } = require("./config");
-
+const fnEmpleado = require("./empleado");
+const fnHorario = require("./horario");
 /*
 Estructura body -> Crear
 {
@@ -72,20 +73,80 @@ async function eliminarHistorialActividad(idHis) {
   return respuesta;
 }
 
+//Funcion para calcular la diferencia entre horas
+function diferenciaHoras(horaInicio, horaFinal) {
+  hTotal = horaFinal.split(":")[0] - horaInicio.split(":")[0];
+  mTotal = horaFinal.split(":")[1] - horaInicio.split(":")[1];
+  return hTotal + ":" + mTotal;
+}
+
+//Funcion para devolver un estado de llegadad /coherente en base a horas de trabajo
+function obtenerEstado(horaBase, horaReal) {
+  hTotal = horaReal.split(":")[0] - horaBase.split(":")[0];
+  mTotal = horaReal.split(":")[1] - horaBase.split(":")[1];
+  var resultado = null;
+}
+
 //ActualizarHistorialActividad
 async function actualizarHistorialActividad(idHis, his) {
   var respuesta = null;
-  await historialActividad
-    .doc(idHis)
-    .update(his)
-    .then(() => {
-      respuesta = his;
-      console.log("Historial de actividad actualizado correctamente");
-    })
-    .catch((error) => {
-      // The document probably doesn't exist.
-      console.error("Error al actualizar el historial de actividad: ", error);
+
+  if (his.HoraSalida) {
+    his.HoraEntrada = firebase.firestore.Timestamp.fromDate(
+      new Date(his.HoraEntrada)
+    );
+
+    his.HoraSalida = firebase.firestore.Timestamp.fromDate(
+      new Date(his.HoraSalida)
+    );
+
+    await historialActividad
+      .doc(idHis)
+      .update(his)
+      .then(() => {
+        respuesta = his;
+        console.log("Historial de actividad actualizado correctamente");
+      })
+      .catch((error) => {
+        // The document probably doesn't exist.
+        console.error("Error al actualizar el historial de actividad: ", error);
+      });
+
+    var fechaABuscar = his.HoraEntrada.toDate().toISOString().split("T")[0];
+    var horaEntradaReal = his.HoraEntrada.toDate()
+      .toISOString()
+      .split("T")[1]
+      .split(".")[0];
+    var horaSalidaReal = his.HoraSalida.toDate()
+      .toISOString()
+      .split("T")[1]
+      .split(".")[0];
+    var difHoras = diferenciaHoras(horaEntradaReal, horaSalidaReal);
+    console.log(difHoras);
+    var turnoABuscar = his.IdTurno;
+
+    var empleado = await fnEmpleado.obtenerEmpleado(his.IdEmpleado);
+    empleado.ListaTurnos.forEach((turno) => {
+      var fecha = turno.Fecha.toDate().toISOString().split("T")[0];
+      if (fecha === fechaABuscar) {
+        turno.Turnos.forEach(async (t) => {
+          if (t.Id === turnoABuscar) {
+            var body = {
+              Fecha: fechaABuscar,
+              Turno: turnoABuscar,
+              Estado: "Puntual",
+            };
+
+            await fnEmpleado.actualizarEstadoTurno(his.IdEmpleado, body);
+          }
+        });
+      }
     });
+  } else {
+    respuesta =
+      "No se puede actualizar un historial de actividad de un empleado sin agregar su Hora de Salida.";
+  }
+
   return respuesta;
 }
 

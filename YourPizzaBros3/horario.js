@@ -1,4 +1,4 @@
-const { horario } = require('./config');
+const { horario } = require("./config");
 
 /*
 Estructrura Body -> Crear
@@ -9,12 +9,12 @@ Estructrura Body -> Crear
 */
 
 //CrearHorario
-async function crearHorario(idHor, data){
+async function crearHorario(idHor, data) {
   await horario.doc(idHor).set(data);
   respuesta = {
-    "Mensaje" : "Horario agregado correctamente",
-    "Horario": data
-  }
+    Mensaje: "Horario agregado correctamente",
+    Horario: data,
+  };
   return respuesta;
 }
 
@@ -25,34 +25,58 @@ async function obtenerHorarios() {
   return list;
 }
 
-//EliminarHorario
-async function eliminarHorario(idHor) {  
+//ObtenerHorarioId
+async function obtenerHorarioId(horarioId) {
   var respuesta = null;
-  await horario.doc(idHor).delete().then(() => {
-    respuesta = "Horario borrado correctamente!"
-    console.log(respuesta);
-  }).catch((error) => 
-  {
-    console.error("Error eliminando horario: ", error);
-  });
+  await horario
+    .doc(horarioId)
+    .get()
+    .then((doc) => {
+      if (doc.exists) {
+        respuesta = { id: doc.id, ...doc.data() };
+        console.log("Informacion del horario:", doc.data());
+      } else {
+        respuesta = "El horario no existe";
+        console.log("El horario no existe");
+      }
+    })
+    .catch((error) => {
+      console.log("Error getting document:", error);
+    });
+  return respuesta;
+}
+
+//EliminarHorario
+async function eliminarHorario(idHor) {
+  var respuesta = null;
+  await horario
+    .doc(idHor)
+    .delete()
+    .then(() => {
+      respuesta = "Horario borrado correctamente!";
+      console.log(respuesta);
+    })
+    .catch((error) => {
+      console.error("Error eliminando horario: ", error);
+    });
 
   return respuesta;
 }
 
 //ActualizarHorario
-async function actualizarHorario(idHor, hor){
+async function actualizarHorario(idHor, hor) {
   var respuesta = null;
-  await horario.doc(idHor).update(hor)
-  .then(() => 
-  {
-    respuesta = hor;  
-    console.log("Horario actualizado correctamente");
-  })
-  .catch((error) => 
-  {
+  await horario
+    .doc(idHor)
+    .update(hor)
+    .then(() => {
+      respuesta = hor;
+      console.log("Horario actualizado correctamente");
+    })
+    .catch((error) => {
       // The document probably doesn't exist.
       console.error("Error al actualizar el horario: ", error);
-  });
+    });
   return respuesta;
 }
 
@@ -60,5 +84,6 @@ module.exports = {
   crearHorario,
   obtenerHorarios,
   eliminarHorario,
-  actualizarHorario
+  actualizarHorario,
+  obtenerHorarioId,
 };
