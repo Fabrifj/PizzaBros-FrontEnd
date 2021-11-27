@@ -8,6 +8,24 @@ function stringAFecha(fecha)
     return mydate;
 }
 
+async function actualizarDoc(idDoc, nuevoPar, nombreEntidad) {  
+    var respuesta = null;
+    await nombreEntidad.doc(idDoc).update(nuevoPar)
+    .then(() => 
+    {
+      respuesta = nuevoPar;  
+      console.log(`${nombreEntidad} actualizad@ correctamente!`);
+    })
+    .catch((error) => 
+    {
+        // The document probably doesn't exist.
+        console.error(`Error al actualizar : ${nombreEntidad}`, error);
+    });
+  
+    return respuesta;
+  }
+
 module.exports = {
-    stringAFecha
+    stringAFecha,
+    actualizarDoc
   };
