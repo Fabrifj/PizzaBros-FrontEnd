@@ -58,7 +58,7 @@ var dias2 = ["Domingo","Lunes","Martes","Miercoles","Jueves","Viernes"];
 }
 
 */
-//CrearCategoria
+
 /*lo que nos pasan para crear empleado
 
 {
@@ -125,6 +125,7 @@ async function crearEmpleado(body)
  */
 
 //IMPORTANTE: NO SE VERIFICA SI LOS HORARIOS EXISTEN, SE DEBEN ENVIAR HORARIOS QUE SI EXISTAN
+//NO VERIFICA QUE LOS HORARIOS NO SE REPITAN 
 async function calcularHorario(body)
 {
     
@@ -166,8 +167,9 @@ async function calcularHorario(body)
     }
     console.log("Turnos: ",misTurnos);
     var ref = empleado.doc(body.IdEmpleado);
+    var miEmpleado = await obtenerEmpleado(body.IdEmpleado);
     resp = null;
-    await ref.update({ListaTurnos: misTurnos})
+    await ref.update({ListaTurnos: miEmpleado.ListaTurnos.concat(misTurnos)})
     .then(() => 
     {
         ref.get().then(s=>{resp = s.data()});
@@ -277,9 +279,25 @@ async function obtenerEmpleado(idEmpleado)
     
     return miEmpleado;
 }
+
+//ObtenerEmpleados
+async function obtenerEmpleados(){
+    const snapshot = await empleado.get();
+    const lista = snapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data()
+    }))
+    return lista;
+  }
+async function actualizarEmpleado(idEmpleado, body)
+{
+    return (await fnHerramientas.actualizarDoc(idEmpleado,body,empleado));
+}
 module.exports = {
     crearEmpleado,
     calcularHorario,
     actualizarEstadoTurno,
-    obtenerEmpleado
+    obtenerEmpleado,
+    obtenerEmpleados,
+    actualizarEmpleado
   };
