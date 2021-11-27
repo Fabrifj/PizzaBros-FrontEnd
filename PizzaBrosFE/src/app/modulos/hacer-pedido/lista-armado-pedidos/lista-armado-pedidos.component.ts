@@ -13,17 +13,16 @@ export class ListaArmadoPedidosComponent implements OnInit,OnChanges {
   datos = ['hey','heo'];
   
   subscription :any;
-  constructor( private hacerPedidoServicio:HacerPedidoService ) { }
+  constructor( public hacerPedidoServicio:HacerPedidoService ) { }
 
-  pedidos: UnitOrderModel[]=[];
   cantidadPedidos: number = 0;
   totalPrecio:number =0; 
 
   ngOnInit(): void {
-    this.pedidos= this.hacerPedidoServicio.obtenerPedidos();
+    this.hacerPedidoServicio.pedidos= this.hacerPedidoServicio.obtenerPedidos();
     this.hacerPedidoServicio.ordersChanged.subscribe(
       (newOrders:  UnitOrderModel[])=>{
-        this.pedidos = newOrders;
+        this.hacerPedidoServicio.pedidos = newOrders;
         this.calcularActualizacion();
 
       }
@@ -32,10 +31,10 @@ export class ListaArmadoPedidosComponent implements OnInit,OnChanges {
   }
    //asdasdasda
   ngOnChanges(){
-    this.pedidos = this.hacerPedidoServicio.obtenerPedidos();
+    this.hacerPedidoServicio.pedidos = this.hacerPedidoServicio.obtenerPedidos();
     this.calcularActualizacion();
     console.log("on changes listado");
-    console.log(this.pedidos);
+    console.log(this.hacerPedidoServicio.pedidos);
 
 
 
@@ -43,22 +42,22 @@ export class ListaArmadoPedidosComponent implements OnInit,OnChanges {
   calcularActualizacion(){
     this.cantidadPedidos = 0;
     this.totalPrecio =0; 
-    for (let index = 0; index < this.pedidos.length; index++) {
-      this.cantidadPedidos += this.pedidos[index].Cantidad;
+    for (let index = 0; index < this.hacerPedidoServicio.pedidos.length; index++) {
+      this.cantidadPedidos += this.hacerPedidoServicio.pedidos[index].Cantidad;
       console.log(this.cantidadPedidos);
-      this.totalPrecio += this.pedidos[index].PrecioT;  
+      this.totalPrecio += this.hacerPedidoServicio.pedidos[index].PrecioT;  
     }
   }
 
   cambioCantidad(i:number ){
-    this.pedidos[i].Cantidad = +this.amount.nativeElement.value;
-    this.pedidos[i].PrecioT = this.pedidos[i].Cantidad * this.pedidos[i].Precio; 
+    this.hacerPedidoServicio.pedidos[i].Cantidad = +this.amount.nativeElement.value;
+    this.hacerPedidoServicio.pedidos[i].PrecioT = this.hacerPedidoServicio.pedidos[i].Cantidad * this.hacerPedidoServicio.pedidos[i].Precio; 
     this.calcularActualizacion();
   }
 
   eliminarPedido(i:number){
-    let foo_object  = this.pedidos[i]// Item to remove
-    this.pedidos = this.pedidos.filter(obj => obj !== foo_object);
+    let foo_object  = this.hacerPedidoServicio.pedidos[i]// Item to remove
+    this.hacerPedidoServicio.pedidos = this.hacerPedidoServicio.pedidos.filter(obj => obj !== foo_object);
     alert('Elimino un elemento');
     this.calcularActualizacion();
   }
