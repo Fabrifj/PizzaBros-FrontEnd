@@ -1,7 +1,92 @@
+<div class="contenedorFiltros">
+
+    <form>
+        
+        <div>
+            <div class="rTurnos">
+                <input type="radio" id="rTurnos" name= "raturnos" (click) ="funcionAbrirTurnos()">
+                <label for="contactChoice1">Modificar Turnos</label>
+            </div>
+            <div class="rTEmpleados">
+                <input type="radio" id="rTEmpleados" name="ratempleados" (click)="funcionAbrirTurnosEmpleados()">
+                <label for="contactChoice2">Modificar Turnos Empleados</label>
+            </div>
+            
+
+        </div>
+      </form>
+
+</div>
 <app-tabla-reusable 
-    [datos]="datos" 
-    [columnas]="columnas" 
-    [nombreBotones]="nombreBotones"     
+    [datos]="datosEmp" 
+    [columnas]="columnasEmp" 
+    [nombreBotones]="nombreBotonesEmp"     
     (parentMethod)="funcionBoton($event)" colorLetra = "cornsilk" indice="0">
        
 </app-tabla-reusable>
+
+
+<jw-modal id="modalProd-1" altura="80" >
+        <div class="editable">
+        <h1>Turnos:</h1>
+        <div class="infoEditable">
+            
+            <h1>Nombre:</h1>
+            <input type="text">
+
+            <h1>Hora Inicio:</h1>
+            <input type="text">
+
+            <h1>Hora Fin:</h1>
+            <input type="text">
+            
+            <h1>Turnos Creados:</h1>
+            <app-tabla-reusable 
+            [datos]="datosTurn" 
+            [columnas]="columnasTurn" 
+            colorLetra="black">
+            </app-tabla-reusable> 
+
+
+            
+
+        </div>
+    </div>
+    <div class="botones">
+            
+        <button class="btnCerrar" (click)="funcionCancelarTurno()">Cancelar</button>
+        <button class="btnCrearTurno">Crear Turno</button>
+        <button class="btnActualizarTurno">Actualizar Turno</button>
+    </div>
+</jw-modal>
+
+
+
+<jw-modal id="modalTurosEmpleados" altura="80" >
+    <div class="editable">
+    <h1>Turnos de los Empleados:</h1>
+    <div class="infoEditable">
+        
+        <h1>Nombre:</h1>
+        <input type="text">
+
+        <h1>Apellido Paterno:</h1>
+        <input type="text">
+
+        <h1>Apellido Materno:</h1>
+        <input type="text">
+
+        <h2>Turno a Asignar o Eliminar Turno:</h2>
+        <!--Asignar un scroll bar con las opciones de los turnos-->
+        <input type="text">
+                
+
+    </div>
+</div>
+<div class="botones">
+        
+    <button class="btnCerrar" (click)="funcionCancelarTurnEmpleado()">Cancelar</button>
+    <button class="btnCrearTurno">Asignar turno a empleado</button>
+    <button class="btnActualizarTurno">Eliminar turno de empleado</button>
+</div>
+</jw-modal>
