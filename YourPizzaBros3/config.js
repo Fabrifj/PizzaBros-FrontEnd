@@ -24,5 +24,20 @@ const cliente = db.collection("Cliente");
 const pedido = db.collection("Pedido");
 const compra = db.collection("Compra");
 const empleado = db.collection("Empleado");
+const horario = db.collection('Horario');
+const historialActividad = db.collection('HistorialActividad');
+const detalleSueldo = db.collection('DetalleSueldo');
 
-module.exports = { firebase,producto,cliente,pedido,categoria,elemento,compra,empleado};
+module.exports = { 
+  firebase,
+  producto,
+  cliente,
+  pedido,
+  categoria,
+  elemento,
+  compra,
+  empleado,
+  horario,
+  historialActividad,
+  detalleSueldo
+};

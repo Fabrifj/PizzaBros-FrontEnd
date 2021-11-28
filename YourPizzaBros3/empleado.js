@@ -1,17 +1,15 @@
-const { empleado, firebase } = require('./config');
-const fnHerramientas = require('./herramientas');
-var dias = 
-{
-    Domingo: 0,
-    Lunes: 1,
-    Martes: 2,
-    Miercoles: 3,
-    Jueves: 4,
-    Viernes: 5,
-    Sabado: 6
-}
-var dias2 = ["Domingo","Lunes","Martes","Miercoles","Jueves","Viernes"];
-
+const { empleado, firebase } = require("./config");
+const fnHerramientas = require("./herramientas");
+var dias = {
+  Domingo: 0,
+  Lunes: 1,
+  Martes: 2,
+  Miercoles: 3,
+  Jueves: 4,
+  Viernes: 5,
+  Sabado: 6,
+};
+var dias2 = ["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes"];
 
 //LO QUE SE GUARDA COMO ENTIDAD EN LA BASE DE DATOS:
 /*
@@ -72,22 +70,21 @@ var dias2 = ["Domingo","Lunes","Martes","Miercoles","Jueves","Viernes"];
 }*/
 
 /**
- * 
+ *
  * @param {string} fecha "2000-08-15"
  * @returns {Date} mydate
  */
-async function crearEmpleado(body)
-{
-    body.ListaTurnos = [];
-    var mydate = fnHerramientas.stringAFecha(body.FechaNacimiento);
-    console.log(mydate.toDateString());
-    body.FechaNacimiento = firebase.firestore.Timestamp.fromDate(mydate);
-    await empleado.add(body);
-    respuesta = {
-      "Mensaje" : "Empleado agregado correctamente",
-      "Categoria": body
-    }
-    return respuesta;
+async function crearEmpleado(body) {
+  body.ListaTurnos = [];
+  var mydate = fnHerramientas.stringAFecha(body.FechaNacimiento);
+  console.log(mydate.toDateString());
+  body.FechaNacimiento = firebase.firestore.Timestamp.fromDate(mydate);
+  await empleado.add(body);
+  respuesta = {
+    Mensaje: "Empleado agregado correctamente",
+    Categoria: body,
+  };
+  return respuesta;
 }
 /**
  * 
@@ -125,79 +122,75 @@ async function crearEmpleado(body)
  */
 
 //IMPORTANTE: NO SE VERIFICA SI LOS HORARIOS EXISTEN, SE DEBEN ENVIAR HORARIOS QUE SI EXISTAN
-//NO VERIFICA QUE LOS HORARIOS NO SE REPITAN 
-async function calcularHorario(body)
-{
-    
-    const diasMes = diasEnMes(body.FechaTurnos);
-    var misDias = [];
-    var misTurnos = [];
+//NO VERIFICA QUE LOS HORARIOS NO SE REPITAN
+async function calcularHorario(body) {
+  const diasMes = diasEnMes(body.FechaTurnos);
+  var misDias = [];
+  var misTurnos = [];
 
-    var parts = body.FechaTurnos.split('-');
-    var year = parseInt(parts[0],10);
-    var month = parseInt(parts[1],10)-1;
+  var parts = body.FechaTurnos.split("-");
+  var year = parseInt(parts[0], 10);
+  var month = parseInt(parts[1], 10) - 1;
 
-    body.HorarioSemanal.forEach(dia =>{
-        misDias.push(dias[dia.Dia]);
-    });
-      
-    for await (let index of [...Array(diasMes).keys()])
-    {
-        var diaSemana = incluidoEnHorario(year, month, index+1, misDias);
-        if( diaSemana!= null)
-        {
-            var nuevaFecha = new Date(year, month, index+1);
-            var nuevoDia=
-            {
-                Fecha : firebase.firestore.Timestamp.fromDate(nuevaFecha),
-                Turnos:[]
-            }
-            
-            const result = body.HorarioSemanal.find( ({ Dia }) => Dia === dias2[diaSemana] );
-            result.Turnos.forEach(trn=>{
-                nuevoDia.Turnos.push(
-                    {
-                        Id: trn,
-                        Estado: "Falta"
-                    }
-                );
-            });
-            misTurnos.push(nuevoDia);
-        }
+  body.HorarioSemanal.forEach((dia) => {
+    misDias.push(dias[dia.Dia]);
+  });
+
+  for await (let index of [...Array(diasMes).keys()]) {
+    var diaSemana = incluidoEnHorario(year, month, index + 1, misDias);
+    if (diaSemana != null) {
+      var nuevaFecha = new Date(year, month, index + 1);
+      var nuevoDia = {
+        Fecha: firebase.firestore.Timestamp.fromDate(nuevaFecha),
+        Turnos: [],
+      };
+
+      const result = body.HorarioSemanal.find(
+        ({ Dia }) => Dia === dias2[diaSemana]
+      );
+      result.Turnos.forEach((trn) => {
+        nuevoDia.Turnos.push({
+          Id: trn,
+          Estado: "Falta",
+        });
+      });
+      misTurnos.push(nuevoDia);
     }
-    console.log("Turnos: ",misTurnos);
-    var ref = empleado.doc(body.IdEmpleado);
-    var miEmpleado = await obtenerEmpleado(body.IdEmpleado);
-    resp = null;
-    await ref.update({ListaTurnos: miEmpleado.ListaTurnos.concat(misTurnos)})
-    .then(() => 
-    {
-        ref.get().then(s=>{resp = s.data()});
-        console.log("Turnos agregados a empleado correctamente!");
+  }
+  console.log("Turnos: ", misTurnos);
+  var ref = empleado.doc(body.IdEmpleado);
+  var miEmpleado = await obtenerEmpleado(body.IdEmpleado);
+  resp = null;
+  await ref
+    .update({ ListaTurnos: miEmpleado.ListaTurnos.concat(misTurnos) })
+    .then(() => {
+      ref.get().then((s) => {
+        resp = s.data();
+      });
+      console.log("Turnos agregados a empleado correctamente!");
     })
-    .catch((error) => 
-    {
-        // The document probably doesn't exist.
-        console.error("Error al agregar turnos a empleado: ", error);
+    .catch((error) => {
+      // The document probably doesn't exist.
+      console.error("Error al agregar turnos a empleado: ", error);
     });
-    return resp;
+  return resp;
 }
-// Month in JavaScript is 0-indexed (January is 0, February is 1, etc), 
+// Month in JavaScript is 0-indexed (January is 0, February is 1, etc),
 // but by using 0 as the day it will give us the last day of the prior
 // month. So passing in 1 as the month number will return the last day
 // of January, not February
-function diasEnMes (fecha) {
-    var parts = fecha.split('-');
-    var year = parseInt(parts[0],10);
-    var month = parseInt(parts[1],10);
-    return new Date(year, month, 0).getDate();
+function diasEnMes(fecha) {
+  var parts = fecha.split("-");
+  var year = parseInt(parts[0], 10);
+  var month = parseInt(parts[1], 10);
+  return new Date(year, month, 0).getDate();
 }
 
 function incluidoEnHorario(year, month, day, miHorario) {
-    var day = new Date(year, month, day).getDay();
-    const found = miHorario.find(element => element == day);
-    return found;
-    }
+  var day = new Date(year, month, day).getDay();
+  const found = miHorario.find((element) => element == day);
+  return found;
+}
 /**
  * 
  * @param {string} IdEmpleado 
@@ -213,91 +206,90 @@ function incluidoEnHorario(year, month, day, miHorario) {
  * } body 
  * @returns 
  */
-async function actualizarEstadoTurno(IdEmpleado,body)
-{
-    var miEmpleado = null;
-    var respuesta = null;
-    await empleado.doc(IdEmpleado).get().then((doc) => {
-        if (doc.exists) {
-            console.log("Data empleado:", doc.data());
-            miEmpleado = doc.data();
-        } else {
-            // doc.data() will be undefined in this case
-            console.log("No existe el empleado!");
-        }
-    }).catch((error) => {
-        console.log("Error getting empleado:", error);
-    });
-    miEmpleado.ListaTurnos.forEach(turno =>
-        {
-            fechaTurno = turno.Fecha.toDate();
-            //miFecga = firebase.firestore.Timestamp.fromDate(new Date(fecha));
-            miFecha = fnHerramientas.stringAFecha(body.Fecha);
-            if(fechaTurno.toDateString() == miFecha.toDateString())
-            {
-                turno.Turnos.forEach(trn => 
-                    {
-                        if(trn.Id == body.Turno)
-                        {
-                            trn.Estado = body.Estado;
-                        }
-                    });
-            }
-            
-        });
-    await empleado.doc(IdEmpleado).update({"ListaTurnos":miEmpleado.ListaTurnos})
-    .then(() => 
-    {
-        respuesta = miEmpleado;  
-        console.log("Turnos actualizados correctamente!");
+async function actualizarEstadoTurno(IdEmpleado, body) {
+  var miEmpleado = null;
+  var respuesta = null;
+  await empleado
+    .doc(IdEmpleado)
+    .get()
+    .then((doc) => {
+      if (doc.exists) {
+        console.log("Data empleado:", doc.data());
+        miEmpleado = doc.data();
+      } else {
+        // doc.data() will be undefined in this case
+        console.log("No existe el empleado!");
+      }
     })
-    .catch((error) => 
-    {
-        // The document probably doesn't exist.
-        console.error("Error al actualizar turnos: ", error);
+    .catch((error) => {
+      console.log("Error getting empleado:", error);
     });
-      
-    return respuesta;
+  miEmpleado.ListaTurnos.forEach((turno) => {
+    fechaTurno = turno.Fecha.toDate();
+    //miFecga = firebase.firestore.Timestamp.fromDate(new Date(fecha));
+    miFecha = fnHerramientas.stringAFecha(body.Fecha);
+    if (fechaTurno.toDateString() == miFecha.toDateString()) {
+      turno.Turnos.forEach((trn) => {
+        if (trn.Id == body.Turno) {
+          trn.Estado = body.Estado;
+        }
+      });
+    }
+  });
+  await empleado
+    .doc(IdEmpleado)
+    .update({ ListaTurnos: miEmpleado.ListaTurnos })
+    .then(() => {
+      respuesta = miEmpleado;
+      console.log("Turnos actualizados correctamente!");
+    })
+    .catch((error) => {
+      // The document probably doesn't exist.
+      console.error("Error al actualizar turnos: ", error);
+    });
+
+  return respuesta;
 }
 
-async function obtenerEmpleado(idEmpleado)
-{
-    var miEmpleado= null;
-    await empleado.doc(idEmpleado).get().then((doc) => {
-        if (doc.exists) {
-            miEmpleado = doc.data();
-            
-            console.log("Data empleado:", miEmpleado);
-           
-        } else {
-            // doc.data() will be undefined in this case
-            console.log("El empleado no existe!");
-        }
-    }).catch((error) => {
-        console.log("Error obteniendo empleado:", error);
+async function obtenerEmpleado(idEmpleado) {
+  var miEmpleado = null;
+  await empleado
+    .doc(idEmpleado)
+    .get()
+    .then((doc) => {
+      if (doc.exists) {
+        miEmpleado = doc.data();
+
+        console.log("Data empleado:", miEmpleado);
+      } else {
+        // doc.data() will be undefined in this case
+        console.log("El empleado no existe!");
+      }
+    })
+    .catch((error) => {
+      console.log("Error obteniendo empleado:", error);
     });
-    
-    return miEmpleado;
+
+  return miEmpleado;
 }
 
 //ObtenerEmpleados
-async function obtenerEmpleados(){
-    const snapshot = await empleado.get();
-    const lista = snapshot.docs.map((doc) => ({
-      id: doc.id,
-      ...doc.data()
-    }))
-    return lista;
-  }
-async function actualizarEmpleado(idEmpleado, body)
-{
-    return (await fnHerramientas.actualizarDoc(idEmpleado,body,empleado));
+async function obtenerEmpleados() {
+  const snapshot = await empleado.get();
+  const lista = snapshot.docs.map((doc) => ({
+    id: doc.id,
+    ...doc.data(),
+  }));
+  return lista;
+}
+async function actualizarEmpleado(idEmpleado, body) {
+  return await fnHerramientas.actualizarDoc(idEmpleado, body, empleado);
 }
 module.exports = {
-    crearEmpleado,
-    calcularHorario,
-    actualizarEstadoTurno,
-    obtenerEmpleado,
-    obtenerEmpleados,
-    actualizarEmpleado
-  };
+  crearEmpleado,
+  calcularHorario,
+  actualizarEstadoTurno,
+  obtenerEmpleado,
+  obtenerEmpleados,
+  actualizarEmpleado,
+};
