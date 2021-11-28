@@ -21,7 +21,31 @@ var dias2 = ["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes"];
     "Celular":"",
     "FechaNacimiento":"",
     "Cargo":"",
-
+    "HorarioSemanal":
+		[
+			{
+        "Dia":"Lunes",
+        "Turnos":
+        [
+            "A","B"
+        ]
+      },
+      {
+          "Dia":"Miercoles",
+          "Turnos":
+          [
+              "C","D"
+          ]
+      },
+      {
+          "Dia":"Viernes",
+          "Turnos":
+          [
+              "A","B","C"
+          ] 
+      }
+			
+    ]
     "ListaTurnos":
     [
         {
@@ -76,6 +100,7 @@ var dias2 = ["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes"];
  */
 async function crearEmpleado(body) {
   body.ListaTurnos = [];
+  body.HorarioSemanal=[];
   var mydate = fnHerramientas.stringAFecha(body.FechaNacimiento);
   console.log(mydate.toDateString());
   body.FechaNacimiento = firebase.firestore.Timestamp.fromDate(mydate);
@@ -92,7 +117,7 @@ async function crearEmpleado(body) {
  * {
         "IdEmpleado":"jhiJfhPcm778r3txm9hg",
 		"FechaTurnos":"2021-11-17",
-        "HorarioSemanal":
+    "HorarioSemanal":
 		[
 			{
                 "Dia":"Lunes",
@@ -124,8 +149,12 @@ async function crearEmpleado(body) {
 //IMPORTANTE: NO SE VERIFICA SI LOS HORARIOS EXISTEN, SE DEBEN ENVIAR HORARIOS QUE SI EXISTAN
 //NO VERIFICA QUE LOS HORARIOS NO SE REPITAN
 async function calcularHorario(body) {
+  var ref = empleado.doc(body.IdEmpleado);
+  var miEmpleado = await obtenerEmpleado(body.IdEmpleado);
+
+  const fechaTurnos = fnHerramientas.stringAFecha(body.FechaTurnos);
   const diasMes = diasEnMes(body.FechaTurnos);
-  var misDias = [];
+  var misDias = [];//Aqui se guardan los indexes de los dias [0,2,5]=[Domingo, martes, miercoles]
   var misTurnos = [];
 
   var parts = body.FechaTurnos.split("-");
@@ -137,32 +166,86 @@ async function calcularHorario(body) {
   });
 
   for await (let index of [...Array(diasMes).keys()]) {
-    var diaSemana = incluidoEnHorario(year, month, index + 1, misDias);
-    if (diaSemana != null) {
-      var nuevaFecha = new Date(year, month, index + 1);
-      var nuevoDia = {
-        Fecha: firebase.firestore.Timestamp.fromDate(nuevaFecha),
-        Turnos: [],
-      };
+    var nuevaFecha = new Date(year, month, index + 1);
+    if(nuevaFecha.setHours(0,0,0,0)>= fechaTurnos.setHours(0,0,0,0))
+    {
+      var diaSemana = incluidoEnHorario(year, month, index + 1, misDias);
+      if (diaSemana != null) //Si la fecha esta dentro del horario
+      {
 
-      const result = body.HorarioSemanal.find(
-        ({ Dia }) => Dia === dias2[diaSemana]
-      );
-      result.Turnos.forEach((trn) => {
-        nuevoDia.Turnos.push({
-          Id: trn,
-          Estado: "Falta",
-        });
-      });
-      misTurnos.push(nuevoDia);
+        const indexTurno = miEmpleado.ListaTurnos.findIndex((turn)=> turn.Fecha.toDate().setHours(0,0,0,0) == nuevaFecha.setHours(0,0,0,0));
+        if(indexTurno != null && indexTurno == -1 ) //si la fecha no se encuentra ya en la lista de turnos del empleado
+        {
+          var nuevoDia = {
+            Fecha: firebase.firestore.Timestamp.fromDate(nuevaFecha),
+            Turnos: [],
+          };
+  
+          const result = body.HorarioSemanal.find(
+            ({ Dia }) => Dia === dias2[diaSemana]
+          );
+          result.Turnos.forEach((trn) => {
+            
+            //Aqui hacer la validacion de si el horario existe
+            nuevoDia.Turnos.push({
+              Id: trn,
+              Estado: "Falta",
+            });
+          });
+          misTurnos.push(nuevoDia);
+        }
+        else if(indexTurno != null && indexTurno != -1 ) //Si la fecha se encuentra ya en la lista de turnos del empleado
+        {
+          const result = body.HorarioSemanal.find(
+            ({ Dia }) => Dia === dias2[diaSemana]
+          );
+          result.Turnos.forEach((trn) => {
+            
+            if(miEmpleado.ListaTurnos[indexTurno].Turnos.find( ({Id})=> Id == trn) == null)//si el turno no se encuentra ya agregado
+            {
+              miEmpleado.ListaTurnos[indexTurno].Turnos.push({Id: trn, Estado: "Falta"});
+            }
+          });
+          
+        }
+
+      }
+      
     }
+    else
+    {
+      //console.log(`${fechaTurnos.toDateString()} es mayor que ${nuevaFecha.toDateString()}`);
+    }
+    
   }
   console.log("Turnos: ", misTurnos);
-  var ref = empleado.doc(body.IdEmpleado);
-  var miEmpleado = await obtenerEmpleado(body.IdEmpleado);
+  var diasAEliminarDeBodyHorarioSemanal=[];
+  body.HorarioSemanal.forEach((weekday, index) =>
+    {
+      //Encontrar el index del elemento 
+       
+      const result = miEmpleado.HorarioSemanal.find(
+        ({ Dia }) => Dia === weekday.Dia
+      );
+      if(result != null)
+      {
+        const unido = result.Turnos.concat(weekday.Turnos);
+        const unico =[...new Set(unido)]
+        result.Turnos = unico;
+        diasAEliminarDeBodyHorarioSemanal.push(index);
+      }
+      
+
+    });
+    diasAEliminarDeBodyHorarioSemanal.forEach((num)=>
+    {
+      body.HorarioSemanal.splice(num,1);
+    });
+
+
   resp = null;
   await ref
-    .update({ ListaTurnos: miEmpleado.ListaTurnos.concat(misTurnos) })
+    .update({ ListaTurnos: miEmpleado.ListaTurnos.concat(misTurnos), HorarioSemanal: miEmpleado.HorarioSemanal.concat(body.HorarioSemanal)})
     .then(() => {
       ref.get().then((s) => {
         resp = s.data();
