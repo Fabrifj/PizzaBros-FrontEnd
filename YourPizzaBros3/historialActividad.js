@@ -85,14 +85,12 @@ async function actualizarHistorialActividad(idHis, his) {
   var respuesta = null;
 
   if (his.HoraSalida) {
-    his.HoraEntrada = firebase.firestore.Timestamp.fromDate(
-      new Date(his.HoraEntrada)
-    );
-
-    his.HoraSalida = firebase.firestore.Timestamp.fromDate(
-      new Date(his.HoraSalida)
-    );
-
+    his.HoraEntrada  = firebase.firestore.Timestamp.fromDate(new Date(his.HoraEntrada));
+    his.HoraSalida = firebase.firestore.Timestamp.fromDate(new Date(his.HoraSalida));
+    var horaEntradaReal = his.HoraEntrada.toDate();
+    var horaSalidaReal = his.HoraSalida.toDate();
+   
+    //Actualizacion del historial de actividad
     await historialActividad
       .doc(idHis)
       .update(his)
@@ -106,28 +104,39 @@ async function actualizarHistorialActividad(idHis, his) {
       });
 
     var fechaABuscar = his.HoraEntrada.toDate().toISOString().split("T")[0];
-    var horaEntradaReal = his.HoraEntrada.toDate()
-      .toISOString()
-      .split("T")[1]
-      .split(".")[0];
-    var horaSalidaReal = his.HoraSalida.toDate()
-      .toISOString()
-      .split("T")[1]
-      .split(".")[0];
-    //var difHoras = diferenciaHoras(horaEntradaReal, horaSalidaReal);
-    //console.log(difHoras);
     var turnoABuscar = his.IdTurno;
 
+    // Obtenemos la informacion del empleado
     var empleado = await fnEmpleado.obtenerEmpleado(his.IdEmpleado);
     empleado.ListaTurnos.forEach((turno) => {
-      var fecha = turno.Fecha.toDate().toISOString().split("T")[0];
-      if (fecha === fechaABuscar) {
+      var fechaBase = turno.Fecha // -> Timestamp
+      // Verificamos si la fecha es la misma
+      if (fechaABuscar === fechaBase.toDate().toISOString().split("T")[0]){
         turno.Turnos.forEach(async (t) => {
           if (t.Id === turnoABuscar) {
+            var horario = await fnHorario.obtenerHorarioId(t.Id); 
+            var horaEntradaBase = new Date (fechaABuscar + "T" +  horario.HoraEntrada + ":00");
+            var horaSalidaBase = new Date (fechaABuscar + "T" + horario.HoraSalida + ":00");
+            var  tiempoReal = horaSalidaReal.getTime() - horaEntradaReal.getTime();
+            var tiempoBase = horaSalidaBase.getTime() - horaEntradaBase.getTime();
+            var estado = null;
+
+            //Comparacion de horas y definicion de estado
+            if(tiempoReal > tiempoBase){
+              estado = "Puntual";
+            }else if (tiempoReal < tiempoBase){
+              if((tiempoBase - tiempoReal).toString().length <= 6){
+                estado = "Retraso";
+              }else{
+                estado = "Falta";
+              }
+            }
+            console.log("Estado de llegada: ", estado);
+         
             var body = {
               Fecha: fechaABuscar,
               Turno: turnoABuscar,
-              Estado: "Puntual",
+              Estado: estado,
             };
 
             await fnEmpleado.actualizarEstadoTurno(his.IdEmpleado, body);
