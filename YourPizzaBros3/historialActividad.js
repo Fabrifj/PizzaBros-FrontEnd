@@ -80,13 +80,6 @@ function diferenciaHoras(horaInicio, horaFinal) {
   return hTotal + ":" + mTotal;
 }
 
-//Funcion para devolver un estado de llegadad /coherente en base a horas de trabajo
-function obtenerEstado(horaBase, horaReal) {
-  hTotal = horaReal.split(":")[0] - horaBase.split(":")[0];
-  mTotal = horaReal.split(":")[1] - horaBase.split(":")[1];
-  var resultado = null;
-}
-
 //ActualizarHistorialActividad
 async function actualizarHistorialActividad(idHis, his) {
   var respuesta = null;
@@ -121,8 +114,8 @@ async function actualizarHistorialActividad(idHis, his) {
       .toISOString()
       .split("T")[1]
       .split(".")[0];
-    var difHoras = diferenciaHoras(horaEntradaReal, horaSalidaReal);
-    console.log(difHoras);
+    //var difHoras = diferenciaHoras(horaEntradaReal, horaSalidaReal);
+    //console.log(difHoras);
     var turnoABuscar = his.IdTurno;
 
     var empleado = await fnEmpleado.obtenerEmpleado(his.IdEmpleado);

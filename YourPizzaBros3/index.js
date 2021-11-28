@@ -455,11 +455,27 @@ app.get("/api/detalleSueldo", async (req, res) => {
   res.send(respuesta);
 });
 
+//ObtenerDetalleSueldoEmpleado
+app.get("/api/detalleSueldoEmpleado/:idEmpleado", async (req, res) => {
+  var idEmpleado = req.params.idEmpleado;
+  const respuesta = await fnDetalleSueldo.obtenerDetalleSueldoEmpleado(
+    idEmpleado
+  );
+  res.send(respuesta);
+});
+
 //ActualizarDetalleSueldo
 app.put("/api/detalleSueldo/:id", async (req, res) => {
   var idDS = req.params.id;
   var ds = req.body;
   const respuesta = await fnDetalleSueldo.actualizarDetalleSueldo(idDS, ds);
+  res.send(respuesta);
+});
+
+//ObtenerSueldoReal
+app.get("/api/detalleSueldo/real/:idEmpleado", async (req, res) => {
+  var idEmpleado = req.params.idEmpleado;
+  const respuesta = await fnDetalleSueldo.calcularSueldoReal(idEmpleado);
   res.send(respuesta);
 });
 
