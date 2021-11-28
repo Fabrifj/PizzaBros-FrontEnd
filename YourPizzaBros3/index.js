@@ -12,6 +12,8 @@ const fnPedido = require('./pedido');
 const fnElemento = require('./elemento');
 const fnCompra = require('./compra');
 const fnEmpleado = require('./empleado');
+const fnHerramientas = require('./herramientas');
+const { empleado } = require('./config');
 
 /*===================================
           CRUD PRODUCTOS
@@ -300,6 +302,36 @@ app.post("/api/empleado", async (req, res) => {
 app.put("/api/empleado/turnos", async (req, res) => {
   var body = req.body;
   const respuesta = await fnEmpleado.calcularHorario(body);
+  res.send(respuesta);
+});
+
+//ObtenerEmpleado
+app.get("/api/empleado/:id", async (req, res) => {
+  var idEmpleado = req.params.id;
+  const respuesta = await fnEmpleado.obtenerEmpleado(idEmpleado);
+  res.send(respuesta);
+});
+
+//ObtenerEmpleados
+app.get("/api/empleado", async (req, res) => {
+  
+  const respuesta = await fnEmpleado.obtenerEmpleados();
+  res.send(respuesta);
+});
+
+//ActualizarEmpleado
+app.put("/api/empleado/:id", async (req, res) => {
+  var idEmpleado = req.params.id;
+  var body = req.body;
+  const respuesta = await fnEmpleado.actualizarEmpleado(idEmpleado,body);
+  res.send(respuesta);
+});
+
+//Cambiar estado de un determinado turno de un determinado empleado
+app.put("/api/empleado/:id/estadoturno", async (req, res) => {
+  var body = req.body;
+  var idEmpleado = req.params.id;
+  const respuesta = await fnEmpleado.actualizarEstadoTurno(idEmpleado,body);
   res.send(respuesta);
 });
 

@@ -3,11 +3,11 @@
     <form>
         
         <div>
-            <div>
+            <div class=crearCate>
                 <input type="radio" id="crearP" name= "prodCrear" checked (click) = "filtroCrear()">
                 <label for="contactChoice1">Crear Producto</label>
             </div>
-            <div>
+            <div class=modCate>
                 <input type="radio" id="modP" name="prodCrear" (click) = "filtroModificar()">
                 <label for="contactChoice2">Modificar Producto</label>
             </div>
@@ -15,12 +15,6 @@
 
         </div>
       </form>
-
-</div>
-
-<div id="siModifico">
-    <h3>Producto a Modificar:</h3>
-    <input type="text" id="objetoSeleccionadoID" readonly>
 
 </div>
 
@@ -48,7 +42,11 @@
 
  
  <div class="contendorDatosP">
+    <div id="siModifico">
+        <h3>Producto a Modificar:</h3>
+        <input type="text" id="objetoSeleccionadoID" readonly>
     
+    </div>
     <div class="infoEditable">
         <h2>Nombre:</h2>
         <input type="text" id="nuevoNP">
@@ -68,43 +66,51 @@
     </div>
  </div>
  
- <div class="contendorListadoSi">
-
-    <h1>Ingredientes que estan:</h1>
-    <app-tabla-reusable 
-    [datos]="datosIngMini" 
-    [columnas]="columnasIngMini" 
-    [nombreBotones] = "nombreBotonesIng2"
-    (parentMethod) = "funcionBoton($event)"
-    colorLetra="black"
-    [titulosTextos]="titulosIng"
-    botonGuardarDatos = 'si'>
-    </app-tabla-reusable> 
-
-</div>
 
 
+ <div class="contenedorTablas">
+
+    <div class="contendorListadoSi">
+
+        <h1>Ingredientes que estan:</h1>
+        <app-tabla-reusable 
+        [datos]="datosIngMini" 
+        [columnas]="columnasIngMini" 
+        [nombreBotones] = "nombreBotonesIng2"
+        (parentMethod) = "funcionBoton($event)"
+        colorLetra="black"
+        [titulosTextos]="titulosIng"
+        botonGuardarDatos = 'si'>
+        </app-tabla-reusable> 
+    
+    </div>
+    
+    
+    
+    
+    <div class="contendorListadoNo">
+    
+        <h1>Ingredientes por anadir:</h1>
+        <app-tabla-reusable 
+        [datos]="datosIng" 
+        [columnas]="columnasIng" 
+        [nombreBotones] = "nombreBotonesIng1"
+        (parentMethod) = "funcionBoton($event)"
+        colorLetra="black"
+        indice = "1"
+        >
+        </app-tabla-reusable> 
+    
+    </div>
 
 
-<div class="contendorListadoNo">
-
-    <h1>Ingredientes por anadir:</h1>
-    <app-tabla-reusable 
-    [datos]="datosIng" 
-    [columnas]="columnasIng" 
-    [nombreBotones] = "nombreBotonesIng1"
-    (parentMethod) = "funcionBoton($event)"
-    colorLetra="black"
-    indice = "1"
-    >
-    </app-tabla-reusable> 
-
-</div>
+ </div>
+ 
 
 
 
 <div class="contenedorBotones">
     <button class="botonFinal" (click)="this.crearProducto();">{{nombreBoton}}</button>
-    <button class="botonFinal" (click)="this.filtroCrear()">Cancelar</button>
+    <button class="botonFinal2" (click)="this.filtroCrear()">Cancelar</button>
 
 </div>
