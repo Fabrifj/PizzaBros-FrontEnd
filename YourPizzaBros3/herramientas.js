@@ -22,8 +22,19 @@ async function actualizarDoc(idDoc, nuevoPar, nombreEntidad) {
 
   return respuesta;
 }
-
+//EliminarDoc
+async function eliminarDoc(idDoc,nombreEntidad) {
+  var respuesta = null;
+  await nombreEntidad.doc(idDoc).delete().then(() => {
+    respuesta = `${nombreEntidad} correctamente eliminad@!`
+    console.log(respuesta);
+  }).catch((error) => {
+    console.error(`Error al eliminar  ${nombreEntidad}: `, error);
+  });
+  return respuesta;
+}
 module.exports = {
   stringAFecha,
   actualizarDoc,
+  eliminarDoc
 };

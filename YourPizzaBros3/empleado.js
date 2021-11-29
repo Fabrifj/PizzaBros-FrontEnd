@@ -1,4 +1,4 @@
-const { empleado, firebase } = require("./config");
+const { empleado, firebase, cliente } = require("./config");
 const fnHerramientas = require("./herramientas");
 var dias = {
   Domingo: 0,
@@ -48,34 +48,34 @@ var dias2 = ["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes"];
     ]
     "ListaTurnos":
     [
-        {
-            "Fecha":"03-09-2021",
-            "Turnos":
-            [
-                {
-                    "Id":"A",
-                    "Estado": "Tarde" //"Tarde", "Puntual", "Falta"(PREDEETRMINADO)
-                },
-                {
-                    "Id":"B",
-                    "Estado": ""
-                }
-            ]
-        },
-        {
-            "Fecha":"04-09-2021",
-            "Turnos":
-            [
-                {
-                    "Id":"C",
-                    "Estado": "Puntual"
-                },
-                {
-                    "Id":"D",
-                    "Estado": ""
-                }
-            ]
-        }...
+      {
+        "Fecha":"03-09-2021",
+        "Turnos":
+        [
+          {
+              "Id":"A",
+              "Estado": "Tarde" //"Tarde", "Puntual", "Falta"(PREDEETRMINADO)
+          },
+          {
+              "Id":"B",
+              "Estado": ""
+          }
+        ]
+      },
+      {
+        "Fecha":"04-09-2021",
+        "Turnos":
+        [
+          {
+              "Id":"C",
+              "Estado": "Puntual"
+          },
+          {
+              "Id":"D",
+              "Estado": ""
+          }
+        ]
+      }...
     ]
 }
 
@@ -147,7 +147,6 @@ async function crearEmpleado(body) {
  */
 
 //IMPORTANTE: NO SE VERIFICA SI LOS HORARIOS EXISTEN, SE DEBEN ENVIAR HORARIOS QUE SI EXISTAN
-//NO VERIFICA QUE LOS HORARIOS NO SE REPITAN
 async function calcularHorario(body) {
   var ref = empleado.doc(body.IdEmpleado);
   var miEmpleado = await obtenerEmpleado(body.IdEmpleado);
@@ -368,6 +367,144 @@ async function obtenerEmpleados() {
 async function actualizarEmpleado(idEmpleado, body) {
   return await fnHerramientas.actualizarDoc(idEmpleado, body, empleado);
 }
+
+async function eliminarEmpleado(idEmpleado) {
+  console.log("ENTRA A ELIMINAR EMPLEADO");
+  return await fnHerramientas.eliminarDoc(idEmpleado, empleado);
+}
+
+//Body para eliminar turnos de un empleado
+/*
+{
+  "IdEmpleado":"jhiJfhPcm778r3txm9hg",
+  "FechaInicio":"2021-11-17", //Desde esa fecha se eliminaran los horarios
+  "HorarioSemanal": //De estos dias se eliminaran esos horarios
+[
+{
+          "Dia":"Lunes",
+          "Turnos":
+          [
+              "A","B"
+          ]
+      },
+      {
+          "Dia":"Miercoles",
+          "Turnos":
+          [
+              "C","D"
+          ]
+      },
+      {
+          "Dia":"Viernes",
+          "Turnos":
+          [
+              "A","B","C"
+          ] 
+      }
+
+  ]
+}
+*/
+
+async function eliminarTurnoHorarioSemanal(body) {
+  console.log("ENTRA A ELIMINAR TURNOS");
+  var ref = empleado.doc(body.IdEmpleado);
+  var fechaInicio = fnHerramientas.stringAFecha(body.FechaInicio);
+  var miEmpleado = await obtenerEmpleado(body.IdEmpleado);
+  console.log("ENTRA A ELIMINAR TURNOS")
+  var diasBorrar = []// Los indices de los dias de la semana a borrar
+  body.HorarioSemanal.forEach((turn)=>
+  {
+    diasBorrar.push(dias[turn.Dia]);
+    const index = miEmpleado.HorarioSemanal.findIndex(({ Dia }) => Dia === turn.Dia);
+    if(index != null && index != -1)
+    {
+      turn.Turnos.forEach((turnos)=>
+      {
+        var miHorarioSemanal = miEmpleado.HorarioSemanal[index].Turnos.filter(function(ele){ 
+          return ele != turnos; 
+        });
+        miEmpleado.HorarioSemanal[index].Turnos = miHorarioSemanal;
+      });
+    }
+  });
+
+  var miLista2 = miEmpleado.HorarioSemanal.filter(function(ele){ 
+    return ele.Turnos.length > 0; 
+  });
+  miEmpleado.HorarioSemanal = miLista2;
+  
+  var listaTurnosBorrar = [];
+  miEmpleado.ListaTurnos.forEach((turn, index)=>
+  {
+    var fechaActual = turn.Fecha.toDate();
+    
+    if( fechaActual.setHours(0,0,0,0)>= fechaInicio.setHours(0,0,0,0) && diasBorrar.includes(fechaActual.getDay()) )
+    {
+      
+      var miDia = body.HorarioSemanal.find( ({Dia}) => Dia == dias2[fechaActual.getDay()]);
+      if(miDia != null && miDia.Turnos != null)
+      {
+        console.log("FechaActual", fechaActual.toDateString())
+        miDia.Turnos.forEach((miturno)=>
+        {
+          console.log("miturno: ",miturno);
+          var misturnos = turn.Turnos.filter(function(ele){ 
+            return ele.Id != miturno; 
+          });
+          if(miEmpleado.ListaTurnos[index] != null)
+          {
+            miEmpleado.ListaTurnos[index].Turnos = misturnos
+            if(miEmpleado.ListaTurnos[index].Turnos.length ==0)
+            {
+              listaTurnosBorrar.push(index)
+            }
+            else
+            {
+              console.log("Lista Filtrada de MIS TURNOS: ", miEmpleado.ListaTurnos[index].Turnos);
+            }
+          }
+          else
+          {
+            console.log("EEEESSSSSSS NULLLLLLLLLLLLLLLLLLLLLLLLLLLLL");
+          }
+          
+          
+        });
+      }
+      
+    }
+  });
+  
+
+  var miLista = miEmpleado.ListaTurnos.filter(function(ele){ 
+    return ele.Turnos.length > 0; 
+  });
+  miEmpleado.ListaTurnos = miLista;
+  
+  resp = null;
+  await ref
+    .update({ ListaTurnos: miEmpleado.ListaTurnos, HorarioSemanal: miEmpleado.HorarioSemanal})
+    .then(() => {
+      resp  = miEmpleado;
+      console.log("Turnos eliminados de empleado correctamente!");
+    })
+    .catch((error) => {
+      // The document probably doesn't exist.
+      console.error("Error al eliminar turnos a empleado: ", error);
+    });
+  return resp;
+  
+   
+}
+
+function arrayRemove(arr, value) { 
+    
+  return arr.filter(function(ele){ 
+      return ele != value; 
+  });
+}
+
 module.exports = {
   crearEmpleado,
   calcularHorario,
@@ -375,4 +512,6 @@ module.exports = {
   obtenerEmpleado,
   obtenerEmpleados,
   actualizarEmpleado,
+  eliminarEmpleado,
+  eliminarTurnoHorarioSemanal
 };
