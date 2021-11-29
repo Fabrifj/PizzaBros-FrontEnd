@@ -1,7 +1,78 @@
-<app-tabla-reusable 
+
+
+<div class ="sectorBotones">
+
+    <button class="btnComun" (click)="this.funcionBoton(['Crear Empleado',[]])">Crear Empleado</button>
+</div>
+
+<div class="contenedorTabla">
+    <app-tabla-reusable 
     [datos]="datos" 
     [columnas]="columnas" 
-    [nombreBotones]="nombreBotones"     
-    (parentMethod)="funcionBoton($event)" colorLetra = "cornsilk" indice="0">
+    [nombreBotones]="nombreBotonesEmpleados"     
+    (parentMethod)="funcionBoton($event)" 
+    colorLetra = "black" 
+    indice="0">
        
-</app-tabla-reusable>
+    </app-tabla-reusable>
+
+
+
+</div>
+
+
+<!--   boton anadir empleado merma -->
+<jw-modal id="modalEmpleado-01" altura="80" ancho="50" >
+    
+    
+    <form>
+        <div class="form-group">
+            <label for="nombreEmpleado">Nombre</label>
+            <input type="text" class="form-control" id="nombreEmpleado" placeholder="Ingrese Nombre">
+           
+          </div>
+        <div class="form-group">
+          <label for="ciEmpleado">Carnet de Identidad</label>
+          <input type="email" class="form-control" id="ciEmpleado" placeholder="Ingrese CI">
+          <!--<small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>-->
+        </div>
+        <div class="form-group">
+            <label for="apellidoPE">Apellido Paterno Empleado</label>
+            <input type="text" class="form-control" id="apellidoPE" placeholder="Ingrese Apellido Paterno">
+           
+        </div>
+        <div class="form-group">
+            <label for="apellidoME">Apellido Materno Empleado</label>
+            <input type="text" class="form-control" id="apellidoME" placeholder="Ingrese Apellido Materno">
+            
+        </div>
+        <div class="form-group">
+            <label for="ceEmpleado">Celular</label>
+            <input type="number" class="form-control" id="ceEmpleado" placeholder="Ingrese Celular">
+            <!--<small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>-->
+        </div>
+        <div class="form-group">
+            <label for="cargoEmpleado">Cargo</label>
+            <input type="text" class="form-control" id="cargoEmpleado" placeholder="Ingrese su Cargo">
+            <!--<small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>-->
+        </div>
+        <div class="form-group">
+            <label for="fechaNacE">Fecha de nacimiento</label>
+            <input type="date" class="form-control" id="fechaNacE">
+          
+        </div>
+        
+      </form>
+
+
+
+
+
+    <div class="botones">
+        <button class="btnComun" (click)="modalServicio.cerrar('modalEmpleado-01');crearModificarEmpleado()">{{nombreBoton}}</button>
+       <button class="btnCerrar" (click)="modalServicio.cerrar('modalEmpleado-01');funcionBorrarCampos()">Cancelar</button>
+    </div>
+
+
+ </jw-modal>
+

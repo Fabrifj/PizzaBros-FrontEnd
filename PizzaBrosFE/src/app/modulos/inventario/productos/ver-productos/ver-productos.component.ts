@@ -104,6 +104,7 @@ export class VerProductosComponent implements OnInit {
       console.log(jsonFile);
       this.datosIng= jsonFile;
       
+       
       
 
     } ,(error)=>{
