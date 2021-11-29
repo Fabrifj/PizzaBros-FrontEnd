@@ -151,4 +151,14 @@ export class AppHttpService {
     return this.http.put(path,cat)
   }
   
+  obtenerEmpleados(){
+    console.log(paths.obtenerEmpleados)
+    return this.http.get(paths.obtenerEmpleados)
+  }
+
+  obtenerEmpleado(idEmp:any){
+    var path = paths.obtenerEmpleado + idEmp
+    return this.http.get(path)
+  }
+
 }

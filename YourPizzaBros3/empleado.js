@@ -24,6 +24,32 @@ var dias2 = ["Domingo","Lunes","Martes","Miercoles","Jueves","Viernes"];
     "FechaNacimiento":"",
     "Cargo":"",
 
+    "HorarioSemanal":
+		[
+			{
+                "Dia":"Lunes",
+                "Turnos":
+                [
+                    "A","B"
+                ]
+            },
+            {
+                "Dia":"Miercoles",
+                "Turnos":
+                [
+                    "C","D"
+                ]
+            },
+            {
+                "Dia":"Viernes",
+                "Turnos":
+                [
+                    "A","B","C"
+                ] 
+            }
+			
+        ]
+        
     "ListaTurnos":
     [
         {

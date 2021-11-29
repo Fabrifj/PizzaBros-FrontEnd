@@ -13,6 +13,8 @@ export class TurnosEmpleadosComponent implements OnInit {
 
   constructor(private servicioHttp: AppHttpService, public servicioModal: ModalService) { }
 
+  empleadoSeleccionado:any = {}
+
   datosEmp: any | undefined;
 
   columnasEmp = [
@@ -24,7 +26,7 @@ export class TurnosEmpleadosComponent implements OnInit {
     {field:'FechaNacimineto',header:'Fecha de Nacimiento'},
     {field:'Cargo',header:'Cargo'}
   ];
-  nombreBotonesEmp: string[] | undefined;
+  nombreBotonesEmp: string[] = ['Ver Turnos','Seleccionar'];
 
 
   datosTurn: any | undefined;
@@ -35,27 +37,70 @@ export class TurnosEmpleadosComponent implements OnInit {
     {field:'HoraFin',header:'Hora Fin'}
   ];
 
+  outputTableArray: any=[];
 
   ngOnInit(): void {
-  }
-  funcionBoton( nombres: any){
-
+    this.obtenerEmpleados()
   }
 
-  funcionAbrirTurnos(){
-    this.servicioModal.abrir('modalProd-1');
+
+  obtenerEmpleados(){
+    this.servicioHttp.obtenerEmpleados()
+    .subscribe((jsonFile:any)=>{
+     
+      console.log(jsonFile);
+      this.datosEmp = jsonFile;
+      
+      
+
+    } ,(error)=>{
+        console.log("hubo error con productos")
+
+    } )
   }
+
+  obtenerTurnosEmp(){ /*
+    this.servicioHttp.obtenerEmpleado(this.empleadoSeleccionado.id)
+    .subscribe((jsonFile:any)=>{
+     
+      console.log(jsonFile);
+      this.datosTurnEmp= jsonFile;
+      
+      
+
+    } ,(error)=>{
+        console.log("hubo error ing")
+
+    } )*/
+  }
+
+
+  funcionBoton( names: any){
+    this.empleadoSeleccionado = names[1];
+    if (names[0] == "Ver Turnos"){
+        console.log(this.empleadoSeleccionado);
+        this.obtenerTurnosEmp();
+
+        this.servicioModal.abrir('modalMostrarTurnos');
+    }
+    else{
+      this.servicioModal.abrir('modalTurosEmpleados');
+    }
+  }
+
+ 
+  displayArray(theArray: any){
+  this.outputTableArray=theArray;
+  console.log("el array  fuera de comp:",theArray);
+  }
+ 
 
   funcionCancelarTurno(){
     
-    this.servicioModal.cerrar('modalProd-1');
+    this.servicioModal.cerrar('modalTurnos');
     (<HTMLInputElement>document.getElementById('rTurnos')).checked= false;
   }
-
-  funcionAbrirTurnosEmpleados(){
-    this.servicioModal.abrir('modalTurosEmpleados');
-  }
-
+  
   funcionCancelarTurnEmpleado(){
     this.servicioModal.cerrar('modalTurosEmpleados');
     (<HTMLInputElement>document.getElementById('rTEmpleados')).checked= false;

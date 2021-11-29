@@ -4,14 +4,15 @@
         
         <div>
             <div class="rTurnos">
-                <input type="radio" id="rTurnos" name= "raturnos" (click) ="funcionAbrirTurnos()">
+                <input type="radio" id="rTurnos" name= "raturnos" (click)="servicioModal.abrir('modalTurnos');">
                 <label for="contactChoice1">Modificar Turnos</label>
             </div>
+            <!--
             <div class="rTEmpleados">
                 <input type="radio" id="rTEmpleados" name="ratempleados" (click)="funcionAbrirTurnosEmpleados()">
                 <label for="contactChoice2">Modificar Turnos Empleados</label>
             </div>
-            
+            -->
 
         </div>
       </form>
@@ -26,7 +27,11 @@
 </app-tabla-reusable>
 
 
-<jw-modal id="modalProd-1" altura="80" >
+
+
+
+<!--Modl para ver modificar eliminar TURNOS-->
+<jw-modal id="modalTurnos" altura="80" >
         <div class="editable">
         <h1>Turnos:</h1>
         <div class="infoEditable">
@@ -47,46 +52,53 @@
             colorLetra="black">
             </app-tabla-reusable> 
 
-
-            
-
         </div>
     </div>
     <div class="botones">
             
         <button class="btnCerrar" (click)="funcionCancelarTurno()">Cancelar</button>
-        <button class="btnCrearTurno">Crear Turno</button>
-        <button class="btnActualizarTurno">Actualizar Turno</button>
+        <button class="btnGuardar">Guardar</button>
     </div>
 </jw-modal>
 
 
-
+<!--Modal para ver el INFORME de un empleado-->
 <jw-modal id="modalTurosEmpleados" altura="80" >
     <div class="editable">
-    <h1>Turnos de los Empleados:</h1>
+    <h1>Informe de {{empleadoSeleccionado.Nombre}} {{empleadoSeleccionado.ApellidoM}}:</h1>
     <div class="infoEditable">
-        
-        <h1>Nombre:</h1>
-        <input type="text">
-
-        <h1>Apellido Paterno:</h1>
-        <input type="text">
-
-        <h1>Apellido Materno:</h1>
-        <input type="text">
-
-        <h2>Turno a Asignar o Eliminar Turno:</h2>
-        <!--Asignar un scroll bar con las opciones de los turnos-->
-        <input type="text">
-                
-
+        <input type="text" id="informe" size="40" readonly>
     </div>
 </div>
 <div class="botones">
-        
-    <button class="btnCerrar" (click)="funcionCancelarTurnEmpleado()">Cancelar</button>
-    <button class="btnCrearTurno">Asignar turno a empleado</button>
-    <button class="btnActualizarTurno">Eliminar turno de empleado</button>
+    <button class="btnCerrar" (click)="servicioModal.cerrar('modalTurosEmpleados');">OK</button>
+</div>
+</jw-modal>
+
+
+<!--Modal para ver los turnos de un empleado-->
+<jw-modal id="modalMostrarTurnos" altura="80" >
+    <div class="editable">
+    <h1>Turnos de {{empleadoSeleccionado.Nombre}} {{empleadoSeleccionado.ApellidoP}} {{empleadoSeleccionado.ApellidoM}}:</h1>
+    <div class="infoEditable">
+        <h1>LUNES:</h1>   
+        <app-btns-seleccionados (vectorDatos)="displayArray($event)"></app-btns-seleccionados>
+        <h1>MARTES:</h1>   
+        <app-btns-seleccionados (vectorDatos)="displayArray($event)"></app-btns-seleccionados>
+        <h1>MIERCOLES:</h1>   
+        <app-btns-seleccionados (vectorDatos)="displayArray($event)"></app-btns-seleccionados>
+        <h1>JUEVES:</h1>   
+        <app-btns-seleccionados (vectorDatos)="displayArray($event)"></app-btns-seleccionados>
+        <h1>VIERNES:</h1>   
+        <app-btns-seleccionados (vectorDatos)="displayArray($event)"></app-btns-seleccionados>
+        <h1>SABADO:</h1>   
+        <app-btns-seleccionados (vectorDatos)="displayArray($event)"></app-btns-seleccionados>
+        <h1>DOMINGO:</h1>   
+        <app-btns-seleccionados (vectorDatos)="displayArray($event)"></app-btns-seleccionados>
+    </div>
+</div>
+<div class="botones">   
+    <button class="btnCerrar" (click)="servicioModal.cerrar('modalMostrarTurnos');">OK</button>
+    <button class="btnGuardar">Guardar</button>
 </div>
 </jw-modal>
