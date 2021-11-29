@@ -150,5 +150,24 @@ export class AppHttpService {
     var path = paths.actualizarCategoria + idCat
     return this.http.put(path,cat)
   }
+
+
+
+  //empleados  
+  obtenerEmpleados(){
+    
+    return this.http.get(paths.obtenerEmpleados)
+  }
+  crearEmpleado(body:any){
+    return this.http.post(paths.crearEmpleado,body)
+
+  }
+  actualizarEmpleado(id:any , body:any){
+    var path = paths.actualizarEmpleado + id
+    return this.http.put(path,body)
+
+  }
   
+
+
 }
