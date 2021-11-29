@@ -43,5 +43,11 @@
     "obtenerCompras": "/api/compras",
     "obtenerCompraId": "/api/compra/:id",
     "actualizarCompraId": "/api/compra/:id",
-    "eliminarCompraId":"/api/compra/:id"
+    "eliminarCompraId":"/api/compra/:id",
+
+    "crearEmpleado":"/api/empleado",
+    "calcularHorario":"/api/empleado/turnos",
+    "actualizarEstadoTurno":"/api/empleado/:id/estadoturno",
+    "obtenerEmpleado":"/api/empleado/:id",
+    "obtenerEmpleados":"/api/empleado"
 }

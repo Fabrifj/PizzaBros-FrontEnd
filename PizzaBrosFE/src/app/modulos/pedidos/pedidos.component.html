@@ -5,14 +5,10 @@
  
 </div>
 
-<div class="grupoBotones" >
-  <button class="btn"><a class="ref" routerLink="/hacer-pedidos">Realizar Pedido</a></button>
-  <button class="btn"><a class="ref" [routerLink]="['pedidos-historial']">Historia de pedidos</a></button>
-  <button class="btn"><a class="ref" [routerLink]="['pedidos-activos']">Pedidos Actuales</a></button>
 
-
-</div>
-
+<app-list-sub-menu 
+            [listProducts]= "subMenus" >
+</app-list-sub-menu>
 
 
 <div class="col-md-5">

@@ -38,7 +38,7 @@
 
 
     "crearCategoria":"/api/categoria",
-    "obtenerCategorias":"/api/categoria",
+    "obtenerCategorias":"/api/categorias",
     "obtenerCategoriaNombre":"/api/categoria/:nombre",
     "obtenerProductosCategoriaNombre":"/api/categoria/",
     "eliminarCategoria":"/api/categoria/",
@@ -60,5 +60,10 @@
     "obtenerCompras": "/api/compras",
     "obtenerCompraId": "/api/compra/:id",
     "actualizarCompraId": "/api/compra/:id",
-    "eliminarCompraId":"/api/compra/:id"
+    "eliminarCompraId":"/api/compra/:id",
+
+    "crearEmpleado":"/api/empleado",
+    "calcularHorario":"/api/empleado/turnos"
+
+    
 }

@@ -125,7 +125,7 @@ export class CreacionProductosComponent implements OnInit {
             this.datosIng = this.datosIng.filter((obj:any) => obj.id !== element.IdIngrediente);
         });
       
-
+        console.log(this.datosIngMini);
 
         //rellenamos los valores
         (<HTMLInputElement>document.getElementById("objetoSeleccionadoID")).value = this.objetoSeleccionado.Nombre;
@@ -190,7 +190,7 @@ export class CreacionProductosComponent implements OnInit {
 
       (<HTMLInputElement>document.getElementById("nuevoCP")).value = String(costo);
 
-
+      console.log('datoINGmin',this.datosIngMini);
       var indice1 = 0 ;
      
       this.datosIngMini.forEach((element:any) => {
