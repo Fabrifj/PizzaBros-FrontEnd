@@ -65,9 +65,13 @@
     "crearEmpleado":"/api/empleado",
     "calcularHorario":"/api/empleado/turnos",
     "actualizarEstadoTurno":"/api/empleado/:id/estadoturno",
-    "obtenerEmpleado":"/api/empleado/:id",
+    "obtenerEmpleado":"/api/empleado/",
     "obtenerEmpleados":"/api/empleado",
-    "actualizarEmpleado": "/api/empleado/"
+    "actualizarEmpleado": "/api/empleado/",
+
+
+    "obtenerHorarios":"/api/horario"
+
 }
 
     

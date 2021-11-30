@@ -2,7 +2,7 @@
 <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
     <div *ngFor="let m of datos">
     <input type="checkbox" class="btn-check" id="{{m}}" name= "{{m}}" (change)="chbOn(m)">
-    <label class="btn btn-outline-primary" for="btncheck1">{{m}}</label>
+    <label class="btn btn-outline-primary" for="btncheck1">{{m.slice(0,-1)}}</label>
     <!--
     <input type="checkbox" class="btn-check" id="btncheck2" autocomplete="off">
     <label class="btn btn-outline-primary" for="btncheck2">Checkbox 2</label>

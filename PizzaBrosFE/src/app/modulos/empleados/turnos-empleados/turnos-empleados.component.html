@@ -82,19 +82,56 @@
     <h1>Turnos de {{empleadoSeleccionado.Nombre}} {{empleadoSeleccionado.ApellidoP}} {{empleadoSeleccionado.ApellidoM}}:</h1>
     <div class="infoEditable">
         <h1>LUNES:</h1>   
-        <app-btns-seleccionados (vectorDatos)="displayArray($event)"></app-btns-seleccionados>
+        <app-btns-seleccionados 
+        [datos]="turnosL"
+        [select]="selectL"
+        (bool)="bo"
+        (vectorDatos)="displayArray($event)">
+        </app-btns-seleccionados>
+        
         <h1>MARTES:</h1>   
-        <app-btns-seleccionados (vectorDatos)="displayArray($event)"></app-btns-seleccionados>
+        <app-btns-seleccionados 
+        [datos]="turnosM"
+        [select]="selectM"
+        (bool)="bo"
+        (vectorDatos)="displayArray($event)">
+        </app-btns-seleccionados>
         <h1>MIERCOLES:</h1>   
-        <app-btns-seleccionados (vectorDatos)="displayArray($event)"></app-btns-seleccionados>
+        <app-btns-seleccionados 
+        [datos]="turnosMi"
+        [select]="selectMi"
+        [bool]="bo"
+        (vectorDatos)="displayArray($event)">
+        </app-btns-seleccionados>
         <h1>JUEVES:</h1>   
-        <app-btns-seleccionados (vectorDatos)="displayArray($event)"></app-btns-seleccionados>
+        <app-btns-seleccionados 
+        [datos]="turnosJ"
+        [select]="selectJ"
+        (bool)="bo"
+        (vectorDatos)="displayArray($event)">
+        </app-btns-seleccionados>
         <h1>VIERNES:</h1>   
-        <app-btns-seleccionados (vectorDatos)="displayArray($event)"></app-btns-seleccionados>
+        <app-btns-seleccionados 
+        [datos]="turnosV"
+        [select]="selectV"
+        (bool)="bo"
+        (vectorDatos)="displayArray($event)">
+        </app-btns-seleccionados>
         <h1>SABADO:</h1>   
-        <app-btns-seleccionados (vectorDatos)="displayArray($event)"></app-btns-seleccionados>
+        <app-btns-seleccionados 
+        [datos]="turnosS"
+        [select]="selectS"
+        (bool)="bo"
+        (vectorDatos)="displayArray($event)">
+        </app-btns-seleccionados>
         <h1>DOMINGO:</h1>   
-        <app-btns-seleccionados (vectorDatos)="displayArray($event)"></app-btns-seleccionados>
+        <app-btns-seleccionados 
+        [datos]="turnosD"
+        [select]="selectD"
+        (bool)="bo"
+        (vectorDatos)="displayArray($event)">
+        </app-btns-seleccionados>
+        
     </div>
 </div>
 <div class="botones">   

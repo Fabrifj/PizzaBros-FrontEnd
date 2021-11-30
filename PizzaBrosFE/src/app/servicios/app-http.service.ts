@@ -167,12 +167,16 @@ export class AppHttpService {
     return this.http.put(path,body)
 
   }
-  
-  
-
   obtenerEmpleado(idEmp:any){
     var path = paths.obtenerEmpleado + idEmp
     return this.http.get(path)
   }
+
+  //horarios (turnos)
+  obtenerHorarios(){
+    return this.http.get(paths.obtenerHorarios)
+  }
+
+
 
 }
