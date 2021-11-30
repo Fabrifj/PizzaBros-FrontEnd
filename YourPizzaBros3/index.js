@@ -335,6 +335,22 @@ app.put("/api/empleado/:id", async (req, res) => {
   res.send(respuesta);
 });
 
+
+//EliminarEmpleado
+app.delete("/api/empleado/:id", async (req, res) => {
+  var idEmpleado = req.params.id;
+  const respuesta = await fnEmpleado.eliminarEmpleado(idEmpleado);
+  res.send(respuesta);
+});
+
+//EliminarTurnoEmpleado
+app.delete("/api/empleadoTurno", async (req, res) => {
+  var body = req.body;
+  console.log("ENTRA AL API")
+  const respuesta = await fnEmpleado.eliminarTurnoHorarioSemanal(body);
+  res.send(respuesta);
+});
+
 //Cambiar estado de un determinado turno de un determinado empleado
 app.put("/api/empleado/:id/estadoturno", async (req, res) => {
   var body = req.body;
@@ -343,13 +359,16 @@ app.put("/api/empleado/:id/estadoturno", async (req, res) => {
   res.send(respuesta);
 });
 
+
+
 /*===================================
           ENDPOINT DE PRUEBA
 ===================================*/
 //Se puede poner lo que se quiera en el metodo, solo es para prueba
 app.get("/api/prueba", async (req, res) => {
-  var body = req.body;
-  await fnEmpleado.calcularHorario(body);
+  //var body = req.body;
+  console.log("ENTRA AL API")
+  //await fnEmpleado.calcularHorario(body);
   res.send("Endpoint de prueba");
 });
 
