@@ -1,5 +1,6 @@
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Subject } from 'rxjs';
 import { AppHttpService } from 'src/app/servicios/app-http.service';
 import { ModalService } from 'src/app/shared-modules/modal/modal.service';
 
@@ -52,23 +53,13 @@ export class TurnosEmpleadosComponent implements OnInit {
   bo: boolean = false;
 
   //Todos los turnos seleccionados previamente de un empleado
-  selectL: string[] = [];
-  selectM: string[] = [];
-  selectMi: string[] = [];
-  selectJ: string[] = [];
-  selectV: string[] = [];
-  selectS: string[] = [];
-  selectD: string[] = [];
+  select: string[] = [];
+  
 
   horarioSemanal: string[] = [];
 
-  turnosL: string[] = [];
-  turnosM: string[] = [];
-  turnosMi: string[] = [];
-  turnosJ: string[] = [];
-  turnosV: string[] = [];
-  turnosS: string[] = [];
-  turnosD: string[] = [];
+  turnos: string[] = [];
+  
 
 
 
@@ -77,11 +68,23 @@ export class TurnosEmpleadosComponent implements OnInit {
     this.obtenerTurnos()
     //this.valorTurnos = ["uno1","dos1","tres1"];
     //this.valorSelect = ["uno1","dos1"];
+    
+  }
+
+  ngAfterContentInit(){
+    
+    console.log("=============componente charged");
+    
+
+
   }
 
   ngAfterViewInit(){
     
   }
+
+
+
 
   obtenerEmpleados(){
     console.log("entra al obtener empleados");
@@ -111,55 +114,58 @@ export class TurnosEmpleadosComponent implements OnInit {
         case "Lunes":
           element.Turnos.forEach((e:any) => {
             e=e+"1";
-            this.selectL.push(e);           
+            this.select.push(e);           
           });
-          console.log("elemento de dia lunes:",this.selectL);
+          
           break;
         case "Martes":
           element.Turnos.forEach((e:any) => {
             e=e+"2";
-            this.selectM.push(e);           
+            this.select.push(e);           
           });
-          console.log("elemento de dia mARTES:",this.selectM);
+          
           break;
         case "Miercoles":
           element.Turnos.forEach((e:any) => {
             e=e+"3";
-            this.selectMi.push(e);           
+            this.select.push(e);           
           });
-          console.log("elemento de dia MI:",this.selectMi);
+          
           break;
         case "Jueves":
           element.Turnos.forEach((e:any) => {
             e=e+"4";
-            this.selectJ.push(e);           
+            this.select.push(e);           
           });
-          console.log("elemento de dia J:",this.selectJ);
+     
           break;
         case "Viernes":
           element.Turnos.forEach((e:any) => {
             e=e+"5";
-            this.selectV.push(e);           
+            this.select.push(e);           
           });
-          console.log("elemento de dia V:",this.selectV);
+
           break;
         case "Sabado":
           element.Turnos.forEach((e:any) => {
             e=e+"6";
-            this.selectS.push(e);           
+            this.select.push(e);           
           });
-          console.log("elemento de dia S:",this.selectS);
+         
           break;
         default:
           element.Turnos.forEach((e:any) => {
             e=e+"7";
-            this.selectD.push(e);           
+            this.select.push(e);           
           });
-          console.log("elemento de dia D :",this.selectD);
+          
           break;
       }
       
     });
+
+
+    console.log("sus horarios del empleados :",this.select);
     /*
     this.servicioHttp.obtenerEmpleado(this.empleadoSeleccionado.id)
     .subscribe((jsonFile:any)=>{
@@ -179,17 +185,26 @@ export class TurnosEmpleadosComponent implements OnInit {
     this.empleadoSeleccionado = names[1];
     if (names[0] == "Ver Turnos"){
         console.log(this.empleadoSeleccionado);
-        this.obtenerTurnosEmp();
 
-        //Llenar el modal de Turnos de un empleado 
         this.basico.forEach((e:any) => {
           this.valorTurnos.push(e.id);
         });
-        console.log("todos los turnos:", this.valorTurnos);
+    
+        //this.llenarTurnos();
 
-        this.llenarTurnos();
+        //Llenar el modal de Turnos de un empleado 
+        
+        console.log("todos los turnos:", this.valorTurnos);
+        
+       
+        this.obtenerTurnosEmp();
+        
+        
+
+
         this.bo=true;
 
+        
 
         this.servicioModal.abrir('modalMostrarTurnos');
     }
@@ -233,14 +248,17 @@ export class TurnosEmpleadosComponent implements OnInit {
   }
 
   llenarTurnos(){
+
+
+    console.log("en llenar turnos");
     this.valorTurnos.forEach(element => {
-      this.turnosL.push(element+"1");
-      this.turnosM.push(element+"2");
-      this.turnosMi.push(element+"3");
-      this.turnosJ.push(element+"4");
-      this.turnosV.push(element+"5");
-      this.turnosS.push(element+"6");
-      this.turnosD.push(element+"7");
+      this.turnos.push(element+"1");
+      this.turnos.push(element+"2");
+      this.turnos.push(element+"3");
+      this.turnos.push(element+"4");
+      this.turnos.push(element+"5");
+      this.turnos.push(element+"6");
+      this.turnos.push(element+"7");
       
     });
   }

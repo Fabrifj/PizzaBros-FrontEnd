@@ -1,5 +1,6 @@
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
-import { Component, EventEmitter, Input, OnInit, Output, OnChanges} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, OnChanges,AfterContentInit} from '@angular/core';
+
 import { UnitOrderModel } from 'src/app/modelos/unitOrder.model';
 
 @Component({
@@ -16,27 +17,53 @@ export class BtnsSeleccionadosComponent implements OnInit {
 
   @Output() vectorDatos= new EventEmitter<any>();
 
+
+  
+
   seleccionados: string[];
   losSelect: any;
+
+
+  dias:string[] =["1","2","3","4","5","6","7"];
+  datos2:string[] =["A","B","C"];
   constructor() { 
     this.seleccionados = [];
     
   }
 
+
+
+
+
   ngOnInit(): void {    
     //console.log("ahora");
-    this.seleccionados = this.select as string[];
-  }
-  ngOnChanges(bool:boolean, select:string[]) {
+    console.log("componente inicializacido.")
 
-    if(this.bool == true){
-      console.log("HACEEEEEEEEEE A parte no esta agarrando los select");
-      this.checkedElem();
-    }
-    /*
-    console.log("los select son :", this.select);
-    */
+   
+    
   }
+
+  ngAfterContentInit(){
+    console.log("componente cargado")
+
+
+  }
+  ngAfterViewInit(){
+    console.log("componente view cargado")
+
+  }
+ ngOnChanges() {
+
+    console.log("en changes");
+    this.seleccionados = this.select as string[];
+    this.checkedElem();
+  }
+
+  /*ngDoCheck(){
+    console.log("en do check");
+
+    this.checkedElem();
+  }*/
   
 
   chbOn(elem:any){
@@ -61,12 +88,26 @@ export class BtnsSeleccionadosComponent implements OnInit {
   }
 
   checkedElem(){
+
+
+    console.log("=====Tickeando========")
     this.losSelect = this.select;
-    console.log("los select son:", this.seleccionados);
+    console.log("los select son:", this.select);
     this.losSelect.forEach((elem:any) => {
       console.log("el elemento es: ",elem);
       (<HTMLInputElement>document.getElementById(elem)).checked = true;
+
+      console.log("despeus de tiquear");
     });
+  }
+
+
+
+
+  funcionRespaldo(){
+
+
+    this.checkedElem();
   }
 }
 
