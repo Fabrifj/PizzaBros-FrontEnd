@@ -486,5 +486,28 @@ app.delete("/api/detalleSueldo/:id", async (req, res) => {
   res.send(respuesta);
 });
 
+// ===============
+//Obtener detalles y sueldo de un determinado empleado
+app.get("/api/empleado/info/:idEmpleado", async (req, res) => {
+  var idEmpleado = req.params.idEmpleado;
+  var respuesta = null;
+  var empleado = await fnEmpleado.obtenerEmpleado(idEmpleado);
+  var dsEmpleado = await fnDetalleSueldo.obtenerDetalleSueldoEmpleado(idEmpleado);
+  
+  if(empleado == null || dsEmpleado == null){
+    respuesta = "Informacion insuficiente del empleado";
+  }else{
+    respuesta = {
+      "Nombre" : empleado.Nombre,
+      "CI" : empleado.CI,
+      "Fecha Nacimiento" : empleado.FechaNacimiento,
+      "Sueldo Base" : dsEmpleado[0].SueldoBase,
+      "Sueldo Real" : dsEmpleado[0].SueldoReal
+    };
+  }
+  res.send(respuesta);
+
+})
+
 ///////
 app.listen(4000, () => console.log("Up and Running on 4000"));

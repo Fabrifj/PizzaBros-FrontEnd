@@ -37,10 +37,10 @@ async function obtenerDetalleSueldoEmpleado(idEmpleado) {
   var respuesta = null;
   var query = await detalleSueldo.where("IdEmpleado", "==", idEmpleado).get();
   if (query.empty) {
-    respuesta =
+    console.log(
       "El empleado con ID: " +
       idEmpleado +
-      " no tiene ningun detalle de sueldo";
+      " no tiene ningun detalle de sueldo");
   } else {
     console.log("Se encontro el detalle de sueldo del empleado");
     respuesta = query.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
