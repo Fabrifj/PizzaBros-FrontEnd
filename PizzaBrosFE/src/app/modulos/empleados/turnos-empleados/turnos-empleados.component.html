@@ -82,12 +82,32 @@
     <h1>Turnos de {{empleadoSeleccionado.Nombre}} {{empleadoSeleccionado.ApellidoP}} {{empleadoSeleccionado.ApellidoM}}:</h1>
     <div class="infoEditable">
         
-        <app-btns-seleccionados
+
+
+
+        <p>btns-seleccionados works!</p>
+        <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+            <div *ngFor="let d of dias">
+                <h1>{{d}}</h1>
+                <div *ngFor="let v of valorTurnos">
+                    <input type="checkbox" class="btn-check" id="{{v+d}}" (change)="chbOn()">
+                    <label class="btn btn-outline-primary" for="btncheck1">{{v}}</label>
+                </div>
+
+            </div>
+            
+        </div>
+    
+        <!--
+
+            <app-btns-seleccionados
         [datos]="valorTurnos"
         [select]="select"
         (bool)="bo"
         (vectorDatos)="displayArray($event)">
         </app-btns-seleccionados>
+        -->
+        
         
         
     </div>

@@ -8,7 +8,7 @@ import { UnitOrderModel } from 'src/app/modelos/unitOrder.model';
   templateUrl: './btns-seleccionados.component.html',
   styleUrls: ['./btns-seleccionados.component.css']
 })
-export class BtnsSeleccionadosComponent implements OnInit {
+export class BtnsSeleccionadosComponent implements OnInit,OnChanges {
 
 
   @Input() datos : string[] | undefined;
@@ -67,6 +67,9 @@ export class BtnsSeleccionadosComponent implements OnInit {
   
 
   chbOn(elem:any){
+
+    
+
     if((<HTMLInputElement>document.getElementById(elem)).checked == true)
     {
       this.seleccionados.push(elem);
@@ -89,7 +92,7 @@ export class BtnsSeleccionadosComponent implements OnInit {
 
   checkedElem(){
 
-
+    console.log("en hijo")
     console.log("=====Tickeando========")
     this.losSelect = this.select;
     console.log("los select son:", this.select);
@@ -106,8 +109,8 @@ export class BtnsSeleccionadosComponent implements OnInit {
 
   funcionRespaldo(){
 
-
-    this.checkedElem();
+    console.log("en hijo")
+    //this.checkedElem();
   }
 }
 
