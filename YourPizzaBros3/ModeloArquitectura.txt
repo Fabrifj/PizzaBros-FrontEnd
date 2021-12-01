@@ -1,0 +1,207 @@
+LibroDiario
+{
+	"Fecha": "2020-12-23",
+	"Tipo": "Ingreso",//Puede ser "Egreso"
+	"Descripcion": "Ventas semanales del 01-23 de diciembre 2020",
+	"Cantidad": 3000
+}
+===========================================================================
+Empleado
+{
+    "Nombre": "",
+    "ApellidoP":"",
+    "ApellidoM":"",
+    "CI":"",
+    "Celular":"",
+    "FechaNacimiento":"",
+    "Cargo":"",
+    "HorarioSemanal":
+	[
+        {
+            "Dia":"Lunes",
+            "Turnos":
+            [
+                "A","B"
+            ]
+        },
+        {
+            "Dia":"Miercoles",
+            "Turnos":
+            [
+                "C","D"
+            ]
+        },
+        {
+            "Dia":"Viernes",
+            "Turnos":
+            [
+                "A","B","C"
+            ] 
+        }
+			
+    ]
+    "ListaTurnos":
+    [
+      {
+        "Fecha":"03-09-2021",
+        "Turnos":
+        [
+          {
+              "Id":"A",
+              "Estado": "Tarde" //"Tarde", "Puntual", "Falta"(PREDEETRMINADO)
+          },
+          {
+              "Id":"B",
+              "Estado": ""
+          }
+        ]
+      },
+      {
+        "Fecha":"04-09-2021",
+        "Turnos":
+        [
+          {
+              "Id":"C",
+              "Estado": "Puntual"
+          },
+          {
+              "Id":"D",
+              "Estado": ""
+          }
+        ]
+      }...
+    ]
+}
+===========================================================================
+HistorialActividad
+{
+    "IdEmpleado":"",
+    "IdTurno":"A",
+    "HoraEntrada":"",
+    "HoraSalida":""
+}
+===========================================================================
+Horario
+{
+	"HoraEntrada":"12:30",
+	"HoraSalida":"14:30"
+}
+===========================================================================
+DetalleSueldo
+{
+  "IdEmpleado":"",
+  "SueldoBase":""
+}
+===========================================================================
+Cliente
+{
+  "NIT": "794938",
+  "Nombre": "Boris Jose"
+}    
+===========================================================================
+Categoria
+{
+  "ListaProductos":
+  [
+    {
+      "IdProducto":"",
+      "ImgURL":"",
+      "NombreProducto":""
+    },
+    {
+      "IdProducto":"",
+      "ImgURL":"",
+      "NombreProducto":""
+    }
+    
+  ],
+  "Descripcion":"",
+  "Nombre":""
+}
+===========================================================================
+Compra
+{
+    "Fecha":"2021-02-14T",
+    "Total":60,
+    "ListaElementos":
+    [
+        {
+            "IdElemento":"1",
+            "Marca":"Salsa de Tomate Flor",
+            "TipoUnidad":"ml",
+            "CantidadMedida":500,
+            "CostoUnidad":15,
+            "CantidadComprada":2,
+            "Tipo": "Ingrediente",
+            "Nombre": "Salsa de Tomate"
+        },
+        {
+            "IdElemento":"2",
+            "Marca":"Harina BlancaFlor",
+            "TipoUnidad":"kg",
+            "CantidadMedida":0.5,
+            "CostoUnidad":10,
+            "CantidadComprada":3,
+            "Tipo": "Ingrediente",
+            "Nombre:" "Salsa de Tomate"
+        }
+    ]
+}
+===========================================================================
+Elemento
+{
+	"Nombre": "Salsa Tomate",
+	"TipoUnidad": "ml",
+	"ListaArticulos":
+	[
+		{
+			"Marca":"Salsa de Tomate Maggi",
+			"Costo":15,
+			"CantidadMedida":500
+		}
+	],
+  "CantidadMedida":500,
+	"CantidadInventario":1000,//cantidad de salsa en el inventario medida en ml
+	"CostoMedia":15,//Media de los costos de la listaArticulos
+	"Tipo":"Ingrediente"
+}
+===========================================================================
+Pedido
+{
+  "Fecha": "2019-01-02T10:12:04",
+  "Detalle": 
+  [
+      {
+      "Id":"xHsRl949N5aptvF0M7vt",
+      "Cantidad":2
+      }
+  ],
+  "Cliente":
+  {
+      "Nombre":"Lopez",
+      "NIT": 4488
+  },
+
+  "IdEmpleado":"ABCRl949N5aptvF0M7vt",
+  "Estado":"Entregado"
+}
+===========================================================================
+Producto
+{
+  "ImgURL": "https://live.mrf.io/statics/i/ps/irecetasfaciles.com/wp-content/uploads/2019/08/pizza-de-jamon-queso-y-tocino.jpg?width=1200&enable=upscale",
+  "Precio": 65,
+  "Costo": 50,
+  "Tamano": "Grande",
+  "Nombre": "Pizza 3 Quesos"
+  "ListaIngredientes":
+  [
+  	{
+  		"IdIngrediente":"ANICBIWBCIE",
+  		"Cantidad": 500,
+  		"TipoUnidad":"ml",
+  		"Costo": 10,
+  		"Nombre": "Tomate"
+  	}
+  ]
+}
+===========================================================================
