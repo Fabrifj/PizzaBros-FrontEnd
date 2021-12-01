@@ -16,9 +16,12 @@ export class TurnosEmpleadosComponent implements OnInit {
 
   constructor(private servicioHttp: AppHttpService, public servicioModal: ModalService) { }
 
-@ViewChild(BtnsSeleccionadosComponent) hijoBotones:BtnsSeleccionadosComponent  | undefined;
+  @ViewChild(BtnsSeleccionadosComponent) hijoBotones:BtnsSeleccionadosComponent  | undefined;
 
   empleadoSeleccionado:any = {}
+
+
+  informeEmpleado:any;
 
   datosEmp: any | undefined;
 
@@ -43,6 +46,11 @@ export class TurnosEmpleadosComponent implements OnInit {
   ];
 
   outputTableArray: any=[];
+
+
+
+  columnasInforme :any = []
+  datosInforme :any = []
 
 /*-------------------------------------------
 *Variables necesarias para la parte de Turnos de un empleado
@@ -173,33 +181,15 @@ export class TurnosEmpleadosComponent implements OnInit {
 
 
     console.log("sus horarios del empleados :",this.select);
-    /*
-    this.servicioHttp.obtenerEmpleado(this.empleadoSeleccionado.id)
-    .subscribe((jsonFile:any)=>{
-     
-      this.datosTurnEmp= jsonFile;
-      console.log("turnos de un empleado: " , this.datosTurnEmp);
-      
-
-    } ,(error)=>{
-        console.log("hubo error ing")
-
-    } )*/
+    
   }
 
 
 funcionBoton( names: any){
     this.empleadoSeleccionado = names[1];
     if (names[0] == "Ver Turnos"){
-        console.log(this.empleadoSeleccionado);
+        
 
-        /*this.basico.forEach((e:any) => {
-          this.valorTurnos.push(e.id);
-        });*/
-    
-        //this.llenarTurnos();
-
-        //Llenar el modal de Turnos de un empleado 
         
         console.log("todos los turnos:", this.valorTurnos);
         
@@ -222,6 +212,9 @@ funcionBoton( names: any){
         
     }
     else{
+      
+
+      this.armarInforme();
       this.servicioModal.abrir('modalTurosEmpleados');
     }
   }
@@ -255,8 +248,18 @@ funcionBoton( names: any){
      
       console.log("eljson",jsonFile);
       this.basico = jsonFile;
+
+      var i = 0;
+
+      this.columnasInforme.push({field:'Fecha',header:'Fecha'});
       this.basico.forEach((e:any) => {
         this.valorTurnos.push(e.id);
+
+        var columna :any= {}
+        columna['field'] = e.id;
+        columna['header'] = e.id;
+        this.columnasInforme.push(columna);
+        i++;
       });
       
 
@@ -276,6 +279,43 @@ funcionBoton( names: any){
     console.log("Imprimiento resultado",this.outputTableArray);
 
   }
+
+  armarInforme(){
+    this.informeEmpleado = ""
+    console.log("empelado Seleccionado",this.empleadoSeleccionado);
+
+    
+
+    var i = 0 ;
+    this.empleadoSeleccionado.ListaTurnos.forEach((elem:any) => {
+      var fecha = new Date((elem.Fecha.seconds) * 1000).toLocaleDateString();
+      var miniDatos:any = {}
+      var stringArmado = "["+fecha+"]  => ";
+      miniDatos['Fecha'] = fecha;
+      elem.Turnos.forEach((turno:any) => {
+        stringArmado = stringArmado + " (" + turno.Id +" : "+ turno.Estado +") "
+        var id = turno.Id;
+        miniDatos[id] = turno.Estado;
+
+      });
+
+      this.informeEmpleado = this.informeEmpleado +"\n"+ stringArmado;      
+      this.datosInforme[i] = miniDatos;
+      i++;
+    });
+
+    console.log("columnas", this.columnasInforme)
+    console.log("datos Informe:", this.datosInforme);
+
+  }
+
+  armarColumnas(){
+
+    
+  }
+
+ 
+  
 
  
 

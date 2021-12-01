@@ -37,6 +37,7 @@ import { CreacionCategoriasComponent } from './modulos/inventario/productos/crea
 import { VerProductosComponent } from './modulos/inventario/productos/ver-productos/ver-productos.component';
 import { BotonesCategoriaComponent } from './modulos/hacer-pedido/mostrar-productos/botones-categoria/botones-categoria.component';
 import { BtnsSeleccionadosComponent } from './modulos/empleados/turnos-empleados/btns-seleccionados/btns-seleccionados.component';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -83,7 +84,8 @@ import { BtnsSeleccionadosComponent } from './modulos/empleados/turnos-empleados
     BrowserModule,
     HttpClientModule,
     PBRoutersModule,
-    ModalModule
+    ModalModule,
+    FormsModule
   ],
   
   providers: [AppHttpService,DatePipe],
