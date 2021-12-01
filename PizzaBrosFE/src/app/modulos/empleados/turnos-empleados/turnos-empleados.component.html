@@ -69,14 +69,18 @@
 <!--Modal para ver el INFORME de un empleado-->
 <jw-modal id="modalTurosEmpleados" altura="80" >
     <div class="editable">
-    <h1>Informe de {{empleadoSeleccionado.Nombre}} {{empleadoSeleccionado.ApellidoM}}:</h1>
-    <div class="infoEditable">
-        <input type="text" id="informe" size="40" readonly>
+        <h1>Informe de {{empleadoSeleccionado.Nombre}} {{empleadoSeleccionado.ApellidoM}}:</h1>
+        
+        <app-tabla-reusable 
+        [datos]="datosInforme" 
+        [columnas]="columnasInforme" 
+        colorLetra="black">
+        </app-tabla-reusable> 
+
     </div>
-</div>
-<div class="botones">
-    <button class="btnCerrar" (click)="servicioModal.cerrar('modalTurosEmpleados');">OK</button>
-</div>
+    <div class="botones">
+        <button class="btnCerrar" (click)="servicioModal.cerrar('modalTurosEmpleados');">OK</button>
+    </div>
 </jw-modal>
 
 
@@ -86,24 +90,7 @@
     <h1>Turnos de {{empleadoSeleccionado.Nombre}} {{empleadoSeleccionado.ApellidoP}} {{empleadoSeleccionado.ApellidoM}}:</h1>
     <div class="infoEditable">
         
-
-
-            <!--
-        <p>btns-seleccionados works!</p>
-        <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
-            <div *ngFor="let d of dias">
-                <h1>{{d}}</h1>
-                <div *ngFor="let v of valorTurnos">
-                    <input type="checkbox" class="btn-check" id="{{v+d}}" (change)="chbOn()">
-                    <label class="btn btn-outline-primary" for="btncheck1">{{v}}</label>
-                </div>
-
-            </div>
-            
-        </div>-->
-    
-        
-
+ 
         <app-btns-seleccionados
         [datos]="valorTurnos"
         [select]="select"
