@@ -402,6 +402,7 @@ app.put("/api/horario/:id", async (req, res) => {
   var idHor = req.params.id;
   var hor = req.body;
   const respuesta = await fnHorario.actualizarHorario(idHor, hor);
+  console.log("back:",idHor,hor);
   res.send(respuesta);
 });
 

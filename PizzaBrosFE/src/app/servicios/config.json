@@ -70,7 +70,11 @@
     "actualizarEmpleado": "/api/empleado/",
 
 
-    "obtenerHorarios":"/api/horario"
+    "obtenerHorarios":"/api/horario",
+    "obtenerHorarioId":"/api/horario/",
+    "actualizarHorario":"/api/horario/",
+    "eliminarHorario":"/api/horario/",
+    "crearHorario":"/api/horario/"
 
 }
 
