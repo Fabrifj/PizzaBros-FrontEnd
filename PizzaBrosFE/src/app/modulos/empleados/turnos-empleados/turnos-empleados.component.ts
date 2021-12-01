@@ -1,3 +1,4 @@
+import { CompileShallowModuleMetadata } from '@angular/compiler';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { AppHttpService } from 'src/app/servicios/app-http.service';
@@ -40,10 +41,11 @@ export class TurnosEmpleadosComponent implements OnInit {
   
 
   columnasTurn = [
-    {field:'Nombre',header:'Nombre'},
-    {field:'HoraInicio',header:'Hora Inicio'},
-    {field:'HoraFin',header:'Hora Fin'}
+    {field:'id',header:'Nombre'},
+    {field:'HoraEntrada',header:'Hora Inicio'},
+    {field:'HoraSalida',header:'Hora Fin'}
   ];
+  nombreBotonTurn: string[] = ['-']
 
   outputTableArray: any=[];
 
@@ -184,7 +186,6 @@ export class TurnosEmpleadosComponent implements OnInit {
     
   }
 
-
 funcionBoton( names: any){
     this.empleadoSeleccionado = names[1];
     if (names[0] == "Ver Turnos"){
@@ -234,6 +235,7 @@ funcionBoton( names: any){
     
     this.servicioModal.cerrar('modalTurnos');
     (<HTMLInputElement>document.getElementById('rTurnos')).checked= false;
+    console.log("los datos de basico:", this.basico);
   }
   
   funcionCancelarTurnEmpleado(){
@@ -242,7 +244,7 @@ funcionBoton( names: any){
   }
 
   obtenerTurnos(){
-    
+    this.valorTurnos=[];
     this.servicioHttp.obtenerHorarios()
     .subscribe((jsonFile:any)=>{
      
@@ -269,7 +271,7 @@ funcionBoton( names: any){
 
     } )
   }
-
+ 
 
 
 
@@ -319,6 +321,41 @@ funcionBoton( names: any){
   
 
  
+  funcionGuardarTurno(){
+    var nombre = (<HTMLInputElement>document.getElementById('nombreT')).value;
+    var entrada= (<HTMLInputElement>document.getElementById('inicioT')).value;
+    var salida = (<HTMLInputElement>document.getElementById('finT')).value
+    console.log("el nombre puesto es: ",nombre);
+    console.log("el vector valores: ",this.valorTurnos);
+    if(this.valorTurnos?.includes(nombre))
+    {   
+      var elemNuevo = JSON.stringify({HoraEntrada: entrada, HoraSalida: salida});
+      this.servicioHttp.actualizarHorario(nombre,JSON.parse(elemNuevo)).subscribe((jsonFile:any)=>{      
+        this.obtenerTurnos()
+      } ,(error)=>{
+          console.log("hubo error con productos")
+      } )
+
+
+    }else{
+      var elemNuevo = JSON.stringify({HoraEntrada: entrada, HoraSalida: salida});
+      this.servicioHttp.crearHorario(nombre,JSON.parse(elemNuevo)).subscribe((jsonFile:any)=>{
+     
+        console.log("turno creado con exito",jsonFile);       
+        this.obtenerTurnos()
+      } ,(error)=>{
+          console.log("hubo error con productos")
+      } )
+    }
+  }
+  funcionBotonElim(names: any){
+    var turnoSelect = names[1];
+    this.servicioHttp.eliminarHorario(turnoSelect.id).subscribe();
+    this.obtenerTurnos();
+  }
+  
+
+
 
 
 }

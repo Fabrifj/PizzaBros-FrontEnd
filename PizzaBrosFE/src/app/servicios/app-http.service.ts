@@ -177,6 +177,26 @@ export class AppHttpService {
     return this.http.get(paths.obtenerHorarios)
   }
 
+  obtenerHorario(id:any){
+    var path = paths.obtenerHorario + id;
+    return this.http.get(path);
+  }
 
+  crearHorario(id:any,body:any){
+    var path = paths.crearHorario + id;
+    return this.http.post(path,body)
+
+  }
+  actualizarHorario(id:any , body:any){
+    var path = paths.actualizarHorario+id;
+    console.log("el path: ",path,"y el body: ",body);
+    return this.http.put(path,body)
+
+  }
+  eliminarHorario(idCat:any){
+    var path = paths.eliminarHorario + idCat
+    console.log("path de eliminar horario: ", path);
+    return this.http.delete(path)
+  }
 
 }

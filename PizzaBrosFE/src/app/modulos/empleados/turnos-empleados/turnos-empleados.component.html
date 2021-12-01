@@ -22,8 +22,9 @@
     [datos]="datosEmp" 
     [columnas]="columnasEmp" 
     [nombreBotones]="nombreBotonesEmp"     
-    (parentMethod)="funcionBoton($event)" colorLetra = "cornsilk" indice="0">
-       
+    (parentMethod)="funcionBoton($event)" 
+    colorLetra = "red" 
+    indice="0">       
 </app-tabla-reusable>
 
 
@@ -37,19 +38,22 @@
         <div class="infoEditable">
             
             <h1>Nombre:</h1>
-            <input type="text">
+            <input type="text" id="nombreT">
 
             <h1>Hora Inicio:</h1>
-            <input type="text">
+            <input type="time" id="inicioT">
 
             <h1>Hora Fin:</h1>
-            <input type="text">
+            <input type="time" id="finT">
             
             <h1>Turnos Creados:</h1>
             <app-tabla-reusable 
-            [datos]="datosTurn" 
+            [datos]="basico" 
             [columnas]="columnasTurn" 
-            colorLetra="black">
+            [nombreBotones]="nombreBotonTurn"     
+            (parentMethod)="funcionBotonElim($event)"
+            colorLetra="black"
+            input=0>
             </app-tabla-reusable> 
 
         </div>
@@ -57,7 +61,7 @@
     <div class="botones">
             
         <button class="btnCerrar" (click)="funcionCancelarTurno()">Cancelar</button>
-        <button class="btnGuardar">Guardar</button>
+        <button class="btnGuardar" (click)="funcionGuardarTurno()">Guardar</button>
     </div>
 </jw-modal>
 
