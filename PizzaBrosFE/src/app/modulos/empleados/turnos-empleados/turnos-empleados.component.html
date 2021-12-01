@@ -66,9 +66,7 @@
 <jw-modal id="modalTurosEmpleados" altura="80" >
     <div class="editable">
         <h1>Informe de {{empleadoSeleccionado.Nombre}} {{empleadoSeleccionado.ApellidoM}}:</h1>
-        <div class="infoEditable">
-            <textarea id="Informe" [(ngModel)]="informeEmpleado"></textarea>
-        </div>
+        
         <app-tabla-reusable 
         [datos]="datosInforme" 
         [columnas]="columnasInforme" 
