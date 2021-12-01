@@ -23,6 +23,8 @@ export class ModalComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
         // ensure id attribute exists
 
+        console.log("inicializando modal con id", this.id);
+
         if (!this.id) {
             console.error('modal must have an id');
             return;

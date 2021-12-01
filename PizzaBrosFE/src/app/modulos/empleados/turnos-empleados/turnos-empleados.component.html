@@ -1,7 +1,119 @@
+<div class="contenedorFiltros">
+
+    <form>
+        
+        <div>
+            <div class="rTurnos">
+                <input type="radio" id="rTurnos" name= "raturnos" (click)="servicioModal.abrir('modalTurnos');">
+                <label for="contactChoice1">Modificar Turnos</label>
+            </div>
+            <!--
+            <div class="rTEmpleados">
+                <input type="radio" id="rTEmpleados" name="ratempleados" (click)="funcionAbrirTurnosEmpleados()">
+                <label for="contactChoice2">Modificar Turnos Empleados</label>
+            </div>
+            -->
+
+        </div>
+      </form>
+
+</div>
 <app-tabla-reusable 
-    [datos]="datos" 
-    [columnas]="columnas" 
-    [nombreBotones]="nombreBotones"     
+    [datos]="datosEmp" 
+    [columnas]="columnasEmp" 
+    [nombreBotones]="nombreBotonesEmp"     
     (parentMethod)="funcionBoton($event)" colorLetra = "cornsilk" indice="0">
        
 </app-tabla-reusable>
+
+
+
+
+
+<!--Modl para ver modificar eliminar TURNOS-->
+<jw-modal id="modalTurnos" altura="80" >
+        <div class="editable">
+        <h1>Turnos:</h1>
+        <div class="infoEditable">
+            
+            <h1>Nombre:</h1>
+            <input type="text">
+
+            <h1>Hora Inicio:</h1>
+            <input type="text">
+
+            <h1>Hora Fin:</h1>
+            <input type="text">
+            
+            <h1>Turnos Creados:</h1>
+            <app-tabla-reusable 
+            [datos]="datosTurn" 
+            [columnas]="columnasTurn" 
+            colorLetra="black">
+            </app-tabla-reusable> 
+
+        </div>
+    </div>
+    <div class="botones">
+            
+        <button class="btnCerrar" (click)="funcionCancelarTurno()">Cancelar</button>
+        <button class="btnGuardar">Guardar</button>
+    </div>
+</jw-modal>
+
+
+<!--Modal para ver el INFORME de un empleado-->
+<jw-modal id="modalTurosEmpleados" altura="80" >
+    <div class="editable">
+    <h1>Informe de {{empleadoSeleccionado.Nombre}} {{empleadoSeleccionado.ApellidoM}}:</h1>
+    <div class="infoEditable">
+        <input type="text" id="informe" size="40" readonly>
+    </div>
+</div>
+<div class="botones">
+    <button class="btnCerrar" (click)="servicioModal.cerrar('modalTurosEmpleados');">OK</button>
+</div>
+</jw-modal>
+
+
+<!--Modal para ver los turnos de un empleado-->
+<jw-modal id="modalMostrarTurnos" altura="80" >
+    <div class="editable">
+    <h1>Turnos de {{empleadoSeleccionado.Nombre}} {{empleadoSeleccionado.ApellidoP}} {{empleadoSeleccionado.ApellidoM}}:</h1>
+    <div class="infoEditable">
+        
+
+
+            <!--
+        <p>btns-seleccionados works!</p>
+        <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+            <div *ngFor="let d of dias">
+                <h1>{{d}}</h1>
+                <div *ngFor="let v of valorTurnos">
+                    <input type="checkbox" class="btn-check" id="{{v+d}}" (change)="chbOn()">
+                    <label class="btn btn-outline-primary" for="btncheck1">{{v}}</label>
+                </div>
+
+            </div>
+            
+        </div>-->
+    
+        
+
+        <app-btns-seleccionados
+        [datos]="valorTurnos"
+        [select]="select"
+        (bool)="bo"
+        (vectorDatos)="displayArray($event)">
+        </app-btns-seleccionados>
+        
+        
+        
+        
+    </div>
+</div>
+<div class="botones">   
+    <button class="btnCerrar" (click)="servicioModal.cerrar('modalMostrarTurnos'); destiquear(); ">OK</button>
+    <button class="btnGuardar">Guardar</button>
+</div>
+</jw-modal>

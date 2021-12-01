@@ -21,31 +21,34 @@ var dias2 = ["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes"];
     "Celular":"",
     "FechaNacimiento":"",
     "Cargo":"",
+
     "HorarioSemanal":
 		[
 			{
-        "Dia":"Lunes",
-        "Turnos":
-        [
-            "A","B"
-        ]
-      },
-      {
-          "Dia":"Miercoles",
-          "Turnos":
-          [
-              "C","D"
-          ]
-      },
-      {
-          "Dia":"Viernes",
-          "Turnos":
-          [
-              "A","B","C"
-          ] 
-      }
+                "Dia":"Lunes",
+                "Turnos":
+                [
+                    "A","B"
+                ]
+            },
+            {
+                "Dia":"Miercoles",
+                "Turnos":
+                [
+                    "C","D"
+                ]
+            },
+            {
+                "Dia":"Viernes",
+                "Turnos":
+                [
+                    "A","B","C"
+                ] 
+            }
 			
-    ]
+        ]
+        
+    
     "ListaTurnos":
     [
       {
