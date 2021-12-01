@@ -3,7 +3,7 @@
     <div *ngFor="let d of dias">
         <h1>{{d}}</h1>
         <div *ngFor="let m of datos">
-            <input type="checkbox" class="btn-check" id="{{ m + d }}" (change)="chbOn(m)">
+            <input type="checkbox" class="btn-check" id="{{ m + d }}" (change)="chbOn((m+d))">
             <label class="btn btn-outline-primary" for="btncheck1">{{m}}</label>
         </div>
 
@@ -11,23 +11,7 @@
     
 </div>
     
-    <!--
-
-    <div *ngFor="let m of datos">
-    <input type="checkbox" class="btn-check" id="{{m}}" name= "{{m}}" (change)="chbOn(m)">
-    <label class="btn btn-outline-primary" for="btncheck1">{{m.slice(0,-1)}}</label>
-
-
-
-
-    <input type="checkbox" class="btn-check" id="btncheck2" autocomplete="off">
-    <label class="btn btn-outline-primary" for="btncheck2">Checkbox 2</label>
-  
-    <input type="checkbox" class="btn-check" id="btncheck3" autocomplete="off">
-    <label class="btn btn-outline-primary" for="btncheck3">Checkbox 3</label>
-    -->
     
-
 
 
 <button (click)="funcionRespaldo()">Respaldo</button>

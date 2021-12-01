@@ -84,7 +84,7 @@
         
 
 
-
+            <!--
         <p>btns-seleccionados works!</p>
         <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
             <div *ngFor="let d of dias">
@@ -96,24 +96,24 @@
 
             </div>
             
-        </div>
+        </div>-->
     
-        <!--
+        
 
-            <app-btns-seleccionados
+        <app-btns-seleccionados
         [datos]="valorTurnos"
         [select]="select"
         (bool)="bo"
         (vectorDatos)="displayArray($event)">
         </app-btns-seleccionados>
-        -->
+        
         
         
         
     </div>
 </div>
 <div class="botones">   
-    <button class="btnCerrar" (click)="servicioModal.cerrar('modalMostrarTurnos');">OK</button>
+    <button class="btnCerrar" (click)="servicioModal.cerrar('modalMostrarTurnos'); destiquear(); ">OK</button>
     <button class="btnGuardar">Guardar</button>
 </div>
 </jw-modal>

@@ -1,6 +1,5 @@
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
-import { Subject } from 'rxjs';
 import { AppHttpService } from 'src/app/servicios/app-http.service';
 import { ModalService } from 'src/app/shared-modules/modal/modal.service';
 import { BtnsSeleccionadosComponent } from './btns-seleccionados/btns-seleccionados.component';
@@ -68,11 +67,12 @@ export class TurnosEmpleadosComponent implements OnInit {
 
 
 
-  ngOnInit(): void {
+  ngOnInit() {
 
     
     this.obtenerEmpleados()
     this.obtenerTurnos()
+   //await new Promise(resolve => setTimeout(resolve, 7000));
     //this.valorTurnos = ["uno1","dos1","tres1"];
     //this.valorSelect = ["uno1","dos1"];
     
@@ -98,7 +98,7 @@ export class TurnosEmpleadosComponent implements OnInit {
     this.servicioHttp.obtenerEmpleados()
     .subscribe((jsonFile:any)=>{
      
-      console.log(jsonFile);
+      console.log("los empleado son",jsonFile);
       this.datosEmp = jsonFile;
       
       
@@ -113,8 +113,8 @@ export class TurnosEmpleadosComponent implements OnInit {
 
 
     this.horarioSemanal = this.empleadoSeleccionado.HorarioSemanal;
-    console.log("horario semanal: ", this.horarioSemanal);
-
+    console.log("horario semanal empleado: ", this.horarioSemanal);
+    this.select = []
     this.horarioSemanal.forEach((element: any) => {
       console.log("elem.dias:", element.Dia);
       switch (element.Dia){
@@ -188,14 +188,14 @@ export class TurnosEmpleadosComponent implements OnInit {
   }
 
 
-  funcionBoton( names: any){
+funcionBoton( names: any){
     this.empleadoSeleccionado = names[1];
     if (names[0] == "Ver Turnos"){
         console.log(this.empleadoSeleccionado);
 
-        this.basico.forEach((e:any) => {
+        /*this.basico.forEach((e:any) => {
           this.valorTurnos.push(e.id);
-        });
+        });*/
     
         //this.llenarTurnos();
 
@@ -210,10 +210,14 @@ export class TurnosEmpleadosComponent implements OnInit {
 
 
         this.bo=true;
-        
-        //this.hijoBotones?.checkedElem();
-        this.checkedElem();
+       
+ 
+       
+        this.hijoBotones?.checkedElem();
+       
+       
         this.servicioModal.abrir('modalMostrarTurnos');
+        
         
         
     }
@@ -226,6 +230,10 @@ export class TurnosEmpleadosComponent implements OnInit {
   displayArray(theArray: any){
   this.outputTableArray=theArray;
   console.log("el array  fuera de comp:",theArray);
+
+
+
+  
   }
  
 
@@ -247,7 +255,9 @@ export class TurnosEmpleadosComponent implements OnInit {
      
       console.log("eljson",jsonFile);
       this.basico = jsonFile;
-      
+      this.basico.forEach((e:any) => {
+        this.valorTurnos.push(e.id);
+      });
       
 
     } ,(error)=>{
@@ -256,68 +266,18 @@ export class TurnosEmpleadosComponent implements OnInit {
     } )
   }
 
-  llenarTurnos(){
-
-
-    console.log("en llenar turnos");
-    this.valorTurnos.forEach(element => {
-      this.turnos.push(element+"1");
-      this.turnos.push(element+"2");
-      this.turnos.push(element+"3");
-      this.turnos.push(element+"4");
-      this.turnos.push(element+"5");
-      this.turnos.push(element+"6");
-      this.turnos.push(element+"7");
-      
-    });
-  }
 
 
 
-  //===========================================
-  dias:string[] =["1","2","3","4","5","6","7"];
-  seleccionados: string[] = [];
-
-
-  checkedElem(){
-
-    console.log("en padre")
-    console.log("=====Tickeando========")
+  
+  destiquear(){
+    this.hijoBotones?.destiquear();
     
-    console.log("los select son:", this.select);
-    this.select.forEach((elem:any) => {
-      console.log("el elemento es: ",elem);
-      (<HTMLInputElement>document.getElementById(elem)).checked = true;
+    console.log("Imprimiento resultado",this.outputTableArray);
 
-      console.log("despeus de tiquear");
-    });
   }
 
-  chbOn(){
-
-    console.log("cambiando");
-/*
-    elem:any
-    if((<HTMLInputElement>document.getElementById(elem)).checked == true)
-    {
-      this.seleccionados.push(elem);
-    }else
-    {
-      this.eliminar(elem);
-    }
-    */
-  }
-
-  eliminar(elemento:any) {
-    var resultado = []
-    for (var i = 0; i < this.seleccionados.length; i++) {
-      if (this.seleccionados[i] !== elemento) {
-        resultado.push(this.seleccionados[i]);
-      }
-    }
-    this.seleccionados = resultado;
-  }
-
+ 
 
 
 }

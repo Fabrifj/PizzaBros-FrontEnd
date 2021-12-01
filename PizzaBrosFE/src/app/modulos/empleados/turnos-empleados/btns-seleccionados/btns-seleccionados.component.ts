@@ -11,7 +11,7 @@ import { UnitOrderModel } from 'src/app/modelos/unitOrder.model';
 export class BtnsSeleccionadosComponent implements OnInit,OnChanges {
 
 
-  @Input() datos : string[] | undefined;
+  @Input() datos : string[] =[];
   @Input() select : string[] | undefined;
   @Input() bool : boolean = false;
 
@@ -20,19 +20,16 @@ export class BtnsSeleccionadosComponent implements OnInit,OnChanges {
 
   
 
-  seleccionados: string[];
+  seleccionados: string[] = [];
   losSelect: any;
 
 
   dias:string[] =["1","2","3","4","5","6","7"];
-  datos2:string[] =["A","B","C"];
+  
   constructor() { 
-    this.seleccionados = [];
+   
     
   }
-
-
-
 
 
   ngOnInit(): void {    
@@ -42,16 +39,6 @@ export class BtnsSeleccionadosComponent implements OnInit,OnChanges {
    
     
   }
-
-  ngAfterContentInit(){
-    console.log("componente cargado")
-
-
-  }
-  ngAfterViewInit(){
-    console.log("componente view cargado")
-
-  }
  ngOnChanges() {
 
     console.log("en changes");
@@ -59,11 +46,7 @@ export class BtnsSeleccionadosComponent implements OnInit,OnChanges {
     this.checkedElem();
   }
 
-  /*ngDoCheck(){
-    console.log("en do check");
-
-    this.checkedElem();
-  }*/
+  
   
 
   chbOn(elem:any){
@@ -105,7 +88,27 @@ export class BtnsSeleccionadosComponent implements OnInit,OnChanges {
   }
 
 
+  destiquear(){
 
+    for (let i = 1 ; i <= 7; i++){
+    this.datos.forEach((dato:any) => {
+      
+       
+        var elem = dato + i ; 
+
+
+        console.log("elemento en destiquear",elem);
+        (<HTMLInputElement>document.getElementById(elem)).checked = false;
+      
+
+
+    });
+  }
+  this.select = [];
+    console.log("Destiquear dentrod e componente");
+
+
+  }
 
   funcionRespaldo(){
 
