@@ -10,6 +10,7 @@ const fnHerramientas = require("./herramientas");
 	"Cantidad": 3000
 } body 
  */
+
 async function crearTransaccion(body) {
   body.Fecha = firebase.firestore.Timestamp.fromDate(
     fnHerramientas.stringAFecha(body.Fecha)
@@ -20,7 +21,6 @@ async function crearTransaccion(body) {
 async function obtenerTransaccion(idTrans) {
   return await fnHerramientas.getDoc(idTrans, "Transaccion");
 }
-
 async function obtenerTransacciones() {
   return await fnHerramientas.getDocs("Transaccion");
 }
@@ -38,10 +38,33 @@ async function eliminarTransaccion(idTrans) {
   return await fnHerramientas.deleteDoc(idTrans, "Transaccion");
 }
 
+async function obtenerBalance() {
+  transacciones = await obtenerTransacciones();
+  var respuesta = null;
+  var balance = 0;
+  transacciones.forEach(async (transaccion) => {
+    if (transaccion.Tipo == "Egreso") {
+      balance -= transaccion.Cantidad;
+    } else if (transaccion.Tipo == "Ingreso") {
+      balance += transaccion.Cantidad;
+    }
+  });
+  var objBalance = {
+    Cantidad: balance,
+    Tipo: "Balance",
+  };
+  respuesta = { Balance: objBalance };
+  respuesta["Transacciones"] = transacciones;
+
+  return respuesta;
+}
+
+
 module.exports = {
   crearTransaccion,
   obtenerTransaccion,
   obtenerTransacciones,
   actualizarTransaccion,
   eliminarTransaccion,
+  obtenerBalance
 };
