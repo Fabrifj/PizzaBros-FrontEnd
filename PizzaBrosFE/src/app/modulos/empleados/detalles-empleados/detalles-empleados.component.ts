@@ -84,14 +84,14 @@ export class DetallesEmpleadosComponent implements OnInit {
      let date3 ;
 
 
-     console.log(fecha);
+     //onsole.log(fecha);
      date = new Date(fecha * 1000);
 
-     console.log(date);
+     //console.log(date);
 
 
       date3 = date.toLocaleDateString();
-      console.log(date3);
+      //console.log(date3);
       let dia :string=date.getDate().toString();
       let anio =date.getFullYear().toString();
       let mes = (date.getMonth() +1).toString();
@@ -105,7 +105,7 @@ export class DetallesEmpleadosComponent implements OnInit {
         dia  = "0" + dia;
       }
       date2 = anio + "-" + mes + "-" + dia;
-      console.log(date2);
+      //console.log(date2);
       
       date3 = mes + "/" + dia + "/" + anio;
      element.FechaNacimiento = date2;
@@ -157,6 +157,8 @@ export class DetallesEmpleadosComponent implements OnInit {
       this.objetoSeleccionado.ApellidoM = (<HTMLInputElement>document.getElementById("apellidoME")).value ;
       this.objetoSeleccionado.Celular =(<HTMLInputElement>document.getElementById("ceEmpleado")).value ;
       this.objetoSeleccionado.Cargo = (<HTMLInputElement>document.getElementById("cargoEmpleado")).value;
+
+      console.log("valor fech:",(<HTMLInputElement>document.getElementById("fechaNacE")).value )
       this.objetoSeleccionado.FechaNacimiento = (<HTMLInputElement>document.getElementById("fechaNacE")).value;
 
 
@@ -188,14 +190,14 @@ export class DetallesEmpleadosComponent implements OnInit {
     }
     else{
       //modificar
-      console.log("objeto modificar",this.objetoSeleccionado);
+      console.log("objeto a modificar",this.objetoSeleccionado);
       console.log("nombre om:",this.objetoSeleccionado.Nombre);
       console.log("fecha om:",this.objetoSeleccionado.FechaNacimiento.toString());
       console.log(this.idBackup);
       this.rellenarValores();
-      //this.actualizarEmpleado(this.idBackup, this.objetoSeleccionado);
+      this.actualizarEmpleado(this.idBackup, this.objetoSeleccionado);
 
-
+      console.log("objeto modificado",this.objetoSeleccionado);
 
     }
 
