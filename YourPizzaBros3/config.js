@@ -27,6 +27,7 @@ const empleado = db.collection("Empleado");
 const horario = db.collection('Horario');
 const historialActividad = db.collection('HistorialActividad');
 const detalleSueldo = db.collection('DetalleSueldo');
+const transaccion = db.collection("Transaccion");
 
 module.exports = { 
   firebase,
@@ -39,5 +40,6 @@ module.exports = {
   empleado,
   horario,
   historialActividad,
-  detalleSueldo
+  detalleSueldo,
+  transaccion
 };

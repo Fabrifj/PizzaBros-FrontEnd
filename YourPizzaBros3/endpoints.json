@@ -50,5 +50,13 @@
     "actualizarEstadoTurno":"/api/empleado/:id/estadoturno",
     "obtenerEmpleado":"/api/empleado/:id",
     "obtenerEmpleados":"/api/empleado",
-    "actualizarEmpleado": "/api/empleado/:id"
+    "actualizarEmpleado": "/api/empleado/:id",
+
+    "crearTransaccion":"/api/transaccion",
+    "obtenerTransaccion":"/api/transaccion/:id",
+    "obtenerTransacciones":"/api/transaccion",
+    "actualizarTransaccion":"/api/transaccion/:id",
+    "eliminarTransaccion":"/api/transaccion/:id"
+
+
 }
