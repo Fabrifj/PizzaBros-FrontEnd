@@ -2,4 +2,12 @@
     width: 100%;
     height: 100%;
 }
-
+.all{
+    background: url(https://comingsoon13.files.wordpress.com/2012/05/fondo-madera-marron.jpg);
+    background-size:100%;
+	background-attachment: fixed;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}

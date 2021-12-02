@@ -335,6 +335,22 @@ app.put("/api/empleado/:id", async (req, res) => {
   res.send(respuesta);
 });
 
+
+//EliminarEmpleado
+app.delete("/api/empleado/:id", async (req, res) => {
+  var idEmpleado = req.params.id;
+  const respuesta = await fnEmpleado.eliminarEmpleado(idEmpleado);
+  res.send(respuesta);
+});
+
+//EliminarTurnoEmpleado
+app.delete("/api/empleadoTurno", async (req, res) => {
+  var body = req.body;
+  console.log("ENTRA AL API")
+  const respuesta = await fnEmpleado.eliminarTurnoHorarioSemanal(body);
+  res.send(respuesta);
+});
+
 //Cambiar estado de un determinado turno de un determinado empleado
 app.put("/api/empleado/:id/estadoturno", async (req, res) => {
   var body = req.body;
@@ -343,13 +359,16 @@ app.put("/api/empleado/:id/estadoturno", async (req, res) => {
   res.send(respuesta);
 });
 
+
+
 /*===================================
           ENDPOINT DE PRUEBA
 ===================================*/
 //Se puede poner lo que se quiera en el metodo, solo es para prueba
 app.get("/api/prueba", async (req, res) => {
-  var body = req.body;
-  await fnEmpleado.calcularHorario(body);
+  //var body = req.body;
+  console.log("ENTRA AL API")
+  //await fnEmpleado.calcularHorario(body);
   res.send("Endpoint de prueba");
 });
 
@@ -383,6 +402,7 @@ app.put("/api/horario/:id", async (req, res) => {
   var idHor = req.params.id;
   var hor = req.body;
   const respuesta = await fnHorario.actualizarHorario(idHor, hor);
+  console.log("back:",idHor,hor);
   res.send(respuesta);
 });
 
@@ -485,6 +505,29 @@ app.delete("/api/detalleSueldo/:id", async (req, res) => {
   const respuesta = await fnDetalleSueldo.eliminarDetalleSueldo(idDS);
   res.send(respuesta);
 });
+
+// ===============
+//Obtener detalles y sueldo de un determinado empleado
+app.get("/api/empleado/info/:idEmpleado", async (req, res) => {
+  var idEmpleado = req.params.idEmpleado;
+  var respuesta = null;
+  var empleado = await fnEmpleado.obtenerEmpleado(idEmpleado);
+  var dsEmpleado = await fnDetalleSueldo.obtenerDetalleSueldoEmpleado(idEmpleado);
+  
+  if(empleado == null || dsEmpleado == null){
+    respuesta = "Informacion insuficiente del empleado";
+  }else{
+    respuesta = {
+      "Nombre" : empleado.Nombre,
+      "CI" : empleado.CI,
+      "Fecha Nacimiento" : empleado.FechaNacimiento,
+      "Sueldo Base" : dsEmpleado[0].SueldoBase,
+      "Sueldo Real" : dsEmpleado[0].SueldoReal
+    };
+  }
+  res.send(respuesta);
+
+})
 
 ///////
 app.listen(4000, () => console.log("Up and Running on 4000"));

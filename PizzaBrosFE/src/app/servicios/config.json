@@ -63,7 +63,19 @@
     "eliminarCompraId":"/api/compra/:id",
 
     "crearEmpleado":"/api/empleado",
-    "calcularHorario":"/api/empleado/turnos"
+    "calcularHorario":"/api/empleado/turnos",
+    "actualizarEstadoTurno":"/api/empleado/:id/estadoturno",
+    "obtenerEmpleado":"/api/empleado/",
+    "obtenerEmpleados":"/api/empleado",
+    "actualizarEmpleado": "/api/empleado/",
+
+
+    "obtenerHorarios":"/api/horario",
+    "obtenerHorarioId":"/api/horario/",
+    "actualizarHorario":"/api/horario/",
+    "eliminarHorario":"/api/horario/",
+    "crearHorario":"/api/horario/"
+
+}
 
     
-}

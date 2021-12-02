@@ -74,7 +74,7 @@ const appRoutes: Routes = [
     path: 'empleados',
     component: EmpleadosComponent,
     children: [
-      { path: 'detalles-empleados', component: DetallesEmpleadosComponent },
+      { path: 'detalles-empleados', component: DetallesEmpleadosComponent},
       { path: 'sueldos-empleados', component: SueldosEmpleadosComponent},
       { path: 'turnos-empleados', component: TurnosEmpleadosComponent }
     ]
