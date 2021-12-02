@@ -33,8 +33,38 @@ async function eliminarDoc(idDoc,nombreEntidad) {
   });
   return respuesta;
 }
+
+function obtenerFechaActual(){
+  let current = new Date();
+  var year = current.getFullYear().toString();
+  var month = (current.getMonth() + 1).toString();
+  var day = current.getDate().toString();
+  var hour = current.getHours().toString();
+  var minute = (current.getMinutes() + 1).toString();
+  var second = current.getSeconds().toString();
+
+  year = padDate (year);
+  month = padDate (month);
+  day = padDate (day);
+  hour = padDate (hour);
+  minute = padDate (minute);
+  second = padDate (second);
+
+  var finalDate = year + "-" + month + "-" + day + "T" + hour + ":" + minute + ":" + second;
+  return finalDate;
+}
+
+function padDate (date){
+  if(date.length < 2){
+    date = "0" + date;
+  }
+  return date;
+}
+
+
 module.exports = {
   stringAFecha,
   actualizarDoc,
-  eliminarDoc
+  eliminarDoc,
+  obtenerFechaActual
 };

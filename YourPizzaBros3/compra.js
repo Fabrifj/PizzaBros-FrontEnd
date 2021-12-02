@@ -1,6 +1,7 @@
 const { compra, elemento, firebase } = require("./config");
 const fnElemento = require("./elemento");
-
+const fnHerramientas = require("./MisHerramientas");
+const fnTransaccion = require("./transaccion");
 /* 
 Estructura body -> Crear
 {
@@ -143,6 +144,18 @@ async function crearCompra(data) {
   console.log("Compra grupal agregada");
   msg["CompraGrupal"] = nuevaCompraGrupal;
 
+
+  finalDate = fnHerramientas.obtenerFechaActual();
+  var desc = "Compra"; 
+
+  // Ingresar la compra a la transaccion
+  var detalleTransaccion = {
+    "Fecha": finalDate,
+    "Tipo": "Egreso",
+    "Descripcion": desc,
+    "Cantidad": total
+  };
+  await fnTransaccion.crearTransaccion(detalleTransaccion);
   return msg;
 }
 
