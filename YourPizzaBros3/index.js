@@ -17,6 +17,7 @@ const fnHistorialActividad = require("./historialActividad");
 const fnDetalleSueldo = require("./detalleSueldo");
 const fnHerramientas = require("./herramientas");
 const { empleado } = require("./config");
+const fnTransaccion = require("./transaccion");
 
 /*===================================
           CRUD PRODUCTOS
@@ -528,6 +529,43 @@ app.get("/api/empleado/info/:idEmpleado", async (req, res) => {
   res.send(respuesta);
 
 })
+
+/*===================================
+          CRUD TRANSACCION
+===================================*/
+
+//CrearTransaccion
+app.post("/api/transaccion", async (req, res) => {
+  const data = req.body;
+  const respuesta = await fnTransaccion.crearTransaccion(data);
+  res.send(respuesta);
+});
+
+//ObtenerTransacciones
+app.get("/api/transaccion", async (req, res) => {
+  const respuesta = await fnTransaccion.obtenerTransacciones();
+  res.send(respuesta);
+});
+
+//ObtenerTransaccion by Id
+app.get("/api/transaccion/:id", async (req, res) => {
+  const idTrans = req.params.id;
+  const respuesta = await fnTransaccion.obtenerTransaccion(idTrans);
+  res.send(respuesta);
+});
+//ActualizarTransaccion
+app.put("/api/transaccion/:id", async (req, res) => {
+  const idTrans = req.params.id;
+  const respuesta = await fnTransaccion.actualizarTransaccion(idTrans, body);
+  res.send(respuesta);
+});
+//EliminarTransaccion
+app.put("/api/transaccion/:id", async (req, res) => {
+  const idTrans = req.params.id;
+  const respuesta = await fnTransaccion.eliminarTransaccion(idTrans);
+  res.send(respuesta);
+});
+
 
 ///////
 app.listen(4000, () => console.log("Up and Running on 4000"));
