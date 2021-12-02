@@ -12,7 +12,7 @@ const fnHerramientas = require("./herramientas");
  */
 async function crearTransaccion(body)
 {
-  body.Fecha = fnHerramientas.stringAFecha(body.Fecha);
+  body.Fecha = firebase.firestore.Timestamp.fromDate(fnHerramientas.stringAFecha(body.Fecha));
   return fnHerramientas.createDoc(body, "Transaccion");
 }
 async function obtenerTransaccion(idTrans)
