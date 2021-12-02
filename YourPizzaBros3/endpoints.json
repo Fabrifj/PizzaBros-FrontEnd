@@ -51,4 +51,25 @@
     "obtenerEmpleado":"/api/empleado/:id",
     "obtenerEmpleados":"/api/empleado",
     "actualizarEmpleado": "/api/empleado/:id"
+
+    "CrearHorario":"/api/horario/:id",
+    "ObtenerHorario":"/apip/horario",
+    "ObtenerHorarioId":"/api/horario/:id",
+    "ActualizarHorario":"/api/horario/:id",
+    "EliminarHorario":"/api/horario:id",
+
+    "CrearHistorialActividad":"/api/historialActividad", 
+    "ObtenerHistorialActividad":"/api/historialActividad",
+    "ObtenerHistorialActividadesEmpleado":"/api/historialActividad/:idEmpleado",
+    "ActualizarHistorialActividad":"/api/historialActividad/:id",
+    "EliminarHistorialActividad":"/api/historialActividad/:id",
+
+    "CrearDetalleSueldo":"/api/detalleSueldo",
+    "ObtenerDetalleSueldo":"/api/detalleSueldo",
+    "ObtenerDetalleSueldoEmpleado":"/api/detalleSueldoEmpleado/:idEmpleado",
+    "ActualizarDetalleSueldo":"/api/detalleSueldo/:id",
+    "ObtenerSueldoReal":"/api/detalleSueldo/real/:idEmpleado",
+    "EliminarDetalleSueldo":"/api/detalleSueldo/:id",
+    "ObtenerDetalleSueldoInfoEmpleado":"/api/empleado/info/:idEmpleado",
+    "ObtenerDetalleSueldoInfoEmpleados":"/api/infoEmpleado"
 }

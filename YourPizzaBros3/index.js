@@ -522,12 +522,44 @@ app.get("/api/empleado/info/:idEmpleado", async (req, res) => {
       "CI" : empleado.CI,
       "Fecha Nacimiento" : empleado.FechaNacimiento,
       "Sueldo Base" : dsEmpleado[0].SueldoBase,
-      "Sueldo Real" : dsEmpleado[0].SueldoReal
     };
+    if(dsEmpleado[0].SueldoReal){
+      respuesta["Sueldo Real"] = dsEmpleado[0].SueldoReal; 
+    }
+
   }
   res.send(respuesta);
 
 })
+
+//Obtener detalles y sueldo de todos los  empleados
+app.get("/api/infoEmpleado", async (req, res) => {
+  var respuesta = null;
+  var listaEmpleadosInfo = [];
+  var empleados = await fnEmpleado.obtenerEmpleados();
+  empleados.forEach(async (empleado) => {
+    //console.log(empleado);
+    var dsEmpleado = await fnDetalleSueldo.obtenerDetalleSueldoEmpleado(empleado.id);
+    if(dsEmpleado == null){
+      console.log("El empleado no cuenta con un detalle de sueldo");
+    } else {
+      var estructura = {
+        "Nombre" : empleado.Nombre,
+        "CI" : empleado.CI,
+        "Fecha Nacimiento" : empleado.FechaNacimiento,
+        "Sueldo Base" : dsEmpleado[0].SueldoBase
+      };
+      if(dsEmpleado[0].SueldoReal){
+        estructura["Sueldo Real"] = dsEmpleado[0].SueldoReal; 
+      }
+      listaEmpleadosInfo.push(estructura);
+    }
+  });
+  respuesta = listaEmpleadosInfo;
+  res.send(respuesta);
+
+})
+
 
 ///////
 app.listen(4000, () => console.log("Up and Running on 4000"));
