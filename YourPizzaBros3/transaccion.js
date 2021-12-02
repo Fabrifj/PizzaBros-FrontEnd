@@ -17,12 +17,14 @@ async function crearTransaccion(body) {
   );
   return await fnHerramientas.createDoc(body, "Transaccion");
 }
+
 async function obtenerTransaccion(idTrans) {
   return await fnHerramientas.getDoc(idTrans, "Transaccion");
 }
 async function obtenerTransacciones() {
   return await fnHerramientas.getDocs("Transaccion");
 }
+
 async function actualizarTransaccion(idTrans, body) {
   if (body.hasOwnProperty("Fecha")) {
     body.Fecha = firebase.firestore.Timestamp.fromDate(
@@ -31,6 +33,7 @@ async function actualizarTransaccion(idTrans, body) {
   }
   return await fnHerramientas.updateDoc(idTrans, body, "Transaccion");
 }
+
 async function eliminarTransaccion(idTrans) {
   return await fnHerramientas.deleteDoc(idTrans, "Transaccion");
 }
@@ -56,11 +59,12 @@ async function obtenerBalance() {
   return respuesta;
 }
 
+
 module.exports = {
   crearTransaccion,
   obtenerTransaccion,
   obtenerTransacciones,
   actualizarTransaccion,
   eliminarTransaccion,
-  obtenerBalance,
+  obtenerBalance
 };
