@@ -2,6 +2,7 @@ const { detalleSueldo } = require("./config");
 const fnHistorialActividad = require("./historialActividad");
 const fnEmpleado = require("./empleado");
 const fnTransaccion = require("./transaccion");
+const fnHerramientas = require("./misHerramientas");
 
 /*
 {
@@ -123,23 +124,8 @@ async function calcularSueldoReal(idEmpleado) {
   await detalleSueldo.doc(idDetalle).set({
     "SueldoReal": sueldoReal
   }, {merge: true});
-
-  let current = new Date();
-  var year = current.getFullYear().toString();
-  var month = (current.getMonth() + 1).toString();
-  var day = current.getDate().toString();
-  var hour = current.getHours().toString();
-  var minute = (current.getMinutes() + 1).toString();
-  var second = current.getSeconds().toString();
-
-  year = padDate (year);
-  month = padDate (month);
-  day = padDate (day);
-  hour = padDate (hour);
-  minute = padDate (minute);
-  second = padDate (second);
-
-  var finalDate = year + "-" + month + "-" + day + "T" + hour + ":" + minute + ":" + second;
+ 
+  finalDate = fnHerramientas.obtenerFechaActual();
   console.log(finalDate);
   var desc = "DetalleSueldo " + idDetalle; 
 
@@ -156,12 +142,6 @@ async function calcularSueldoReal(idEmpleado) {
   return respuesta;
 }
 
-function padDate (date){
-  if(date.length < 2){
-    date = "0" + date;
-  }
-  return date;
-}
 
 module.exports = {
   crearDetalleSueldo,
