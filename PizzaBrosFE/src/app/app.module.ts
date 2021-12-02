@@ -36,6 +36,7 @@ import { CreacionProductosComponent } from './modulos/inventario/productos/creac
 import { CreacionCategoriasComponent } from './modulos/inventario/productos/creacion-categorias/creacion-categorias.component';
 import { VerProductosComponent } from './modulos/inventario/productos/ver-productos/ver-productos.component';
 import { BotonesCategoriaComponent } from './modulos/hacer-pedido/mostrar-productos/botones-categoria/botones-categoria.component';
+import { CajaComponent } from './modulos/caja/caja.component';
 
 
 @NgModule({
@@ -70,7 +71,8 @@ import { BotonesCategoriaComponent } from './modulos/hacer-pedido/mostrar-produc
     CreacionProductosComponent,
     CreacionCategoriasComponent,
     VerProductosComponent,
-    BotonesCategoriaComponent
+    BotonesCategoriaComponent,
+    CajaComponent
    
     
     

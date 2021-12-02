@@ -4,7 +4,7 @@ const fnEmpleado = require("./empleado");
 
 /*
 {
-  "IdEmpleado":"",
+  "IdEmpleado":"",w
   "SueldoBase":"",
   "SueldoReal":""
 }

@@ -7,17 +7,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SueldosEmpleadosComponent implements OnInit {
 
-  constructor() { }
+  constructor() { 
+ 
+  }
 
   datos: any | undefined;
 
   columnas = [
-    {field:'NITCliente',header:'NIT de Cliente'},
-    {field:'NombreCliente',header:'Nombre de Cliente'},
-    {field:'Precio',header:'Total Bs.'},
-    {field:'Fecha',header:'Fecha'},
+    {field:'Nombre',header:'Nombre '},
+    {field:'ApellidoP',header:'Apellido Paterno'},
+    {field:'CI',header:'Identificacion'},
+    {field:'FechaNacimiento',header:'Fecha de inicio'},
     {field:'Estado',header:'Estado'}
   ];
+
   nombreBotones: string[] | undefined;
 
   ngOnInit(): void {
