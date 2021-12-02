@@ -13,15 +13,15 @@ const fnHerramientas = require("./herramientas");
 async function crearTransaccion(body)
 {
   body.Fecha = firebase.firestore.Timestamp.fromDate(fnHerramientas.stringAFecha(body.Fecha));
-  return fnHerramientas.createDoc(body, "Transaccion");
+  return await fnHerramientas.createDoc(body, "Transaccion");
 }
 async function obtenerTransaccion(idTrans)
 {
-  return fnHerramientas.getDoc(idTrans, "Transaccion");
+  return await fnHerramientas.getDoc(idTrans, "Transaccion");
 }
 async function obtenerTransacciones()
 {
-  return fnHerramientas.getDocs("Transaccion");
+  return await fnHerramientas.getDocs("Transaccion");
 }
 async function actualizarTransaccion(idTrans, body)
 {
@@ -29,11 +29,11 @@ async function actualizarTransaccion(idTrans, body)
   {
     body.Fecha = firebase.firestore.Timestamp.fromDate(fnHerramientas.stringAFecha(body.Fecha));
   }
-  return fnHerramientas.updateDoc(idTrans,body,"Transaccion");
+  return await fnHerramientas.updateDoc(idTrans,body,"Transaccion");
 }
 async function eliminarTransaccion(idTrans)
 {
-  return fnHerramientas.deleteDoc(idTrans,"Transaccion");
+  return await fnHerramientas.deleteDoc(idTrans,"Transaccion");
 }
 module.exports = {
     crearTransaccion,
