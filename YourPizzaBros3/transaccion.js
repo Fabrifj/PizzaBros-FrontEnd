@@ -1,4 +1,4 @@
-const { transaccion, firebase } = require('./config');
+const { transaccion, firebase } = require("./config");
 const fnHerramientas = require("./herramientas");
 /**
  * 
@@ -10,58 +10,53 @@ const fnHerramientas = require("./herramientas");
 	"Cantidad": 3000
 } body 
  */
-async function crearTransaccion(body)
-{
+async function crearTransaccion(body) {
   body.Fecha = fnHerramientas.stringAFecha(body.Fecha);
   console.log(body.Fecha);
   return fnHerramientas.createDoc(body, "Transaccion");
 }
 
-async function obtenerTransaccion(idTrans)
-{
+async function obtenerTransaccion(idTrans) {
   return fnHerramientas.getDoc(idTrans, "Transaccion");
 }
 
-async function obtenerTransacciones()
-{
+async function obtenerTransacciones() {
   return fnHerramientas.getDocs("Transaccion");
 }
 
-async function actualizarTransaccion(idTrans, body)
-{
-  if(body.hasOwnProperty('Fecha'))
-  {
-    body.Fecha = firebase.firestore.Timestamp.fromDate(fnHerramientas.stringAFecha(body.Fecha));
+async function actualizarTransaccion(idTrans, body) {
+  if (body.hasOwnProperty("Fecha")) {
+    body.Fecha = firebase.firestore.Timestamp.fromDate(
+      fnHerramientas.stringAFecha(body.Fecha)
+    );
   }
-  return fnHerramientas.updateDoc(idTrans,body,"Transaccion");
+  return fnHerramientas.updateDoc(idTrans, body, "Transaccion");
 }
 
-async function eliminarTransaccion(idTrans)
-{
-  return fnHerramientas.deleteDoc(idTrans,"Transaccion");
+async function eliminarTransaccion(idTrans) {
+  return fnHerramientas.deleteDoc(idTrans, "Transaccion");
 }
 
-async function obtenerBalance(){
+async function obtenerBalance() {
   transacciones = await obtenerTransacciones();
   var respuesta = null;
   var balance = 0;
   transacciones.forEach(async (transaccion) => {
-    if(transaccion.Tipo == "Egreso"){
+    if (transaccion.Tipo == "Egreso") {
       balance -= transaccion.Cantidad;
-    }else if (transaccion.Tipo == "Ingreso"){
+    } else if (transaccion.Tipo == "Ingreso") {
       balance += transaccion.Cantidad;
     }
   });
   var objBalance = {
-    "Cantidad":balance,
-    "Tipo": "Balance"
+    Cantidad: balance,
+    Tipo: "Balance",
   };
-  respuesta = {"Balance" : objBalance};
+  respuesta = { Balance: objBalance };
   respuesta["Transacciones"] = transacciones;
 
   return respuesta;
 }
-
 
 module.exports = {
   crearTransaccion,
@@ -69,5 +64,5 @@ module.exports = {
   obtenerTransacciones,
   actualizarTransaccion,
   eliminarTransaccion,
-  obtenerBalance
+  obtenerBalance,
 };
