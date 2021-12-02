@@ -1,5 +1,6 @@
 const { pedido, producto, firebase } = require('./config');
 const fnCliente = require('./cliente');
+const fnHerramientas = require("./herramientas");
 
 /*
 Estructura del body -> Crear    
@@ -95,18 +96,33 @@ async function crearPedido(data){
 //ActualizarPedidoEstado
 async function actualizarPedidoEstado(idPedido, estado) {
   let respuesta = null;
+  var miBool = false;
   await pedido.doc(idPedido).get().then(snapshot => {
     let querySnapshot = snapshot.data()
     console.log(querySnapshot)
     if (typeof querySnapshot == 'undefined' || querySnapshot.empty || querySnapshot == null) {
       console.log(`No encontramos el pedido con Id: ${idPedido}`);
     } else {
+      miBool = true;
       console.log('Encontramos al pedido: ', idPedido);
+      
       var a = pedido.doc(idPedido).update({ "Estado": estado });
       querySnapshot.Estado = estado;
       respuesta = querySnapshot;
     }
-  })
+  });
+  if(miBool == true && estado == 'Entregado')
+  {
+    var miPedido = await pedido.doc(idPedido).get();
+    const tr = 
+    {
+      "Fecha":miPedido.data().Fecha,
+      "Tipo":"Ingreso",
+      "Descripcion":`Pedido ${idPedido}`,
+      "Cantidad": miPedido.data().Precio 
+    }
+    fnHerramientas.createDoc(tr,"Transaccion");
+  }
   return respuesta;
 }
 
