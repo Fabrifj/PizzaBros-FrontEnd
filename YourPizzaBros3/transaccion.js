@@ -13,16 +13,20 @@ const fnHerramientas = require("./herramientas");
 async function crearTransaccion(body)
 {
   body.Fecha = fnHerramientas.stringAFecha(body.Fecha);
+  console.log(body.Fecha);
   return fnHerramientas.createDoc(body, "Transaccion");
 }
+
 async function obtenerTransaccion(idTrans)
 {
   return fnHerramientas.getDoc(idTrans, "Transaccion");
 }
+
 async function obtenerTransacciones()
 {
   return fnHerramientas.getDocs("Transaccion");
 }
+
 async function actualizarTransaccion(idTrans, body)
 {
   if(body.hasOwnProperty('Fecha'))
@@ -31,10 +35,13 @@ async function actualizarTransaccion(idTrans, body)
   }
   return fnHerramientas.updateDoc(idTrans,body,"Transaccion");
 }
+
 async function eliminarTransaccion(idTrans)
 {
   return fnHerramientas.deleteDoc(idTrans,"Transaccion");
 }
+
+
 module.exports = {
     crearTransaccion,
     obtenerTransaccion,
