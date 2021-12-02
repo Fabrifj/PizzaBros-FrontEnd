@@ -594,5 +594,12 @@ app.put("/api/transaccion/:id", async (req, res) => {
   res.send(respuesta);
 });
 
+//Obtener balance total
+app.get("/api/transaccionBalance", async (req, res) => {
+  var respuesta = null;
+  respuesta = await fnTransaccion.obtenerBalance();
+  res.send(respuesta);
+});
+
 ///////
 app.listen(4000, () => console.log("Up and Running on 4000"));
