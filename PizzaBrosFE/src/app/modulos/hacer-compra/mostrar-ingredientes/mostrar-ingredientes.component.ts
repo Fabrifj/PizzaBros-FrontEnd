@@ -25,9 +25,11 @@ export class MostrarIngredientesComponent implements OnInit {
     console.log(this.categorias)
   }
 
-  actualizarCetegoria(categoria:string){
+  actualizarCategoria(categoria:string){
     this.ingrediente = this.hacerCompraService.obtenerElementos(categoria);
+    console.log(this.ingrediente)
     this.articulos = this.ingrediente.ListaArticulos;
+    console.log(this.articulos)
   }
 
 

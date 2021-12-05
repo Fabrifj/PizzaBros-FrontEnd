@@ -43,14 +43,16 @@
     left: 350px;
     color: black;
     width: 81%;
+    max-height: 350px;
 }
 
 .contendorListadoNo{
     position: absolute;
-    top: 200px;
+    top: 400px;
     left: 350px;
     color: black;
     width: 81%;
+    max-height: 200px;
 }
 
 .botonFinal{
@@ -60,7 +62,7 @@
     margin-left: 35% ;
     font-size: 25px;
     bottom: 20px;
-    top: 530px;
+    top: 730px;
     right: 200px;
 }
 .botonFinal2{
@@ -70,6 +72,6 @@
     margin-left: 35% ;
     font-size: 25px;
     bottom: 20px;
-    top: 530px;
+    top: 730px;
     right: 40px;
 }
