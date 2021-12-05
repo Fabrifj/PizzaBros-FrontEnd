@@ -1,16 +1,22 @@
-<div class="container-fluid">
-    <h1>sss</h1>
-	
-    <button type="button"  class="btn btn-primary" routerLink="/hacer-compra">Realizar Compra</button>
-	<button type="button" class="btn btn-primary">Primary</button>
-    <h2>ss</h2>
-    <div class="tablaIngredientes">
 
-        
-        <app-tabla-reusable [datos]="datos" [columnas]="columnas" [nombreBotones]="nombreBotones" (parentMethod)="funcionBoton($event)" colorLetra="black">
-              
-           </app-tabla-reusable> 
-           
-           
-    </div>
-</div>
+	<div class="row">
+		
+		<div class="col-md-12">
+            <button class="btn btn-success" routerLink="/hacer-compra">Realizar Compra</button>
+
+        </div>
+		
+	</div>
+
+    <div class="row">
+		
+		<div class="col-md-12">
+            
+            <app-tabla-reusable [datos]="datos" [columnas]="columnas" [nombreBotones]="nombreBotones" (parentMethod)="funcionBoton($event)" colorLetra="black">
+                
+            </app-tabla-reusable> 
+        </div>
+		
+	</div>
+    
+

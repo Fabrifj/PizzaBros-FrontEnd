@@ -1,14 +1,74 @@
+const firebase = require('firebase')
+const db = firebase.firestore();
 function stringAFecha(fecha) {
-  var parts = fecha.split("-");
-  // Please pay attention to the month (parts[1]); JavaScript counts months from 0:
-  // January - 0, February - 1, etc.
-  var mydate = new Date(parts[0], parts[1] - 1, parts[2]);
-  return mydate;
+  var myDate = null;
+  if(fecha.includes("T"))
+  {
+    myDate =  new Date(fecha);
+  
+  }else
+  {
+    var parts = fecha.split("-");
+    // Please pay attention to the month (parts[1]); JavaScript counts months from 0:
+    // January - 0, February - 1, etc.
+    myDate = new Date(parts[0], parts[1] - 1, parts[2]);
+  }
+  return myDate;
 }
 
-async function actualizarDoc(idDoc, nuevoPar, nombreEntidad) {
+function stringAFirebaseTimestamp(fecha)
+{
+  const timestamp = firebase.firestore.Timestamp.fromDate(stringAFecha(fecha));
+  return timestamp;
+}
+function dateAFirebaseTimestamp(date)
+{
+  const timestamp = firebase.firestore.Timestamp.fromDate(date);
+  return timestamp;
+}
+async function createDoc(data, nombreEntidad){
+  await db.collection(nombreEntidad).add(data);
+  respuesta = {
+    "Mensaje" : `${nombreEntidad} agregado correctamente`,
+    "Elemento": data
+  }
+  return respuesta;
+}
+//Get all docs
+async function getDocs(nombreEntidad){
+  const snapshot = await db.collection(nombreEntidad).get();
+  const lista = snapshot.docs.map((doc) => ({
+    id: doc.id,
+    ...doc.data()
+  }))
+  return lista;
+}
+//Get Doc with ID
+async function getDoc(idDoc,nombreEntidad) {
+  var miDoc = null;
+  await db.collection(nombreEntidad)
+    .doc(idDoc)
+    .get()
+    .then((doc) => {
+      if (doc.exists) {
+        miDoc = doc.data();
+
+        console.log(`Data ${nombreEntidad}:`, miDoc);
+      } else {
+        // doc.data() will be undefined in this case
+        console.log(`El/La ${nombreEntidad} no existe!`);
+      }
+    })
+    .catch((error) => {
+      console.log(`Error obteniendo ${nombreEntidad}:`, error);
+    });
+
+  return miDoc;
+}
+//UpdateDoc
+async function updateDoc(idDoc, nuevoPar, nombreEntidad) {
   var respuesta = null;
-  await nombreEntidad
+  await db.collection(nombreEntidad)
     .doc(idDoc)
     .update(nuevoPar)
     .then(() => {
@@ -23,9 +83,9 @@ async function actualizarDoc(idDoc, nuevoPar, nombreEntidad) {
   return respuesta;
 }
 //EliminarDoc
-async function eliminarDoc(idDoc,nombreEntidad) {
+async function deleteDoc(idDoc,nombreEntidad) {
   var respuesta = null;
-  await nombreEntidad.doc(idDoc).delete().then(() => {
+  await db.collection(nombreEntidad).doc(idDoc).delete().then(() => {
     respuesta = `${nombreEntidad} correctamente eliminad@!`
     console.log(respuesta);
   }).catch((error) => {
@@ -35,6 +95,11 @@ async function eliminarDoc(idDoc,nombreEntidad) {
 }
 module.exports = {
   stringAFecha,
-  actualizarDoc,
-  eliminarDoc
+  stringAFirebaseTimestamp,
+  dateAFirebaseTimestamp,
+  updateDoc,
+  deleteDoc,
+  getDoc,
+  getDocs,
+  createDoc
 };

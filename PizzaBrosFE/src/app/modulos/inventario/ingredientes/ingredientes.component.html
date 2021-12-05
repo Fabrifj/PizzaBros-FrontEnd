@@ -1,22 +1,27 @@
 
-<div class = "sectorFiltros">
-    <input type="text" id="txtBuscar">
-    <button type="submit" class="buscarBtn"(click)="buscar()">Buscar</button>
 
-    <button id="crearBtn" (click)="mandarCrearIng(); ">Crear/Modificar Ingrediente</button>
-</div>
 
-<div class="tablaIngredientes">
 
-    <app-tabla-reusable [datos]="datosIng" [columnas]="columnasIng" [nombreBotones]="nombreBotonesIng" (parentMethod)="funcionBoton($event)" colorLetra="black">
+<div class="row">
+    <div class="col-md-3">
+        <input type="text" id="txtBuscar">
+        <button type="submit" class="buscarBtn"(click)="buscar()">Buscar</button>
+    
+        <button id="crearBtn" (click)="mandarCrearIng(); ">Crear/Modificar Ingrediente</button>
+    </div>
+    <div class="col-md-9">
+
+        <div class="row">
+            <div class="col-md-12">
+
+                <app-tabla-reusable [datos]="datosIng" [columnas]="columnasIng" [nombreBotones]="nombreBotonesIng" (parentMethod)="funcionBoton($event)" colorLetra="black">
           
-       </app-tabla-reusable> 
-       
-       
+                </app-tabla-reusable> 
+                   
+            </div>
+        </div>
+    </div>
 </div>
-
-
-
 
  <jw-modal id="modalIng-01" altura="90" >
 

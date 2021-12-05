@@ -37,14 +37,12 @@ const appRoutes: Routes = [
     component: PedidosComponent,
     children: [
       { path: 'pedidos-activos', component: PedidosActivosComponent },
-      { path: 'pedidos-historial', component: PedidosHistorialComponent} 
+      { path: 'pedidos-historial', component: PedidosHistorialComponent},
+      {
+        path: 'hacer-pedidos',
+        component: HacerPedidoComponent
+      } 
      ]
-  },
-  {
-    path: 'hacer-pedidos',
-    component: HacerPedidoComponent,
-    children: [
-    ]
   },
   {
     path: 'inventario',
