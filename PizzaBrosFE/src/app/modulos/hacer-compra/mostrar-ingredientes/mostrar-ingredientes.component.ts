@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ArticuloModel } from 'src/app/modelos/articulo.model';
+import { ArticuloListaModel } from 'src/app/modelos/articuloLista.model';
 import { ElementoModel } from 'src/app/modelos/elementos.model';
 import { AppHttpService } from 'src/app/servicios/app-http.service';
 
@@ -14,7 +14,8 @@ import { HacerCompraService } from '../hacer-compra.service';
 export class MostrarIngredientesComponent implements OnInit {
 
   ingrediente: ElementoModel|any ; 
-  articulos:ArticuloModel[] =[];
+  articulos:ArticuloListaModel[] =[];
+  id:string='';
   categorias:string[] =[];
   datosCat:any|undefined;
 
@@ -44,6 +45,7 @@ export class MostrarIngredientesComponent implements OnInit {
     console.log('Ingrediente seleccionado',this.ingrediente)
     this.articulos = this.ingrediente.ListaArticulos;
     console.log('Articulos seleccionados',this.articulos)
+    this.id=this.ingrediente.id
   }
 
 

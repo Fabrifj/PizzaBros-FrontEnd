@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ArticuloModel } from 'src/app/modelos/articulo.model';
+import { ArticuloListaModel } from 'src/app/modelos/articuloLista.model';
 import { HacerCompraService } from '../../hacer-compra.service';
 
 @Component({
@@ -10,7 +10,8 @@ import { HacerCompraService } from '../../hacer-compra.service';
 export class ListaIngredientesComponent implements OnInit {
 
   
-  @Input() product!: ArticuloModel;
+  @Input() product!: ArticuloListaModel;
+  @Input() id:string='';
   @Input() index=0; 
   
   constructor(private hacerCompraServicio:HacerCompraService) { }
@@ -18,7 +19,7 @@ export class ListaIngredientesComponent implements OnInit {
   ngOnInit(): void {
   }
   anhadirIngrediente(){
-    this.hacerCompraServicio.addIngrediente(this.product,1,10);
+    this.hacerCompraServicio.addIngrediente(this.product,1,10,this.id);
   }
 
 }

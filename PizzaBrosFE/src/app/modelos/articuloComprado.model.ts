@@ -1,5 +1,5 @@
 export class ArticuloCompradoModel {
-    public Id: number;
+    public Id: string;
     public Marca: string;
     public Nombre: string;
     public CantidadMedida: number;
@@ -7,7 +7,7 @@ export class ArticuloCompradoModel {
     public Cantidad: number;
     public Precio:number;
     
-    constructor(id:number,marca:string, nombre:string,caM:number, cantidad:number, precio:number) {
+    constructor(id:string,marca:string, nombre:string,caM:number, cantidad:number, precio:number) {
       this.Id =id ;
       this.Nombre = nombre;
       this.Marca = marca;
