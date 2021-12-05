@@ -22,8 +22,9 @@
     [datos]="datosEmp" 
     [columnas]="columnasEmp" 
     [nombreBotones]="nombreBotonesEmp"     
-    (parentMethod)="funcionBoton($event)" colorLetra = "cornsilk" indice="0">
-       
+    (parentMethod)="funcionBoton($event)" 
+    colorLetra = "red" 
+    indice="0">       
 </app-tabla-reusable>
 
 
@@ -37,19 +38,22 @@
         <div class="infoEditable">
             
             <h1>Nombre:</h1>
-            <input type="text">
+            <input type="text" id="nombreT">
 
             <h1>Hora Inicio:</h1>
-            <input type="text">
+            <input type="time" id="inicioT">
 
             <h1>Hora Fin:</h1>
-            <input type="text">
+            <input type="time" id="finT">
             
             <h1>Turnos Creados:</h1>
             <app-tabla-reusable 
-            [datos]="datosTurn" 
+            [datos]="basico" 
             [columnas]="columnasTurn" 
-            colorLetra="black">
+            [nombreBotones]="nombreBotonTurn"     
+            (parentMethod)="funcionBotonElim($event)"
+            colorLetra="black"
+            input=0>
             </app-tabla-reusable> 
 
         </div>
@@ -57,7 +61,7 @@
     <div class="botones">
             
         <button class="btnCerrar" (click)="funcionCancelarTurno()">Cancelar</button>
-        <button class="btnGuardar">Guardar</button>
+        <button class="btnGuardar" (click)="funcionGuardarTurno()">Guardar</button>
     </div>
 </jw-modal>
 
@@ -65,14 +69,18 @@
 <!--Modal para ver el INFORME de un empleado-->
 <jw-modal id="modalTurosEmpleados" altura="80" >
     <div class="editable">
-    <h1>Informe de {{empleadoSeleccionado.Nombre}} {{empleadoSeleccionado.ApellidoM}}:</h1>
-    <div class="infoEditable">
-        <input type="text" id="informe" size="40" readonly>
+        <h1>Informe de {{empleadoSeleccionado.Nombre}} {{empleadoSeleccionado.ApellidoM}}:</h1>
+        
+        <app-tabla-reusable 
+        [datos]="datosInforme" 
+        [columnas]="columnasInforme" 
+        colorLetra="black">
+        </app-tabla-reusable> 
+
     </div>
-</div>
-<div class="botones">
-    <button class="btnCerrar" (click)="servicioModal.cerrar('modalTurosEmpleados');">OK</button>
-</div>
+    <div class="botones">
+        <button class="btnCerrar" (click)="servicioModal.cerrar('modalTurosEmpleados');">OK</button>
+    </div>
 </jw-modal>
 
 
@@ -82,24 +90,7 @@
     <h1>Turnos de {{empleadoSeleccionado.Nombre}} {{empleadoSeleccionado.ApellidoP}} {{empleadoSeleccionado.ApellidoM}}:</h1>
     <div class="infoEditable">
         
-
-
-            <!--
-        <p>btns-seleccionados works!</p>
-        <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
-            <div *ngFor="let d of dias">
-                <h1>{{d}}</h1>
-                <div *ngFor="let v of valorTurnos">
-                    <input type="checkbox" class="btn-check" id="{{v+d}}" (change)="chbOn()">
-                    <label class="btn btn-outline-primary" for="btncheck1">{{v}}</label>
-                </div>
-
-            </div>
-            
-        </div>-->
-    
-        
-
+ 
         <app-btns-seleccionados
         [datos]="valorTurnos"
         [select]="select"

@@ -1,3 +1,4 @@
+import { CompileShallowModuleMetadata } from '@angular/compiler';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { AppHttpService } from 'src/app/servicios/app-http.service';
@@ -16,9 +17,12 @@ export class TurnosEmpleadosComponent implements OnInit {
 
   constructor(private servicioHttp: AppHttpService, public servicioModal: ModalService) { }
 
-@ViewChild(BtnsSeleccionadosComponent) hijoBotones:BtnsSeleccionadosComponent  | undefined;
+  @ViewChild(BtnsSeleccionadosComponent) hijoBotones:BtnsSeleccionadosComponent  | undefined;
 
   empleadoSeleccionado:any = {}
+
+
+  
 
   datosEmp: any | undefined;
 
@@ -37,12 +41,18 @@ export class TurnosEmpleadosComponent implements OnInit {
   
 
   columnasTurn = [
-    {field:'Nombre',header:'Nombre'},
-    {field:'HoraInicio',header:'Hora Inicio'},
-    {field:'HoraFin',header:'Hora Fin'}
+    {field:'id',header:'Nombre'},
+    {field:'HoraEntrada',header:'Hora Inicio'},
+    {field:'HoraSalida',header:'Hora Fin'}
   ];
+  nombreBotonTurn: string[] = ['-']
 
   outputTableArray: any=[];
+
+
+
+  columnasInforme :any = []
+  datosInforme :any = []
 
 /*-------------------------------------------
 *Variables necesarias para la parte de Turnos de un empleado
@@ -173,33 +183,14 @@ export class TurnosEmpleadosComponent implements OnInit {
 
 
     console.log("sus horarios del empleados :",this.select);
-    /*
-    this.servicioHttp.obtenerEmpleado(this.empleadoSeleccionado.id)
-    .subscribe((jsonFile:any)=>{
-     
-      this.datosTurnEmp= jsonFile;
-      console.log("turnos de un empleado: " , this.datosTurnEmp);
-      
-
-    } ,(error)=>{
-        console.log("hubo error ing")
-
-    } )*/
+    
   }
-
 
 funcionBoton( names: any){
     this.empleadoSeleccionado = names[1];
     if (names[0] == "Ver Turnos"){
-        console.log(this.empleadoSeleccionado);
+        
 
-        /*this.basico.forEach((e:any) => {
-          this.valorTurnos.push(e.id);
-        });*/
-    
-        //this.llenarTurnos();
-
-        //Llenar el modal de Turnos de un empleado 
         
         console.log("todos los turnos:", this.valorTurnos);
         
@@ -222,6 +213,9 @@ funcionBoton( names: any){
         
     }
     else{
+      
+
+      this.armarInforme();
       this.servicioModal.abrir('modalTurosEmpleados');
     }
   }
@@ -241,6 +235,7 @@ funcionBoton( names: any){
     
     this.servicioModal.cerrar('modalTurnos');
     (<HTMLInputElement>document.getElementById('rTurnos')).checked= false;
+    console.log("los datos de basico:", this.basico);
   }
   
   funcionCancelarTurnEmpleado(){
@@ -249,14 +244,25 @@ funcionBoton( names: any){
   }
 
   obtenerTurnos(){
-    
+    this.valorTurnos=[];
     this.servicioHttp.obtenerHorarios()
     .subscribe((jsonFile:any)=>{
      
       console.log("eljson",jsonFile);
       this.basico = jsonFile;
+
+          //crear las columnas de la tabla informe
+      var i = 0;
+
+      this.columnasInforme.push({field:'Fecha',header:'Fecha'});
       this.basico.forEach((e:any) => {
         this.valorTurnos.push(e.id);
+
+        var columna :any= {}
+        columna['field'] = e.id;
+        columna['header'] = e.id;
+        this.columnasInforme.push(columna);
+        i++;
       });
       
 
@@ -265,7 +271,7 @@ funcionBoton( names: any){
 
     } )
   }
-
+ 
 
 
 
@@ -277,7 +283,79 @@ funcionBoton( names: any){
 
   }
 
+  armarInforme(){
+    
+    console.log("empelado Seleccionado",this.empleadoSeleccionado);
+
+    
+
+    var i = 0 ;
+    this.empleadoSeleccionado.ListaTurnos.forEach((elem:any) => {
+      var fecha = new Date((elem.Fecha.seconds) * 1000).toLocaleDateString();
+      var miniDatos:any = {}
+     
+      miniDatos['Fecha'] = fecha;
+      elem.Turnos.forEach((turno:any) => {
+        
+        var id = turno.Id;
+        miniDatos[id] = turno.Estado;
+
+      });
+
+          
+      this.datosInforme[i] = miniDatos;
+      i++;
+    });
+
+    console.log("columnas", this.columnasInforme)
+    console.log("datos Informe:", this.datosInforme);
+
+  }
+
+  armarColumnas(){
+
+    
+  }
+
  
+  
+
+ 
+  funcionGuardarTurno(){
+    var nombre = (<HTMLInputElement>document.getElementById('nombreT')).value;
+    var entrada= (<HTMLInputElement>document.getElementById('inicioT')).value;
+    var salida = (<HTMLInputElement>document.getElementById('finT')).value
+    console.log("el nombre puesto es: ",nombre);
+    console.log("el vector valores: ",this.valorTurnos);
+    if(this.valorTurnos?.includes(nombre))
+    {   
+      var elemNuevo = JSON.stringify({HoraEntrada: entrada, HoraSalida: salida});
+      this.servicioHttp.actualizarHorario(nombre,JSON.parse(elemNuevo)).subscribe((jsonFile:any)=>{      
+        this.obtenerTurnos()
+      } ,(error)=>{
+          console.log("hubo error con productos")
+      } )
+
+
+    }else{
+      var elemNuevo = JSON.stringify({HoraEntrada: entrada, HoraSalida: salida});
+      this.servicioHttp.crearHorario(nombre,JSON.parse(elemNuevo)).subscribe((jsonFile:any)=>{
+     
+        console.log("turno creado con exito",jsonFile);       
+        this.obtenerTurnos()
+      } ,(error)=>{
+          console.log("hubo error con productos")
+      } )
+    }
+  }
+  funcionBotonElim(names: any){
+    var turnoSelect = names[1];
+    this.servicioHttp.eliminarHorario(turnoSelect.id).subscribe();
+    this.obtenerTurnos();
+  }
+  
+
+
 
 
 }

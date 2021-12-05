@@ -239,10 +239,10 @@ async function calcularHorario(body) {
       
 
     });
-    diasAEliminarDeBodyHorarioSemanal.forEach((num)=>
-    {
-      body.HorarioSemanal.splice(num,1);
-    });
+
+    body.HorarioSemanal = body.HorarioSemanal.filter(function(value, index) {
+        return diasAEliminarDeBodyHorarioSemanal.indexOf(index) == -1;
+    })
 
 
   resp = null;
@@ -368,12 +368,16 @@ async function obtenerEmpleados() {
   return lista;
 }
 async function actualizarEmpleado(idEmpleado, body) {
-  return await fnHerramientas.actualizarDoc(idEmpleado, body, empleado);
+  if(body.hasOwnProperty('FechaNacimiento'))
+  {
+    body.FechaNacimiento = firebase.firestore.Timestamp.fromDate(fnHerramientas.stringAFecha(body.FechaNacimiento));
+  }
+  return await fnHerramientas.updateDoc(idEmpleado, body, "Empleado");
 }
 
 async function eliminarEmpleado(idEmpleado) {
   console.log("ENTRA A ELIMINAR EMPLEADO");
-  return await fnHerramientas.eliminarDoc(idEmpleado, empleado);
+  return await fnHerramientas.deleteDoc(idEmpleado, "Empleado");
 }
 
 //Body para eliminar turnos de un empleado

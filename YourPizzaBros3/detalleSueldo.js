@@ -1,6 +1,8 @@
 const { detalleSueldo } = require("./config");
 const fnHistorialActividad = require("./historialActividad");
 const fnEmpleado = require("./empleado");
+const fnTransaccion = require("./transaccion");
+const fnHerramientas = require("./misHerramientas");
 
 /*
 {
@@ -122,9 +124,24 @@ async function calcularSueldoReal(idEmpleado) {
   await detalleSueldo.doc(idDetalle).set({
     "SueldoReal": sueldoReal
   }, {merge: true});
+ 
+  finalDate = fnHerramientas.obtenerFechaActual();
+  console.log(finalDate);
+  var desc = "DetalleSueldo " + idDetalle; 
+
+  // Ingresar el detalle de sueldo a la transaccion
+  var detalleTransaccion = {
+    "Fecha": finalDate,
+    "Tipo": "Egreso",
+    "Descripcion": desc,
+    "Cantidad": sueldoReal
+  };
+  await fnTransaccion.crearTransaccion(detalleTransaccion);
+
   respuesta = await obtenerDetalleSueldoEmpleado(idEmpleado);
   return respuesta;
 }
+
 
 module.exports = {
   crearDetalleSueldo,
