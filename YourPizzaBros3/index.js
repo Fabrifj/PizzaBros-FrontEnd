@@ -529,5 +529,6 @@ app.get("/api/empleado/info/:idEmpleado", async (req, res) => {
 
 })
 
+
 ///////
 app.listen(4000, () => console.log("Up and Running on 4000"));
