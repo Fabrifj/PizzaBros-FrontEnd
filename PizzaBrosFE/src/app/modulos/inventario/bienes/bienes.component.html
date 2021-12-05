@@ -1,20 +1,28 @@
 
-<div class = "sectorFiltros">
-    <input type="text" id="txtBuscar">
-    <button type="submit" class="buscarBtn"(click)="buscar()">Buscar</button>
+	
 
-    <button id="crearBtn" (click)="mandarCrearBien()">Crear/Modificar Bien</button>
+    
+<div class="row">
+    <div class="col-md-3">
+        <input type="text" id="txtBuscar">
+                <button type="submit" class="buscarBtn"(click)="buscar()">Buscar</button>
+            
+                <button id="crearBtn" (click)="mandarCrearBien()">Crear/Modificar Bien</button>
+    </div>
+    <div class="col-md-9">
+
+        <div class="row">
+            <div class="col-md-12">
+
+                <app-tabla-reusable [datos]="datosBien" [columnas]="columnasBien" [nombreBotones]="nombreBotonesBien" (parentMethod)="funcionBoton($event)" colorLetra="black">
+                
+                </app-tabla-reusable> 
+                    
+            </div>
+        </div>
+    </div>
 </div>
-
-<div class="tablaIngredientes">
-
-    <app-tabla-reusable [datos]="datosBien" [columnas]="columnasBien" [nombreBotones]="nombreBotonesBien" (parentMethod)="funcionBoton($event)" colorLetra="black">
-          
-       </app-tabla-reusable> 
-       
-       
-</div>
-
+    
 
 
 
@@ -39,8 +47,6 @@
           </form>
     
     </div>
-
-
 
 
     <div class="bien">

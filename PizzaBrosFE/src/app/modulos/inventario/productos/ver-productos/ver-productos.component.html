@@ -1,9 +1,6 @@
-
-<div class="contenedorFiltros">
-
-    <form>
-        
-        <div>
+<div class="row">
+    <div class="col-md-12">
+     
             <div class="rProd">
                 <input type="radio" id="rprod" name= "prodCat" checked (click) = "filtroProd()">
                 <label for="contactChoice1">Ver Productos</label>
@@ -14,30 +11,70 @@
             </div>
             
 
+      
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        
+
+        <div id="tablaProductos">
+
+            <app-tabla-reusable [datos]="datosProd" [columnas]="columnasProd" [nombreBotones]="nombreBotonesProd" (parentMethod)="funcionBoton($event)" colorLetra="black">
+                
+            </app-tabla-reusable> 
+            
+            
         </div>
-      </form>
-
+    </div>
 </div>
 
-<div id="tablaProductos">
+<div class="row">
+    <div class="col-md-12">
+        
 
-    <app-tabla-reusable [datos]="datosProd" [columnas]="columnasProd" [nombreBotones]="nombreBotonesProd" (parentMethod)="funcionBoton($event)" colorLetra="black">
-          
-       </app-tabla-reusable> 
-       
-       
-</div>
+        <div id="tablaCategorias">
 
-<div id="tablaCategorias">
-
-    <app-tabla-reusable [datos]="datosCat" [columnas]="columnasCat" [nombreBotones]="nombreBotonesCat" (parentMethod)="funcionBoton($event)" colorLetra="black">
-          
-       </app-tabla-reusable> 
-       
-       
+            <app-tabla-reusable [datos]="datosCat" [columnas]="columnasCat" [nombreBotones]="nombreBotonesCat" (parentMethod)="funcionBoton($event)" colorLetra="black">
+                
+            </app-tabla-reusable> 
+            
+            
+        </div>
+    </div>
 </div>
 
 
+
+ <!--CATEGORIA-->
+ <jw-modal id="modalCat-1" altura="80" >
+    <h1>Categoria:</h1>
+    <div class="infoEditable">
+        <h1>Nombre:</h1>
+        <h3>{{objetoSeleccionado.Nombre}}</h3>
+        
+        <h1>Productos:</h1>
+        <app-tabla-reusable 
+        [datos]="datosProdMini" 
+        [columnas]="columnasProdMini" 
+        colorLetra="black">
+        </app-tabla-reusable> 
+
+
+        <!--<h1>Descripcion:</h1>
+        <textarea readonly >{{objetoSeleccionado.Receta}}</textarea>-->
+    
+    </div>
+    
+    <div class="botones">
+        
+       <button class="btnCerrar" (click)="servicioModal.cerrar('modalCat-1');">Cancelar</button>
+    </div>
+ </jw-modal>
+
+ 
+<!-- PRODUCTOS -->
 <jw-modal id="modalProd-1" altura="80" >
     <div class="editable">
     <h1>Producto:</h1>
@@ -69,33 +106,3 @@
     </div>
  </jw-modal>
 
-
- <!--CATEGORIA-->
- <jw-modal id="modalCat-1" altura="80" >
-    <h1>Categoria:</h1>
-    <div class="infoEditable">
-        <h1>Nombre:</h1>
-        <h3>{{objetoSeleccionado.Nombre}}</h3>
-        
-        <h1>Productos:</h1>
-        <app-tabla-reusable 
-        [datos]="datosProdMini" 
-        [columnas]="columnasProdMini" 
-        colorLetra="black">
-        </app-tabla-reusable> 
-
-
-        <!--<h1>Descripcion:</h1>
-        <textarea readonly >{{objetoSeleccionado.Receta}}</textarea>-->
-    
-
-        
-
-    </div>
-    
-    
-    <div class="botones">
-        
-       <button class="btnCerrar" (click)="servicioModal.cerrar('modalCat-1');">Cancelar</button>
-    </div>
- </jw-modal>
