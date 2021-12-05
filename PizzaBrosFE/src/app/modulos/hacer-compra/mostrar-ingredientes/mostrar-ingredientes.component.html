@@ -8,11 +8,8 @@
 				  <span class="caret"></span>
 				</button>
 				<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+					<li><a *ngFor="let elem of datosCat" (click)="actualizarCategoria(elem['Nombre'])">{{elem['Nombre']}}</a></li>
 				  <li><a (click)="actualizarCategoria('Salsa de Tomate')">Salsa de tomate</a></li>
-				  <li><a href="#">Another action</a></li>
-				  <li><a href="#">Something else here</a></li>
-				  <li role="separator" class="divider"></li>
-				  <li><a href="#">Separated link</a></li>
 				</ul>
 			  </div>
 		</div>

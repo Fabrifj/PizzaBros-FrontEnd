@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ArticuloModel } from 'src/app/modelos/articulo.model';
 import { ElementoModel } from 'src/app/modelos/elementos.model';
+import { AppHttpService } from 'src/app/servicios/app-http.service';
 
 import { HacerCompraService } from '../hacer-compra.service';
 
@@ -15,21 +16,34 @@ export class MostrarIngredientesComponent implements OnInit {
   ingrediente: ElementoModel|any ; 
   articulos:ArticuloModel[] =[];
   categorias:string[] =[];
+  datosCat:any|undefined;
 
-  constructor(private hacerCompraService:HacerCompraService) { }
+  constructor(private servicioHttp: AppHttpService,private hacerCompraService:HacerCompraService) { }
 
   ngOnInit(): void {
-    this.hacerCompraService.ngOnInit()
     this.categorias = this.hacerCompraService.obtenerNombres();
     
-    console.log(this.categorias)
+    console.log('En ingredientes',this.categorias)
+    this.obtenerCategorias()
+  }
+
+  obtenerCategorias(){
+    this.servicioHttp.obtenerElementos()
+    .subscribe((jsonFile:any)=>{
+     
+      console.log("Obtenido en ingredientes",jsonFile);
+      this.datosCat = jsonFile;
+    } ,(error)=>{
+        console.log("hubo error obteniendo elementos")
+
+    } )
   }
 
   actualizarCategoria(categoria:string){
     this.ingrediente = this.hacerCompraService.obtenerElementos(categoria);
-    console.log(this.ingrediente)
+    console.log('Ingrediente seleccionado',this.ingrediente)
     this.articulos = this.ingrediente.ListaArticulos;
-    console.log(this.articulos)
+    console.log('Articulos seleccionados',this.articulos)
   }
 
 
