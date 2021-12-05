@@ -34,48 +34,50 @@
 .contendorDatosP{
     position: absolute;
     top: -200px;
-    left: 250px;
+    left: 350px;
     color: black;
 }
 
 .contendorListadoSi{
-    position: relative;
-    top: 320px;
+    position: absolute;
+    top: 250px;
     left: 350px;
     color: black;
-    width: 81%;
+    width: 90%;
+    height: 200px;
 }
 
 .contendorListadoNo{
-    position: relative;
-    top: 500px;
-    left: 400px;
+    position: absolute;
+    top: 520px;
+    left: 350px;
     color: black;
-    width: 81%;
+    width: 90%;
+    max-height: 200px;
 }
 
 .botonFinal{
-    /*position: absolute;*/
+    position: absolute;
     width: 110px;
     height: 40px;
     margin-left: 35% ;
     font-size: 25px;
     bottom: 20px;
-    top: 230px;
-    left: 100px;
+    top: 805px;
+    right: 200px;
 }
 .botonFinal2{
-    /*position: absolute;*/
+    position: absolute;
     width: 110px;
     height: 40px;
     margin-left: 35% ;
     font-size: 25px;
     bottom: 20px;
-    top: 530px;
+    top: 805px;
     right: 40px;
 }
 
-.contenedorTablas{
+/* .contenedorTablas{
 
 position: relative;
 
@@ -84,4 +86,4 @@ position: relative;
 .contenedorBotones{
 
     position: relative;
-}
+} */
