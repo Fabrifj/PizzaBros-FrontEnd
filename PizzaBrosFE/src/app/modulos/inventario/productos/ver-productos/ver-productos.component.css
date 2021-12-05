@@ -2,23 +2,21 @@
     font-family: 'open sans';
 }
 .rProd{
-    position: absolute;
-    top: -250px;
-    right: 330px;
+   float: left;
+   margin-right: 20px;
     font-size: 30px;
     color: beige;
 }
 
 .rCat{
-    position: absolute;
-    top: -250px;
-    right: 100px;
+    float: left;
+   margin-right: 10px;
     font-size: 30px;
     color: beige;
 }
 
 #tablaProductos{
-    position: absolute;
+  
     width: 100%;
     text-align-last: center;
 
@@ -27,7 +25,7 @@
 }
 
 #tablaCategorias{
-    position: absolute;
+    
     width: 100%;
     text-align-last: center;
 
