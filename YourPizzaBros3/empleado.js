@@ -239,10 +239,10 @@ async function calcularHorario(body) {
       
 
     });
-    diasAEliminarDeBodyHorarioSemanal.forEach((num)=>
-    {
-      body.HorarioSemanal.splice(num,1);
-    });
+
+    body.HorarioSemanal = body.HorarioSemanal.filter(function(value, index) {
+        return diasAEliminarDeBodyHorarioSemanal.indexOf(index) == -1;
+    })
 
 
   resp = null;
