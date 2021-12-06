@@ -14,7 +14,7 @@
         <div class="row">
             <div class="col-md-12">
 
-                <app-tabla-reusable [datos]="datosIng" [columnas]="columnasIng" [nombreBotones]="nombreBotonesIng" (parentMethod)="funcionBoton($event)" colorLetra="black">
+                <app-tabla-reusable [datos]="datosIng" [columnas]="columnasIng" (parentMethod)="funcionBoton($event)" colorLetra="black">
           
                 </app-tabla-reusable> 
                    
@@ -24,71 +24,75 @@
 </div>
 
  <jw-modal id="modalIng-01" altura="90" >
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
 
-    <div class="modal-content">
-        <div class="contenedorFiltros modal-header">
-
-            <form>
-                
                 <div>
-                    <div>
-                        <input type="radio" id="crearI" name= "ingCrear" checked (click) = "filtroCrear()">
-                        <label for="contactChoice1">Crear Ingrediente</label>
-                    </div>
-                    <div>
-                        <input type="radio" id="modI" name="ingCrear" (click) = "filtroModificar()">
-                        <label for="contactChoice2">Modificar Ingrediente</label>
-                    </div>
-                    
-        
+                    <input type="radio" id="crearI" name= "ingCrear" checked (click) = "filtroCrear()">
+                    <label for="contactChoice1">Crear Ingrediente</label>
                 </div>
-            </form>
-        
+                <div>
+                    <input type="radio" id="modI" name="ingCrear" (click) = "filtroModificar()">
+                    <label for="contactChoice2">Modificar Ingrediente</label>
+                </div>
+
+            </div>
+     
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div id="siModifico">
+                    <h3>Ingrediente a Modificar:</h3>
+                    <input type="text" id="objetoSeleccionadoID" readonly>
+                
+                </div>
+
+            </div>
+     
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+
+                <h2>Nombre:</h2>
+                <input type="text" id= "valorNombreCrear" name="nombreV">
+                
+            
+                <h2>Tipo de Medida:</h2>
+                <p>Colocar si es Kg. ,gr, unidades, etc.</p>
+                <input type="text" id= "valorUnidadCrear" name="nombreV">
+            </div>
+     
         </div>
 
+        <div class="row">
+            <div class="col-md-12">
 
-
-
-        <div class="ing modal-body">
-
-            <div id="siModifico">
-                <h3>Ingrediente a Modificar:</h3>
-                <input type="text" id="objetoSeleccionadoID" readonly>
-            
-            </div>
-            <div class="infoEditable">
-                
-            
-                    <h1>Nombre:</h1>
-                    <input type="text" id= "valorNombreCrear" name="nombreV">
-                    
-                
-                    <h1>Tipo de Medida:</h1>
-                    <p>Colocar si es Kg. ,gr, unidades, etc.</p>
-                    <input type="text" id= "valorUnidadCrear" name="nombreV">
-                    
-                    <!--<h1>Descripcion:</h1>
-                    <textarea name="descrip" rows="6" cols="50" id="valorDescripcion"></textarea> -->
-                    
-
-            </div>
-            <div class="infoNoEditable">
-            
-                <h1>Cantidad en Inventario:</h1>
+                <h2>Cantidad en Inventario:</h2>
                 <input type="text" id= "valorCantidad" readonly>      
-                <h1>Costo Unidad Promedio</h1>
+                <h2>Costo Unidad Promedio</h2>
                 <input type="text" id= "valorCostoU" readonly>   
-                <h1>Cantidad Medida</h1>
-                <input type="text" id= "valorCantidadMedida" readonly>   
+                <h2>Cantidad Medida</h2>
+                <input type="text" id= "valorCantidadMedida" readonly> 
+            </div>
+     
+        </div>
 
+        <div class="row">
+            <div class="col-md-12">
+                <div class="botones modal-footer">
+                    <button class="btnGuardado" (click)="crearIng()">{{nombreBoton}}</button>
+                    <button class="btnCerrar" (click)="servicioModal.cerrar('modalIng-01'); this.filtroCrear()">Salir</button>
+                </div>
             </div>
         </div>
-            
-        <div class="botones modal-footer">
-            <button class="btnGuardado" (click)="crearIng()">{{nombreBoton}}</button>
-            <button class="btnCerrar" (click)="servicioModal.cerrar('modalIng-01'); this.filtroCrear()">Salir</button>
-        </div>
-    </div>
+    </div>  
+
+
+
+
+
+    
  </jw-modal>
 
 

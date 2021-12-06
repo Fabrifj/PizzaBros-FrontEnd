@@ -1,3 +1,10 @@
+
+*{
+
+    background-color: black;
+    background: black;
+}
+
 .menu{
     position: relative;
     width: 100%;
@@ -6,9 +13,9 @@
     top: -10px;
     
     overflow: hidden;
-    background: rgba(10, 9, 9, 0.705);
+    background-color: black;
     mix-blend-mode: normal;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.5);
+   
     
 }
 
@@ -37,6 +44,10 @@ p{
     font-size: 30px;
     line-height: 41px;
 
+}
+a{
+    color: burlywood;
+    background-color: black;
 }
 
 .pedidos{

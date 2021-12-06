@@ -3,3 +3,62 @@
     width: 400px;
     height: 300px;
 }
+
+#rTurnos{
+
+    width: 200px;
+    height: 40px;
+    padding: 10px 30px;
+    
+    color: black;
+    border-radius: 5px;
+    
+    outline: none;
+    font-weight: bold;
+   
+    cursor: pointer;
+    margin: 5px;
+    background-color: rgba(241, 193, 35, 0.945) ;
+    border: none;
+}
+.btnCerrar{
+    width: 200px;
+    height: 50px;
+    padding: 10px 30px;
+    
+    background-color: whitesmoke;
+    color: black;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    font-weight: bold;
+
+    cursor: pointer;
+    margin: 5px;
+   
+}
+.btnGuardar{
+    width: 200px;
+    height: 50px;
+    padding: 10px 30px;
+    
+    background-color: whitesmoke;
+    color: black;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    font-weight: bold;
+
+    cursor: pointer;
+    margin: 5px;
+   
+}
+
+.editable{
+
+    margin-left: 20px;
+}
+
+h2{
+    background: none;
+}

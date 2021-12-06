@@ -1,6 +1,4 @@
-*{
-    font-family: 'open sans';
-}
+
 .nuevoValorC{
 
     display: none;
@@ -8,11 +6,7 @@
 .botones{
     margin: 5px;
 }
-.sectorFiltros{
-    position: absolute;
-    top: -250px;
-    left: 45%;
-}
+
 
 .buscarBtn{
     background-color: rgba(241, 193, 35, 0.945);
@@ -28,7 +22,7 @@
 #crearBtn {
     background-color: rgba(241, 193, 35, 0.945);
     width: 260px;
-    height: 30px;
+    height: 60px;
     margin-left: 1%;
     margin-bottom: 1%;
     border: 0px;
@@ -37,7 +31,7 @@
 }
 
 #txtBuscar{
-    margin-left: -10%;
+    
     margin-bottom: 1%;
     width: 250px;
     height: 30px;
@@ -48,44 +42,32 @@
     width: 90%;
     text-align-last: center;
 
-    top:-200px;
+ 
     right: -180px;
 }
-
-.bien{
-    margin-top:-90px;
-    margin-left: 90px;
+h2{
+    margin-top: 20px;
 }
 
-.bien h1{
-    font-weight: bold;
-    margin-top: 15px;
-}
 
-.infoEditable p{
-    font-size: 30px;
-}
 
-.infoEditable input,textarea{
-    width: 400px;
-}
+
+
 
 .btnCerrar{
-    position: relative;
-    width: 110px;
+    background-color: whitesmoke;
+    width: 130px;
     height: 40px;
-    margin-left: 1% ;
+    margin-left: 35% ;
     margin-top: 5%;
     font-size: 25px;
-    bottom: 20px;
 }
 
 .btnGuardado{
-    position: relative;
+    background-color: whitesmoke;
     width: 180px;
     height: 40px;
-    margin-left: 1% ;
+    margin-left: 5% ;
     margin-top: 5%;
     font-size: 22px;
-    bottom: 20px;
 }

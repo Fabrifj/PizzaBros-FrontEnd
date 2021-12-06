@@ -1,7 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
 
 *{
-
-
+    /*background-image: url(https://comingsoon13.files.wordpress.com/2012/05/fondo-madera-marron.jpg);*/
+    background-color: burlywood;
+	background-size: cover;
+	background-attachment: fixed;
+    background-blend-mode: normal;
+    background-repeat: no-repeat;
     color: black;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+h1,h2{
+    margin-top: -40px;
+    font-size: 50px;
+    background:none;
 }

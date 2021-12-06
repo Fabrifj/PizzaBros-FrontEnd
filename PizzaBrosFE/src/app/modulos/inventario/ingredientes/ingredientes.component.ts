@@ -29,7 +29,7 @@ export class IngredientesComponent implements OnInit {
 
   ];
 
-  nombreBotonesIng: string[] = ['Comprar'];
+  
   nombreBotonesIng2 = ['Seleccionar'];
   nombreBoton :any; 
 

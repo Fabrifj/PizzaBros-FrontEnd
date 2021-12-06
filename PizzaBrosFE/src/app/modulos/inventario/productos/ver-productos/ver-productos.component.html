@@ -49,28 +49,41 @@
 
  <!--CATEGORIA-->
  <jw-modal id="modalCat-1" altura="80" >
-    <h1>Categoria:</h1>
-    <div class="infoEditable">
-        <h1>Nombre:</h1>
-        <h3>{{objetoSeleccionado.Nombre}}</h3>
-        
-        <h1>Productos:</h1>
-        <app-tabla-reusable 
-        [datos]="datosProdMini" 
-        [columnas]="columnasProdMini" 
-        colorLetra="black">
-        </app-tabla-reusable> 
-
-
-        <!--<h1>Descripcion:</h1>
-        <textarea readonly >{{objetoSeleccionado.Receta}}</textarea>-->
     
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Categoria:</h1>
+                <div class="infoEditable">
+                    <h1>Nombre:</h1>
+                    <h3>{{objetoSeleccionado.Nombre}}</h3>
+                    
+                    <h1>Productos:</h1>
+                    <app-tabla-reusable 
+                    [datos]="datosProdMini" 
+                    [columnas]="columnasProdMini" 
+                    colorLetra="black">
+                    </app-tabla-reusable> 
+            
+            
+                  
+                </div>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+
+                <div class="botones">
+        
+                    <button class="btnCerrar" (click)="servicioModal.cerrar('modalCat-1');">Cancelar</button>
+                 </div>
+            </div>
+        </div>
     </div>
     
-    <div class="botones">
-        
-       <button class="btnCerrar" (click)="servicioModal.cerrar('modalCat-1');">Cancelar</button>
-    </div>
+    
+   
  </jw-modal>
 
  

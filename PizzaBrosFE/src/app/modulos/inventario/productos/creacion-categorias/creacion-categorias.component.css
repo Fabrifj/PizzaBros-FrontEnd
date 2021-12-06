@@ -1,13 +1,6 @@
 
-div{
+  
 
-    /*border: 1px solid black;*/
-    
-}
-*{
-    font-family: 'open sans';
-    
-}
 .crearCate{
     float: left;
     margin-right: 20px;
@@ -54,21 +47,32 @@ div{
 
 .botonFinal{
     
-    width: 110px;
+
+    width: 150px;
     height: 40px;
-    margin-left: 5% ;
+    margin: 5% ;
     font-size: 25px;
     bottom: 20px;
-    top: 730px;
-    right: 200px;
+    background-color: whitesmoke;
+   
 }
 .botonFinal2{
  
-    width: 110px;
+    width: 140px;
     height: 40px;
-    margin-left: 5% ;
+    margin: 5% ;
     font-size: 25px;
     bottom: 20px;
-    top: 730px;
-    right: 40px;
+    background-color: whitesmoke;
+}
+
+
+h1{
+
+    margin-top: 20px ;
+}
+
+#nuevoDC{
+
+    width: 100%;
 }

@@ -1,6 +1,6 @@
 
 <div class="tablaContenedora">
-    <table class="table table-bordered  ">
+    <table class="table table-bordered ">
         <thead>
             <tr>
                 
@@ -22,18 +22,14 @@
 
                 <td *ngFor= "let nombrecolumna of columnas">
                     <span class="letras"> {{dato[nombrecolumna.field]}}</span>
-                    
-                </td>
 
+                </td>
                 <td *ngFor= "let boton of nombreBotones">
                     <button 
                     class="botones" 
                     (click)="botonPresionado(boton,dato)">
-                        
-                        {{boton}}</button> 
-                    
+                        {{boton}}</button>     
                 </td>
-                
                 
             </tr>
         </tbody>

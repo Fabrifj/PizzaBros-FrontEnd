@@ -1,12 +1,15 @@
 
 
 <div class="row" id ="filtros">
-    <div class="col-md-12">
+    <div class="col-md-4">
 
         <div class=crearCate>
             <input type="radio" id="crearP" name= "prodCrear" checked (click) = "filtroCrear()">
             <label for="contactChoice1">Crear Producto</label>
         </div>
+        
+    </div>
+    <div class="col-md-4">
         <div class=modCate>
             <input type="radio" id="modP" name="prodCrear" (click) = "filtroModificar()">
             <label for="contactChoice2">Modificar Producto</label>
@@ -32,10 +35,10 @@
     <div class="col-md-4">
      
        
-        <h2>Nombre:</h2>
+        <h3>Nombre:</h3>
         <input type="text" id="nuevoNP">
     
-        <h2>Tamaño:</h2>
+        <h3>Tamaño:</h3>
         <input id="nuevoTP">
         <small >Grande, mediano o pequeno </small>
 
@@ -43,14 +46,14 @@
     </div>
     <div class="col-md-4">
 
-        <h2>Costo:</h2>
+        <h3>Costo:</h3>
         <input readonly type="text" id="nuevoCP">
 
-        <h2>Precio:</h2>
+        <h3>Precio:</h3>
         <input type="text" id="nuevoPP">
     </div>
     <div class="col-md-4">
-        <h2>Imagen:</h2>
+        <h3>Imagen URL:</h3>
         <input type="text" id="nuevoIP">
 
 
@@ -83,7 +86,7 @@
    
         <div class="contendorListadoNo">
     
-            <h1>Ingredientes por anadir:</h1>
+            <h1>Ingredientes por añadir:</h1>
             <app-tabla-reusable 
             [datos]="datosIng" 
             [columnas]="columnasIng" 
@@ -137,6 +140,6 @@
     
     <div class="botones">
 
-       <button class="btnCerrar" (click)="servicioModal.cerrar('modalProd-2'); this.filtroCrear()">Cancelar</button>
+       <button class="botones" (click)="servicioModal.cerrar('modalProd-2'); this.filtroCrear()">Cancelar</button>
     </div>
  </jw-modal>

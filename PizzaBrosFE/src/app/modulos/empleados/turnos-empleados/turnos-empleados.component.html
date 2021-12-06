@@ -6,12 +6,7 @@
             <div class="rTurnos">
                 <button id="rTurnos" name= "raturnos" (click)="servicioModal.abrir('modalTurnos');"> Modificar Turnos</button>
             </div>
-            <!--
-            <div class="rTEmpleados">
-                <input type="radio" id="rTEmpleados" name="ratempleados" (click)="funcionAbrirTurnosEmpleados()">
-                <label for="contactChoice2">Modificar Turnos Empleados</label>
-            </div>
-            -->
+    
 
         </div>
       </form>
@@ -68,7 +63,7 @@
 <!--Modal para ver el INFORME de un empleado-->
 <jw-modal id="modalTurosEmpleados" altura="80" >
     <div class="editable">
-        <h1>Informe de {{empleadoSeleccionado.Nombre}} {{empleadoSeleccionado.ApellidoM}}:</h1>
+        <h2>Informe de {{empleadoSeleccionado.Nombre}} {{empleadoSeleccionado.ApellidoM}}:</h2>
         
         <app-tabla-reusable 
         [datos]="datosInforme" 

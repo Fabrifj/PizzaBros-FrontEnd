@@ -1,12 +1,13 @@
 .tabla {
     width: 100%;
     height:10px; 
-    border: 2px solid #999;
+    border: 2px solid black;
     border-collapse: collapse;
     caption-side: top;
     margin-left: 10px;
     text-align: left;
     overflow: scroll;
+    color: black;
  }
 input{
     width: 50px;
@@ -18,7 +19,7 @@ input{
  .total{
     width: 100%;
     height:30px; 
-    border: 1px solid #999;
+    border: 1px solid black;
     border-collapse: collapse;
     caption-side: top;
     margin-left: 10px;
@@ -30,20 +31,19 @@ input{
 
  caption, td, th {
     padding: 0.2em;
-    font-family: 'open sans';
-    
+  
  }
 
  th{
     padding-left: 3px;
-    color: rgba(250, 245, 244, 0.856);
+   
     font-size: 23px;
     
     
  }
  td{
     font-size: 18px;
-    color: rgba(250, 245, 244, 0.856);
+   
     padding-top: 0;
     margin-left: 18px;
  }
@@ -51,7 +51,7 @@ input{
 caption { 
     color: rgb(224, 103, 21);
     font-size: 30px;
-    font-family: 'open sans';
+   
     margin-left: -6px ;
     
 }

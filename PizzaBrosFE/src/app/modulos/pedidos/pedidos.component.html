@@ -1,22 +1,29 @@
-<div class="fondo">
-  <div class = "container1">
-      
-    <h1>Elija Acción</h1>
+
+<div class="container-fluid" >
+
+
+  <div class="row">
+
+    <div class="col-md-7">
+        <app-list-sub-menu 
+        [listProducts]= "subMenus" >
+      </app-list-sub-menu>
+
   
+    </div>
+    <div class="col-md-5">
+      <h4>Hoy: {{date}}</h4>
+  
+    </div>
   </div>
-
-
-<app-list-sub-menu 
-            [listProducts]= "subMenus" >
-</app-list-sub-menu>
-
-
-<div class="col-md-5">
-    <h3>Fecha: {{date}}</h3>
-    
+  
+  <div class="row">
     <router-outlet></router-outlet>
-
   </div>
+  
 
 </div>
+
+
+
   
