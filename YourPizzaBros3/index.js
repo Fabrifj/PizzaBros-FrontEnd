@@ -520,6 +520,7 @@ app.get("/api/empleado/info/:idEmpleado", async (req, res) => {
     respuesta = {
       Nombre: empleado.Nombre,
       CI: empleado.CI,
+      Apellido: empleado.ApellidoP + " " + empleado.ApellidoM,
       "Fecha Nacimiento": empleado.FechaNacimiento,
       "Sueldo Base": dsEmpleado[0].SueldoBase,
     };
@@ -535,8 +536,8 @@ app.get("/api/infoEmpleado", async (req, res) => {
   var respuesta = null;
   var listaEmpleadosInfo = [];
   var empleados = await fnEmpleado.obtenerEmpleados();
-  empleados.forEach(async (empleado) => {
-    //console.log(empleado);
+
+  for await (const empleado of empleados) {
     var dsEmpleado = await fnDetalleSueldo.obtenerDetalleSueldoEmpleado(
       empleado.id
     );
@@ -545,6 +546,7 @@ app.get("/api/infoEmpleado", async (req, res) => {
     } else {
       var estructura = {
         Nombre: empleado.Nombre,
+        Apellido: empleado.ApellidoP + " " + empleado.ApellidoM,
         CI: empleado.CI,
         "Fecha Nacimiento": empleado.FechaNacimiento,
         "Sueldo Base": dsEmpleado[0].SueldoBase,
@@ -554,9 +556,7 @@ app.get("/api/infoEmpleado", async (req, res) => {
       }
       listaEmpleadosInfo.push(estructura);
     }
-  });
-  console.log(listaEmpleadosInfo)
-
+  }
   respuesta = listaEmpleadosInfo;
   res.send(respuesta);
 });
