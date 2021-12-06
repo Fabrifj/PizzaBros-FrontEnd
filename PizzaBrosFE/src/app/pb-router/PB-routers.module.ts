@@ -18,6 +18,7 @@ import { TurnosEmpleadosComponent } from '../modulos/empleados/turnos-empleados/
 import { CreacionProductosComponent } from '../modulos/inventario/productos/creacion-productos/creacion-productos.component';
 import { CreacionCategoriasComponent } from '../modulos/inventario/productos/creacion-categorias/creacion-categorias.component';
 import { VerProductosComponent } from '../modulos/inventario/productos/ver-productos/ver-productos.component';
+import { CajaComponent } from '../modulos/caja/caja.component';
 
 
 
@@ -26,6 +27,10 @@ const appRoutes: Routes = [
   {
     path: 'inicio',
     component: InicioComponent,
+  },
+  {
+    path: 'caja',
+    component: CajaComponent,
   },
   {
     path: 'pedidos',

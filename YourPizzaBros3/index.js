@@ -548,11 +548,11 @@ app.get("/api/infoEmpleado", async (req, res) => {
         Nombre: empleado.Nombre,
         Apellido: empleado.ApellidoP + " " + empleado.ApellidoM,
         CI: empleado.CI,
-        "Fecha Nacimiento": empleado.FechaNacimiento,
-        "Sueldo Base": dsEmpleado[0].SueldoBase,
+        "FechaNacimiento": empleado.FechaNacimiento,
+        "SueldoBase": dsEmpleado[0].SueldoBase,
       };
       if (dsEmpleado[0].SueldoReal) {
-        estructura["Sueldo Real"] = dsEmpleado[0].SueldoReal;
+        estructura["SueldoReal"] = dsEmpleado[0].SueldoReal;
       }
       listaEmpleadosInfo.push(estructura);
     }
@@ -566,8 +566,10 @@ app.get("/api/infoEmpleado", async (req, res) => {
 
 //CrearTransaccion
 app.post("/api/transaccion", async (req, res) => {
+  console.log(req.body)
   const data = req.body;
   const respuesta = await fnTransaccion.crearTransaccion(data);
+  console.log(respuesta)
   res.send(respuesta);
 });
 
@@ -602,6 +604,7 @@ app.get("/api/transaccionBalance", async (req, res) => {
   respuesta = await fnTransaccion.obtenerBalance();
   res.send(respuesta);
 });
+
 
 ///////
 app.listen(4000, () => console.log("Up and Running on 4000"));
