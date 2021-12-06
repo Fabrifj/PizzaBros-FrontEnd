@@ -1,14 +1,4 @@
-<div class="dropdown">
-	<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-	  Dropdown button
-	</button>
-	<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-	  <li><a class="dropdown-item" href="#">Action</a></li>
-	  <li><a class="dropdown-item" href="#">Another action</a></li>
-	  <li><a class="dropdown-item" href="#">Something else here</a></li>
-	</ul>
-  </div>
-<!-- <div class="container-fluid">
+<div class="container-fluid">
 	<div class="row">
 		<div class="col-md-12">
             <div class="dropdown">
@@ -18,7 +8,6 @@
 				</button>
 				<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
 					<li><a *ngFor="let elem of datosCat" (click)="actualizarCategoria(elem['Nombre'])">{{elem['Nombre']}}</a></li>
-				  <li><a (click)="actualizarCategoria('Salsa de Tomate')">Salsa de tomate</a></li>
 				</ul>
 			</div>
 		</div>
@@ -29,10 +18,10 @@
 				<app-lista-ingredientes
 								*ngFor="let ingredientesEle of articulos; let i = index"
 								[product] = "ingredientesEle"
+								[id] = "id"
 								[index] = "i"
 								></app-lista-ingredientes>
 			</div>
 		</div>
 	</div>
 </div>
--->

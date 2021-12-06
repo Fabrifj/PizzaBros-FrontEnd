@@ -1,5 +1,5 @@
 import { EventEmitter, Injectable, OnInit } from '@angular/core';
-import { ArticuloModel } from 'src/app/modelos/articulo.model';
+import { ArticuloListaModel } from 'src/app/modelos/articuloLista.model';
 import { ArticuloCompradoModel } from 'src/app/modelos/articuloComprado.model';
 import { ElementoModel } from 'src/app/modelos/elementos.model';
 import { AppHttpService } from 'src/app/servicios/app-http.service';
@@ -45,8 +45,8 @@ export class HacerCompraService implements OnInit{
 
 
   // para lista 
-  addIngrediente(newOrder: ArticuloModel, amount: number,precio:number) {
-    let newOrderComprado = new ArticuloCompradoModel(newOrder.Id, this.elementoSeleccionado, newOrder.Nombre, newOrder.CantidadMedida, amount, precio);
+  addIngrediente(newOrder: ArticuloListaModel, amount: number,precio:number,id:string) {
+    let newOrderComprado = new ArticuloCompradoModel(id, this.elementoSeleccionado, newOrder.Marca, newOrder.CantidadMedida, amount, precio);
     this.ingredintes.push(newOrderComprado);
     console.log("add order");
     this.comprasCambio.emit(this.obtenerListaCompras());
@@ -58,7 +58,7 @@ export class HacerCompraService implements OnInit{
 /// para selecionar 
   obtenerElementos(ele:string){
     this.elementoSeleccionado =ele;
-    return this.elementos.find( (element)=> element.Nombre = ele); 
+    return this.elementos.find( (element)=> element.Nombre == ele); 
   }
   obtenerNombres(){
     
@@ -68,6 +68,4 @@ export class HacerCompraService implements OnInit{
   registrarCompra(){
     
   }
- 
-
 }
