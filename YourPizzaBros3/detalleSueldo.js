@@ -6,8 +6,10 @@ const fnHerramientas = require("./misHerramientas");
 
 /*
 {
-  "IdEmpleado":"",
-  "SueldoBase":""
+  "IdEmpleado":"",w
+  "SueldoBase":"",
+  "SueldoReal":""
+
 }
 */
 

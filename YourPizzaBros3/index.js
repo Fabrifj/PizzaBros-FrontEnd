@@ -311,6 +311,7 @@ app.post("/api/empleado", async (req, res) => {
 //Calcular y actualizar horario
 app.put("/api/empleado/turnos", async (req, res) => {
   var body = req.body;
+  console.log("inde.js id empleado:", req.body.idEmpleado);
   const respuesta = await fnEmpleado.calcularHorario(body);
   res.send(respuesta);
 });
@@ -520,6 +521,7 @@ app.get("/api/empleado/info/:idEmpleado", async (req, res) => {
     respuesta = {
       Nombre: empleado.Nombre,
       CI: empleado.CI,
+      Apellido: empleado.ApellidoP + " " + empleado.ApellidoM,
       "Fecha Nacimiento": empleado.FechaNacimiento,
       "Sueldo Base": dsEmpleado[0].SueldoBase,
     };
@@ -535,8 +537,8 @@ app.get("/api/infoEmpleado", async (req, res) => {
   var respuesta = null;
   var listaEmpleadosInfo = [];
   var empleados = await fnEmpleado.obtenerEmpleados();
-  empleados.forEach(async (empleado) => {
-    //console.log(empleado);
+
+  for await (const empleado of empleados) {
     var dsEmpleado = await fnDetalleSueldo.obtenerDetalleSueldoEmpleado(
       empleado.id
     );
@@ -545,16 +547,17 @@ app.get("/api/infoEmpleado", async (req, res) => {
     } else {
       var estructura = {
         Nombre: empleado.Nombre,
+        Apellido: empleado.ApellidoP + " " + empleado.ApellidoM,
         CI: empleado.CI,
-        "Fecha Nacimiento": empleado.FechaNacimiento,
-        "Sueldo Base": dsEmpleado[0].SueldoBase,
+        "FechaNacimiento": empleado.FechaNacimiento,
+        "SueldoBase": dsEmpleado[0].SueldoBase,
       };
       if (dsEmpleado[0].SueldoReal) {
-        estructura["Sueldo Real"] = dsEmpleado[0].SueldoReal;
+        estructura["SueldoReal"] = dsEmpleado[0].SueldoReal;
       }
       listaEmpleadosInfo.push(estructura);
     }
-  });
+  }
   respuesta = listaEmpleadosInfo;
   res.send(respuesta);
 });
@@ -564,8 +567,10 @@ app.get("/api/infoEmpleado", async (req, res) => {
 
 //CrearTransaccion
 app.post("/api/transaccion", async (req, res) => {
+  console.log(req.body)
   const data = req.body;
   const respuesta = await fnTransaccion.crearTransaccion(data);
+  console.log(respuesta)
   res.send(respuesta);
 });
 
@@ -600,6 +605,7 @@ app.get("/api/transaccionBalance", async (req, res) => {
   respuesta = await fnTransaccion.obtenerBalance();
   res.send(respuesta);
 });
+
 
 ///////
 app.listen(4000, () => console.log("Up and Running on 4000"));

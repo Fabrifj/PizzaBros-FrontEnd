@@ -1,0 +1,15 @@
+<h1>Caja</h1>
+<app-tabla-reusable 
+    [datos]="datos" 
+    [columnas]="columnas" 
+    [nombreBotones]="nombreBotones"     
+    (parentMethod)="funcionBoton($event)" colorLetra = "cornsilk" indice="0">
+       
+</app-tabla-reusable>
+<div class="row">
+    <div class="col-md-10">
+    </div>
+    <div class="col-md-2">
+        <h2> Total {{saldoTotal}}</h2>
+    </div>
+</div>

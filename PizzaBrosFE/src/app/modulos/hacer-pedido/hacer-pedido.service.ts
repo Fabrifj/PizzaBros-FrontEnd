@@ -57,7 +57,7 @@ export class HacerPedidoService {
   }
   addOrder(newOrder: productModel, amount: number) {
 
-    this.pedidos.push(new UnitOrderModel(newOrder.Id, newOrder.Nombre, newOrder.Tamano, newOrder.Precio, (newOrder.Precio * amount), amount));
+    this.pedidos.push(new UnitOrderModel(newOrder.id, newOrder.Nombre, newOrder.Tamano, newOrder.Precio, (newOrder.Precio * amount), amount));
     console.log("add order");
     this.ordersChanged.emit(this.obtenerPedidos());
 
@@ -65,8 +65,11 @@ export class HacerPedidoService {
   crearPedido( cliente:Cliente){
     let today=new Date();
     let date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-
-    let pedidoFinal = new FinalOrderModel(1,123,cliente,date,"Preparando",this.pedidos);
+    let total=0;
+    this.pedidos.forEach((element:UnitOrderModel)=>{
+      total+=element.PrecioT
+    })
+    let pedidoFinal = new FinalOrderModel(1,123,cliente,date,"Preparando",this.pedidos,total);
     this.crearPedidoHttp(pedidoFinal);
   }
 }

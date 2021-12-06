@@ -172,6 +172,11 @@ export class AppHttpService {
     return this.http.get(path)
   }
 
+  calcularHorario(body:any){
+    console.log("el path es: ", paths.calcularHorario,"el body es: ",body);
+    return this.http.put(paths.calcularHorario,body);
+  }
+
   //horarios (turnos)
   obtenerHorarios(){
     return this.http.get(paths.obtenerHorarios)
@@ -198,5 +203,23 @@ export class AppHttpService {
     console.log("path de eliminar horario: ", path);
     return this.http.delete(path)
   }
+  //Caje
+  obtenerRegistroCaja(){
+    return this.http.get(paths.obtenerRegistrosCaja);
+  }
+  obtenerBalanceCaja(){
+    return this.http.get(paths.obtenerBalance);
+  }
+
+  crearRegistro(body:any){
+    console.log(body)
+    console.log(paths.crearRegistrosCaja)
+    return  this.http.post(paths.crearRegistrosCaja,body)
+  }
+  obtenerSueldoEmpleados(){
+    console.log(paths.obtenerSuedos);
+    return this.http.get(paths.obtenerSuedos);
+  }
+
 
 }
