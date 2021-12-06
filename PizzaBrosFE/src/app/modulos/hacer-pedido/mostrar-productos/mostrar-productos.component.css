@@ -1,6 +1,4 @@
-*{
-    font-family: 'open sans';
-}
+
 h3{
     font-size: 60px;
     color: rgb(224, 103, 21);
@@ -18,6 +16,6 @@ button {
 .list-group{
     width: 70%;
     margin-top: -10px;
-    color: rgba(243, 235, 222, 0.705);
+    /*color: rgba(243, 235, 222, 0.705);*/
     margin-left: 12%;
 }

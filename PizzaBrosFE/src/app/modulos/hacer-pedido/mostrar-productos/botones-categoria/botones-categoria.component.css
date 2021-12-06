@@ -1,23 +1,18 @@
-*{
-    font-family: 'open sans';
-}
+
 h3{
     font-size: 60px;
     color: rgb(224, 103, 21);
     margin-left: 10%;
 }
 button {
-    width: 130px;
+    width: 200px;
     font-size: 20px;
+    border: 1px solid black;
+    background-color: rgb(218, 75, 32);
+
     
 }
 .btn-group{
     margin-left: 15%;
 }
 
-.list-group{
-    width: 70%;
-    margin-top: -10px;
-    color: rgba(243, 235, 222, 0.705);
-    margin-left: 12%;
-}

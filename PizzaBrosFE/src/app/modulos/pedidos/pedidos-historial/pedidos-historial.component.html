@@ -1,78 +1,92 @@
 
 
-<div class = "contenedorFiltros">
-    <div class = "Filtro1">
-            
-                <h3>Fecha:</h3>
-                
-               <div>
-                <form>
+
+<div class="row">
+
+    <div class="col-md-12">
+
+
+
+    </div>
+</div>
+
+
+
+<div class="row">
+
+    <div class="col-md-12">
+
+
         
-                    <div>
-                        <div>
-                            <input type="radio" id="tfec" name= "fechas" checked (click) = "filtroTodos()">
-                            <label for="contactChoice3">Todos los dias</label>
-                        </div>
-                        <div>
-                            <input type="radio" id="soloFecha" name="fechas" (click) = "soloFechaFiltro()">
-                            <label for="contactChoice2">Solo Fecha Seleccionada</label>
-                        </div>
-                        <div>
-                            <input type="radio" id="rangofec" name="fechas" (click) = "rangoFechaFiltro()">
-                            <label for="contactChoice1">Rango</label>
-                            
-                        </div>
+    </div>
+</div>
 
-                    </div>
-                  </form>
+<div class="row">
 
-               </div>
-                <div id="fechaInicio">
-                    <input type="date" id="fechaI">
-                </div>
-                <div id="fechaDestino" >
-                    <input type="date" id="fechaD">
-                </div>
+    <div class="col-md-3">
 
-               
+        <h3>Fecha:</h3>
+                
+        <div>
+
+            <input type="radio" id="tfec" name= "fechas" checked (click) = "filtroTodos()">
+            <label for="contactChoice3">Todos los dias</label>
+        </div>
+                    
+                 
+        <div>
+            <input type="radio" id="soloFecha" name="fechas" (click) = "soloFechaFiltro()">
+            <label for="contactChoice2">Solo Fecha Seleccionada</label>
+        </div>
+        <div>
+            <input type="radio" id="rangofec" name="fechas" (click) = "rangoFechaFiltro()">
+            <label for="contactChoice1">Rango</label>
             
+        </div>
+
+            
+
+       
+         <div id="fechaInicio">
+             <input type="date" id="fechaI">
+         </div>
+         <div id="fechaDestino" >
+             <input type="date" id="fechaD">
+         </div>
         
     </div>
 
-    <div class = "Filtro2">
+    <div class="col-md-3">
 
         <h3>NIT Cliente:</h3>
 
+        
         <div>
-            <form>
-    
-                <div>
-                    <div>
-                        <input type="radio" id="todosCli" name= "clientes" checked (click) = "todosFiltrosCli()">
-                        <label for="contactChoice2">Todos los clientes</label>
-                    </div>
-                    <div>
-                        <input type="radio" id="soloCli" name="clientes" (click) = "filtroEspecificoCli()">
-                        <label for="contactChoice2">NIT Especifico</label>
-                    </div>
-    
-                </div>
-              </form>
-
+            <input type="radio" id="todosCli" name= "clientes" checked (click) = "todosFiltrosCli()">
+            <label for="contactChoice2">Todos los clientes</label>
         </div>
-
+        <div>
+            <input type="radio" id="soloCli" name="clientes" (click) = "filtroEspecificoCli()">
+            <label for="contactChoice2">NIT Especifico</label>
+        </div>
+    
 
         <div id="clienteCampus">
 
             <input type="text" id= "nitCliente" name="nitCliente">
         </div>
-        
-        
-        
+
     </div>
-    
-    <button class="submit"(click)="actualizarTabla()">Buscar</button>
+
+    <div class="col-md-3">
+        <button class="btnBuscar" (click)="actualizarTabla()">Buscar</button>
+
+    </div>
+
 </div>
+
+
+    
 
 
 
@@ -88,13 +102,35 @@
 
  
 <jw-modal id="modal-1" altura="70" >
-    <h1>Informacion Pedido</h1>
-    <div class="tablaPedidos">
-    <app-tabla-reusable [datos]="pedidoSeleccionadoDatos" [columnas]="pedidoSeleccionadoColumnas" colorLetra="white">
-       
-    </app-tabla-reusable>
-    </div>
+    
+     
+        <h1>Informacion Pedido</h1>
 
-    <p><button class="btnCerrar" (click)="modalServicio.cerrar('modal-1');">Cerrar</button></p>
+      
+        <div class="row">
+
+           
+    
+                <div class="tablaPedidos">
+                    <app-tabla-reusable [datos]="pedidoSeleccionadoDatos" [columnas]="pedidoSeleccionadoColumnas" colorLetra="white">
+                    
+                    </app-tabla-reusable>
+                </div>
+            
+           </div>
+
+
+           <div class="row">
+
+            
+    
+                <button class="btnCerrar" (click)="modalServicio.cerrar('modal-1');">Cerrar</button>
+           
+           </div>
+       
+    
+        
+   
+   
  
  </jw-modal>

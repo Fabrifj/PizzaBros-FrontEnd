@@ -1,5 +1,6 @@
 .containerPedidos{
 	width:500px;
+    color:black;
     width:100%;
 	padding:1%;
 	/*border-radius:10px;*/
@@ -19,8 +20,8 @@ form{
 form label{
 	width:75px;
     font-size: 25px;
-	font-family: 'open sans';
-	color: rgb(252, 249, 249);
+	
+	
 }
 form input{
     height:25px; 
@@ -49,7 +50,7 @@ form button{
 	font-weight:bold;
 	display:inline-block;
     font-size: 125%;
-    color: rgb(252, 249, 249);
+   
 
 }
 .inputPedidos{
@@ -59,16 +60,15 @@ form button{
 
 }
 .box { 
-    height:40px; 
+    height:70px; 
     width: 180px;  
-    top:8px; 
-    left:0px;
-    position: absolute;
+    
+    
     font-size: 21px;
     display:inline-block;
     background: rgba(241, 193, 35, 0.945);
-    color: rgba(255, 255, 255, 0.89);
+    
     border-radius: 10px;
-    border: 1px;
-    font-family: 'open sans';
+    
+    
  }

@@ -1,17 +1,15 @@
-*{
-    font-family: 'open sans';
-}
+
 .btn {
     background-color: rgba(241, 193, 35, 0.945);
-    width: 158px;
-    height: 39px;
+    width: 200px;
+    height: 50px;
     margin-left: 40%;
     margin-bottom: 3%;
     border: 0px;
     border-radius: 10px;
     font-size: 20px;
    
-
+    color:black;
     left: 60%;
 }
 .tablaIngredientes {
@@ -20,4 +18,5 @@
     text-align-last: center;
     right: -180px;
     top: -182px;
+    color: black;
 }

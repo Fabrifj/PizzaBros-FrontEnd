@@ -1,6 +1,4 @@
-*{
-    font-family: 'open sans';
-}
+
 .rProd{
    float: left;
    margin-right: 20px;
@@ -41,6 +39,9 @@
     font-weight: bold;
 }
 
+h1{
+    margin-top: 20px;
+}
 .infoEditable h1{
     margin-top: 0px;
     font-weight: bold;
@@ -52,10 +53,10 @@ textarea{
 }
 
 .btnCerrar{
-    position: absolute;
-    width: 110px;
+    background-color: whitesmoke;
+    width: 140px;
     height: 40px;
-    margin-left: 39% ;
+    
     font-size: 25px;
     bottom: 20px;
 }

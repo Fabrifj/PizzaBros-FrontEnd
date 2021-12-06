@@ -1,6 +1,8 @@
 *{
-	font-family: 'open sans';
+	
     margin-left: 7px;
+   
+    color: black;
 }
 
 .ref{
@@ -15,22 +17,18 @@ h1{
     font-size: 40px;
     padding-top: 10px;
 }
-h3 {
-    position: absolute;
-    color: blanchedalmond ;
-    top: -129px; 
-    right: 3%;
-    font-size: 40px;
+h4 {
+   
+    color: black ;
+    margin: 5px;
+    font-size: 20px;
 }
 .fondo {
     width: 100%;
 	height: 1300px;
-    top:-30px;
-    left: -8px;
-	background: url(https://comingsoon13.files.wordpress.com/2012/05/fondo-madera-marron.jpg);
-	background-size: cover;
-	background-attachment: fixed;
-	position: relative;
+   
+
+    
 }
 
 
@@ -42,10 +40,3 @@ h3 {
     background-color: rgb(218, 75, 32);
 }
 
-.col-md-5{
-    /*border: 2px solid black;
-    border-radius: 5px;*/
-    width: 100%;
-    height: 90%;
-    padding: 15px;
-}

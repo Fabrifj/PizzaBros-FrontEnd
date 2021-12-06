@@ -14,7 +14,7 @@
         <div class="row">
             <div class="col-md-12">
 
-                <app-tabla-reusable [datos]="datosBien" [columnas]="columnasBien" [nombreBotones]="nombreBotonesBien" (parentMethod)="funcionBoton($event)" colorLetra="black">
+                <app-tabla-reusable [datos]="datosBien" [columnas]="columnasBien" (parentMethod)="funcionBoton($event)" colorLetra="black">
                 
                 </app-tabla-reusable> 
                     
@@ -28,67 +28,84 @@
 
  <jw-modal id="modalBien-01" altura="90" >
 
-    <div class="contenedorFiltros">
+    <div class="container-fluid">
+        <div class="row">
 
-        <form>
-            
             <div>
-                <div>
-                    <input type="radio" id="crearB" name= "bienCrear" checked (click) = "filtroCrear()">
-                    <label for="contactChoice1">Crear Bien</label>
-                </div>
-                <div>
-                    <input type="radio" id="modB" name="bienCrear" (click) = "filtroModificar()">
-                    <label for="contactChoice2">Modificar Bien</label>
-                </div>
-                
+                 <input type="radio" id="crearB" name= "bienCrear" checked (click) = "filtroCrear()">
+                 <label for="contactChoice1">Crear Bien</label>
+             </div>
+             <div>
+                 <input type="radio" id="modB" name="bienCrear" (click) = "filtroModificar()">
+                 <label for="contactChoice2">Modificar Bien</label>
+             </div>
+             
+     
+         </div>
+         
+         <div class="row">
+             <div class="col-md-12">
+                 <div id="siModifico">
+                     <h3>Bien a Modificar:</h3>
+                     <input type="text" id="objetoSeleccionadoID" readonly>
+                 
+                 </div>
+     
+             </div>
+             
+     
+         </div>   
+     
+         <div class="row">
+     
+             <div class="col-md-12">
+     
+                 
+             
+                     <h2>Nombre:</h2>
+                     <input type="text" id= "valorNombreCrear" name="nombreV">
+                     
+                 
+                     <h2>Tipo de Medida:</h2>
+                     <p>Colocar si es Kg. ,gr, unidades, etc.</p>
+                     <input type="text" id= "valorUnidadCrear" name="nombreV">
+                     
+                    
+     
+             </div>
+             
+         </div>
+     
+         <div class="row">
+             
+             <div class="col-md-12">
+                 <h2>Cantidad en Inventario:</h2>
+                 <input type="text" id= "valorCantidad" readonly>      
+                 <h2>Costo Unidad Promedio</h2>
+                 <input type="text" id= "valorCostoU" readonly>   
+                 <h2>Cantidad Medida</h2>
+                 <input type="text" id= "valorCantidadMedida" readonly> 
+     
+             </div>
+                  
+     
+             
+     
+         </div>
+         <div class="row">
+     
+             <div class="botones">
+                 <button class="btnGuardado" (click)="crearBien()">{{nombreBoton}}</button>
+                 <button class="btnCerrar" (click)="servicioModal.cerrar('modalBien-01');this.filtroCrear()">Salir</button>
+             </div>
+     
+         </div>
+
+    </div>
     
-            </div>
-          </form>
-    
-    </div>
 
 
-    <div class="bien">
-
-        <div id="siModifico">
-            <h3>Bien a Modificar:</h3>
-            <input type="text" id="objetoSeleccionadoID" readonly>
-        
-        </div>
-        <div class="infoEditable">
-            
-        
-                <h1>Nombre:</h1>
-                <input type="text" id= "valorNombreCrear" name="nombreV">
-                
-            
-                <h1>Tipo de Medida:</h1>
-                <p>Colocar si es Kg. ,gr, unidades, etc.</p>
-                <input type="text" id= "valorUnidadCrear" name="nombreV">
-                
-                <!--<h1>Descripcion:</h1>
-                <textarea name="descrip" rows="6" cols="50" id="valorDescripcion"></textarea> -->
-                
-
-        </div>
-        <div class="infoNoEditable">
-        
-            <h1>Cantidad en Inventario:</h1>
-            <input type="text" id= "valorCantidad" readonly>      
-            <h1>Costo Unidad Promedio</h1>
-            <input type="text" id= "valorCostoU" readonly>   
-            <h1>Cantidad Medida</h1>
-            <input type="text" id= "valorCantidadMedida" readonly>   
-
-    </div>
-        
-        <div class="botones">
-            <button class="btnGuardado" (click)="crearBien()">{{nombreBoton}}</button>
-        <button class="btnCerrar" (click)="servicioModal.cerrar('modalBien-01');this.filtroCrear()">Salir</button>
-        </div>
-    </div>
- </jw-modal>
+</jw-modal>
 
 
  <jw-modal id="modalBien-2" altura="80" >

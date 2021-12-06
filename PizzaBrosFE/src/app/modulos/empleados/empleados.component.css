@@ -1,5 +1,5 @@
 *{
-	font-family: 'open sans';
+	
     margin-left: 7px;
 }
 .fondo {
@@ -7,9 +7,8 @@
 	height: 1200px;
     top: -10px;
     left: -7px;
-	background: url(https://comingsoon13.files.wordpress.com/2012/05/fondo-madera-marron.jpg);
-	background-size: cover;
-	background-attachment: fixed;
+	
+	
 	position: relative;
     overflow: hidden;
 }

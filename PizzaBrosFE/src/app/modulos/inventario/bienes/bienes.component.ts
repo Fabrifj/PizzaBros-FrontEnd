@@ -28,7 +28,7 @@ export class BienesComponent implements OnInit {
 
   ];
 
-  nombreBotonesBien: string[] = ['Comprar'];
+  
   nombreBotonesBien2 = ['Seleccionar'];
   nombreBoton :any; 
   constructor( private servicioHttp: AppHttpService, public servicioModal: ModalService) { }
