@@ -311,6 +311,7 @@ app.post("/api/empleado", async (req, res) => {
 //Calcular y actualizar horario
 app.put("/api/empleado/turnos", async (req, res) => {
   var body = req.body;
+  console.log("inde.js id empleado:", req.body.idEmpleado);
   const respuesta = await fnEmpleado.calcularHorario(body);
   res.send(respuesta);
 });

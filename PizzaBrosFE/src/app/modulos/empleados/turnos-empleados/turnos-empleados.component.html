@@ -4,8 +4,7 @@
         
         <div>
             <div class="rTurnos">
-                <input type="radio" id="rTurnos" name= "raturnos" (click)="servicioModal.abrir('modalTurnos');">
-                <label for="contactChoice1">Modificar Turnos</label>
+                <button id="rTurnos" name= "raturnos" (click)="servicioModal.abrir('modalTurnos');"> Modificar Turnos</button>
             </div>
             <!--
             <div class="rTEmpleados">
@@ -104,7 +103,7 @@
     </div>
 </div>
 <div class="botones">   
-    <button class="btnCerrar" (click)="servicioModal.cerrar('modalMostrarTurnos'); destiquear(); ">OK</button>
-    <button class="btnGuardar">Guardar</button>
+    <button class="btnCerrar" (click)="servicioModal.cerrar('modalMostrarTurnos'); destiquear(); ">Cancelar</button>
+    <button class="btnGuardar" (click)="guardarTurnosNuevos()">Guardar</button>
 </div>
 </jw-modal>

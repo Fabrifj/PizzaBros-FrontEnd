@@ -25,6 +25,14 @@ export class BtnsSeleccionadosComponent implements OnInit,OnChanges {
 
 
   dias:string[] =["1","2","3","4","5","6","7"];
+  diasSemana:any = 
+    {"1":"Lunes",
+    '2':"Martes",
+    '3':'Miercoles',
+    '4':'Jueves',
+    '5':'Viernes',
+    '6':'Sabado',
+    '7':'Domingo'};
   
   constructor() { 
    
@@ -110,10 +118,7 @@ export class BtnsSeleccionadosComponent implements OnInit,OnChanges {
 
   }
 
-  funcionRespaldo(){
-
-    console.log("en hijo")
-    //this.checkedElem();
-  }
+  
+  
 }
 
