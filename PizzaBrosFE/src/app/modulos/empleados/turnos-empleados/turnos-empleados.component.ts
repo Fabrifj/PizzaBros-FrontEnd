@@ -29,13 +29,10 @@ export class TurnosEmpleadosComponent implements OnInit {
   columnasEmp = [
     {field:'Nombre',header:'Nombre'},
     {field:'ApellidoP',header:'ApellidoP'},
-    {field:'ApellidoM',header:'ApellidoM'},
-    {field:'CI',header:'CI'},
     {field:'Celular',header:'Celular'},
-    {field:'FechaNacimineto',header:'Fecha de Nacimiento'},
     {field:'Cargo',header:'Cargo'}
   ];
-  nombreBotonesEmp: string[] = ['Ver Turnos','Seleccionar'];
+  nombreBotonesEmp: string[] = ['Ver Turnos','Ver Informe'];
 
 
   
@@ -48,6 +45,7 @@ export class TurnosEmpleadosComponent implements OnInit {
   nombreBotonTurn: string[] = ['-']
 
   outputTableArray: any=[];
+  paraenviar: any;
 
 
 
@@ -75,7 +73,14 @@ export class TurnosEmpleadosComponent implements OnInit {
   turnos: string[] = [];
   
 
-
+  diasSemana:any = 
+    {"1":"Lunes",
+    '2':"Martes",
+    '3':'Miercoles',
+    '4':'Jueves',
+    '5':'Viernes',
+    '6':'Sabado',
+    '7':'Domingo'};
 
   ngOnInit() {
 
@@ -223,7 +228,7 @@ funcionBoton( names: any){
  
   displayArray(theArray: any){
   this.outputTableArray=theArray;
-  console.log("el array  fuera de comp:",theArray);
+  console.log("el array  fuera de comp:",this.outputTableArray);
 
 
 
@@ -322,6 +327,7 @@ funcionBoton( names: any){
 
  
   funcionGuardarTurno(){
+    alert("Tabla turnos actualizada");
     var nombre = (<HTMLInputElement>document.getElementById('nombreT')).value;
     var entrada= (<HTMLInputElement>document.getElementById('inicioT')).value;
     var salida = (<HTMLInputElement>document.getElementById('finT')).value
@@ -355,7 +361,87 @@ funcionBoton( names: any){
   }
   
 
+  guardarTurnosNuevos(){
+    alert("Actualizando los turnos de este empleado");
+    //this.empleadoSeleccionado
+    console.log("los botones seleccionados son: ", this.outputTableArray);
+    var horario:string;
+    var dia:string;
+    var listaHorarioSemana:any=[];
+    var aux1:any=[];
+    var aux2:any=[];
+    var aux3:any=[];
+    var aux4:any=[];
+    var aux5:any=[];
+    var aux6:any=[];
+    var aux7:any=[];
+    var enviar:any;
 
+
+    var today = new Date();
+    let diaH :string=today.getDate().toString();
+      let anio =today.getFullYear().toString();
+      let mes = (today.getMonth() +1).toString();
+
+      if(mes.length == 1){
+
+        mes  = "0" + mes;
+      }
+      if(diaH.length == 1){
+
+        dia  = "0" + diaH;
+      }
+      var todayDate = anio + "-" + mes + "-" + diaH;
+
+
+
+    this.outputTableArray.forEach((elem:any) => {
+      dia=elem.substr(-1); //dia 1,2,3
+      horario=elem.substring(0,elem.length - 1); // horario A,B,C,D
+      
+      switch (this.diasSemana[dia]){
+        case "Lunes":
+          aux1.push(horario);
+          break;
+        case "Martes":
+          aux2.push(horario);
+          break;
+        case "Miercoles":
+          aux3.push(horario);
+          break;
+        case "Jueves":
+          aux4.push(horario);
+          break;
+        case "Viernes":
+          aux5.push(horario);
+          break;
+        case "Sabado":
+          aux6.push(horario);
+          break;
+        default:
+          aux7.push(horario);
+          break;
+      }
+
+    });
+
+    
+    listaHorarioSemana.push({Dia:"Lunes","Turnos": aux1});
+    listaHorarioSemana.push({Dia:"Martes","Turnos": aux2});
+    listaHorarioSemana.push({Dia:"Miercoles","Turnos": aux3});
+    listaHorarioSemana.push({Dia:"Jueves","Turnos": aux4});
+    listaHorarioSemana.push({Dia:"Viernes","Turnos": aux5});
+    listaHorarioSemana.push({Dia:"Sabado","Turnos": aux6});
+    listaHorarioSemana.push({Dia:"Domingo","Turnos": aux7});
+
+
+    enviar=JSON.stringify({"IdEmpleado":this.empleadoSeleccionado.id,"FechaTurnos":todayDate,"HorarioSemanal":listaHorarioSemana});
+
+    console.log("horario para enviar: ",enviar);
+    this.servicioHttp.calcularHorario(enviar).subscribe();
+
+
+  }
 
 
 }

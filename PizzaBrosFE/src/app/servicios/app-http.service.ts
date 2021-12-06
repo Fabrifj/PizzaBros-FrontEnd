@@ -172,6 +172,11 @@ export class AppHttpService {
     return this.http.get(path)
   }
 
+  calcularHorario(body:any){
+    console.log("el path es: ", paths.calcularHorario,"el body es: ",body);
+    return this.http.put(paths.calcularHorario,body);
+  }
+
   //horarios (turnos)
   obtenerHorarios(){
     return this.http.get(paths.obtenerHorarios)

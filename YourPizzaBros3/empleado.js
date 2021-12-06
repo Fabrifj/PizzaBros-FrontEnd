@@ -151,7 +151,9 @@ async function crearEmpleado(body) {
 
 //IMPORTANTE: NO SE VERIFICA SI LOS HORARIOS EXISTEN, SE DEBEN ENVIAR HORARIOS QUE SI EXISTAN
 async function calcularHorario(body) {
+  console.log("entra a calular horario:");
   var ref = empleado.doc(body.IdEmpleado);
+  console.log("calcularHorario id empleado:", body.IdEmpleado);
   var miEmpleado = await obtenerEmpleado(body.IdEmpleado);
 
   const fechaTurnos = fnHerramientas.stringAFecha(body.FechaTurnos);
@@ -338,6 +340,7 @@ async function actualizarEstadoTurno(IdEmpleado, body) {
 
 async function obtenerEmpleado(idEmpleado) {
   var miEmpleado = null;
+  console.log("otener empleado id:" , idEmpleado);
   await empleado
     .doc(idEmpleado)
     .get()
