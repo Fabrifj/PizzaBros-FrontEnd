@@ -11,6 +11,7 @@ export class CajaComponent implements OnInit {
 
   datos: any | undefined;
 
+  moment :any;
   columnas = [
     {field:'Fecha',header:'Fecha'},
     {field:'Tipo',header:'Tipo'},
@@ -26,22 +27,23 @@ export class CajaComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.obtenerEmpleados();
+    this.obtenerBalanceCaja();
     
   }
+  obtenerBalanceCaja(){
+    this.servicioHttp.obtenerBalanceCaja()
+      .subscribe((jsonFile)=>{
+        console.log("Balance")        
+        this.moment = jsonFile; 
+        console.log(this.moment) 
+        this.saldoTotal =this.moment.Balance.Cantidad;  
+        this.datos = this.moment.Transacciones;
+        this.modificarFecha();
 
-  obtenerEmpleados(){
-
-    this.servicioHttp.obtenerRegistroCaja()
-    .subscribe((jsonFile)=>{
-      //this.Orders = this.JSON_MAPPER.readValue(jsonFile, FinalOrderModel[])
-      console.log(jsonFile);
-      this.datos = jsonFile;
-      this.modificarFecha();
-      this.saldoTotalCalculated();
-    } )
+      })
   }
 
+ 
 
   funcionBoton( nombres: any){
 

@@ -77,6 +77,9 @@
     "crearHorario":"/api/horario/",
 
     "obtenerRegistrosCaja":"/api/transaccion",
+    "crearRegistrosCaja":"/api/transaccion",
+    "obtenerBalance":"/api/transaccionBalance",
+
     "obtenerSuedos":"/api/infoEmpleado"
 
 }
