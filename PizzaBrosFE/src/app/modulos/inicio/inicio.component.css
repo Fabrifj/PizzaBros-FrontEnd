@@ -1,4 +1,7 @@
 /* Inicio */
+*{
+    background-color: black;
+}
 .pagina{
     position: absolute;
     width: 100%;
