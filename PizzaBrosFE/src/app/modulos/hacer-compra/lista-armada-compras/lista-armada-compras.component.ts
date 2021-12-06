@@ -14,12 +14,12 @@ export class ListaArmadaComprasComponent implements OnInit {
   ingredientes:ArticuloCompradoModel[]=[];
   catidadIngredientes:number=0;
   totalCompra:number=0;
-  constructor(private hacerCompraServicio:HacerCompraService) { }
+  constructor(public hacerCompraServicio:HacerCompraService) { }
 
   ngOnInit(): void {
     this.hacerCompraServicio.comprasCambio.subscribe(
       (newOrders:  ArticuloCompradoModel[])=>{
-        this.ingredientes = newOrders;
+        this.hacerCompraServicio.ingredintes = newOrders;
         this.calcularActualizacion();
 
       }
@@ -28,16 +28,16 @@ export class ListaArmadaComprasComponent implements OnInit {
   calcularActualizacion(){
     this.catidadIngredientes = 0;
     this.totalCompra =0; 
-    this.catidadIngredientes = this.ingredientes.length;
-    for (let index = 0; index < this.ingredientes.length; index++) {
-      this.totalCompra += this.ingredientes[index].Precio;  
+    this.catidadIngredientes = this.hacerCompraServicio.ingredintes.length;
+    for (let index = 0; index < this.catidadIngredientes; index++) {
+      this.totalCompra += this.hacerCompraServicio.ingredintes[index].Precio;  
     }
   }
 
 
   eliminarPedido(i:number){
-    let foo_object  = this.ingredientes[i]// Item to remove
-    this.ingredientes = this.ingredientes.filter(obj => obj !== foo_object);
+    let foo_object  = this.hacerCompraServicio.ingredintes[i]// Item to remove
+    this.hacerCompraServicio.ingredintes = this.hacerCompraServicio.ingredintes.filter(obj => obj !== foo_object);
     alert('Elimino un elemento');
     this.calcularActualizacion();
   }
