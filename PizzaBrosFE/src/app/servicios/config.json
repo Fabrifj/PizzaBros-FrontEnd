@@ -74,7 +74,10 @@
     "obtenerHorarioId":"/api/horario/",
     "actualizarHorario":"/api/horario/",
     "eliminarHorario":"/api/horario/",
-    "crearHorario":"/api/horario/"
+    "crearHorario":"/api/horario/",
+
+    "obtenerRegistrosCaja":"/api/transaccion",
+    "obtenerSuedos":"/api/infoEmpleado"
 
 }
 

@@ -555,6 +555,8 @@ app.get("/api/infoEmpleado", async (req, res) => {
       listaEmpleadosInfo.push(estructura);
     }
   });
+  console.log(listaEmpleadosInfo)
+
   respuesta = listaEmpleadosInfo;
   res.send(respuesta);
 });

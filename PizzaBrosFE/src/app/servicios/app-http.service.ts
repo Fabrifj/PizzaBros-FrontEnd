@@ -198,5 +198,13 @@ export class AppHttpService {
     console.log("path de eliminar horario: ", path);
     return this.http.delete(path)
   }
+  //Caje
+  obtenerRegistroCaja(){
+    return this.http.get(paths.obtenerRegistrosCaja);
+  }
+  obtenerSueldoEmpleados(){
+    console.log(paths.obtenerSuedos);
+    return this.http.get(paths.obtenerSuedos);
+  }
 
 }

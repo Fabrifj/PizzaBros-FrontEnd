@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AppHttpService } from 'src/app/servicios/app-http.service';
 
 @Component({
   selector: 'app-sueldos-empleados',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SueldosEmpleadosComponent implements OnInit {
 
-  constructor() { 
+  constructor(private servicioHttp: AppHttpService) { 
  
   }
 
@@ -21,11 +22,25 @@ export class SueldosEmpleadosComponent implements OnInit {
     {field:'Estado',header:'Estado'}
   ];
 
-  nombreBotones: string[] | undefined;
+  nombreBotones: string[] = ["PagarSueldo"];
 
   ngOnInit(): void {
+    this.obtenerCaja();
   }
+ 
   funcionBoton( nombres: any){
+
+  }
+  obtenerCaja(){
+
+    this.servicioHttp.obtenerSueldoEmpleados()
+    .subscribe((jsonFile)=>{
+      //this.Orders = this.JSON_MAPPER.readValue(jsonFile, FinalOrderModel[])
+      console.log(jsonFile);
+      this.datos = jsonFile;
+       
+    } )
+
 
   }
 
