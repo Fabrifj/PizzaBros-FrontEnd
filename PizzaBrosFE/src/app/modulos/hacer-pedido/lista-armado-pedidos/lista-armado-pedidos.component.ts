@@ -33,18 +33,12 @@ export class ListaArmadoPedidosComponent implements OnInit,OnChanges {
   ngOnChanges(){
     this.hacerPedidoServicio.pedidos = this.hacerPedidoServicio.obtenerPedidos();
     this.calcularActualizacion();
-    console.log("on changes listado");
-    console.log(this.hacerPedidoServicio.pedidos);
-
-
-
   }
   calcularActualizacion(){
     this.cantidadPedidos = 0;
     this.totalPrecio =0; 
     for (let index = 0; index < this.hacerPedidoServicio.pedidos.length; index++) {
       this.cantidadPedidos += this.hacerPedidoServicio.pedidos[index].Cantidad;
-      console.log(this.cantidadPedidos);
       this.totalPrecio += this.hacerPedidoServicio.pedidos[index].PrecioT;  
     }
   }

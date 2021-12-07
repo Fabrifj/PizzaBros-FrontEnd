@@ -18,7 +18,6 @@ export class MostrarProductosComponent implements OnInit {
   nombres: string[]=[];
   categoria ="Pizzas";
   ngOnInit(): void {
-    console.log("Product Display inti");
     this.products = this.hacerPedidoServicio.obtenerProductos();
   }
   cambiarCategoria(newCategory:string,products:productCatModel[]){

@@ -49,24 +49,6 @@ export class TablaReusableComponent implements OnInit {
 
 
    });
-
-
-   
-  
-
-
-   
-   
-    /*for (let i =0 ; i< elem.length ; i++){
-        console.log(i);
-        const e = elem[i];
-        if(e instanceof HTMLElement){
-           console.log("entro a cambiar el color");
-            e.style.color = this.colorLetra;
-        }
-
-    }  */
-
   }
 
   
@@ -88,7 +70,6 @@ export class TablaReusableComponent implements OnInit {
       this.titulosTextos.forEach((titulo:any) => {
 
         var nombreCC  = 'textoCantidad' + indice1 + indice2 ; 
-        console.log(nombreCC)
         var valor = (<HTMLInputElement>document.getElementById(nombreCC)).value ;
 
         element[titulo] = valor
@@ -98,9 +79,6 @@ export class TablaReusableComponent implements OnInit {
 
       indice1= indice1+1;
     });
-    
-    
-    console.log(this.misDatos);
 
     this.parentMethod.emit(['GuardarTodo',this.misDatos,this.indice])
   }
@@ -108,7 +86,6 @@ export class TablaReusableComponent implements OnInit {
   getId(j:any,i:any){
     var nombre = "textoCantidad";
     nombre = nombre + i + j ;  
-    console.log(nombre);
     return nombre  ;
 
   }

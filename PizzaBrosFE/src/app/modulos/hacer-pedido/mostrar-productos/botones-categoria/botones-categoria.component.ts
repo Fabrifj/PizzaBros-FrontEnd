@@ -20,11 +20,7 @@ export class BotonesCategoriaComponent implements OnInit {
   obtenerCategorias(){
     this.servicioHttp.obtenerCategorias()
     .subscribe((jsonFile:any)=>{
-     
-      console.log(jsonFile);
       this.datosCat = jsonFile;
-      
-      
 
     } ,(error)=>{
         console.log("hubo error con categoria")

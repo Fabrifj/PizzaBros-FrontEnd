@@ -87,37 +87,13 @@ export class TurnosEmpleadosComponent implements OnInit {
     
     this.obtenerEmpleados()
     this.obtenerTurnos()
-   //await new Promise(resolve => setTimeout(resolve, 7000));
-    //this.valorTurnos = ["uno1","dos1","tres1"];
-    //this.valorSelect = ["uno1","dos1"];
     
   }
-
-  ngAfterContentInit(){
-    
-    console.log("=============componente charged");
-    
-
-
-  }
-
-  ngAfterViewInit(){
-    
-  }
-
-
-
 
   obtenerEmpleados(){
-    console.log("entra al obtener empleados");
     this.servicioHttp.obtenerEmpleados()
     .subscribe((jsonFile:any)=>{
-     
-      console.log("los empleado son",jsonFile);
       this.datosEmp = jsonFile;
-      
-      
-
     } ,(error)=>{
         console.log("hubo error con productos")
 
@@ -126,12 +102,9 @@ export class TurnosEmpleadosComponent implements OnInit {
 
   obtenerTurnosEmp(){ 
 
-
     this.horarioSemanal = this.empleadoSeleccionado.HorarioSemanal;
-    console.log("horario semanal empleado: ", this.horarioSemanal);
     this.select = []
     this.horarioSemanal.forEach((element: any) => {
-      console.log("elem.dias:", element.Dia);
       switch (element.Dia){
         case "Lunes":
           element.Turnos.forEach((e:any) => {
@@ -185,54 +158,26 @@ export class TurnosEmpleadosComponent implements OnInit {
       }
       
     });
-
-
-    console.log("sus horarios del empleados :",this.select);
     
   }
 
 funcionBoton( names: any){
     this.empleadoSeleccionado = names[1];
     if (names[0] == "Ver Turnos"){
-        
-
-        
-        console.log("todos los turnos:", this.valorTurnos);
-        
-       
         this.obtenerTurnosEmp();
-        
-        
-
-
         this.bo=true;
-       
- 
-       
         this.hijoBotones?.checkedElem();
-       
-       
         this.servicioModal.abrir('modalMostrarTurnos');
-        
-        
-        
     }
     else{
-      
-
       this.armarInforme();
       this.servicioModal.abrir('modalTurosEmpleados');
     }
   }
 
- 
   displayArray(theArray: any){
   this.outputTableArray=theArray;
-  console.log("el array  fuera de comp:",this.outputTableArray);
 
-
-
-  
   }
  
 
@@ -240,7 +185,6 @@ funcionBoton( names: any){
     
     this.servicioModal.cerrar('modalTurnos');
     (<HTMLInputElement>document.getElementById('rTurnos')).checked= false;
-    console.log("los datos de basico:", this.basico);
   }
   
   funcionCancelarTurnEmpleado(){
@@ -252,11 +196,9 @@ funcionBoton( names: any){
     this.valorTurnos=[];
     this.servicioHttp.obtenerHorarios()
     .subscribe((jsonFile:any)=>{
-     
-      console.log("eljson",jsonFile);
       this.basico = jsonFile;
 
-          //crear las columnas de la tabla informe
+      //crear las columnas de la tabla informe
       var i = 0;
 
       this.columnasInforme.push({field:'Fecha',header:'Fecha'});
@@ -276,23 +218,12 @@ funcionBoton( names: any){
 
     } )
   }
- 
-
-
-
   
   destiquear(){
     this.hijoBotones?.destiquear();
-    
-    console.log("Imprimiento resultado",this.outputTableArray);
-
   }
 
-  armarInforme(){
-    
-    console.log("empelado Seleccionado",this.empleadoSeleccionado);
-
-    
+  armarInforme(){    
 
     var i = 0 ;
     this.empleadoSeleccionado.ListaTurnos.forEach((elem:any) => {
@@ -312,23 +243,13 @@ funcionBoton( names: any){
       i++;
     });
 
-    console.log("columnas", this.columnasInforme)
-    console.log("datos Informe:", this.datosInforme);
-
   }
 
- 
- 
-  
-
- 
   funcionGuardarTurno(){
     alert("Tabla turnos actualizada");
     var nombre = (<HTMLInputElement>document.getElementById('nombreT')).value;
     var entrada= (<HTMLInputElement>document.getElementById('inicioT')).value;
-    var salida = (<HTMLInputElement>document.getElementById('finT')).value
-    console.log("el nombre puesto es: ",nombre);
-    console.log("el vector valores: ",this.valorTurnos);
+    var salida = (<HTMLInputElement>document.getElementById('finT')).value;
     if(this.valorTurnos?.includes(nombre))
     {   
       var elemNuevo = JSON.stringify({HoraEntrada: entrada, HoraSalida: salida});
@@ -341,9 +262,7 @@ funcionBoton( names: any){
 
     }else{
       var elemNuevo = JSON.stringify({HoraEntrada: entrada, HoraSalida: salida});
-      this.servicioHttp.crearHorario(nombre,JSON.parse(elemNuevo)).subscribe((jsonFile:any)=>{
-     
-        console.log("turno creado con exito",jsonFile);       
+      this.servicioHttp.crearHorario(nombre,JSON.parse(elemNuevo)).subscribe((jsonFile:any)=>{    
         this.obtenerTurnos()
       } ,(error)=>{
           console.log("hubo error con productos")
@@ -357,10 +276,10 @@ funcionBoton( names: any){
   }
   
 
+  
   guardarTurnosNuevos(){
     alert("Actualizando los turnos de este empleado");
     //this.empleadoSeleccionado
-    console.log("los botones seleccionados son: ", this.outputTableArray);
     var horario:string;
     var dia:string;
     var listaHorarioSemana:any=[];
@@ -433,7 +352,6 @@ funcionBoton( names: any){
 
     enviar=JSON.stringify({"IdEmpleado":this.empleadoSeleccionado.id,"FechaTurnos":todayDate,"HorarioSemanal":listaHorarioSemana});
 
-    console.log("horario para enviar: ",enviar);
     this.servicioHttp.calcularHorario(enviar).subscribe();
 
 

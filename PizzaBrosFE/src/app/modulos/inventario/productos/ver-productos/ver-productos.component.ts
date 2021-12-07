@@ -19,9 +19,7 @@ export class VerProductosComponent implements OnInit {
     {field:'Nombre',header:'Nombre'},
     {field:'Tamano',header:'Tamano'},
     {field:'Costo',header:'Costo'},
-    //{field:'CostoUnidad',header:'Costo Unidad Bs'},
     {field:'Precio',header:'Precio'}
-   // {field:'Imagen',header:'Imagen'}
     
 
   ];
@@ -30,7 +28,6 @@ export class VerProductosComponent implements OnInit {
   columnasCat = [
     {field:'Nombre',header:'Nombre'},
     {field:'Descripcion',header:'Descripcion'}
-   // {field:'Imagen',header:'Imagen'}
     
 
   ];
@@ -48,7 +45,6 @@ export class VerProductosComponent implements OnInit {
   datosProdMini: any | undefined;
   columnasProdMini = [
     {field:'NombreProducto',header:'Nombre Producto'}
-   // {field:'Imagen',header:'Imagen'}
     
 
   ];
@@ -81,10 +77,7 @@ export class VerProductosComponent implements OnInit {
     this.servicioHttp.obtenerProductos()
     .subscribe((jsonFile:any)=>{
      
-      console.log(jsonFile);
       this.datosProd = jsonFile;
-      
-      
 
     } ,(error)=>{
         console.log("hubo error con productos")
@@ -95,10 +88,7 @@ export class VerProductosComponent implements OnInit {
     this.servicioHttp.obtenerCategorias()
     .subscribe((jsonFile:any)=>{
      
-      console.log(jsonFile);
       this.datosCat = jsonFile;
-      
-      
 
     } ,(error)=>{
         console.log("hubo error con categoria")
@@ -108,12 +98,7 @@ export class VerProductosComponent implements OnInit {
   obtenerIng(){
     this.servicioHttp.obtenerIngredientes()
     .subscribe((jsonFile:any)=>{
-     
-      console.log(jsonFile);
       this.datosIng= jsonFile;
-      
-       
-      
 
     } ,(error)=>{
         console.log("hubo error ing")
@@ -127,11 +112,12 @@ export class VerProductosComponent implements OnInit {
     if (names[0] == "Ver Receta"){
       
         //this.obtenerIng();
-        console.log(this.objetoSeleccionado);
+      
         this.datosIng = this.objetoSeleccionado.ListaIngredientes;//new
         
 
         
+
         this.servicioModal.abrir('modalProd-1');
     }
     else{

@@ -41,15 +41,8 @@ export class BtnsSeleccionadosComponent implements OnInit,OnChanges {
 
 
   ngOnInit(): void {    
-    //console.log("ahora");
-    console.log("componente inicializacido.")
-
-   
-    
   }
  ngOnChanges() {
-
-    console.log("en changes");
     this.seleccionados = this.select as string[];
     this.checkedElem();
   }
@@ -58,8 +51,6 @@ export class BtnsSeleccionadosComponent implements OnInit,OnChanges {
   
 
   chbOn(elem:any){
-
-    
 
     if((<HTMLInputElement>document.getElementById(elem)).checked == true)
     {
@@ -82,16 +73,9 @@ export class BtnsSeleccionadosComponent implements OnInit,OnChanges {
   }
 
   checkedElem(){
-
-    console.log("en hijo")
-    console.log("=====Tickeando========")
     this.losSelect = this.select;
-    console.log("los select son:", this.select);
     this.losSelect.forEach((elem:any) => {
-      console.log("el elemento es: ",elem);
       (<HTMLInputElement>document.getElementById(elem)).checked = true;
-
-      console.log("despeus de tiquear");
     });
   }
 
@@ -100,20 +84,11 @@ export class BtnsSeleccionadosComponent implements OnInit,OnChanges {
 
     for (let i = 1 ; i <= 7; i++){
     this.datos.forEach((dato:any) => {
-      
-       
         var elem = dato + i ; 
-
-
-        console.log("elemento en destiquear",elem);
         (<HTMLInputElement>document.getElementById(elem)).checked = false;
-      
-
-
     });
   }
   this.select = [];
-    console.log("Destiquear dentrod e componente");
 
 
   }
