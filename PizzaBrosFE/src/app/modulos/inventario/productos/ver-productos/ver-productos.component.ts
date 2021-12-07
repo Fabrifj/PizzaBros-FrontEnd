@@ -36,7 +36,8 @@ export class VerProductosComponent implements OnInit {
   columnasIng = [
     {field:'Nombre',header:'Nombre'},
     {field:'Cantidad',header:'Cantidad'},
-    {field:'UnidadMedida',header:'Tipo de Unidad'}
+    {field:'TipoUnidad',header:'Tipo de Unidad'}
+   // {field:'Imagen',header:'Imagen'}
     
 
   ];
@@ -63,6 +64,14 @@ export class VerProductosComponent implements OnInit {
     this.obtenerCategorias();
     this.filtroProd();
     
+    
+  }
+  ngOnChanges(){
+    this.obtenerProductos();
+    this.obtenerCategorias();
+    this.filtroProd();
+   
+
   }
   obtenerProductos(){
     this.servicioHttp.obtenerProductos()
@@ -102,7 +111,13 @@ export class VerProductosComponent implements OnInit {
     this.objetoSeleccionado = names[1];
     if (names[0] == "Ver Receta"){
       
-        this.obtenerIng();
+        //this.obtenerIng();
+      
+        this.datosIng = this.objetoSeleccionado.ListaIngredientes;//new
+        
+
+        
+
         this.servicioModal.abrir('modalProd-1');
     }
     else{

@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { AppHttpService } from 'src/app/servicios/app-http.service';
 import { ModalService } from 'src/app/shared-modules/modal/modal.service';
+import { TablaReusableComponent } from 'src/app/shared-modules/tabla-reusable/tabla-reusable.component';
 
 @Component({
   selector: 'app-creacion-productos',
@@ -13,14 +14,17 @@ export class CreacionProductosComponent implements OnInit {
 
  
 
-
+  @ViewChild(TablaReusableComponent) hijoTabla:TablaReusableComponent | undefined ;
+  
+  
   datosIngBackUp:any | undefined;
 
 
   datosProd: any | undefined;
   columnasProd = [
     {field:'Nombre',header:'Nombre'},
-    {field:'Descripcion',header:'Descripcion'}
+    
+   // {field:'Imagen',header:'Imagen'}
     
 
   ];
@@ -116,7 +120,7 @@ export class CreacionProductosComponent implements OnInit {
       
 
         //rellenamos los valores
-        (<HTMLInputElement>document.getElementById("objetoSeleccionadoID")).value = this.objetoSeleccionado.Nombre;
+        (<HTMLInputElement>document.getElementById("objetoSeleccionadoID")).value = this.objetoSeleccionado.IdIngrediente;
         (<HTMLInputElement>document.getElementById("nuevoNP")).value = this.objetoSeleccionado.Nombre;
         (<HTMLInputElement>document.getElementById("nuevoTP")).value = this.objetoSeleccionado.Tamano;
         (<HTMLInputElement>document.getElementById("nuevoPP")).value = this.objetoSeleccionado.Precio;
@@ -220,14 +224,18 @@ export class CreacionProductosComponent implements OnInit {
     }
     else{
       //Guardar todo
-      this.datosIngrendientesCCantidad = names[1];
-      var costo = 0 ;
-      this.datosIngrendientesCCantidad.forEach((element:any) => {
-         costo = costo + parseInt(element.Costo);
-      });
+      if(names[2] == "0") {
+        this.datosIngrendientesCCantidad = names[1];
+        var costo = 0 ;
+        this.datosIngrendientesCCantidad.forEach((element:any) => {
+           costo = costo + parseInt(element.Costo);
+        });
+  
+        (<HTMLInputElement>document.getElementById("nuevoCP")).value = String(costo);
 
-      (<HTMLInputElement>document.getElementById("nuevoCP")).value = String(costo);
 
+      }
+     
     }
 
 
@@ -250,7 +258,7 @@ export class CreacionProductosComponent implements OnInit {
     (<HTMLInputElement>document.getElementById("nuevoPP")).value = "0";
     (<HTMLInputElement>document.getElementById("nuevoCP")).value = "0";
     (<HTMLInputElement>document.getElementById("nuevoIP")).value = "";
-
+     this.obtenerIngredientes();
   }
 
   filtroModificar(){
@@ -264,7 +272,10 @@ export class CreacionProductosComponent implements OnInit {
   }
   crearProducto(){
 
-   
+    this.hijoTabla?.guardarDT();
+    
+
+    
     
     var nombreP = (<HTMLInputElement>document.getElementById("nuevoNP")).value ;
     var tamanoP = (<HTMLInputElement>document.getElementById("nuevoTP")).value ;

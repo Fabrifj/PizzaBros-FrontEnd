@@ -80,7 +80,7 @@ export class TablaReusableComponent implements OnInit {
       indice1= indice1+1;
     });
 
-    this.parentMethod.emit(['GuardarTodo',this.misDatos])
+    this.parentMethod.emit(['GuardarTodo',this.misDatos,this.indice])
   }
 
   getId(j:any,i:any){
