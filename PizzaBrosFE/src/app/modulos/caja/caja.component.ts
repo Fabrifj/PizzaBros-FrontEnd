@@ -32,10 +32,8 @@ export class CajaComponent implements OnInit {
   }
   obtenerBalanceCaja(){
     this.servicioHttp.obtenerBalanceCaja()
-      .subscribe((jsonFile)=>{
-        console.log("Balance")        
+      .subscribe((jsonFile)=>{     
         this.moment = jsonFile; 
-        console.log(this.moment) 
         this.saldoTotal =this.moment.Balance.Cantidad;  
         this.datos = this.moment.Transacciones;
         this.modificarFecha();
@@ -56,14 +54,9 @@ export class CajaComponent implements OnInit {
      let date;
      let date2;
      let date3 ;
-
-     //onsole.log(fecha);
      date = new Date(fecha * 1000);
 
-     //console.log(date);
-
       date3 = date.toLocaleDateString();
-      //console.log(date3);
       let dia :string=date.getDate().toString();
       let anio =date.getFullYear().toString();
       let mes = (date.getMonth() +1).toString();
@@ -77,11 +70,9 @@ export class CajaComponent implements OnInit {
         dia  = "0" + dia;
       }
       date2 = anio + "-" + mes + "-" + dia;
-      //console.log(date2);
       
       date3 = mes + "/" + dia + "/" + anio;
      element.Fecha = date2;
-      //element.Fecha = fecha.toDate().toDateString();
     });
 
   }

@@ -23,16 +23,12 @@ export class MostrarIngredientesComponent implements OnInit {
 
   ngOnInit(): void {
     this.categorias = this.hacerCompraService.obtenerNombres();
-    
-    console.log('En ingredientes',this.categorias)
     this.obtenerCategorias()
   }
 
   obtenerCategorias(){
     this.servicioHttp.obtenerElementos()
     .subscribe((jsonFile:any)=>{
-     
-      console.log("Obtenido en ingredientes",jsonFile);
       this.datosCat = jsonFile;
     } ,(error)=>{
         console.log("hubo error obteniendo elementos")
@@ -42,9 +38,7 @@ export class MostrarIngredientesComponent implements OnInit {
 
   actualizarCategoria(categoria:string){
     this.ingrediente = this.hacerCompraService.obtenerElementos(categoria);
-    console.log('Ingrediente seleccionado',this.ingrediente)
     this.articulos = this.ingrediente.ListaArticulos;
-    console.log('Articulos seleccionados',this.articulos)
     this.id=this.ingrediente.id
   }
 

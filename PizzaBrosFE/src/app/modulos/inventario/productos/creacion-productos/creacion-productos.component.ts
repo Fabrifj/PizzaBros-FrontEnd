@@ -21,7 +21,6 @@ export class CreacionProductosComponent implements OnInit {
   columnasProd = [
     {field:'Nombre',header:'Nombre'},
     {field:'Descripcion',header:'Descripcion'}
-   // {field:'Imagen',header:'Imagen'}
     
 
   ];
@@ -42,7 +41,6 @@ export class CreacionProductosComponent implements OnInit {
     
     {field:'Nombre',header:'Nombre Ingrediente'},
     {field:'TipoUnidad',header:'Tipo de Unidad'},
-    //{field:'CantidadInventario',header:'Cantidad en Inventario'},
     {field:'CostoMedia',header:'Costo Media'}
     
     
@@ -74,8 +72,6 @@ export class CreacionProductosComponent implements OnInit {
   obtenerIngredientes(){
     this.servicioHttp.obtenerIngredientes()
     .subscribe((jsonFile:any)=>{
-     
-      console.log(jsonFile);
 
       this.datosIng = jsonFile;
       this.datosIngBackUp = jsonFile;
@@ -91,8 +87,6 @@ export class CreacionProductosComponent implements OnInit {
   obtenerProductos(){
     this.servicioHttp.obtenerProductos()
     .subscribe((jsonFile:any)=>{
-     
-      console.log(jsonFile);
       this.datosProd = jsonFile;
      
       
@@ -111,21 +105,15 @@ export class CreacionProductosComponent implements OnInit {
     
     if (names[0] == "Seleccionar"){
       
-        //this.obtenerIngredientes();
         this.objetoSeleccionado = names[1] ;
-
-        console.log("objetoseleccion:",this.objetoSeleccionado)
         this.datosIngMini = this.objetoSeleccionado.ListaIngredientes;
 
         console.log('datosINGmini', this.datosIngMini);
         this.datosIngMini.forEach((element:any) => {
             //quitar de lista grande
-            console.log("element:",element.IdIngrediente);
-            console.log("datos",this.datosIng);
             this.datosIng = this.datosIng.filter((obj:any) => obj.id !== element.IdIngrediente);
         });
       
-        console.log(this.datosIngMini);
 
         //rellenamos los valores
         (<HTMLInputElement>document.getElementById("objetoSeleccionadoID")).value = this.objetoSeleccionado.Nombre;
@@ -170,9 +158,7 @@ export class CreacionProductosComponent implements OnInit {
     else if(names[0]=="Agregar"){
 
       var elemAgregar = names[1];
-      
-      //console.log(elemAgregar);
-     
+    
       
       //quitar de lista grande
       this.datosIng = this.datosIng.filter((obj:any) => obj.id !== elemAgregar.id);
@@ -190,7 +176,6 @@ export class CreacionProductosComponent implements OnInit {
 
       (<HTMLInputElement>document.getElementById("nuevoCP")).value = String(costo);
 
-      console.log('datoINGmin',this.datosIngMini);
       var indice1 = 0 ;
      
       this.datosIngMini.forEach((element:any) => {
@@ -198,7 +183,6 @@ export class CreacionProductosComponent implements OnInit {
         this.titulosIng.forEach((titulo:any) => {
 
           var nombreCC  = 'textoCantidad' + String(indice1) + String(indice2) ;
-          console.log(nombreCC); 
           (<HTMLInputElement>document.getElementById(nombreCC)).value = "0" ;
   
           
@@ -208,9 +192,6 @@ export class CreacionProductosComponent implements OnInit {
   
         indice1= indice1+1;
       });
-
-      
-
     }
     else if(names[0]=="Quitar"){
         //quitar
@@ -234,9 +215,6 @@ export class CreacionProductosComponent implements OnInit {
        });
  
        (<HTMLInputElement>document.getElementById("nuevoCP")).value = String(costo);
-        
-
-        console.log("ingseleccionado", ingSeleccionado)
         this.datosIng.push( ingSeleccionado);
 
     }
@@ -294,17 +272,13 @@ export class CreacionProductosComponent implements OnInit {
     var costoP = (<HTMLInputElement>document.getElementById("nuevoCP")).value ;
     var imgP = (<HTMLInputElement>document.getElementById("nuevoIP")).value ;
 
-   
-    console.log(this.datosIngrendientesCCantidad);
     var producto = JSON.stringify({ ListaIngredientes : this.datosIngrendientesCCantidad , Nombre: nombreP , Tamano : tamanoP , Costo: costoP , Precio:precioP ,ImgURL:imgP })
-    console.log(JSON.parse(producto));
+    
 
     if(this.nombreBoton == "CREAR"){
 
       this.servicioHttp.crearProducto(JSON.parse(producto))
       .subscribe((jsonFile:any)=>{
-        
-        console.log("creado bien");
         alert('producto creada correctamente');
   
       } ,(error)=>{
@@ -316,12 +290,10 @@ export class CreacionProductosComponent implements OnInit {
     else{
       //modificar
       
-      console.log("id modificar:",this.objetoSeleccionado.id)
       this.servicioHttp.actualizarProducto(this.objetoSeleccionado.id, JSON.parse(producto) )
       .subscribe((jsonFile:any)=>{
         
         alert('producto modificada correctamente');
-        console.log("modificado bien");
   
   
       } ,(error)=>{

@@ -23,9 +23,6 @@ export class IngredientesComponent implements OnInit {
     {field:'CantidadInventario',header:'Cantidad en Inventario'},
     {field:'CostoMedia',header:'Costo Media'}
     
-    
-    
-    
 
   ];
 
@@ -48,8 +45,6 @@ export class IngredientesComponent implements OnInit {
   obtenerIngredientes(){
     this.servicioHttp.obtenerIngredientes()
     .subscribe((jsonFile:any)=>{
-     
-      console.log(jsonFile);
        this.datosIng = jsonFile;
        this.datosIngRespaldo = jsonFile;
       
@@ -63,11 +58,6 @@ export class IngredientesComponent implements OnInit {
     {
       this.obtenerIngredientes();
       this.objetoSeleccionado = names[1] ;
-
-      
-
-    
-
       (<HTMLInputElement>document.getElementById("objetoSeleccionadoID")).value = this.objetoSeleccionado.Nombre;
       (<HTMLInputElement>document.getElementById("valorNombreCrear")).value = this.objetoSeleccionado.Nombre;
       (<HTMLInputElement>document.getElementById("valorUnidadCrear")).value = this.objetoSeleccionado.TipoUnidad;
@@ -91,7 +81,7 @@ export class IngredientesComponent implements OnInit {
   buscar(){
     
     var varBuscar   = (<HTMLInputElement>document.getElementById("txtBuscar")).value.toLowerCase();
-    console.log(varBuscar);
+   
     
     if(!!varBuscar.trim()){
 
@@ -117,15 +107,7 @@ export class IngredientesComponent implements OnInit {
       this.obtenerIngredientes();
 
     }
-    
-
-    
-    
-    
   }
-
-
-
 
   mandarCrearIng(){
     (<HTMLInputElement>document.getElementById("valorNombreCrear")).value = "";
@@ -154,7 +136,6 @@ export class IngredientesComponent implements OnInit {
   }
 
   filtroModificar(){
-    ///(<HTMLInputElement>document.getElementById("modB")).checked = true;
     this.nombreBoton = "MODIFICAR";
     this.obtenerIngredientes();
     this.servicioModal.abrir('modalIng-2');
@@ -177,8 +158,6 @@ export class IngredientesComponent implements OnInit {
   
       this.servicioHttp.crearElemento(JSON.parse(ings))
       .subscribe((jsonFile:any)=>{
-        
-       
         alert('ingrediente creada correctamente');
   
       } ,(error)=>{
@@ -191,7 +170,6 @@ export class IngredientesComponent implements OnInit {
       //modificar
       var ings = JSON.stringify({ ListaArticulos : this.objetoSeleccionado.ListaArticulos , Nombre: nombreB , TipoUnidad: tipoB , CantidadInventario:cantidadB, CostoMedia : costoU, CantidadMedida: cantidadMedidaB , Tipo:"Ingrediente"})
   
-      console.log("id modificar:",this.objetoSeleccionado.id)
       this.servicioHttp.actualizarElemento(this.objetoSeleccionado.id, JSON.parse(ings) )
       .subscribe((jsonFile:any)=>{
         

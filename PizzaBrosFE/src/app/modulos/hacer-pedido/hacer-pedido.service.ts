@@ -28,15 +28,12 @@ export class HacerPedidoService {
   obtenerProductosHttp() {
     this.httpService.obtenerProductos()
       .subscribe((jsonFile) => {
-        console.log(jsonFile);
         this.productos = <productModel[]>jsonFile;
-        console.log(this.productos[0]);
 
       });
   }
   crearPedidoHttp(pedidoFinal: FinalOrderModel){
     let body = JSON.stringify(pedidoFinal);
-    console.log(body);
     this.httpService.crearPedido(JSON.parse(body)).subscribe((response) => {
       console.log('Response from API', response);
     }, (error)=>{
@@ -49,16 +46,11 @@ export class HacerPedidoService {
     return this.productos.slice();
   }
   obtenerPedidos() {
-    console.log("get orders en accions");
-    console.log(this.pedidos);
-
-
     return this.pedidos.slice();
   }
   addOrder(newOrder: productModel, amount: number) {
 
     this.pedidos.push(new UnitOrderModel(newOrder.id, newOrder.Nombre, newOrder.Tamano, newOrder.Precio, (newOrder.Precio * amount), amount));
-    console.log("add order");
     this.ordersChanged.emit(this.obtenerPedidos());
 
   }

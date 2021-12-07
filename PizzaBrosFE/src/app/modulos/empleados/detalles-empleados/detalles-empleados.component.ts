@@ -40,8 +40,6 @@ export class DetallesEmpleadosComponent implements OnInit {
 
     this.servicioHttp.obtenerEmpleados()
     .subscribe((jsonFile)=>{
-      //this.Orders = this.JSON_MAPPER.readValue(jsonFile, FinalOrderModel[])
-      console.log(jsonFile);
       this.datos = jsonFile;
        
       this.modificarFecha();
@@ -54,7 +52,6 @@ export class DetallesEmpleadosComponent implements OnInit {
 
     this.servicioHttp.crearEmpleado(body)
     .subscribe((jsonFile)=>{
-      //this.Orders = this.JSON_MAPPER.readValue(jsonFile, FinalOrderModel[])
       alert("Empleado creado correctamente");
 
     } )
@@ -65,7 +62,6 @@ export class DetallesEmpleadosComponent implements OnInit {
 
     this.servicioHttp.actualizarEmpleado(id,body)
     .subscribe((jsonFile)=>{
-      //this.Orders = this.JSON_MAPPER.readValue(jsonFile, FinalOrderModel[])
       alert("Empleado modificado correctamente");
 
     } )
@@ -83,15 +79,10 @@ export class DetallesEmpleadosComponent implements OnInit {
      let date2;
      let date3 ;
 
-
-     //onsole.log(fecha);
      date = new Date(fecha * 1000);
-
-     //console.log(date);
 
 
       date3 = date.toLocaleDateString();
-      //console.log(date3);
       let dia :string=date.getDate().toString();
       let anio =date.getFullYear().toString();
       let mes = (date.getMonth() +1).toString();
@@ -105,11 +96,9 @@ export class DetallesEmpleadosComponent implements OnInit {
         dia  = "0" + dia;
       }
       date2 = anio + "-" + mes + "-" + dia;
-      //console.log(date2);
       
       date3 = mes + "/" + dia + "/" + anio;
      element.FechaNacimiento = date2;
-      //element.Fecha = fecha.toDate().toDateString();
     });
 
     
@@ -137,7 +126,6 @@ export class DetallesEmpleadosComponent implements OnInit {
   rellenarCampos(){
     
     this.idBackup = this.objetoSeleccionado.id;
-    console.log("objjeto rellenar:",this.objetoSeleccionado);
     (<HTMLInputElement>document.getElementById("nombreEmpleado")).value = this.objetoSeleccionado.Nombre;
    (<HTMLInputElement>document.getElementById("ciEmpleado")).value = this.objetoSeleccionado.CI; 
     (<HTMLInputElement>document.getElementById("apellidoPE")).value = this.objetoSeleccionado.ApellidoP;
@@ -157,8 +145,6 @@ export class DetallesEmpleadosComponent implements OnInit {
       this.objetoSeleccionado.ApellidoM = (<HTMLInputElement>document.getElementById("apellidoME")).value ;
       this.objetoSeleccionado.Celular =(<HTMLInputElement>document.getElementById("ceEmpleado")).value ;
       this.objetoSeleccionado.Cargo = (<HTMLInputElement>document.getElementById("cargoEmpleado")).value;
-
-      console.log("valor fech:",(<HTMLInputElement>document.getElementById("fechaNacE")).value )
       this.objetoSeleccionado.FechaNacimiento = (<HTMLInputElement>document.getElementById("fechaNacE")).value;
 
 
@@ -168,36 +154,22 @@ export class DetallesEmpleadosComponent implements OnInit {
   {
     
     var fechad = (<HTMLInputElement>document.getElementById("fechaNacE")).value;
-    console.log("fecha directa", fechad);
     if(this.nombreBoton=="Crear"){
 
       this.objetoSeleccionado = [];
       this.rellenarValores();
-
-      console.log(this.objetoSeleccionado.FechaNacimiento)
       
       var nuevoEmpleado = JSON.stringify({Nombre: this.objetoSeleccionado.Nombre , ApellidoP: this.objetoSeleccionado.ApellidoP , 
       ApellidoM: this.objetoSeleccionado.ApellidoM , 
       CI:this.objetoSeleccionado.CI , Celular:this.objetoSeleccionado.Celular, 
       Cargo:this.objetoSeleccionado.Cargo, FechaNacimiento:this.objetoSeleccionado.FechaNacimiento});
 
-
-      
-      
-      
      this.crearEmpleado(JSON.parse(nuevoEmpleado));
-
     }
     else{
       //modificar
-      console.log("objeto a modificar",this.objetoSeleccionado);
-      console.log("nombre om:",this.objetoSeleccionado.Nombre);
-      console.log("fecha om:",this.objetoSeleccionado.FechaNacimiento.toString());
-      console.log(this.idBackup);
       this.rellenarValores();
       this.actualizarEmpleado(this.idBackup, this.objetoSeleccionado);
-
-      console.log("objeto modificado",this.objetoSeleccionado);
 
     }
 
@@ -206,11 +178,6 @@ export class DetallesEmpleadosComponent implements OnInit {
   }
 
   funcionBorrarCampos(){
-
-    //this.objetoSeleccionado=[""];
-   // this.rellenarCampos();
-
-
     (<HTMLInputElement>document.getElementById("nombreEmpleado")).value = "";
     (<HTMLInputElement>document.getElementById("ciEmpleado")).value = "";
     (<HTMLInputElement>document.getElementById("apellidoPE")).value = "";

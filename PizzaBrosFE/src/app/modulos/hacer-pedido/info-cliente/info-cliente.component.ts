@@ -20,7 +20,6 @@ export class InfoClienteComponent implements OnInit {
 
   registarPedido(){
     let name:string = this.Nombre.nativeElement.value;
-    console.log(name);
     let nit: number = this.Nit.nativeElement.value;
     this.hacerPedidoServicio.crearPedido(new Cliente(name,nit));
   }
