@@ -54,13 +54,10 @@ export class PedidosHistorialComponent implements OnInit {
     this.filtroTodos();
   }
 
- ////////////////////////////////////////////
-  ////////////////////////////////////////
   //comunicacion con base de datos
   obtenerPedido(){
     this.servicioHttp.obtenerPedidos()
     .subscribe((jsonFile)=>{
-      //this.Orders = this.JSON_MAPPER.readValue(jsonFile, FinalOrderModel[])
       console.log(jsonFile);
       this.datos = jsonFile;
        
@@ -72,7 +69,6 @@ export class PedidosHistorialComponent implements OnInit {
     console.log("vector",body);
     this.servicioHttp.obtenerPedido2DiasT(body)
     .subscribe((jsonFile)=>{
-      //this.Orders = this.JSON_MAPPER.readValue(jsonFile, FinalOrderModel[])
       console.log(jsonFile);
       this.datos = jsonFile;
        
@@ -83,7 +79,6 @@ export class PedidosHistorialComponent implements OnInit {
   obtenerPedido2DiasCli(body:any){
     this.servicioHttp.obtenerPedido2DiasCli(body)
     .subscribe((jsonFile)=>{
-      //this.Orders = this.JSON_MAPPER.readValue(jsonFile, FinalOrderModel[])
       console.log(jsonFile);
       this.datos = jsonFile;
        
@@ -94,7 +89,6 @@ export class PedidosHistorialComponent implements OnInit {
   obtenerPedido1DiaCli(body:any){
     this.servicioHttp.obtenerPedido1DiaCli(body)
     .subscribe((jsonFile)=>{
-      //this.Orders = this.JSON_MAPPER.readValue(jsonFile, FinalOrderModel[])
       console.log(jsonFile);
       this.datos = jsonFile;
        
@@ -105,7 +99,6 @@ export class PedidosHistorialComponent implements OnInit {
   obtenerPedidosCli(body:any){
     this.servicioHttp.obtenerPedidosCliente(body)
     .subscribe((jsonFile)=>{
-      //this.Orders = this.JSON_MAPPER.readValue(jsonFile, FinalOrderModel[])
       console.log(jsonFile);
       this.datos = jsonFile;
        
@@ -123,7 +116,6 @@ export class PedidosHistorialComponent implements OnInit {
      date = new Date(fecha * 1000);
      
      element.Fecha = date;
-      //element.Fecha = fecha.toDate().toDateString();
     });
 
     
@@ -141,14 +133,11 @@ export class PedidosHistorialComponent implements OnInit {
         //new
         this.pedidoSeleccionadoDatos = this.pedidoSeleccionado.Detalle;
 
-        console.log(names[1])
         this.modalServicio.abrir('modal-1');
     }
     else{
 
       console.log("no existe boton");
-      
-      //this.cambiarEstado(names[1]);
 
     }
 
@@ -159,7 +148,6 @@ export class PedidosHistorialComponent implements OnInit {
 
   actualizarTabla()
   {
-    //document.querySelector("[name=fruit]:checked").id
     let selectedClientes =  (<HTMLInputElement>document.querySelector("[name='clientes']:checked")).id ;
     let selectedFecha =  (<HTMLInputElement>document.querySelector("[name='fechas']:checked")).id ;
     
@@ -187,7 +175,6 @@ export class PedidosHistorialComponent implements OnInit {
       if (selectedClientes == "todosCli"){
         //una fecha, todos los clientes
 
-        console.log(fechaI);
         newFechaD = fechaI + "T23:59:59";
        
         var body2:string[]; 
@@ -238,15 +225,11 @@ export class PedidosHistorialComponent implements OnInit {
  
 
   rangoFechaFiltro(){
-
-    console.log("Selecciono ragno");
     (<HTMLInputElement>document.getElementById("fechaDestino")).style.display = "inline";
     (<HTMLInputElement>document.getElementById("fechaInicio")).style.display = "inline";
   }
 
   soloFechaFiltro(){
-
-    console.log("selecciono solo fecha");
     (<HTMLInputElement>document.getElementById("fechaDestino")).style.display = "none";
     (<HTMLInputElement>document.getElementById("fechaInicio")).style.display = "inline";
   }

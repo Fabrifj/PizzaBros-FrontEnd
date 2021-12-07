@@ -23,7 +23,6 @@ export class CreacionCategoriasComponent implements OnInit {
   columnasCat = [
     {field:'Nombre',header:'Nombre'},
     {field:'Descripcion',header:'Descripcion'}
-   // {field:'Imagen',header:'Imagen'}
     
 
   ];
@@ -32,7 +31,6 @@ export class CreacionCategoriasComponent implements OnInit {
   datosProdMini: any | undefined;
   columnasProdMini = [
     {field:'NombreProducto',header:'Nombre Producto'}
-   // {field:'Imagen',header:'Imagen'}
     
 
   ];
@@ -40,14 +38,7 @@ export class CreacionCategoriasComponent implements OnInit {
   datosProd: any | undefined;
   columnasProd = [
     {field:'Nombre',header:'Nombre Producto'}
-   // {field:'Imagen',header:'Imagen'}
-    
-
   ];
-
-
-
-
 
   nombreBotonesCat1: string[] = ['Seleccionar'];
   nombreBotonesProd1: string[] = ['Agregar'];
@@ -69,25 +60,16 @@ export class CreacionCategoriasComponent implements OnInit {
   obtenerCategorias(){
     this.servicioHttp.obtenerCategorias()
     .subscribe((jsonFile:any)=>{
-     
-      console.log(jsonFile);
 
       this.datosCat = jsonFile;
-      
-      
-
     } ,(error)=>{
         console.log("hubo error con categoria")
 
     } )
   }
-
-
   obtenerProductos(){
     this.servicioHttp.obtenerProductos()
     .subscribe((jsonFile:any)=>{
-     
-      console.log(jsonFile);
       this.datosProd = jsonFile;
       this.datosProdBackUp = this.datosProd;
       
@@ -97,9 +79,6 @@ export class CreacionCategoriasComponent implements OnInit {
 
     } )
   }
-
-
-
 
   
   funcionBoton( names: any){
@@ -123,22 +102,11 @@ export class CreacionCategoriasComponent implements OnInit {
         (<HTMLInputElement>document.getElementById("nuevoDC")).value = this.objetoSeleccionado.Descripcion;
         //new
         
-
-                
         this.servicioModal.cerrar('modalCat-2');
-
-
-
-
-
-
     }
     else if(names[0]=="Agregar"){
 
-      var elemAgregar = names[1];
-      
-      //console.log(elemAgregar);
-     
+      var elemAgregar = names[1];     
       
       //quitar de lista grande
       this.datosProd = this.datosProd.filter((obj:any) => obj.id !== elemAgregar.id);
@@ -163,11 +131,6 @@ export class CreacionCategoriasComponent implements OnInit {
         //qutiar mini lista
         this.datosProdMini = this.datosProdMini.filter((obj:any) => obj.IdProducto !== elemQuitar.IdProducto);
         
-       // var elemNuevo = JSON.stringify({ id: elemQuitar.IdProducto , Nombre: elemQuitar.NombreProducto , ImgURL: elemQuitar.ImgURL});
-        
-        
-
-        console.log("productoseleccionado", productoSeleccionado)
         this.datosProd.push( productoSeleccionado);
 
     }
@@ -200,14 +163,11 @@ export class CreacionCategoriasComponent implements OnInit {
 
    
     var categoria = JSON.stringify({ ListaProductos : this.datosProdMini , Nombre: nombreC , Descripcion: descripcionC })
-    console.log(JSON.parse(categoria));
 
     if(this.nombreBoton == "CREAR"){
 
       this.servicioHttp.crearCategoria(JSON.parse(categoria))
       .subscribe((jsonFile:any)=>{
-        
-        console.log("creado bien");
         alert('Categoria creada correctamente');
   
       } ,(error)=>{
@@ -218,12 +178,10 @@ export class CreacionCategoriasComponent implements OnInit {
     }
     else{
       //modificar
-      console.log("id modificar:",this.objetoSeleccionado.id)
       this.servicioHttp.actualizarCategoria(this.objetoSeleccionado.id, JSON.parse(categoria) )
       .subscribe((jsonFile:any)=>{
         
         alert('Categoria modificada correctamente');
-        console.log("modificado bien");
   
   
       } ,(error)=>{
@@ -239,13 +197,4 @@ export class CreacionCategoriasComponent implements OnInit {
     this.obtenerProductos();
 
   }
-  
-    
-   
-  
-  
-
-
-
-
 }

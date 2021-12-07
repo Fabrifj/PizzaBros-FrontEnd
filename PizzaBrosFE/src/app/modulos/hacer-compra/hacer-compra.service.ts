@@ -22,8 +22,6 @@ export class HacerCompraService implements OnInit{
     this.elementos.forEach((element)=>{
       this.elementosNombres.push(element.Nombre)
     });
-    
-    console.log('categorias',this.elementosNombres)
    }
 
   ngOnInit(): void {
@@ -31,15 +29,12 @@ export class HacerCompraService implements OnInit{
     this.elementos.forEach((element)=>{
       this.elementosNombres.push(element.Nombre)
     });
-    console.log("service init")
 
   }
   obtenerElementosHttp(){
     this.httpService.obtenerElementos().subscribe(
       (jsonFile) => {
-        console.log(jsonFile);
         this.elementos = <ElementoModel[]>jsonFile;
-        console.log('Elementos async',this.elementos)
       });
   }
 
@@ -48,7 +43,6 @@ export class HacerCompraService implements OnInit{
   addIngrediente(newOrder: ArticuloListaModel, amount: number,precio:number,id:string) {
     let newOrderComprado = new ArticuloCompradoModel(id, this.elementoSeleccionado, newOrder.Marca, newOrder.CantidadMedida, amount, precio);
     this.ingredintes.push(newOrderComprado);
-    console.log("add order");
     this.comprasCambio.emit(this.obtenerListaCompras());
   }
 

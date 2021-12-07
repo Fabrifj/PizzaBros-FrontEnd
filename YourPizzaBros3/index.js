@@ -259,6 +259,14 @@ app.put("/api/elemento/:id/agregarInv", async (req, res) => {
   res.send(resp);
 });
 
+//Actualizar todo el elemento 
+app.put("/api/elemento/:id", async (req, res) => {
+  var elid = req.params.id;
+  var mibody = req.body;
+  const resp = await fnElemento.actualizarElemento(elid, mibody);
+  res.send(resp);
+});
+
 /*===================================
           CRUD COMPRA
 ===================================*/

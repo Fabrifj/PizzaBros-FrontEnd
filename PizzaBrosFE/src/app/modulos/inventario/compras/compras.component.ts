@@ -16,7 +16,6 @@ export class ComprasComponent implements OnInit {
     {field:'ID',header:'Nombre'},
     {field:'Fecha',header:'Unidades Restantes'},
     {field:'Total',header:'Medida de Unidad'},
-    //{field:'CostoUnidad',header:'Costo Unidad Bs'},
     {field:'Detalle',header:'Proveedor'}
     
 
@@ -30,8 +29,6 @@ export class ComprasComponent implements OnInit {
   obtenerCompras(){
     this.servicioHttp.obtenerCompras()
     .subscribe((jsonFile:any)=>{
-     
-      console.log(jsonFile);
       this.datos = jsonFile;
        this.datosRespaldo = jsonFile;
       
@@ -39,11 +36,8 @@ export class ComprasComponent implements OnInit {
     } )
   }
   funcionBoton( names: any){
- 
-    console.log("boton:Ver detalle");
     this.compraSeleccionada = names[1];
         //new
-    console.log(names[1])
     this.servicioModal.abrir('modal-3');
   }
 }

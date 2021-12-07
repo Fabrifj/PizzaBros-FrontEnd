@@ -10,7 +10,6 @@ export class PedidosComponent implements OnInit {
 
   today= new Date(); ;
   date = this.today.getFullYear()+'-'+(this.today.getMonth()+1)+'-'+this.today.getDate();
-  //var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
   
   constructor() { }
   subMenus : RutaTituloModel[] = [

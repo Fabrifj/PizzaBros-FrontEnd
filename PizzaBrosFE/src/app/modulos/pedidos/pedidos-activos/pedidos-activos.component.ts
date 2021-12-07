@@ -61,8 +61,6 @@ export class PedidosActivosComponent implements OnInit {
   obtenerPedidosP(){
     this.httpServicio.obtenerPedidoEstadoPr()
     .subscribe((jsonFile)=>{
-      //this.Orders = this.JSON_MAPPER.readValue(jsonFile, FinalOrderModel[])
-      console.log(jsonFile);
       this.datos = jsonFile;
 
       this.modificarFecha();
@@ -83,7 +81,6 @@ export class PedidosActivosComponent implements OnInit {
      date = new Date(fecha * 1000);
      
      elemento.Fecha = date;
-      //element.Fecha = fecha.toDate().toDateString();
     });
 
     
@@ -96,38 +93,23 @@ export class PedidosActivosComponent implements OnInit {
   funcionBoton( nombres: any){
     if(nombres[0] == "Ver Pedido")
     {
-        console.log("boton: ver pedido");
         this.pedidoSeleccionado = nombres[1];
-        console.log(nombres[1])
         this.modalServicio.abrir('modal-1');
 
         this.pedidoSeleccionadoDatos = this.pedidoSeleccionado.Detalle;
-
-
-
-        //inicialize tabla dos
         
     }
     else{
-
-      console.log("papa: cambiar estado");
       this.pedidoSeleccionado = nombres[1];
       this.modalServicio.abrir('modal-2');
-      //this.cambiarEstado(names[1]);
 
     }
 
   }
 
-  cambiarEstado(pedido : any){
-
-    //let stringBody = "'{\"IdPedido\":\"" +pedido.id + ",\"Estado\" : \"Entregado\"";  
-
-
+  cambiarEstado(pedido : any){ 
 
     let body = JSON.stringify({ IdPedido: pedido.id , Estado: "Entregado"})
-    
-    console.log(JSON.parse(body));
     
     this.httpServicio.actualizarPedidoEstado(JSON.parse(body)).subscribe((response) => {
       console.log('Response from API', response);

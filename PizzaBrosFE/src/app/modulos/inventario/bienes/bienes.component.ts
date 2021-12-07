@@ -21,11 +21,6 @@ export class BienesComponent implements OnInit {
     {field:'TipoUnidad',header:'Tipo de Unidad'},
     {field:'CantidadInventario',header:'Cantidad en Inventario'},
     {field:'CostoMedia',header:'Costo Media'}
-    
-    
-    
-    
-
   ];
 
   
@@ -42,8 +37,6 @@ export class BienesComponent implements OnInit {
   obtenerBien(){
     this.servicioHttp.obtenerBien()
     .subscribe((jsonFile:any)=>{
-     
-      console.log(jsonFile);
       this.datosBien = jsonFile;
        this.datosBienesRespaldo = jsonFile;
       
@@ -56,11 +49,6 @@ export class BienesComponent implements OnInit {
     {
       this.obtenerBien();
       this.objetoSeleccionado = names[1] ;
-
-      
-
-    
-
       (<HTMLInputElement>document.getElementById("objetoSeleccionadoID")).value = this.objetoSeleccionado.Nombre;
       (<HTMLInputElement>document.getElementById("valorNombreCrear")).value = this.objetoSeleccionado.Nombre;
       (<HTMLInputElement>document.getElementById("valorUnidadCrear")).value = this.objetoSeleccionado.TipoUnidad;
@@ -84,7 +72,6 @@ export class BienesComponent implements OnInit {
   buscar(){
     
     var varBuscar   = (<HTMLInputElement>document.getElementById("txtBuscar")).value.toLowerCase();
-    console.log(varBuscar);
     
     if(!!varBuscar.trim()){
 
@@ -141,7 +128,6 @@ export class BienesComponent implements OnInit {
   }
 
   filtroModificar(){
-    ///(<HTMLInputElement>document.getElementById("modB")).checked = true;
     this.nombreBoton = "MODIFICAR";
     this.obtenerBien();
     this.servicioModal.abrir('modalBien-2');
@@ -165,8 +151,6 @@ export class BienesComponent implements OnInit {
 
       this.servicioHttp.crearElemento(JSON.parse(bienes))
       .subscribe((jsonFile:any)=>{
-        
-        console.log("creado bien");
         alert('bien creada correctamente');
   
       } ,(error)=>{
@@ -179,12 +163,10 @@ export class BienesComponent implements OnInit {
       //modificar
       var bienes = JSON.stringify({ ListaArticulos : this.objetoSeleccionado.ListaArticulos , Nombre: nombreB , TipoUnidad: tipoB , CantidadInventario:cantidadB, CostoMedia : costoU, CantidadMedida: cantidadMedidaB , Tipo:"Bien"})
   
-      console.log("id modificar:",this.objetoSeleccionado.id)
       this.servicioHttp.actualizarElemento(this.objetoSeleccionado.id, JSON.parse(bienes) )
       .subscribe((jsonFile:any)=>{
         
         alert('Categoria modificada correctamente');
-        console.log("modificado bien");
   
   
       } ,(error)=>{
