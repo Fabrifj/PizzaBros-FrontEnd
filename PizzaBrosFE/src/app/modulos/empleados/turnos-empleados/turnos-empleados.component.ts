@@ -317,11 +317,7 @@ funcionBoton( names: any){
 
   }
 
-  armarColumnas(){
-
-    
-  }
-
+ 
  
   
 

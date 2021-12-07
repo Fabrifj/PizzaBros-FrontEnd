@@ -119,6 +119,8 @@ export class AppHttpService {
   }
   actualizarElemento(id:any,body:any){
     var path = paths.actualizarElemento + id;
+    console.log(path);
+    console.log(body);
     return this.http.put(path,body);
   }
   actualizarElemAgregarInv(id:any,body:any){

@@ -188,6 +188,7 @@ export class BienesComponent implements OnInit {
   
   
       } ,(error)=>{
+        alert('Error el modificar bien');
           console.log("hubo error con modificar bien")
   
       } )
